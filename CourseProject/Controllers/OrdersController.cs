@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using CourseProject.Domain;
+using CourseProject.Domain.Interfaces;
 
 namespace CourseProject.Controllers
 {
@@ -13,6 +15,9 @@ namespace CourseProject.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
+            //db.Likes.Create(new Like() {CommentId = 10, UserId = 10});
+            //db.Save();
+            
             return Ok(Order.CreateOrders());
         }
 
