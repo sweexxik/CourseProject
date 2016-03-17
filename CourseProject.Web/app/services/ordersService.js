@@ -1,13 +1,15 @@
 ﻿'use strict';
-app.factory('ordersService', ['$http', 'ngAuthSettings', function ($http, ngAuthSettings) {
+app.factory('ordersService', ['$http', 'ngAuthSettings','localStorageService', function ($http, ngAuthSettings,localStorageService) {
 
  	var serviceBase = ngAuthSettings.apiServiceBaseUri;
-
+   
     var ordersServiceFactory = {};
 
     var _getOrders = function () {
-
-        return $http.get(serviceBase + 'api/orders').then(function (results) {
+	var authData = localStorageService.get('authorizationData');
+    var currentUserName = authData.userName;
+    console.log("GET userName" + currentUserName);
+        return $http.get(serviceBase + 'api/orders/?username=' + currentUserName).then(function (results) {
             return results;
         });
     };

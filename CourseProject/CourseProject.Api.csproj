@@ -178,6 +178,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\CreativeStore.mdf" />
+    <Content Include="App_Data\CreativeStore_log.ldf">
+      <DependentUpon>CreativeStore.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\DataStore.mdf" />
+    <Content Include="App_Data\DataStore_log.ldf">
+      <DependentUpon>DataStore.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\UserStore.mdf" />
     <Content Include="App_Data\UserStore_log.ldf">
       <DependentUpon>UserStore.mdf</DependentUpon>
@@ -189,12 +197,30 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Migrations\201603171237585_compose 2 storages.cs" />
+    <Compile Include="Migrations\201603171237585_compose 2 storages.Designer.cs">
+      <DependentUpon>201603171237585_compose 2 storages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603171244493_comment creativeId fix.cs" />
+    <Compile Include="Migrations\201603171244493_comment creativeId fix.Designer.cs">
+      <DependentUpon>201603171244493_comment creativeId fix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603171318043_fix userID.cs" />
+    <Compile Include="Migrations\201603171318043_fix userID.Designer.cs">
+      <DependentUpon>201603171318043_fix userID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
+    <Compile Include="Repositories\ChaptersRepository.cs" />
+    <Compile Include="Repositories\CommentsRepository.cs" />
+    <Compile Include="Repositories\CreativesRepository.cs" />
+    <Compile Include="Repositories\EFUnitOfWork.cs" />
+    <Compile Include="Repositories\LikesRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="UserEntities\AuthContext.cs" />
-    <Compile Include="UserEntities\AuthRepository.cs" />
+    <Compile Include="Repositories\AuthRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -207,12 +233,22 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\CourseProject.Domain\CourseProject.Domain.csproj">
       <Project>{c1fc9156-9f53-411a-b84b-977b0809ba53}</Project>
       <Name>CourseProject.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201603171237585_compose 2 storages.resx">
+      <DependentUpon>201603171237585_compose 2 storages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603171244493_comment creativeId fix.resx">
+      <DependentUpon>201603171244493_comment creativeId fix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603171318043_fix userID.resx">
+      <DependentUpon>201603171318043_fix userID.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

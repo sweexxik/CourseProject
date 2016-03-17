@@ -6,9 +6,9 @@ app.controller('ordersController', ['$scope', 'ordersService', function ($scope,
     ordersService.getOrders().then(function (results) {
 
         $scope.orders = results.data;
-
+  console.log(results.data);
     }, function (error) {
-        //alert(error.data.message);
+        console.log(error);
     });
 
 }]);

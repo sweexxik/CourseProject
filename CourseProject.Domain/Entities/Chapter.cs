@@ -7,6 +7,6 @@
         public int  Number { get; set; }
         public string  Body { get; set; }
         public int CreativeId { get; set; }
-        public Creative Creative { get; set; }
+      
     }
 }

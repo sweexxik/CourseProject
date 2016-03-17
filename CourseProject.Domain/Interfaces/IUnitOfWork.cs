@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CourseProject.Domain.Interfaces
 {
@@ -9,6 +11,7 @@ namespace CourseProject.Domain.Interfaces
         IRepository<Comment> Comments { get; }
         IRepository<Chapter> Chapters { get; }
         IRepository<Like> Likes { get; }
+        Task<IdentityUser> FindUser(string userName);
         void Save();
     }
 }

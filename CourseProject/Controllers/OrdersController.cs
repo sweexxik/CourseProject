@@ -1,24 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using CourseProject.Domain;
+using CourseProject.Domain.Entities;
 using CourseProject.Domain.Interfaces;
+using CourseProject.Domain.Repositories;
+using CourseProject.Repositories;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace CourseProject.Controllers
 {
     [RoutePrefix("api/Orders")]
     public class OrdersController : ApiController
     {
+        private readonly IUnitOfWork db = new EfUnitOfWork();
+
         [Authorize]
         [Route("")]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
-            //db.Likes.Create(new Like() {CommentId = 10, UserId = 10});
-            //db.Save();
-            
-            return Ok(Order.CreateOrders());
+            var queryString = Request.GetQueryNameValuePairs();
+
+            String userName = String.Empty;
+
+            foreach (var pair in queryString)
+            {
+                if (pair.Key == "username")
+                    userName = pair.Value;
+            }
+
+            IEnumerable<Creative> creatives;
+
+            var user = await db.FindUser(userName);
+
+            creatives = db.Creatives.Find(x=>x.UserId == user.Id.ToString());
+
+          
+            return Ok(creatives);
+         
+
+            //return Ok(Order.CreateOrders());
         }
 
     }

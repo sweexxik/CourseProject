@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Models;
+using CourseProject.Repositories;
 using CourseProject.UserEntities;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
