@@ -1,0 +1,45 @@
+<div class="col-md-2">
+	&nbsp;
+</div>
+<div class="col-md-8">
+	<div data-ng-if="chapters.length > 0 "class="container-element box box-blue">
+		<div class="container-element box box-blue">
+			<ul dnd-list="chapters"
+	            dnd-allowed-types="['itemType']"
+	            dnd-horizontal-list="true"
+	            dnd-external-sources="false"              
+	            dnd-drop="dropCallback(event, index, item, external, type, 'itemType')"              
+	            class="itemlist">
+	            <li ng-repeat="item in chapters"
+	                dnd-draggable="item"     
+	                data-ng-click="alert('123')"
+	                dnd-type="'itemType'"
+	                dnd-effect-allowed="move"
+	                dnd-moved="chapters.splice($index, 1)";>
+	                {{item.name}}<button data-ng-click="click($index)">Edit</button>
+	            </li>
+       		</ul>
+        	<div class="clearfix"></div>
+     	</div>
+	</div>
+
+	<div class="row" data-ng-if="selectedchapter != undefined">
+		<div class="col-md-2">
+			&nbsp;
+		</div>
+		<div class="col-md-8">
+			<h2 class="form-login-heading"><p align="center">Chapter Name</p></h2>
+			<input type="text" value="{{selectedchapter.name}}" class="form-control" data-ng-model="selectedchapter.name" placeholder="Creative Name" required autofocus> 
+			<h2 class="form-login-heading"><p align="center">Chapter Text</p></h2>
+			<textarea class="form-control" name="Text1" data-ng-model="selectedchapter.body" cols="80" rows="5"></textarea>  
+			</textarea> 
+			<div class="col-md-4">
+		            &nbsp;
+			</div>
+			<div class="col-md-4">
+				<br>
+		  		<button class="btn btn-md btn-info btn-block" type="button" data-ng-click="saveChapter()">Save</button>     
+		  	</div> 
+		</div>
+	</div>
+</div>

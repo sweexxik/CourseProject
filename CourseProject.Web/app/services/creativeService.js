@@ -13,12 +13,21 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             .then(function (results) { return results; });
     };
 
+      var _getCreative = function (id) {
+        var authData = localStorageService.get('authorizationData');
+        var currentUserName = authData.userName;
+        console.log("GET userName" + currentUserName);
+        return $http.get(serviceBase + 'api/creatives/?username=' + currentUserName + '&id=' + id)
+            .then(function (results) { return results; });
+    };
+
     var _getCategories = function () {
         return $http.get(serviceBase + 'api/categories')
             .then(function (results) { return results; });
     };
 
     creativesServiceFactory.getCreatives = _getCreatives;
+    creativesServiceFactory.getCreative = _getCreative;
     creativesServiceFactory.getCategories = _getCategories;
 
     return creativesServiceFactory;

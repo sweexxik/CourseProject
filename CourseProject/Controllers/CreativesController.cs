@@ -9,6 +9,7 @@ using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
 using CourseProject.Repositories;
+using static System.String;
 
 
 namespace CourseProject.Controllers
@@ -17,31 +18,34 @@ namespace CourseProject.Controllers
     {
         private IUnitOfWork db = new EfUnitOfWork();
 
-        // GET: api/Creatives
-        public IEnumerable<Creative> GetCreatives()
-        {
-            return db.Creatives.GetAll();
-        }
-
         // GET: api/Creatives/5
         [ResponseType(typeof(Creative))]
         public async Task<IHttpActionResult> GetCreative()
         {
             var queryString = Request.GetQueryNameValuePairs();
-
-            String userName = String.Empty;
+            var userName = Empty;
+            var creativeId = Empty;
 
             foreach (var pair in queryString)
             {
                 if (pair.Key == "username")
+                {
                     userName = pair.Value;
+                }
+
+                if (pair.Key == "id")
+                {
+                    creativeId = pair.Value;
+                }
             }
             
-            var user = await db.FindUser(userName);
+            if (IsNullOrEmpty(creativeId))
+            {
+                var user = await db.FindUser(userName);
+                return Ok(db.Creatives.Find(x => x.UserId == user.Id.ToString()));
+            }
 
-            var creatives = db.Creatives.Find(x => x.UserId == user.Id.ToString());
-            
-            return Ok(creatives);
+            return Ok(await db.Creatives.Get(int.Parse(creativeId)));
         }
 
 

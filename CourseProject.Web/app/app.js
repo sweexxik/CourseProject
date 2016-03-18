@@ -33,9 +33,14 @@ app.config(function ($routeProvider) {
     //     templateurl: "/app/views/drag.html"
     // });
 
-    $routeProvider.when("/drag", {
-        controller: "dragController",
-        templateUrl: "/app/views/drag.html"
+    // $routeProvider.when("/drag", {
+    //     controller: "dragController",
+    //     templateUrl: "/app/views/drag.html"
+    // });
+
+     $routeProvider.when("/edit/:Id", {
+        controller: "editCreativeController",
+        templateUrl: "/app/views/editCreative.html"
     });
 
     $routeProvider.otherwise({ redirectTo: "/home" });

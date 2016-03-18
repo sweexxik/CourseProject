@@ -43,6 +43,8 @@
                 <tr data-ng-repeat="creative in creatives">
                     <td>
                         {{ creative.id }}
+                        <br>
+                        <a ng-href="#/edit/{{creative.id}}" >Edit</a>
                     </td>
                     <td>
                         {{ creative.name }}
@@ -51,30 +53,25 @@
                         {{ creative.category.name }}
                     </td>
                     <td>                      
-                         <div class="container-element box box-blue">
+                         <div data-ng-if="creative.chapters.length > 0 "class="container-element box box-blue">
            <div class="container-element box box-blue">
             <ul dnd-list="creative.chapters"
                 dnd-allowed-types="['itemType']"
                 dnd-horizontal-list="true"
-                dnd-external-sources="true"
-                dnd-dragover="dragoverCallback(event, index, external, type)"
+                dnd-external-sources="false"              
                 dnd-drop="dropCallback(event, index, item, external, type, 'itemType')"
-                dnd-inserted="logEvent('Element was inserted at position ' + index, event)"
+              
                 class="itemlist">
                 <li ng-repeat="item in creative.chapters"
-                    dnd-draggable="item"
+                    dnd-draggable="item"                    
                     dnd-type="'itemType'"
-                    dnd-effect-allowed="copyMove"
-                    dnd-dragstart="logEvent('Started to drag an item', event)"
-                    dnd-moved="creative.chapters.splice($index, 1); logEvent('Item moved', event)"
-                    dnd-copied="logEvent('Item copied', event)"
-                    dnd-canceled="logEvent('Drag operation canceled', event)"
-                    dnd-dragend="logEvent('Drag operation ended', event)">
+                    dnd-effect-allowed="move"
+                    dnd-moved="creative.chapters.splice($index, 1)";>
                     {{item.name}}
                 </li>
             </ul>
             <div class="clearfix"></div>
-        </div>
+        </div></div>
 
                        
                     </td>                  
@@ -91,56 +88,6 @@
             </tbody>
         </table>
 
-        <div data-ng-hide="show == false">        
-        <table class="table table-striped table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>Chapter ID</th>
-                    <th>Chapter Name</th>
-                     <th>Chapter body</th>
-                    <th>Chapter number</th>
-                     <th>Creative Id</th>                      
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        {{ selectedchapter.id }}
-                    </td>
-                    <td>
-                        {{ selectedchapter.name }}
-                    </td>
-                    <td>
-                       {{selectedchapter.body}}
-                    </td>
-                    <td>
-                        {{ selectedchapter.number }}
-                    </td>
-                     <td>
-                        {{ selectedchapter.creativeId }}
-                    </td>                 
-                </tr>
-            </tbody></table>
- <div class="col-md-2">
-            &nbsp;
-        </div>
-        <div class="col-md-8">
-            <h2 class="form-login-heading"><p align="center">Chapter Name</p></h2>
-             <input type="text" value="{{selectedchapter.name}}" class="form-control" data-ng-model="selectedchapter.name" placeholder="Creative Name" required autofocus> 
-
-               <h2 class="form-login-heading"><p align="center">Chapter Text</p></h2>
-               <textarea class="form-control" name="Text1" data-ng-model="selectedchapter.body" cols="40" rows="5"></textarea>  
-                </textarea> 
-                  <div class="col-md-4">
-            &nbsp;
-        </div>
-
-            <div class="col-md-4">
-            <br>
-                <button class="btn btn-md btn-info btn-block" type="button" data-ng-click="saveChapter()">Save</button>     
-            </div> 
-         </div>
-         
-    </div>
+   
     </div>
  
