@@ -2,6 +2,7 @@
 	&nbsp;
 </div>
 <div class="col-md-8">
+	  <button class="btn btn-primary" data-ng-click="newChapter()">Add new chapter</button>   
 	<div data-ng-if="chapters.length > 0 "class="container-element box box-blue">
 		<div class="container-element box box-blue">
 			<ul dnd-list="chapters"
@@ -16,21 +17,23 @@
 	                dnd-type="'itemType'"
 	                dnd-effect-allowed="move"
 	                dnd-moved="chapters.splice($index, 1)";>
-	                {{item.name}}<button data-ng-click="click($index)">Edit</button>
+	                {{item.name}}<button data-ng-click="click(item)">Edit</button>
 	            </li>
        		</ul>
         	<div class="clearfix"></div>
      	</div>
 	</div>
-
+		
 	<div class="row" data-ng-if="selectedchapter != undefined">
 		<div class="col-md-2">
 			&nbsp;
 		</div>
 		<div class="col-md-8">
-			<h2 class="form-login-heading"><p align="center">Chapter Name</p></h2>
-			<input type="text" value="{{selectedchapter.name}}" class="form-control" data-ng-model="selectedchapter.name" placeholder="Creative Name" required autofocus> 
-			<h2 class="form-login-heading"><p align="center">Chapter Text</p></h2>
+			<h2 class="form-login-heading"><p align="center">#</p></h2>
+			<input type="text" value="{{selectedchapter.name}}" class="form-control" data-ng-model="selectedchapter.number" placeholder="#" required autofocus> 
+			<h2 class="form-login-heading"><p align="center">Name</p></h2>
+			<input type="text" value="{{selectedchapter.name}}" class="form-control" data-ng-model="selectedchapter.name" placeholder="Chapter Name" required autofocus>			
+			<h2 class="form-login-heading"><p align="center">Text</p></h2>
 			<textarea class="form-control" name="Text1" data-ng-model="selectedchapter.body" cols="80" rows="5"></textarea>  
 			</textarea> 
 			<div class="col-md-4">
