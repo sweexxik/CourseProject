@@ -1,5 +1,5 @@
 ﻿
-var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar']);
+var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'dndLists']);
 
 app.config(function ($routeProvider) {
 
@@ -18,9 +18,9 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/signup.html"
     });
 
-    $routeProvider.when("/orders", {
-        controller: "ordersController",
-        templateUrl: "/app/views/orders.html"
+    $routeProvider.when("/newCreative", {
+        controller: "newCreativeController",
+        templateUrl: "/app/views/newCreative.html"
     });
 
     // $routeProvider.when("/refresh", {
@@ -28,14 +28,14 @@ app.config(function ($routeProvider) {
     //     templateUrl: "/app/views/refresh.html"
     // });
 
-    // $routeProvider.when("/tokens", {
-    //     controller: "tokensManagerController",
-    //     templateUrl: "/app/views/tokens.html"
+    // $routeprovider.when("/drag", {
+    //     controller: "homeController",
+    //     templateurl: "/app/views/drag.html"
     // });
 
-    $routeProvider.when("/associate", {
-        controller: "associateController",
-        templateUrl: "/app/views/associate.html"
+    $routeProvider.when("/drag", {
+        controller: "dragController",
+        templateUrl: "/app/views/drag.html"
     });
 
     $routeProvider.otherwise({ redirectTo: "/home" });

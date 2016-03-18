@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CourseProject.Domain;
 using CourseProject.Domain.Entities;
+using CourseProject.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace CourseProject.Domain.Interfaces
+namespace CourseProject.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
@@ -11,7 +14,10 @@ namespace CourseProject.Domain.Interfaces
         IRepository<Comment> Comments { get; }
         IRepository<Chapter> Chapters { get; }
         IRepository<Like> Likes { get; }
+        IRepository<CreativeCategory> Categories { get; }
         Task<IdentityUser> FindUser(string userName);
+        Task<IdentityUser> FindUser(string userName, string password);
+        Task<IdentityResult> RegisterUser(UserModel userModel);
         void Save();
     }
 }

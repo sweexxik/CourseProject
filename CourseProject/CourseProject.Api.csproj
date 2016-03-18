@@ -196,7 +196,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\ChaptersController.cs" />
+    <Compile Include="Controllers\CreativesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\201603171237585_compose 2 storages.cs" />
     <Compile Include="Migrations\201603171237585_compose 2 storages.Designer.cs">
       <DependentUpon>201603171237585_compose 2 storages.cs</DependentUpon>
@@ -209,18 +214,28 @@
     <Compile Include="Migrations\201603171318043_fix userID.Designer.cs">
       <DependentUpon>201603171318043_fix userID.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603180803104_creativecategory.cs" />
+    <Compile Include="Migrations\201603180803104_creativecategory.Designer.cs">
+      <DependentUpon>201603180803104_creativecategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603180824341_categoryVirtual.cs" />
+    <Compile Include="Migrations\201603180824341_categoryVirtual.Designer.cs">
+      <DependentUpon>201603180824341_categoryVirtual.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AddOrUpdateChapterModel.cs" />
+    <Compile Include="Models\NewCreativeModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Repositories\ChaptersRepository.cs" />
     <Compile Include="Repositories\CommentsRepository.cs" />
+    <Compile Include="Repositories\CreativeCategoryRepository.cs" />
     <Compile Include="Repositories\CreativesRepository.cs" />
     <Compile Include="Repositories\EFUnitOfWork.cs" />
     <Compile Include="Repositories\LikesRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="UserEntities\AuthContext.cs" />
-    <Compile Include="Repositories\AuthRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -248,6 +263,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603171318043_fix userID.resx">
       <DependentUpon>201603171318043_fix userID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603180803104_creativecategory.resx">
+      <DependentUpon>201603180803104_creativecategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603180824341_categoryVirtual.resx">
+      <DependentUpon>201603180824341_categoryVirtual.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

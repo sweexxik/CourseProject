@@ -1,9 +1,9 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseProject.Interfaces;
 using CourseProject.Models;
 using CourseProject.Repositories;
-using CourseProject.UserEntities;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
 
@@ -12,11 +12,11 @@ namespace CourseProject.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private AuthRepository _repo = null;
+        private IUnitOfWork _repo;
 
         public AccountController()
         {
-            _repo = new AuthRepository();
+            _repo = new EfUnitOfWork();
         }
 
         // POST api/Account/Register
@@ -24,9 +24,6 @@ namespace CourseProject.Controllers
         [Route("Register")]
         public async Task<IHttpActionResult> Register(UserModel userModel)
         {
-            var obj = Request.Content.ReadAsAsync<JObject>().Result;
-
-          
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
