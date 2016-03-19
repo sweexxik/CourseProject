@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
 using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
@@ -21,7 +16,7 @@ namespace CourseProject.Controllers
         [HttpGet]
         [Route("api/creatives/getall")]
         public IHttpActionResult GetAllCreatives()
-        { 
+        {
             return Ok(db.Creatives.GetAll());
         }
 
@@ -60,7 +55,7 @@ namespace CourseProject.Controllers
             return Ok(new { status = "200" });
         }
 
-        // POST: api/Creatives
+        
         public async Task<IHttpActionResult> PostCreative(NewCreativeModel model)
         {
             var creative = await InitNewCreative(model);

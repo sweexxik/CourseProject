@@ -60,7 +60,7 @@
                         {{ creative.rating }}
                     </td>
                     <td>
-                        {{ creative.comments.length }}
+                        <a data-ng-href="#/comments/{{creative.id}}">{{ creative.comments.length }}</a>
                     </td>
                 </tr>
             </tbody>

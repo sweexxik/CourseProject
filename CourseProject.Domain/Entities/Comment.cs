@@ -4,11 +4,6 @@ namespace CourseProject.Domain.Entities
 {
     public class Comment
     {
-        public Comment()
-        {
-           Likes = new List<Like>();
-        }
-
         public int Id { get; set; }
 
         public string  UserId { get; set; }
@@ -17,7 +12,7 @@ namespace CourseProject.Domain.Entities
 
         public string Text { get; set; }
 
-        public List<Like> Likes { get; set; }
+        public virtual List<Like> Likes { get; set; }
 
 
     }

@@ -28,16 +28,21 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/main.html"
     });    
 
-     $routeProvider.when("/edit/:Id", {
+    $routeProvider.when("/edit/:Id", {
         controller: "editCreativeController",
         templateUrl: "/app/views/editCreative.html"
+    });
+
+    $routeProvider.when("/comments/:creativeId", {
+        controller: "commentsController",
+        templateUrl: "/app/views/comments.html"
     });
 
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });
 
-//var serviceBase = 'http://localhost:26264/';
+
 var serviceBase = 'http://localhost:57507/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,

@@ -6,16 +6,14 @@ app.controller('homeController',
  	$scope.authentication = authService.authentication;
     $scope.creatives = [];
 
-    if( authService.authentication.isAuth ) {
+    if (authService.authentication.isAuth){
     	creativeService.getCreatives().then(function (results) {
-            $scope.creatives = results.data;
-      		console.log(results.data);       
+            $scope.creatives = results.data;      		
         }, function (error) {
-            console.log(error);
+            console.log(error);            
         });
     }
 
-    
     $scope.newCreative = function(){
     	$location.path('/newCreative');
     }

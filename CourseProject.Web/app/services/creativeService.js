@@ -21,13 +21,35 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             .then(function (results) { return results; });
     };
 
+    var _getCategories = function () {
+        return $http.get(serviceBase + 'api/categories')
+            .then(function (results) { return results; });
+    };
+
+    var _getComments = function(id){
+        return $http.get(serviceBase + 'api/comments/' + id)
+        .then(function(results){ return results;});
+    };
+
+    var _createCreative = function(data) {
+        return $http.post(serviceBase + '/api/creatives', JSON.stringify(data), {
+            headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
+            .then(function (results) { return results; });
+    }
+
+     var _createComment = function(data) {       
+        return $http.post(serviceBase + '/api/comments', JSON.stringify(data), {
+            headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
+            .then(function (results) { return results; });
+    }
+
     var _deleteCreative = function (id) {   
         return $http.post(serviceBase + 'api/creatives/delete/' + id)
             .then(function (results) { return results; });
     };
 
-    var _getCategories = function () {
-        return $http.get(serviceBase + 'api/categories')
+    var _deleteComment = function (id) {   
+        return $http.post(serviceBase + 'api/comments/delete/' + id)
             .then(function (results) { return results; });
     };
 
@@ -36,7 +58,11 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.getCreative = _getCreative;
     creativesServiceFactory.getCategories = _getCategories;
     creativesServiceFactory.deleteCreative = _deleteCreative;
-    
+    creativesServiceFactory.getComments = _getComments;
+    creativesServiceFactory.createCreative = _createCreative;
+    creativesServiceFactory.deleteComment = _deleteComment;
+    creativesServiceFactory.createComment = _createComment;
+
     return creativesServiceFactory;
 
 }]);

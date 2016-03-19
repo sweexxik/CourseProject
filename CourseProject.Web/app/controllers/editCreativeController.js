@@ -36,9 +36,10 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
 
         $scope.deleteCreative = function(id){
 	        var result = $window.confirm('Are you absolutely sure you want to delete?');
-	        if ( result ) {
-	       		creativeService.deleteCreative(id);
-	       		$location.path("/home");
+	        if (result) {
+	       		creativeService.deleteCreative(id).then(function(results){
+	       			$location.path("/home");
+	       		});	       	
        			console.log(id);
        		}        
     	}
