@@ -43,14 +43,15 @@ namespace CourseProject.Repositories
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public void Delete(int id)
+        public async Task<Like> Delete(int id)
         {
-            var item = db.Likes.Find(id);
+            var item = await db.Likes.FindAsync(id);
 
-            if (item != null)
-            {
-                db.Likes.Remove(item);
-            }
+            if (item == null) return null;
+
+            db.Likes.Remove(item);
+
+            return item;
         }
     }
 }

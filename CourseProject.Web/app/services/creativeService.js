@@ -6,18 +6,23 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     var creativesServiceFactory = {};
 
     var _getCreatives = function () {
-    	var authData = localStorageService.get('authorizationData');
-        var currentUserName = authData.userName;
-        console.log("GET userName" + currentUserName);
-        return $http.get(serviceBase + 'api/orders/?username=' + currentUserName)
+    	var currentUserName = localStorageService.get('authorizationData').userName;
+        return $http.get(serviceBase + 'api/creatives/getall/' + currentUserName)
             .then(function (results) { return results; });
     };
 
-      var _getCreative = function (id) {
-        var authData = localStorageService.get('authorizationData');
-        var currentUserName = authData.userName;
-        console.log("GET userName" + currentUserName);
-        return $http.get(serviceBase + 'api/creatives/?username=' + currentUserName + '&id=' + id)
+    var _getAllCreatives = function () {      
+        return $http.get(serviceBase + 'api/creatives/getall')
+            .then(function (results) { return results; });
+    };
+
+    var _getCreative = function (id) {        
+        return $http.get(serviceBase + 'api/creatives/' +id)
+            .then(function (results) { return results; });
+    };
+
+    var _deleteCreative = function (id) {   
+        return $http.post(serviceBase + 'api/creatives/delete/' + id)
             .then(function (results) { return results; });
     };
 
@@ -26,10 +31,12 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             .then(function (results) { return results; });
     };
 
+    creativesServiceFactory.getAllCreatives = _getAllCreatives
     creativesServiceFactory.getCreatives = _getCreatives;
     creativesServiceFactory.getCreative = _getCreative;
     creativesServiceFactory.getCategories = _getCategories;
-
+    creativesServiceFactory.deleteCreative = _deleteCreative;
+    
     return creativesServiceFactory;
 
 }]);

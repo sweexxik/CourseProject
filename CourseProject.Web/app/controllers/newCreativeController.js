@@ -11,11 +11,9 @@ app.controller('newCreativeController',
     };
 
     creativeService.getCategories().then(function (results) {
-
         $scope.categories = results.data;
         $scope.currentCategory = results.data[0];
-        console.log(results.data);
-   
+        console.log(results.data);   
     }, function (error) {
         console.log(error);
     });

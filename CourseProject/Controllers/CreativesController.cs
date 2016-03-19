@@ -9,7 +9,7 @@ using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
 using CourseProject.Repositories;
-using static System.String;
+
 
 
 namespace CourseProject.Controllers
@@ -18,77 +18,60 @@ namespace CourseProject.Controllers
     {
         private IUnitOfWork db = new EfUnitOfWork();
 
-        // GET: api/Creatives/5
-        [ResponseType(typeof(Creative))]
-        public async Task<IHttpActionResult> GetCreative()
+        [HttpGet]
+        [Route("api/creatives/getall")]
+        public IHttpActionResult GetAllCreatives()
+        { 
+            return Ok(db.Creatives.GetAll());
+        }
+
+        [HttpGet]
+        [Route("api/creatives/getall/{username}")]
+        public async Task<IHttpActionResult> GetCreatives(string userName)
         {
-            var queryString = Request.GetQueryNameValuePairs();
-            var userName = Empty;
-            var creativeId = Empty;
+            var user = await db.FindUser(userName);
 
-            foreach (var pair in queryString)
-            {
-                if (pair.Key == "username")
-                {
-                    userName = pair.Value;
-                }
-
-                if (pair.Key == "id")
-                {
-                    creativeId = pair.Value;
-                }
-            }
-            
-            if (IsNullOrEmpty(creativeId))
-            {
-                var user = await db.FindUser(userName);
-                return Ok(db.Creatives.Find(x => x.UserId == user.Id.ToString()));
-            }
-
-            return Ok(await db.Creatives.Get(int.Parse(creativeId)));
+            return Ok(db.Creatives.Find(x => x.UserId == user.Id.ToString()));
         }
 
 
-
-        // POST: api/Creatives
-        [ResponseType(typeof(Creative))]
-        public async Task<IHttpActionResult> PostCreative(NewCreativeModel model)
+        [HttpGet]
+        [Route("api/creatives/{id}")]
+        public async Task<IHttpActionResult> GetCreative(int id)
         {
-            var creative = new Creative();
+            var creative = await db.Creatives.Get(id);
 
-            creative.Name = model.Name;
-            creative.Rating = 0;
-            creative.Category = await db.Categories.Get(model.CategoryId);
-           
+            return Ok(creative);
+        }
 
-            var user = await db.FindUser(model.UserName);
+        [HttpPost]
+        [Route("api/creatives/delete/{id}")]
+        public async Task<IHttpActionResult> DeleteCreative(int id)
+        {
+            var item = await db.Creatives.Delete(id);
 
-            creative.UserId = user.Id;
+            if (item == null)
+            {
+                return BadRequest("Null reference");
+            }
 
-            db.Creatives.Create(creative);
             db.Save();
 
-
-
-            return Ok(); // CreatedAtRoute("DefaultApi", new { id = creative.Id }, creative);
+            return Ok(new { status = "200" });
         }
 
-        // DELETE: api/Creatives/5
-        //[ResponseType(typeof(Creative))]
-        //public Task<IHttpActionResult> DeleteCreative(int id)
-        //{
-        //    Creative creative = db.Creatives.Find(x=>x.Id == id);
-        //    if (creative == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // POST: api/Creatives
+        public async Task<IHttpActionResult> PostCreative(NewCreativeModel model)
+        {
+            var creative = await InitNewCreative(model);
 
-        //    //db.Creatives.Remove(creative);
-        //    //await db.SaveChangesAsync();
+            db.Creatives.Create(creative);
 
-        //    return Ok(creative);
-        //}
+            db.Save();
 
+            return Ok(new {status = "200"} );
+        }
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -98,9 +81,20 @@ namespace CourseProject.Controllers
             base.Dispose(disposing);
         }
 
-        
+        private async Task<Creative> InitNewCreative(NewCreativeModel model)
+        {
+            var creative = new Creative
+            {
+                Name = model.Name,
+                Rating = 0,
+                Category = await db.Categories.Get(model.CategoryId)
+            };
+
+            var user = await db.FindUser(model.UserName);
+
+            creative.UserId = user.Id;
+
+            return creative;
+        }
     }
-
-
-   
 }

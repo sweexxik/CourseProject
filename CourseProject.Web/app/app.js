@@ -23,20 +23,10 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/newCreative.html"
     });
 
-    // $routeProvider.when("/refresh", {
-    //     controller: "refreshController",
-    //     templateUrl: "/app/views/refresh.html"
-    // });
-
-    // $routeprovider.when("/drag", {
-    //     controller: "homeController",
-    //     templateurl: "/app/views/drag.html"
-    // });
-
-    // $routeProvider.when("/drag", {
-    //     controller: "dragController",
-    //     templateUrl: "/app/views/drag.html"
-    // });
+    $routeProvider.when("/main", {
+        controller: "mainController",
+        templateUrl: "/app/views/main.html"
+    });    
 
      $routeProvider.when("/edit/:Id", {
         controller: "editCreativeController",

@@ -44,14 +44,15 @@ namespace CourseProject.Repositories
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public void Delete(int id)
+        public async Task<CreativeCategory> Delete(int id)
         {
-            var category = db.Categories.Find(id);
+            var item = await db.Categories.FindAsync(id);
 
-            if (category != null)
-            {
-                db.Categories.Remove(category);
-            }
+            if (item == null) return null;
+
+            db.Categories.Remove(item);
+
+            return item;
         }
     }
 }

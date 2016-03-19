@@ -3,6 +3,8 @@
 </div>
 <div class="col-md-8">
 	  <button class="btn btn-primary" data-ng-click="newChapter()">Add new chapter</button>   
+	    <button class="btn btn-primary" data-ng-click="savePositions()">Save chapters positions</button>  
+	    <button class="btn btn-primary" data-ng-click="deleteCreative(creative.id)">Delete Creative</button> 
 	<div data-ng-if="chapters.length > 0 "class="container-element box box-blue">
 		<div class="container-element box box-blue">
 			<ul dnd-list="chapters"
@@ -17,12 +19,16 @@
 	                dnd-type="'itemType'"
 	                dnd-effect-allowed="move"
 	                dnd-moved="chapters.splice($index, 1)";>
-	                {{item.name}}<button data-ng-click="click(item)">Edit</button>
+	                {{item.name}}
+	                 <button>{{item.number}}</button>
+	                <button data-ng-click="editChapter(item)">Edit</button>
+	                <button data-ng-click="deleteChapter(item)">Delete</button>
 	            </li>
        		</ul>
         	<div class="clearfix"></div>
      	</div>
 	</div>
+
 		
 	<div class="row" data-ng-if="selectedchapter != undefined">
 		<div class="col-md-2">
@@ -41,7 +47,8 @@
 			</div>
 			<div class="col-md-4">
 				<br>
-		  		<button class="btn btn-md btn-info btn-block" type="button" data-ng-click="saveChapter()">Save</button>     
+		  		<button class="btn btn-md btn-info btn-block" type="button" data-ng-click="saveChapter()">Save</button>   
+		  		<br>  <br> 
 		  	</div> 
 		</div>
 	</div>

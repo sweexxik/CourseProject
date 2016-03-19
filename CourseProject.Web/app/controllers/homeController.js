@@ -1,12 +1,12 @@
 ﻿'use strict';
 app.controller('homeController',
- ['$http','$scope','creativeService', 'localStorageService', '$location','authService',
-  function ($http,$scope,creativeService, localStorageService, $location, authService) {
+ ['$http','$scope','creativeService', 'localStorageService', '$location','authService','$window',
+  function ($http,$scope,creativeService, localStorageService, $location, authService, $window) {
 
  	$scope.authentication = authService.authentication;
     $scope.creatives = [];
 
-    if(authService.authentication.isAuth){
+    if( authService.authentication.isAuth ) {
     	creativeService.getCreatives().then(function (results) {
             $scope.creatives = results.data;
       		console.log(results.data);       
@@ -15,6 +15,7 @@ app.controller('homeController',
         });
     }
 
+    
     $scope.newCreative = function(){
     	$location.path('/newCreative');
     }
