@@ -43,6 +43,12 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             .then(function (results) { return results; });
     }
 
+    var _createLike = function(data) {       
+        return $http.post(serviceBase + '/api/likes', JSON.stringify(data), {
+            headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
+            .then(function (results) { return results; });
+    }
+
     var _deleteCreative = function (id) {   
         return $http.post(serviceBase + 'api/creatives/delete/' + id)
             .then(function (results) { return results; });
@@ -53,6 +59,19 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             .then(function (results) { return results; });
     };
 
+    var _sortChapters = function(creatives) {
+            var sorted = {},
+            a = [];     
+            for (var chapter in creatives.chapters) {               
+                if (creatives.chapters.hasOwnProperty(chapter)) {
+                    a.push(creatives.chapters[chapter]);            
+                }
+            }          
+            a.sort(function(x,y){               
+                return x.number - y.number;
+            });   
+            return a;}
+
     creativesServiceFactory.getAllCreatives = _getAllCreatives
     creativesServiceFactory.getCreatives = _getCreatives;
     creativesServiceFactory.getCreative = _getCreative;
@@ -62,6 +81,8 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.createCreative = _createCreative;
     creativesServiceFactory.deleteComment = _deleteComment;
     creativesServiceFactory.createComment = _createComment;
+    creativesServiceFactory.createLike = _createLike;
+    creativesServiceFactory.sortChapters = _sortChapters;
 
     return creativesServiceFactory;
 

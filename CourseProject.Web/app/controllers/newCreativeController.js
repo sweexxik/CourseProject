@@ -5,7 +5,8 @@ app.controller('newCreativeController',
 
     $scope.categories = [];
     $scope.currentCategory = "";
-    $scope.newCreative = {
+    $scope.creativeName = "";
+    var newCreative = {
     	name:"",
         categoryId: 0,    	
     	userName:""   
@@ -20,12 +21,13 @@ app.controller('newCreativeController',
     });
     
     $scope.create = function(formData){
-        $scope.newCreative.userName = localStorageService.get('authorizationData').userName;
-        $scope.newCreative.categoryId = $scope.currentCategory.id;
+        newCreative.userName = localStorageService.get('authorizationData').userName;
+        newCreative.categoryId = $scope.currentCategory.id;
+        newCreative.name = $scope.creativeName;
         
-        creativeService.createCreative($scope.newCreative).then(function(results){
+        creativeService.createCreative(newCreative).then(function(results){
             $location.path("/home");
         });     
    };
-   
+
 }]);

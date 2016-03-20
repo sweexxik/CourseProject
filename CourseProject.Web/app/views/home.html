@@ -27,7 +27,7 @@
                     <th>Name</th>
                     <th>Category</th>
                     <th>Chapters</th>
-                    <th>rating</th>
+                    <th>Rating</th>
                     <th>Comments</th>                    
                 </tr>
             </thead>
@@ -45,7 +45,7 @@
                         {{ creative.category.name }}
                     </td>
                     <td>                      
-                        <div data-ng-if="creative.chapters.length > 0 "class="container-element box box-blue">
+                        <div data-ng-if="creative.chapters.length > 0" class="container-element box box-blue">
                             <div class="container-element box box-blue">
                                 <ul> 
                                     <li ng-repeat="item in creative.chapters">                  

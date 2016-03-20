@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CourseProject.Domain.Entities
 {
@@ -10,7 +11,7 @@ namespace CourseProject.Domain.Entities
         
         public int Rating { get; set; }
 
-        public string UserId { get; set; }
+        public virtual IdentityUser User { get; set; }
 
         public virtual CreativeCategory Category { get; set; }
 

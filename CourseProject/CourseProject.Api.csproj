@@ -200,7 +200,7 @@
     <Compile Include="Controllers\ChaptersController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\CreativesController.cs" />
-    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\201603171237585_compose 2 storages.cs" />
@@ -223,10 +223,23 @@
     <Compile Include="Migrations\201603180824341_categoryVirtual.Designer.cs">
       <DependentUpon>201603180824341_categoryVirtual.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603200709338_comment with identity user.cs" />
+    <Compile Include="Migrations\201603200709338_comment with identity user.Designer.cs">
+      <DependentUpon>201603200709338_comment with identity user.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603200818265_IdentityUserToLikes.cs" />
+    <Compile Include="Migrations\201603200818265_IdentityUserToLikes.Designer.cs">
+      <DependentUpon>201603200818265_IdentityUserToLikes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603200839397_creativeUserIdToUserIdentity.cs" />
+    <Compile Include="Migrations\201603200839397_creativeUserIdToUserIdentity.Designer.cs">
+      <DependentUpon>201603200839397_creativeUserIdToUserIdentity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddOrUpdateChapterModel.cs" />
     <Compile Include="Models\NewCommentModel.cs" />
     <Compile Include="Models\NewCreativeModel.cs" />
+    <Compile Include="Models\NewLikeModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
@@ -271,6 +284,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603180824341_categoryVirtual.resx">
       <DependentUpon>201603180824341_categoryVirtual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603200709338_comment with identity user.resx">
+      <DependentUpon>201603200709338_comment with identity user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603200818265_IdentityUserToLikes.resx">
+      <DependentUpon>201603200818265_IdentityUserToLikes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603200839397_creativeUserIdToUserIdentity.resx">
+      <DependentUpon>201603200839397_creativeUserIdToUserIdentity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

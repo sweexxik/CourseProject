@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
@@ -17,7 +19,9 @@ namespace CourseProject.Controllers
         [Route("api/creatives/getall")]
         public IHttpActionResult GetAllCreatives()
         {
-            return Ok(db.Creatives.GetAll());
+            var creatives = InitCreativeModel(db.Creatives.GetAll().ToList());
+
+            return Ok(creatives);
         }
 
         [HttpGet]
@@ -26,7 +30,11 @@ namespace CourseProject.Controllers
         {
             var user = await db.FindUser(userName);
 
-            return Ok(db.Creatives.Find(x => x.UserId == user.Id.ToString()));
+            var list = db.Creatives.Find(x => x.User == user).ToList();
+
+            var creatives = InitCreativeModel(list);
+
+            return Ok(creatives);
         }
 
 
@@ -87,9 +95,30 @@ namespace CourseProject.Controllers
 
             var user = await db.FindUser(model.UserName);
 
-            creative.UserId = user.Id;
+            creative.User = user;
 
             return creative;
+        }
+
+        private List<NewCreativeModel> InitCreativeModel(List<Creative> list)
+        {
+
+            var creatives = new List<NewCreativeModel>();
+
+            foreach (var creative in list)
+            {
+                creatives.Add(new NewCreativeModel
+                {
+                   Id = creative.Id,
+                   Chapters = creative.Chapters,
+                   Comments = creative.Comments,
+                   UserName = creative.User.UserName,
+                   Name = creative.Name,
+                   Rating = creative.Rating,
+                   Category = creative.Category
+                });
+            }
+            return creatives;
         }
     }
 }

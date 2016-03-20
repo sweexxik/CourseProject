@@ -2,11 +2,12 @@
 app.controller('editCreativeController', ['$http', '$scope','$route','$routeParams','creativeService','$window','$location',
 	function ($http, $scope, $route, $routeParams,creativeService, $window, $location) {
  		
- 		var creativeId = $routeParams.Id;
  		$scope.creative = []; 	
  		$scope.chapters = []; 
  		$scope.stub = []; 	
- 		$scope.chapterModel = {
+
+ 		var creativeId = $routeParams.Id; 		
+ 		var chapterModel = {
 	    	body:"",
 	        creativeId:0,    	
 	    	id:0,
@@ -28,8 +29,8 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
 
  		creativeService.getCreative(creativeId).then(function (results) {
             $scope.creative = results.data;
-            $scope.chapters = getSortedChapters(results.data); 
-      		console.log(results.data);       
+            $scope.chapters = creativeService.sortChapters(results.data); 
+      		console.log($scope.chapters);       
         }, function (error) {
             console.log(error);
         });
@@ -42,34 +43,32 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
 	       		});	       	
        			console.log(id);
        		}        
-    	}
-       
+    	}       
 
 		$scope.newChapter = function(){
 			 $scope.selectedchapter = {};
 			 $scope.selectedchapter.creativeId = creativeId;
 		}
+
 		$scope.savePositions = function(){
-
-			var data = $scope.chapters;
-			console.log(data);
-			postData(data,'chapters/all');
-
-
+			postData($scope.chapters,'chapters/all');
 		}
+
    		$scope.saveChapter = function(){    
 	        initChapterModel();
-	        postData($scope.chapterModel,'chapters');	  
-	      
+	        postData(chapterModel,'chapters');	 	      
 	    };
 
 	    var postData = function(data, link){
 	    	 $http.post('http://localhost:57507/api/' + link, JSON.stringify(data), {
-	             headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } }).success(function (response) {
-	                    console.log(response);
-	                    $route.reload();  
-	                    if (response.status == 200) $scope.show = false;
-	            }).error(function (err, status) {
+	             headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
+	    	 .success(function (response) {
+	                console.log(response);
+	                $route.reload();  
+	                if (response.status == 200)
+	                	$scope.show = false;
+	            })
+	    	 .error(function (err, status) {
 	            console.log(err);
 	            console.log(status);
 	            });
@@ -107,23 +106,12 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
    		
 
 	    var initChapterModel = function(){
-	    	$scope.chapterModel.body = $scope.selectedchapter.body;
-	        $scope.chapterModel.number = $scope.selectedchapter.number;
-	        $scope.chapterModel.id = $scope.selectedchapter.id;
-	        $scope.chapterModel.creativeId = $scope.selectedchapter.creativeId;
-	        $scope.chapterModel.name = $scope.selectedchapter.name;
+	    	chapterModel.body = $scope.selectedchapter.body;
+	        chapterModel.number = $scope.selectedchapter.number;
+	        chapterModel.id = $scope.selectedchapter.id;
+	        chapterModel.creativeId = $scope.selectedchapter.creativeId;
+	        chapterModel.name = $scope.selectedchapter.name;
 	    };
 
-   		var getSortedChapters = function(o) {
-		    var sorted = {},
-		    a = [];		
-		    for (var chapter in o.chapters) {		    	
-		        if (o.chapters.hasOwnProperty(chapter)) {
-		            a.push(o.chapters[chapter]);	        
-		        }
-		    }		   
-		    a.sort(function(x,y){		    	
-		    	return x.number - y.number;
-		    });	  
-		    return a;}
+   		
 }]);

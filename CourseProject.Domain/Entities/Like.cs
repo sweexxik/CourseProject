@@ -1,9 +1,11 @@
-﻿namespace CourseProject.Domain
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+
+namespace CourseProject.Domain.Entities
 {
     public class Like
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
         public int CommentId { get; set; }
+        public virtual IdentityUser User { get; set; }
     }
 }
