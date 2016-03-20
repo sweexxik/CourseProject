@@ -4,7 +4,8 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
  		
  		$scope.creative = []; 	
  		$scope.chapters = []; 
- 		$scope.stub = []; 	
+ 		$scope.stub = []; 
+
 
  		var creativeId = $routeParams.Id; 		
  		var chapterModel = {
@@ -13,7 +14,13 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
 	    	id:0,
 	        name:"",
 	        number:0  
-   		};        
+   		}; 
+
+   		var updateCreative = {
+    	name:"",
+    	description:"",
+        Id: 0
+    	};       
 
 		$scope.editChapter = function(item){			
         	 $scope.selectedchapter = item;
@@ -29,6 +36,7 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
 
  		creativeService.getCreative(creativeId).then(function (results) {
             $scope.creative = results.data;
+            console.log($scope.creative);
             $scope.chapters = creativeService.sortChapters(results.data); 
       		console.log($scope.chapters);       
         }, function (error) {
@@ -59,14 +67,19 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
 	        postData(chapterModel,'chapters');	 	      
 	    };
 
+	    $scope.changeCreativeName = function(){
+	    	updateCreative.name = $scope.creative.name;
+	    	updateCreative.description = $scope.creative.description;
+	    	updateCreative.Id = creativeId;
+	    	postData(updateCreative,'creatives/update');	 	 
+	    };
+
 	    var postData = function(data, link){
 	    	 $http.post('http://localhost:57507/api/' + link, JSON.stringify(data), {
 	             headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
 	    	 .success(function (response) {
 	                console.log(response);
-	                $route.reload();  
-	                if (response.status == 200)
-	                	$scope.show = false;
+	                $route.reload();  	               
 	            })
 	    	 .error(function (err, status) {
 	            console.log(err);

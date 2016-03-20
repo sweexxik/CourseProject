@@ -2,9 +2,40 @@
 	&nbsp;
 </div>
 <div class="col-md-8">
-	  <button class="btn btn-primary" data-ng-click="newChapter()">Add new chapter</button>   
-	    <button class="btn btn-primary" data-ng-click="savePositions()">Save chapters positions</button>  
-	    <button class="btn btn-primary" data-ng-click="deleteCreative(creative.id)">Delete Creative</button> 
+	<table>
+		<thead>
+			<tr>
+				<th>Property</th>
+				<th>Edit</th>
+			</tr>
+		</thead>
+		<tr>
+			<td>Creative Name</td>
+			<td>
+				<textarea class="form-control" name="Text1" data-ng-model="creative.name" cols="80" rows="5">
+					{{creative.name}}
+				</textarea>  
+			 </td>
+		</tr>
+		<tr>
+			<td>Creative Description</td>
+			<td><textarea class="form-control" name="Text1" data-ng-model="creative.description" cols="80" rows="5">
+					{{creative.description}}
+				</textarea> </td>
+		</tr>
+		<tr>
+			<td><button class="btn btn-primary" data-ng-click="changeCreativeName()">Save</button></td>
+		</tr>
+	</table>
+	<br>
+	
+	
+	<button class="btn btn-primary" data-ng-click="newChapter()">Add new chapter</button>   
+	<button class="btn btn-primary" data-ng-click="savePositions()">Save chapters positions</button>  
+	<button class="btn btn-primary" data-ng-click="deleteCreative(creative.id)">Delete Creative</button> 
+<br>
+<br><br>
+<br>
 	<div data-ng-if="chapters.length > 0 "class="container-element box box-blue">
 		<div class="container-element box box-blue">
 			<ul dnd-list="chapters"
@@ -49,6 +80,7 @@
 				<br>
 		  		<button class="btn btn-md btn-info btn-block" type="button" data-ng-click="saveChapter()">Save</button>   
 		  		<br>  <br> 
+		  		
 		  	</div> 
 		</div>
 	</div>

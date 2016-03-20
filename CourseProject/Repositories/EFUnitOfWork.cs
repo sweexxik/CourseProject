@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web.Http;
 using CourseProject.Domain;
 using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
@@ -8,10 +10,12 @@ using CourseProject.Models;
 using CourseProject.UserEntities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace CourseProject.Repositories
 {
-    public class EfUnitOfWork : IUnitOfWork
+    //todo apiController???
+    public class EfUnitOfWork : ApiController, IUnitOfWork
     {
         private readonly AuthContext db;
 
@@ -21,6 +25,7 @@ namespace CourseProject.Repositories
         private ChaptersRepository chaptersRepository;
         private CreativeCategoryRepository categoryRepository;
         private readonly UserManager<IdentityUser> userManager;
+     
 
         private bool isDisposed;
 

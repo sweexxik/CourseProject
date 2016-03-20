@@ -1,0 +1,13 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="page-header text-center">
+            <h1 class="form-login-heading">{{creative.name}}</h1>
+			<p class="form-login-heading">Author : {{creative.userName}}</p>
+        </div>
+        <div ng-repeat="item in chapters">
+			<h2 class="form-login-heading">Chapter #{{item.number}}: {{item.name}}</h2>	
+			<h3 class="form-login-heading">{{item.body}}</h3>  
+			<br><hr><br>
+		</div>	
+    </div>
+</div>

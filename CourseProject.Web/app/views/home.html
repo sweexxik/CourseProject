@@ -16,8 +16,8 @@
         </div>
         <div class="col-md-2">
             &nbsp;
-        </div>
-    </div>
+        </div></div>
+
     <div data-ng-hide="!authentication.isAuth" class="col-md-8">
         <button class="btn btn-primary" data-ng-click="newCreative()">Add new Creative</button>       
         <table class="table table-striped table-bordered table-hover">
@@ -25,6 +25,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
+                    <th>Description</th>
                     <th>Category</th>
                     <th>Chapters</th>
                     <th>Rating</th>
@@ -36,10 +37,14 @@
                     <td>
                         {{ creative.id }}
                         <br>
-                        <a data-ng-href="#/edit/{{creative.id}}" >Edit</a>                      
+                        <a data-ng-href="#/edit/{{creative.id}}" >Edit</a>
+                        <a data-ng-href="#/show/{{creative.id}}" >Show</a>                         
                     </td>
                     <td>
                         {{ creative.name }}
+                    </td>
+                    <td>
+                        {{creative.description}}
                     </td>
                     <td>
                         {{ creative.category.name }}

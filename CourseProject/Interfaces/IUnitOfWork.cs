@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CourseProject.Domain;
 using CourseProject.Domain.Entities;
 using CourseProject.Models;
+using CourseProject.UserEntities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 

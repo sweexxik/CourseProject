@@ -33,6 +33,11 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/editCreative.html"
     });
 
+    $routeProvider.when("/show/:Id", {
+        controller: "showCreativeController",
+        templateUrl: "/app/views/showCreative.html"
+    });
+
     $routeProvider.when("/comments/:creativeId", {
         controller: "commentsController",
         templateUrl: "/app/views/comments.html"

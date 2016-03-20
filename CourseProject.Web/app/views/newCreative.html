@@ -9,9 +9,11 @@
                     &nbsp;
                 </div>
                 <div class="col-md-8">
-                    <h2 class="form-login-heading"><p align="center">Creative Name</p></h2>
+                    <h2 class="form-login-heading">Creative Name</h2>
                     <input type="text" class="form-control" data-ng-model="creativeName" placeholder="Creative Name" required autofocus> 
-                    <h2 class="form-login-heading"><p align="center">Category</p></h2>  
+                     <h2 class="form-login-heading">Creative Description</h2>
+                    <textarea type="text" class="form-control" data-ng-model="creativeDescription" placeholder="Creative Description" required autofocus>{{creativeDescription}} </textarea> 
+                    <h2 class="form-login-heading">Category</h2>  
                     <select class="form-control" data-ng-model="currentCategory" data-ng-options="act.name for act in categories">
                     </select>
                     <br>

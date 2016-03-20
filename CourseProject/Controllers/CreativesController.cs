@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -44,10 +45,23 @@ namespace CourseProject.Controllers
         {
             var creative = await db.Creatives.Get(id);
 
-            return Ok(creative);
+            var result = new NewCreativeModel
+            {
+                Id = creative.Id,
+                Chapters = creative.Chapters,
+                Comments = creative.Comments,
+                UserName = creative.User.UserName,
+                Name = creative.Name,
+                Description = creative.Description,
+                Rating = creative.Rating,
+                Category = creative.Category
+            };
+
+            return Ok(result);
         }
 
         [HttpPost]
+        [Authorize]
         [Route("api/creatives/delete/{id}")]
         public async Task<IHttpActionResult> DeleteCreative(int id)
         {
@@ -74,7 +88,23 @@ namespace CourseProject.Controllers
 
             return Ok(new {status = "200"} );
         }
-        
+
+        [HttpPost]
+        [Route("api/creatives/update")]
+        public async Task<IHttpActionResult> UpdateCreative(NewCreativeModel model)
+        {
+            var creative = await db.Creatives.Get(model.Id);
+
+            creative.Name = model.Name;
+
+            creative.Description = model.Description;
+
+            db.Creatives.Update(creative);
+            db.Save();
+           
+            return Ok(new { status = "200" });
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -89,6 +119,7 @@ namespace CourseProject.Controllers
             var creative = new Creative
             {
                 Name = model.Name,
+                Description = model.Description,
                 Rating = 0,
                 Category = await db.Categories.Get(model.CategoryId)
             };
@@ -102,7 +133,6 @@ namespace CourseProject.Controllers
 
         private List<NewCreativeModel> InitCreativeModel(List<Creative> list)
         {
-
             var creatives = new List<NewCreativeModel>();
 
             foreach (var creative in list)
@@ -114,6 +144,7 @@ namespace CourseProject.Controllers
                    Comments = creative.Comments,
                    UserName = creative.User.UserName,
                    Name = creative.Name,
+                   Description = creative.Description,
                    Rating = creative.Rating,
                    Category = creative.Category
                 });

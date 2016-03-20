@@ -178,17 +178,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\CreativeStore.mdf" />
-    <Content Include="App_Data\CreativeStore_log.ldf">
-      <DependentUpon>CreativeStore.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Data\DataStore.mdf" />
     <Content Include="App_Data\DataStore_log.ldf">
       <DependentUpon>DataStore.mdf</DependentUpon>
-    </Content>
-    <Content Include="App_Data\UserStore.mdf" />
-    <Content Include="App_Data\UserStore_log.ldf">
-      <DependentUpon>UserStore.mdf</DependentUpon>
     </Content>
     <Content Include="Web.config" />
   </ItemGroup>
@@ -201,6 +193,7 @@
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\CreativesController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\201603171237585_compose 2 storages.cs" />
@@ -234,6 +227,10 @@
     <Compile Include="Migrations\201603200839397_creativeUserIdToUserIdentity.cs" />
     <Compile Include="Migrations\201603200839397_creativeUserIdToUserIdentity.Designer.cs">
       <DependentUpon>201603200839397_creativeUserIdToUserIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603201021275_CreativeDescription.cs" />
+    <Compile Include="Migrations\201603201021275_CreativeDescription.Designer.cs">
+      <DependentUpon>201603201021275_CreativeDescription.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddOrUpdateChapterModel.cs" />
@@ -293,6 +290,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603200839397_creativeUserIdToUserIdentity.resx">
       <DependentUpon>201603200839397_creativeUserIdToUserIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603201021275_CreativeDescription.resx">
+      <DependentUpon>201603201021275_CreativeDescription.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
