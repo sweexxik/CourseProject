@@ -64,25 +64,23 @@ namespace CourseProject.Controllers
         [Route("api/creatives/delete/{id}")]
         public async Task<IHttpActionResult> DeleteCreative(int id)
         {
-            var creative = await db.Creatives.Get(id);
-            var result = await db.CheckUserRole(creative.User.Id);
+            var currentCreative = await db.Creatives.Get(id);
+            var userId = currentCreative.User.Id;
 
-            if (result)
+            var item = await db.Creatives.Delete(id);
+
+            if (item == null)
             {
-                var item = await db.Creatives.Delete(id);
-
-                if (item == null)
-                {
-                    return BadRequest("Null reference");
-                }
-
-                db.Save();
-                return Ok(new { status = "200" });
+                return BadRequest("Null reference");
             }
-            else
-            {
-                return Unauthorized();
-            }
+
+            db.Save();
+
+            var result = db.Creatives.Find(x => x.User.Id == userId);
+
+            return Ok(result);
+            
+         
         }
 
         [HttpPost]

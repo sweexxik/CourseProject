@@ -1,7 +1,7 @@
 ﻿'use strict';
 app.controller('homeController',
  ['$http','$scope','creativeService', 'localStorageService', '$location','authService','$window',
-  function ($http,$scope,creativeService, localStorageService, $location, authService, $window) {
+  function ($http, $scope, creativeService, localStorageService, $location, authService, $window) {
 
  	$scope.authentication = authService.authentication;
     $scope.creatives = [];
@@ -22,4 +22,16 @@ app.controller('homeController',
     $scope.newCreative = function(){
     	$location.path('/newCreative');
     }
+
+    $scope.deleteCreative = function (id) {     
+        console.log(id);
+        var result = $window.confirm('are you absolutely sure you want to delete?');
+        if (result) {
+            creativeService.deleteCreative(id).then(function(results){
+                $scope.creatives = results.data;
+                });         
+
+            }        
+        }    
+    
 }]);

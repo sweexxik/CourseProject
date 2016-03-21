@@ -106,7 +106,9 @@
         </div>
         
         <div class="container text-center">
-            <button class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">Read mode</button>
+            <button data-ng-if="chapters.length > 0" data-ng-click="test()" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">
+                Read mode   
+            </button>
             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -117,14 +119,15 @@
                                         <p align="left"> Chapter #{{chapter.number}}&nbsp;{{chapter.name}}</p>
                                     </div>   
                                     {{chapter.body}}      
-                                </div>  
-                            </div>
-                            <span class="left carousel-control" data-target="#Carousel" data-slide="prev">
+                            
+                            <span class="left carousel-control" data-target="#Carousel" data-slide="prev" data-ng-click="storeChapterId(chapter.id)">
                                 <span class="glyphicon glyphicon-chevron-left"></span>
                             </span>
-                            <span class="right carousel-control" data-target="#Carousel" data-slide="next">
+                            <span class="right carousel-control" data-target="#Carousel" data-slide="next" data-ng-click="storeChapterId(chapter.id)">
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                             </span>
+                                </div>  
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -151,22 +154,21 @@
                         <strong>#{{$index+1}} {{comment.userName}}</strong> 
                             <span class="text-muted">
                             commented {{comment.postDate.split('T')[0]}} at {{comment.postDate.split('T')[1].slice(0,-4) }}
-                            </span>
+                            </span> 
+
                     </div>
                     <div class="panel-body status-upload">
                         {{comment.text}}                 
                         <div data-ng-if="authentication.isAuth" class="status-upload"> 
-                             <ul>
+                             <ul class="pull-right">
+                             <button class="btn btn-primary-outline" style="position:absolute;top:0;right:0;margin-right: 2%" data-ng-if="comment.userName == authentication.userName " data-ng-click="deleteComment(comment.id)"> <i class="fa fa-times fa-2x"></i> </button>
                                 <li>
                                    <a data-ng-click="setLike(comment.id)" title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio">
                                         <i class="fa fa-2x fa-thumbs-o-up ">{{comment.likes.length}}</i>
                                     </a>
                                 </li>
-                                 <li data-ng-if="comment.userName == authentication.userName ">
-                                   <a data-ng-click="deleteComment(comment.id)" title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio">
-                                        <i class="fa fa-2x fa-cut"></i>
-                                    </a>
-                                </li>                                      
+                              
+                                                                
                             </ul>
                         </div>
                     </div>
@@ -199,9 +201,8 @@
                         </div>
         
     </div>
-        </div>
-    </div>
 </div>
+
 
 
 

@@ -1,41 +1,55 @@
-<div class="col-md-2">
+<div class="row">
+	<div class="col-md-8 margin-bottom-30">
+		<div class="portlet">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="glyphicon glyphicon-calendar"></i>
+					<span class="caption-subject text-uppercase"> Portlet</span>
+					<span class="caption-helper">weekly stats...</span>
+				</div>
+				<div class="actions">
+					<a href="javascript:;" class="btn"><i class="glyphicon glyphicon-pencil"></i>Edit</a>
+					<a href="javascript:;" class="btn"><i class="glyphicon glyphicon-paperclip"></i>Add</a>
+					<a href="javascript:;" class="btn btn-circle"><i class="glyphicon glyphicon-resize-full"></i></a>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<h4>Heading Text</h4>
+				<p>Description Description Description Description </p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col-md-3">
 	&nbsp;
 </div>
-<div class="col-md-8">
-	<table>
-		<thead>
-			<tr>
-				<th>Property</th>
-				<th>Edit</th>
-			</tr>
-		</thead>
-		<tr>
-			<td>Creative Name</td>
-			<td>
-				<textarea class="form-control" name="Text1" data-ng-model="creative.name" cols="80" rows="5">
-					{{creative.name}}
-				</textarea>  
-			 </td>
-		</tr>
-		<tr>
-			<td>Creative Description</td>
-			<td><textarea class="form-control" name="Text1" data-ng-model="creative.description" cols="80" rows="5">
-					{{creative.description}}
-				</textarea> </td>
-		</tr>
-		<tr>
-			<td><button class="btn btn-primary" data-ng-click="changeCreativeName()">Save</button></td>
-		</tr>
-	</table>
-	<br>
-	
-	
+
 	<button class="btn btn-primary" data-ng-click="newChapter()">Add new chapter</button>   
 	<button class="btn btn-primary" data-ng-click="savePositions()">Save chapters positions</button>  
 	<button class="btn btn-primary" data-ng-click="deleteCreative(creative.id)">Delete Creative</button> 
-<br>
-<br><br>
-<br>
+
+	
+    
+        <div class="widget-area no-padding blank">
+            <div class="">
+                <form>
+                	<h2>Description</h2> 
+                    <textarea class="form-control" data-ng-model="creative.description" placeholder="What do you think right now?" >
+                    	
+                    </textarea>
+                    <button type="button" data-ng-click="changeCreativeName()" class="btn btn-primary pull-right" >
+	                    <i class="fa fa-share"></i>
+	                    Save
+					</button>					 
+                </form>
+            </div>
+        </div> 
+     </div>
+   
+
+	<div class="col-md-6">
+	<br>	<br><br>
 	<div data-ng-if="chapters.length > 0 "class="container-element box box-blue">
 		<div class="container-element box box-blue">
 			<ul dnd-list="chapters"
@@ -55,12 +69,13 @@
 	                <button data-ng-click="editChapter(item)">Edit</button>
 	                <button data-ng-click="deleteChapter(item)">Delete</button>
 	            </li>
-       		</ul>
-        	<div class="clearfix"></div>
+       		</ul>       		
+        	<div class="clearfix"></div>       	 
      	</div>
+     	  <br> <br><br><br><br> <br> <br> <br><br>
+	</div>	
+	</div> 
 	</div>
-
-		
 	<div class="row" data-ng-if="selectedchapter != undefined">
 		<div class="col-md-2">
 			&nbsp;

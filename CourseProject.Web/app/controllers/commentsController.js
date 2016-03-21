@@ -8,17 +8,15 @@ app.controller('commentsController', ['$scope', '$routeParams','$location', 'cre
         Id:0,
         text: "",      
         creativeId:0,
-        userName:"" 
-    };
-
-    $scope.newComment = undefined;
-    
-    $scope.commentText = "";
+        userName:""     };    
 
     var newLikeModel = {
         commentId:0,
         userName:""
     };
+
+    $scope.newComment = undefined;    
+    $scope.commentText = "";
 
     creativeService.getComments(creativeId).then(function(result){
         $scope.comments = result.data;
@@ -41,7 +39,7 @@ app.controller('commentsController', ['$scope', '$routeParams','$location', 'cre
     };
 
     $scope.createComment = function(formData){        
-        initComment();
+        initCommentModel();
         creativeService.createComment(newCommentModel).then(function(results){
              $route.reload();
          });     
@@ -55,7 +53,7 @@ app.controller('commentsController', ['$scope', '$routeParams','$location', 'cre
         })
    };
 
-   var initComment = function(){
+   var initCommentModel = function(){
         newCommentModel.userName = localStorageService.get('authorizationData').userName;   
         newCommentModel.text = $scope.newComment.text;
         newCommentModel.creativeId = creativeId;
