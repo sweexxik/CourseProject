@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CourseProject.Domain.Entities
 {
@@ -8,6 +8,7 @@ namespace CourseProject.Domain.Entities
         public int Id { get; set; }
         public int CreativeId { get; set; }
         public string Text { get; set; }
+        public DateTime PostDate { get; set; }
         public virtual ApplicationUser User { get; set; }
         public virtual List<Like> Likes { get; set; }
     }

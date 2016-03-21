@@ -8,7 +8,7 @@ app.controller('commentsController', ['$scope', '$routeParams','$location', 'cre
         Id:0,
         text: "",      
         creativeId:0,
-        userName:""
+        userName:"" 
     };
 
     $scope.newComment = undefined;

@@ -9,7 +9,7 @@ app.controller('homeController',
 
     if (authService.authentication.isAuth){
     	creativeService.getCreatives().then(function (results) {
-            console.log(results);
+            console.log(results.data);
             $scope.creatives = results.data;           
             for(var i = 0; i< $scope.creatives.length; i++) {             
                 $scope.creatives[i].chapters = creativeService.sortChapters($scope.creatives[i]); 

@@ -49,6 +49,12 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             .then(function (results) { return results; });
     }
 
+    var _createRating = function(data) {       
+        return $http.post(serviceBase + '/api/rating', JSON.stringify(data), {
+            headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
+            .then(function (results) { return results; });
+    }
+
     var _deleteCreative = function (id) {   
         return $http.post(serviceBase + 'api/creatives/delete/' + id)
             .then(function (results) { return results; });
@@ -76,12 +82,16 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.getCreatives = _getCreatives;
     creativesServiceFactory.getCreative = _getCreative;
     creativesServiceFactory.getCategories = _getCategories;
-    creativesServiceFactory.deleteCreative = _deleteCreative;
     creativesServiceFactory.getComments = _getComments;
+
     creativesServiceFactory.createCreative = _createCreative;
-    creativesServiceFactory.deleteComment = _deleteComment;
     creativesServiceFactory.createComment = _createComment;
     creativesServiceFactory.createLike = _createLike;
+    creativesServiceFactory.createRating = _createRating;
+
+    creativesServiceFactory.deleteCreative = _deleteCreative;
+    creativesServiceFactory.deleteComment = _deleteComment;
+        
     creativesServiceFactory.sortChapters = _sortChapters;
 
     return creativesServiceFactory;

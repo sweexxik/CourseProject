@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Domain.Entities;
@@ -25,7 +21,6 @@ namespace CourseProject.Controllers
             return Ok(comment.Likes);
         }
 
-
         [HttpPost]
         [Route("api/likes")]
         public async Task<IHttpActionResult> AddLike(NewLikeModel model)
@@ -34,14 +29,18 @@ namespace CourseProject.Controllers
 
             if (db.Likes.GetAll().ToList().Any(like => like.CommentId == model.CommentId && like.User == user))
             {
-                return BadRequest("Duplicate like not allowed");
+                RemoveLike(model, user);
+            }
+            else
+            {
+                db.Likes.Create(new Like { CommentId = model.CommentId, User = user });
             }
 
-            db.Likes.Create(new Like { CommentId = model.CommentId, User = user});
-
             db.Save();
-           
-            return Ok(new { status = "200" });
+
+            var result = await db.Comments.Get(model.CommentId);
+
+            return Ok(result);
         }
 
         [HttpPost]
@@ -58,6 +57,20 @@ namespace CourseProject.Controllers
             db.Save();
 
             return Ok(new { status = "200" });
+        }
+
+
+        private async void RemoveLike(NewLikeModel model, ApplicationUser user)
+        {
+            var likes = db.Likes.Find(x => x.CommentId == model.CommentId);
+
+            foreach (var like in likes)
+            {
+                if (like.User.Id == user.Id)
+                {
+                    await db.Likes.Delete(like.Id);
+                }
+            }
         }
     }
 }

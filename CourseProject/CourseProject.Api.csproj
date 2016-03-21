@@ -193,6 +193,7 @@
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\CreativesController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
+    <Compile Include="Controllers\RatingsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
@@ -236,11 +237,24 @@
     <Compile Include="Migrations\201603201704036_IdentityUserToApplicationUser.Designer.cs">
       <DependentUpon>201603201704036_IdentityUserToApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603211103281_PostDatetoComment.cs" />
+    <Compile Include="Migrations\201603211103281_PostDatetoComment.Designer.cs">
+      <DependentUpon>201603211103281_PostDatetoComment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603211141514_ratingEntity.cs" />
+    <Compile Include="Migrations\201603211141514_ratingEntity.Designer.cs">
+      <DependentUpon>201603211141514_ratingEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603211157296_fix referencing loop of rating.cs" />
+    <Compile Include="Migrations\201603211157296_fix referencing loop of rating.Designer.cs">
+      <DependentUpon>201603211157296_fix referencing loop of rating.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddOrUpdateChapterModel.cs" />
     <Compile Include="Models\NewCommentModel.cs" />
     <Compile Include="Models\NewCreativeModel.cs" />
     <Compile Include="Models\NewLikeModel.cs" />
+    <Compile Include="Models\NewRatingModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
@@ -250,6 +264,7 @@
     <Compile Include="Repositories\CreativesRepository.cs" />
     <Compile Include="Repositories\EFUnitOfWork.cs" />
     <Compile Include="Repositories\LikesRepository.cs" />
+    <Compile Include="Repositories\RatingsRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="UserEntities\AuthContext.cs" />
   </ItemGroup>
@@ -300,6 +315,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603201704036_IdentityUserToApplicationUser.resx">
       <DependentUpon>201603201704036_IdentityUserToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603211103281_PostDatetoComment.resx">
+      <DependentUpon>201603211103281_PostDatetoComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603211141514_ratingEntity.resx">
+      <DependentUpon>201603211141514_ratingEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603211157296_fix referencing loop of rating.resx">
+      <DependentUpon>201603211157296_fix referencing loop of rating.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

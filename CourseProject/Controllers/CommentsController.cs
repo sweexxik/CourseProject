@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -18,7 +19,7 @@ namespace CourseProject.Controllers
         [Route("api/comments/{id}")]
         public IHttpActionResult GetComments(int id)
         {
-            var list = db.Comments.Find(x=>x.CreativeId == id).ToList();
+            var list = db.Comments.Find(x => x.CreativeId == id).ToList();
 
             var comments = InitCommentsModel(list);
 
@@ -30,7 +31,7 @@ namespace CourseProject.Controllers
         public async Task<IHttpActionResult> AddComment(NewCommentModel model)
         {
             var comment =  await InitNewComment(model);
-
+           
             db.Comments.Create(comment);
 
             db.Save();
@@ -61,8 +62,9 @@ namespace CourseProject.Controllers
             {
               CreativeId = model.CreativeId,
               Text = model.Text,
-              User = await db.FindUser(model.UserName)
-        };
+              User = await db.FindUser(model.UserName),
+              PostDate = DateTime.Now
+            };
         }
 
         private List<NewCommentModel> InitCommentsModel(List<Comment> list)
@@ -90,7 +92,8 @@ namespace CourseProject.Controllers
                     Id = comment.Id,
                     CreativeId = comment.CreativeId,
                     Text = comment.Text,
-                    Likes = likes
+                    Likes = likes,
+                    PostDate = comment.PostDate
                 });
             }
             return comments;

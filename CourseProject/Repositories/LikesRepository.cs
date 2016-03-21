@@ -25,7 +25,7 @@ namespace CourseProject.Repositories
 
         public async Task<Like> Get(int id)
         {
-            return  await db.Likes.FindAsync(id);
+            return await db.Likes.FindAsync(id);
         }
 
         public IEnumerable<Like> Find(Func<Like, bool> predicate)

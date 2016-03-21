@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using CourseProject.Domain;
 using CourseProject.Domain.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -10,7 +9,6 @@ namespace CourseProject.UserEntities
         public AuthContext()
             : base("AuthContext")
         {
-
         }
 
         public DbSet<Creative> Creatives { get; set; }
@@ -18,5 +16,6 @@ namespace CourseProject.UserEntities
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<CreativeCategory> Categories { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
     }
 }

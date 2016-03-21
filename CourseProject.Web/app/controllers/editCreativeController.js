@@ -6,7 +6,6 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
  		$scope.chapters = []; 
  		$scope.stub = []; 
 
-
  		var creativeId = $routeParams.Id; 		
  		var chapterModel = {
 	    	body:"",
@@ -36,9 +35,7 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
 
  		creativeService.getCreative(creativeId).then(function (results) {
             $scope.creative = results.data;
-            console.log($scope.creative);
-            $scope.chapters = creativeService.sortChapters(results.data); 
-      		console.log($scope.chapters);       
+            $scope.chapters = creativeService.sortChapters(results.data);     
         }, function (error) {
             console.log(error);
         });

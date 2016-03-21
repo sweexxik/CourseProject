@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CourseProject.Domain;
 using CourseProject.Domain.Entities;
 using CourseProject.Models;
-using CourseProject.UserEntities;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CourseProject.Interfaces
 {
@@ -16,6 +13,8 @@ namespace CourseProject.Interfaces
         IRepository<Chapter> Chapters { get; }
         IRepository<Like> Likes { get; }
         IRepository<CreativeCategory> Categories { get; }
+        IRepository<Rating> Ratings { get; }
+
         Task<ApplicationUser> FindUser(string userName);
         Task<ApplicationUser> FindUser(string userName, string password);
         Task<IdentityResult> RegisterUser(UserModel userModel);

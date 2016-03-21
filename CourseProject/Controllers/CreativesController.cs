@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
 using CourseProject.Repositories;
-
-
 
 namespace CourseProject.Controllers
 {
@@ -56,8 +52,8 @@ namespace CourseProject.Controllers
                 UserName = creative.User.UserName,
                 Name = creative.Name,
                 Description = creative.Description,
-                Rating = creative.Rating,
-                Category = creative.Category
+                Category = creative.Category,
+                Rating = creative.Rating
             };
 
             return Ok(result);
@@ -87,12 +83,11 @@ namespace CourseProject.Controllers
             {
                 return Unauthorized();
             }
-           
-
-           
         }
 
-        
+        [HttpPost]
+        [Authorize]
+        [Route("api/creatives")]
         public async Task<IHttpActionResult> PostCreative(NewCreativeModel model)
         {
             var creative = await InitNewCreative(model);
@@ -135,8 +130,8 @@ namespace CourseProject.Controllers
             {
                 Name = model.Name,
                 Description = model.Description,
-                Rating = 0,
                 Category = await db.Categories.Get(model.CategoryId)
+
             };
 
             var user = await db.FindUser(model.UserName);
@@ -160,8 +155,8 @@ namespace CourseProject.Controllers
                    UserName = creative.User.UserName,
                    Name = creative.Name,
                    Description = creative.Description,
-                   Rating = creative.Rating,
-                   Category = creative.Category
+                   Category = creative.Category,
+                   Rating = creative.Rating
                 });
             }
             return creatives;

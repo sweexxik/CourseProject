@@ -11,7 +11,7 @@ namespace CourseProject.Domain.Entities
 
         public string Description { get; set; }
 
-        public int Rating { get; set; }
+
 
         public virtual ApplicationUser User { get; set; }
 
@@ -20,5 +20,7 @@ namespace CourseProject.Domain.Entities
         public virtual List<Chapter> Chapters { get; set; }
 
         public virtual List<Comment> Comments { get; set; }
+
+        public virtual List<Rating> Rating { get; set; }
     }
 }

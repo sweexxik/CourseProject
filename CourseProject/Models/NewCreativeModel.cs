@@ -14,6 +14,6 @@ namespace CourseProject.Models
         public List<Chapter> Chapters { get; set; }
         public List<Comment> Comments { get; set; }
         public CreativeCategory Category { get; set; }
-        public int Rating { get; set; }
+        public List<Rating> Rating { get; set; }
     }
 }

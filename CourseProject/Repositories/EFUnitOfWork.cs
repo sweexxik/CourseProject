@@ -10,7 +10,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CourseProject.Repositories
 {
-    //todo apiController???
     public class EfUnitOfWork : IUnitOfWork
     {
         private readonly AuthContext db;
@@ -20,18 +19,14 @@ namespace CourseProject.Repositories
         private LikesRepository likesRepository;
         private ChaptersRepository chaptersRepository;
         private CreativeCategoryRepository categoryRepository;
+        private RatingsRepository ratingsRepository;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
-     
-
         private bool isDisposed;
 
         public EfUnitOfWork()
         {
             db = new AuthContext();
             userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-            roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
-
         }
         
         public IRepository<Creative> Creatives
@@ -50,6 +45,12 @@ namespace CourseProject.Repositories
             }
         }
 
+        public IRepository<Rating> Ratings {
+            get
+            {
+                return ratingsRepository ?? (ratingsRepository = new RatingsRepository(db));
+            }
+        }
 
         public IRepository<Comment> Comments
         {
@@ -86,7 +87,6 @@ namespace CourseProject.Repositories
             var result = await userManager.CreateAsync(user, userModel.Password);
 
             return result;
-
         }
 
         public async Task<ApplicationUser> FindUser(string userName)
@@ -101,13 +101,11 @@ namespace CourseProject.Repositories
                 Debug.WriteLine(ex.Message);
                 return null;
             }
-            
         }
 
         public async Task<ApplicationUser> FindUser(string userName, string password)
         {
             return await userManager.FindAsync(userName, password);
-           
         }
 
         public void Save()
