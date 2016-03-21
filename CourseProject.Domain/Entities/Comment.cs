@@ -8,7 +8,7 @@ namespace CourseProject.Domain.Entities
         public int Id { get; set; }
         public int CreativeId { get; set; }
         public string Text { get; set; }
-        public virtual IdentityUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
         public virtual List<Like> Likes { get; set; }
     }
 }

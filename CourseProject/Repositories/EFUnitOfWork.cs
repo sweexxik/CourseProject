@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web.Http;
-using CourseProject.Domain;
 using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
 using CourseProject.UserEntities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace CourseProject.Repositories
 {
     //todo apiController???
-    public class EfUnitOfWork : ApiController, IUnitOfWork
+    public class EfUnitOfWork : IUnitOfWork
     {
         private readonly AuthContext db;
 
@@ -24,7 +20,8 @@ namespace CourseProject.Repositories
         private LikesRepository likesRepository;
         private ChaptersRepository chaptersRepository;
         private CreativeCategoryRepository categoryRepository;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
      
 
         private bool isDisposed;
@@ -32,7 +29,9 @@ namespace CourseProject.Repositories
         public EfUnitOfWork()
         {
             db = new AuthContext();
-            userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(db));
+            userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+
         }
         
         public IRepository<Creative> Creatives
@@ -78,17 +77,19 @@ namespace CourseProject.Repositories
 
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
         {
-            var user = new IdentityUser
+            var user = new ApplicationUser()
             {
-                UserName = userModel.UserName
+                UserName = userModel.UserName,
+                JoinDate = DateTime.Now
             };
 
-            return await userManager.CreateAsync(user, userModel.Password);
+            var result = await userManager.CreateAsync(user, userModel.Password);
 
-           
+            return result;
+
         }
 
-        public async Task<IdentityUser> FindUser(string userName)
+        public async Task<ApplicationUser> FindUser(string userName)
         {
             try
             {
@@ -103,7 +104,7 @@ namespace CourseProject.Repositories
             
         }
 
-        public async Task<IdentityUser> FindUser(string userName, string password)
+        public async Task<ApplicationUser> FindUser(string userName, string password)
         {
             return await userManager.FindAsync(userName, password);
            
@@ -112,6 +113,11 @@ namespace CourseProject.Repositories
         public void Save()
         {
             db.SaveChanges();
+        }
+
+        public async Task<bool> CheckUserRole(string userId)
+        {
+          return await userManager.IsInRoleAsync(userId, "Admin");
         }
 
         public virtual void Dispose(bool disposing)

@@ -232,6 +232,10 @@
     <Compile Include="Migrations\201603201021275_CreativeDescription.Designer.cs">
       <DependentUpon>201603201021275_CreativeDescription.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603201704036_IdentityUserToApplicationUser.cs" />
+    <Compile Include="Migrations\201603201704036_IdentityUserToApplicationUser.Designer.cs">
+      <DependentUpon>201603201704036_IdentityUserToApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddOrUpdateChapterModel.cs" />
     <Compile Include="Models\NewCommentModel.cs" />
@@ -293,6 +297,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603201021275_CreativeDescription.resx">
       <DependentUpon>201603201021275_CreativeDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603201704036_IdentityUserToApplicationUser.resx">
+      <DependentUpon>201603201704036_IdentityUserToApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -7,7 +7,88 @@
         <div ng-repeat="item in chapters">
 			<h2 class="form-login-heading">Chapter #{{item.number}}: {{item.name}}</h2>	
 			<h3 class="form-login-heading">{{item.body}}</h3>  
-			<br><hr><br>
+			<br><hr>
+
 		</div>	
+        <h2 class="text-center form-login-heading">Comments: {{comments.length}}</h2><hr><br>       
+        <span  data-ng-repeat="comment in comments" >   
+        <div class="col-md-12">
+            <div class="col-md-2">
+                <div class="thumbnail">
+                    <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>#{{$index+1}} {{comment.userName}}</strong> <span class="text-muted">commented 5 days ago</span>
+                    </div>
+                    <div class="panel-body">
+                        {{comment.text}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </span>
+        <div  class="text-center">
+            <button type="button" class="btn btn-md btn-info" data-ng-click="addComment()">New comment</button>
+         </div>
+         <div class="row" data-ng-if="newComment != undefined">
+            <div class="col-md-2">
+                &nbsp;
+            </div>
+            <div class="col-md-8">               
+                <h2 class="form-login-heading"><p align="center">New comment</p></h2>
+                <textarea class="form-control" name="Text1" data-ng-model="newComment.text" cols="80" rows="5"></textarea>  
+                </textarea> 
+                <div class="col-md-4">
+                    &nbsp;
+                </div>
+                <div class="col-md-4">
+                    <br>
+                    <button class="btn btn-md btn-info btn-block" type="button" data-ng-click="createComment()">Save</button>   
+                    <br>  <br> 
+                </div> 
+            </div>
+        </div>
     </div>
 </div>
+
+<div class="container text-center">
+
+<h1> Click Me </h1>
+<!-- Large modal -->
+<button class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div id="Carousel" class="carousel slide" data-ride="carousel">
+
+  
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">   
+    <div class="item fill" ng-class="{active:!$index}" ng-repeat="chapter in chapters">
+    {{chapter.body}}
+      <div class="carousel-caption">
+        {{chapter.name}}
+      </div>
+    </div>
+  
+  </div>
+
+  <!-- Controls -->
+  <span class="left carousel-control" data-target="#Carousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+</span>
+<span class="right carousel-control" data-target="#Carousel" data-slide="next">
+   <span class="glyphicon glyphicon-chevron-right"></span>
+</span>
+</div>
+    </div>
+  </div>
+</div>
+</div>
+<br><br><br>
+

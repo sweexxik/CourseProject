@@ -12,11 +12,11 @@ namespace CourseProject.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private IUnitOfWork _repo;
+        private IUnitOfWork db;
 
         public AccountController()
         {
-            _repo = new EfUnitOfWork();
+            db = new EfUnitOfWork();
         }
 
         // POST api/Account/Register
@@ -29,7 +29,7 @@ namespace CourseProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await _repo.RegisterUser(userModel);
+            IdentityResult result = await db.RegisterUser(userModel);
 
             IHttpActionResult errorResult = GetErrorResult(result);
 
@@ -45,7 +45,7 @@ namespace CourseProject.Controllers
         {
             if (disposing)
             {
-                _repo.Dispose();
+                db.Dispose();
             }
 
             base.Dispose(disposing);

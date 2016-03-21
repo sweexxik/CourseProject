@@ -13,6 +13,7 @@ namespace CourseProject.Controllers
     {
         private IUnitOfWork db = new EfUnitOfWork();
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/comments/{id}")]
         public IHttpActionResult GetComments(int id)
@@ -24,7 +25,7 @@ namespace CourseProject.Controllers
             return Ok(comments);
         }
 
-
+        [Authorize]
         [HttpPost]
         public async Task<IHttpActionResult> AddComment(NewCommentModel model)
         {
@@ -37,6 +38,7 @@ namespace CourseProject.Controllers
             return Ok(new { status = "200" });
         }
 
+        [Authorize]
         [HttpPost]
         [Route("api/comments/delete/{id}")]
         public async Task<IHttpActionResult> DeleteComment(int id)

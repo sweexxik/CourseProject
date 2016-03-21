@@ -13,7 +13,7 @@ namespace CourseProject.Domain.Entities
 
         public int Rating { get; set; }
 
-        public virtual IdentityUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         public virtual CreativeCategory Category { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Domain.Entities;
@@ -16,16 +17,18 @@ namespace CourseProject.Controllers
     {
         private IUnitOfWork db = new EfUnitOfWork();
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/creatives/getall")]
-        public IHttpActionResult GetAllCreatives()
-        {
+        public IHttpActionResult GetAllCreatives(){
+
             var creatives = InitCreativeModel(db.Creatives.GetAll().ToList());
 
             return Ok(creatives);
         }
 
         [HttpGet]
+        [Authorize]
         [Route("api/creatives/getall/{username}")]
         public async Task<IHttpActionResult> GetCreatives(string userName)
         {
@@ -65,16 +68,28 @@ namespace CourseProject.Controllers
         [Route("api/creatives/delete/{id}")]
         public async Task<IHttpActionResult> DeleteCreative(int id)
         {
-            var item = await db.Creatives.Delete(id);
+            var creative = await db.Creatives.Get(id);
+            var result = await db.CheckUserRole(creative.User.Id);
 
-            if (item == null)
+            if (result)
             {
-                return BadRequest("Null reference");
+                var item = await db.Creatives.Delete(id);
+
+                if (item == null)
+                {
+                    return BadRequest("Null reference");
+                }
+
+                db.Save();
+                return Ok(new { status = "200" });
             }
+            else
+            {
+                return Unauthorized();
+            }
+           
 
-            db.Save();
-
-            return Ok(new { status = "200" });
+           
         }
 
         

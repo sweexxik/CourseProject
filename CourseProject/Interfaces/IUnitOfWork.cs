@@ -16,9 +16,10 @@ namespace CourseProject.Interfaces
         IRepository<Chapter> Chapters { get; }
         IRepository<Like> Likes { get; }
         IRepository<CreativeCategory> Categories { get; }
-        Task<IdentityUser> FindUser(string userName);
-        Task<IdentityUser> FindUser(string userName, string password);
+        Task<ApplicationUser> FindUser(string userName);
+        Task<ApplicationUser> FindUser(string userName, string password);
         Task<IdentityResult> RegisterUser(UserModel userModel);
+        Task<bool> CheckUserRole(string userId);
         void Save();
     }
 }

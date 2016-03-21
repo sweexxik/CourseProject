@@ -5,7 +5,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CourseProject.UserEntities
 {
-    public class AuthContext : IdentityDbContext<IdentityUser>
+    public class AuthContext : IdentityDbContext<ApplicationUser>
     {
         public AuthContext()
             : base("AuthContext")

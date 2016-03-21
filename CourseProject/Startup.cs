@@ -38,6 +38,7 @@ namespace CourseProject
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
 
                 Provider = new SimpleAuthorizationServerProvider()
+               
             };
 
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
