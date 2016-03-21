@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('showCreativeController', ['$route','$scope', '$location','$timeout','$routeParams','authService','creativeService','localStorageService',
-    function ($route,$scope, $location,$timeout,$routeParams, authService,creativeService,localStorageService) {
+app.controller('showCreativeController', ['$window','$route','$scope', '$location','$timeout','$routeParams','authService','creativeService','localStorageService',
+    function ($window,$route,$scope, $location,$timeout,$routeParams, authService,creativeService,localStorageService) {
     
     $scope.authentication = authService.authentication;
     $scope.creative = [];   
@@ -13,8 +13,8 @@ app.controller('showCreativeController', ['$route','$scope', '$location','$timeo
     $scope.percentage3 = 0;
     $scope.percentage4 = 0;
     $scope.percentage5 = 0;
-
     $scope.newComment = undefined;
+
     var creativeId = $routeParams.Id;   
 
     var newCommentModel = {
@@ -23,19 +23,22 @@ app.controller('showCreativeController', ['$route','$scope', '$location','$timeo
         creativeId:0,
         userName:""
     };
+    
     var newLikeModel = {
         commentId:0,
-        userName:""
+        userName:"",
+        id:0
     };
 
     var newRatingModel = {
         value:0,
-        creativeId:0
+        creativeId:0,
+        userName:""
     };
 
-    
     creativeService.getCreative(creativeId).then(function (results) {
         initCreative(results);
+        console.log($scope.authentication);
         }, function (error) {
             console.log(error);
         });
@@ -44,9 +47,9 @@ app.controller('showCreativeController', ['$route','$scope', '$location','$timeo
         $scope.comments = result.data;
        }, function(error){
         console.log(error);
-    });
+        });
 
-     $scope.addComment = function(){
+     $scope.showNewComment = function(){
         if(authService.authentication.isAuth) {
             $scope.newComment = {};
         }
@@ -62,38 +65,63 @@ app.controller('showCreativeController', ['$route','$scope', '$location','$timeo
          });     
     };
 
+   $scope.deleteComment = function(id){
+        var result = $window.confirm('Are you absolutely sure you want to delete?');
+        if (result) {
+            creativeService.deleteComment(id).then(function(results) {
+                $scope.comments = results.data;
+            });  
+        }        
+    }
+
     $scope.setLike = function(id){
         var commentId = id;
         newLikeModel.userName = localStorageService.get('authorizationData').userName;
         newLikeModel.commentId = commentId;
+
         creativeService.createLike(newLikeModel).then(function(result){
             for (var i = 0; i < $scope.comments.length; i++) {
                 if($scope.comments[i].id === commentId){
-                    $scope.comments[i] = result.data;
-                    console.log($scope.comments[i]);
-                    console.log(result.data);
+                    $scope.comments[i] = result.data;  
+                    console.log(result.data);               
                 }
             }      
         })
    };
 
    $scope.setRating = function(id) {
+
         newRatingModel.creativeId = creativeId;
         newRatingModel.value = id;
+        newRatingModel.userName = localStorageService.get('authorizationData').userName;
+
         creativeService.createRating(newRatingModel).then(function(results){          
             $scope.ratings = results.data;
-            $scope.ratingsAvg = (calcAvg()/$scope.ratings.length).toPrecision(3);
+            $scope.ratingsAvg = calcAvg();
             setPercentage();
         });     
    };
 
     var calcAvg = function (){        
         var sum = 0;
+        var defaultResult = 0;
         for (var i = 0; i < $scope.ratings.length; i++) {            
             sum = sum + $scope.ratings[i].value;          
         }
-        return sum;
+        var value = (sum/$scope.ratings.length).toPrecision(3);
+        if ($.isNumeric(value)) {
+            return value;
+        }
+        return defaultResult;
    };
+
+    var initCreative = function (results) {
+        $scope.creative = results.data;
+        $scope.chapters = creativeService.sortChapters(results.data); 
+        $scope.ratings = results.data.rating;
+        $scope.ratingsAvg = calcAvg();
+        setPercentage();
+   }
 
    var initComment = function(){
         newCommentModel.userName = localStorageService.get('authorizationData').userName;   
@@ -101,13 +129,7 @@ app.controller('showCreativeController', ['$route','$scope', '$location','$timeo
         newCommentModel.creativeId = creativeId;
    };
 
-   var initCreative = function (results) {
-        $scope.creative = results.data;
-        $scope.chapters = creativeService.sortChapters(results.data); 
-        $scope.ratings = results.data.rating;
-        $scope.ratingsAvg = (calcAvg()/$scope.ratings.length).toPrecision(3);
-        setPercentage();
-   }
+   
 
     var setPercentage = function () {
 
@@ -116,6 +138,7 @@ app.controller('showCreativeController', ['$route','$scope', '$location','$timeo
         $scope.percentage3 = 0;    
         $scope.percentage4 = 0;    
         $scope.percentage5 = 0;   
+
         for (var i = 0; i < $scope.ratings.length; i++) {
         switch($scope.ratings[i].value){
             case 1: $scope.percentage1++;
@@ -132,7 +155,8 @@ app.controller('showCreativeController', ['$route','$scope', '$location','$timeo
             }
         }
 
-        var len =  $scope.ratings.length /200;
+        //magic value
+        var len =  $scope.ratings.length /255;
 
         $scope.percentage1 =  ($scope.percentage1/len).toPrecision(3);
         $scope.percentage2 =  ($scope.percentage2/len).toPrecision(3);

@@ -249,6 +249,10 @@
     <Compile Include="Migrations\201603211157296_fix referencing loop of rating.Designer.cs">
       <DependentUpon>201603211157296_fix referencing loop of rating.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603211429478_rating+UserId.cs" />
+    <Compile Include="Migrations\201603211429478_rating+UserId.Designer.cs">
+      <DependentUpon>201603211429478_rating+UserId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddOrUpdateChapterModel.cs" />
     <Compile Include="Models\NewCommentModel.cs" />
@@ -324,6 +328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603211157296_fix referencing loop of rating.resx">
       <DependentUpon>201603211157296_fix referencing loop of rating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603211429478_rating+UserId.resx">
+      <DependentUpon>201603211429478_rating+UserId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

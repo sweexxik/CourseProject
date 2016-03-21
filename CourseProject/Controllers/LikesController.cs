@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Domain.Entities;
@@ -38,7 +39,9 @@ namespace CourseProject.Controllers
 
             db.Save();
 
-            var result = await db.Comments.Get(model.CommentId);
+            var comment = db.Comments.Find(x=>x.Id == model.CommentId);
+
+            var result = CommentsController.InitCommentsModel(comment).First();
 
             return Ok(result);
         }

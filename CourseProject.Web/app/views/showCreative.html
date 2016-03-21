@@ -155,13 +155,18 @@
                     </div>
                     <div class="panel-body status-upload">
                         {{comment.text}}                 
-                        <div class="status-upload"> 
+                        <div data-ng-if="authentication.isAuth" class="status-upload"> 
                              <ul>
                                 <li>
                                    <a data-ng-click="setLike(comment.id)" title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio">
-                                        <i class="fa fa-thumbs-o-up">{{comment.likes.length}}</i>
+                                        <i class="fa fa-2x fa-thumbs-o-up ">{{comment.likes.length}}</i>
                                     </a>
-                                </li>                                
+                                </li>
+                                 <li data-ng-if="comment.userName == authentication.userName ">
+                                   <a data-ng-click="deleteComment(comment.id)" title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio">
+                                        <i class="fa fa-2x fa-cut"></i>
+                                    </a>
+                                </li>                                      
                             </ul>
                         </div>
                     </div>
@@ -170,7 +175,7 @@
         </div>
         </span>
         <div  class="text-center">
-            <button type="button" class="btn btn-md btn-info" data-ng-click="addComment()">New comment</button>
+            <button type="button" class="btn btn-info" data-ng-click="showNewComment()">New comment</button>
          </div>
 
 
@@ -187,7 +192,7 @@
                                             <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>
                                             <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>
                                         </ul>
-                                        <button type="button" data-ng-click="createComment()" class="btn btn-success green"><i class="fa fa-share"></i> Publish</button>
+                                        <button type="button" data-ng-click="createComment()" class="btn btn-success green"><i class="fa fa-share"></i>Publish</button>
                                     </form>
                                 </div><!-- Status Upload  -->
                             </div><!-- Widget Area -->

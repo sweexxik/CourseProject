@@ -44,16 +44,21 @@ namespace CourseProject.Controllers
         [Route("api/comments/delete/{id}")]
         public async Task<IHttpActionResult> DeleteComment(int id)
         {
-            var result = await db.Comments.Delete(id);
+       
+            var comment = await db.Comments.Delete(id);
 
-            if (result == null)
+            if (comment == null)
             {
                 return BadRequest("Null reference");
             }
 
             db.Save();
 
-            return Ok(new { status = "200" });
+            var comments = db.Comments.Find(x => x.CreativeId == comment.CreativeId);
+
+            var result = InitCommentsModel(comments);
+
+            return Ok(result);
         }
 
         private async Task<Comment> InitNewComment(NewCommentModel model)
@@ -67,9 +72,8 @@ namespace CourseProject.Controllers
             };
         }
 
-        private List<NewCommentModel> InitCommentsModel(List<Comment> list)
+        public static List<NewCommentModel> InitCommentsModel(IEnumerable<Comment> list)
         {
-           
             var comments = new List<NewCommentModel>();
 
             foreach (var comment in list)

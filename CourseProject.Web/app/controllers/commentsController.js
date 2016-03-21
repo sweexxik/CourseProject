@@ -12,6 +12,7 @@ app.controller('commentsController', ['$scope', '$routeParams','$location', 'cre
     };
 
     $scope.newComment = undefined;
+    
     $scope.commentText = "";
 
     var newLikeModel = {
@@ -26,7 +27,7 @@ app.controller('commentsController', ['$scope', '$routeParams','$location', 'cre
         console.log(error);
     });
 
-    $scope.delete = function(id){
+    $scope.deleteComment = function(id){
         var result = $window.confirm('Are you absolutely sure you want to delete?');
         if (result) {
             creativeService.deleteComment(id).then(function(results) {
