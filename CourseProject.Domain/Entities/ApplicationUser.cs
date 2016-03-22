@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CourseProject.Domain.Entities
@@ -13,5 +14,6 @@ namespace CourseProject.Domain.Entities
 
         public string AvatarUri { get; set; }
 
+        public virtual List<Medal> Medals { get; set; }
     }
 }

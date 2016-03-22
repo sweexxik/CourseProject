@@ -41,7 +41,7 @@ app.controller('commentsController', ['$scope', '$routeParams','$location', 'cre
     $scope.createComment = function(formData){        
         initCommentModel();
         creativeService.createComment(newCommentModel).then(function(results){
-             $route.reload();
+            $scope.comments = results.data;
          });     
    };
 

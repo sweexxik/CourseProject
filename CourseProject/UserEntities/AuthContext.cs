@@ -17,5 +17,6 @@ namespace CourseProject.UserEntities
         public DbSet<Like> Likes { get; set; }
         public DbSet<CreativeCategory> Categories { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Medal> Medals { get; set; }
     }
 }

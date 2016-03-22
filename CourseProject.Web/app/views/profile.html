@@ -30,9 +30,23 @@
 	</tr>
 	<tr>
 		<td>Avatar</td>
-		<td>
-		<img data-ng-if="userInfo.firstName != undefined" width="100px" height="100px" data-ng-src="{{userInfo.avatarUri}}"></td>
-		<img data-ng-if="newUserInfo != undefined" width="100px" height="100px" data-ng-src="{{newUserInfo.avatarUri}}"></td>
+		<td data-ng-if="userInfo.avatarUri != undefined">
+			<img  width="100px" height="100px" data-ng-src="{{userInfo.avatarUri}}">
+		</td>
+		<td data-ng-if="(userInfo.avatarUri == undefined) && (newUserInfo == undefined)">NULL</td>	
+		<td data-ng-if="newUserInfo != undefined" >
+		<div class="btn btn-primary-outline" ngf-select ng-model="$parent.file" ngf-multiple="false">Select File</div>
+		<div ngf-drop ngf-select ng-model="$parent.files" class="drop-box" ngf-drag-over-class="'dragover'"
+			ngf-multiple="true" ngf-allow-dir="true" accept="image/*,application/pdf" ngf-pattern="'image/*,application/pdf'">
+			Drop pdfs or images here or click to upload
+		</div>
+        <ul>
+        	<li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}</li>
+    	</ul>
+		<div data-ng-if="log != ''">Upload Log:
+		    <pre style="width: 50%; height: 20%">{{log}}</pre>
+		</div>
+		</td>
 	</tr>
 	<tr>
 		<td>Last Name</td>
@@ -73,6 +87,19 @@
 		<td>{{userInfo.id}}</td>
 	</tr>
 	<tr>
+		<td>
+			Medals:
+		</td>
+		<td>
+			<ul>
+				<li data-ng-repeat="medal in userInfo.medals">
+					{{medal.name}}
+				</li>
+				
+			</ul>
+		</td>
+	</tr>
+	<tr>
 		<td>Roles</td>
 		<td>
 			<ul data-ng-repeat="role in userInfo.roles">
@@ -80,22 +107,7 @@
 			</ul>
 		</td>
 	</tr>
-	<tr>
-		<td>Photo</td>
-		<td>
-		<div class="btn btn-primary-outline" ngf-select ng-model="file" ngf-multiple="false">Select File</div>
-		 <div ngf-drop ngf-select ng-model="files" class="drop-box" 
-        ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
-        accept="image/*,application/pdf" 
-        ngf-pattern="'image/*,application/pdf'">Drop pdfs or images here or click to upload</div>
-         <ul>
-        	<li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}</li>
-    	</ul>
-		    <div data-ng-if="log != ''">Upload Log:
-		    	<pre style="width: 50%; height: 20%">{{log}}</pre>
-		    </div>		
-		</td>
-	</tr>
+
 	<tr><td><button class="btn btn-primary" data-ng-click="saveUserInfo()">Save changes</button></td></tr>
 </table>
 

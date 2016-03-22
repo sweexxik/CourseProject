@@ -21,6 +21,7 @@ app.controller('profileController', ['$http','$scope', '$location', 'authService
         console.log($scope.newUserInfo);
         $scope.userInfo.firstName = undefined;
         $scope.userInfo.lastName = undefined;
+        $scope.userInfo.avatarUri = undefined;
         $scope.userInfo.email = undefined;
         $scope.userInfo.phoneNumber = undefined;
         console.log($scope.newUserInfo);
@@ -30,24 +31,28 @@ app.controller('profileController', ['$http','$scope', '$location', 'authService
     $scope.saveUserInfo = function () {
         $scope.newUserInfo.userName = $scope.userInfo.userName;
         authService.saveUserInfo($scope.newUserInfo).then(function(results){
+            $scope.upload($scope.files);
             $scope.userInfo = results.data;
             $scope.newUserInfo = undefined;
+
             });
        
     };
 
+    // $scope.$watch('files', function () {
+    //     $scope.upload($scope.files);
+    // });
 
-    $scope.$watch('files', function () {
-        $scope.upload($scope.files);
-    });
-    $scope.$watch('file', function () {
-        if ($scope.file != null) {
-            $scope.files = [$scope.file]; 
-        }
-    });
+    // $scope.$watch('file', function () {
+    //     if ($scope.file != null) {
+    //         $scope.files = [$scope.file]; 
+    //     }
+    // });
+
     $scope.log = '';
 
     $scope.upload = function (files) {
+        console.log("Upload starts");
         if (files && files.length) {
             for (var i = 0; i < files.length; i++) {
               var file = files[i];
@@ -61,9 +66,9 @@ app.controller('profileController', ['$http','$scope', '$location', 'authService
                 }).then(function (resp) {
                     $timeout(function() {
                         $scope.log = 'file: ' +
-                        resp.config.data.file.name +
-                       // ', Response: ' + JSON.stringify(resp.data) +
+                        resp.config.data.file.name +                     
                         '\n' + $scope.log;
+                         $scope.userInfo = resp.data;
                     });
                 }, null, function (evt) {
                     var progressPercentage = parseInt(100.0 *
@@ -71,6 +76,7 @@ app.controller('profileController', ['$http','$scope', '$location', 'authService
                     $scope.log = 'progress: ' + progressPercentage + 
                         '% ' + evt.config.data.file.name + '\n' + 
                       $scope.log;
+                      
                 });
               }
             }

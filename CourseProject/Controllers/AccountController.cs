@@ -1,15 +1,10 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
-using CourseProject.Providers;
 using CourseProject.Repositories;
 using Microsoft.AspNet.Identity;
-using Newtonsoft.Json.Linq;
 
 namespace CourseProject.Controllers
 {
@@ -23,7 +18,6 @@ namespace CourseProject.Controllers
             db = new EfUnitOfWork();
         }
 
-        // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(UserModel userModel)
@@ -74,21 +68,10 @@ namespace CourseProject.Controllers
                 await db.UpdateUser(updUser);
 
                 return Ok(user);
-               
             }
-
             return BadRequest("User not found");
         }
-
-        [HttpPost]
-        [Route("avatar")]
-        public IHttpActionResult SaveAvatar()
-        {
-            return Ok();
-        }
-
-
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -118,7 +101,6 @@ namespace CourseProject.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    // No ModelState errors are available to send, so just return an empty BadRequest.
                     return BadRequest();
                 }
 

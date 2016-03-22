@@ -14,6 +14,7 @@ namespace CourseProject.Interfaces
         IRepository<Like> Likes { get; }
         IRepository<CreativeCategory> Categories { get; }
         IRepository<Rating> Ratings { get; }
+        IRepository<Medal> Medals { get; }
 
         Task<ApplicationUser> FindUser(string userName);
         Task<ApplicationUser> FindUser(string userName, string password);

@@ -198,8 +198,8 @@
     <Compile Include="Controllers\CreativesController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\RatingsController.cs" />
-    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Interfaces\IMedalService.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\201603171237585_compose 2 storages.cs" />
@@ -262,6 +262,10 @@
     <Compile Include="Migrations\201603221503470_avatar+.Designer.cs">
       <DependentUpon>201603221503470_avatar+.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603221631049_medalEntity.cs" />
+    <Compile Include="Migrations\201603221631049_medalEntity.Designer.cs">
+      <DependentUpon>201603221631049_medalEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddOrUpdateChapterModel.cs" />
     <Compile Include="Models\PhotoActionResult.cs" />
@@ -280,7 +284,9 @@
     <Compile Include="Repositories\CreativesRepository.cs" />
     <Compile Include="Repositories\EFUnitOfWork.cs" />
     <Compile Include="Repositories\LikesRepository.cs" />
+    <Compile Include="Repositories\MedalsRepository.cs" />
     <Compile Include="Repositories\RatingsRepository.cs" />
+    <Compile Include="Services\MedalService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="UserEntities\AuthContext.cs" />
   </ItemGroup>
@@ -346,6 +352,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603221503470_avatar+.resx">
       <DependentUpon>201603221503470_avatar+.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603221631049_medalEntity.resx">
+      <DependentUpon>201603221631049_medalEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

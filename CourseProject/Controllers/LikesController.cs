@@ -1,17 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
 using CourseProject.Repositories;
+using CourseProject.Services;
 
 namespace CourseProject.Controllers
 {
     public class LikesController : ApiController
     {
-        private IUnitOfWork db = new EfUnitOfWork();
+        private readonly IUnitOfWork db;
+        private readonly IMedalService medalService;
+
+        public LikesController()
+        {
+            db = new EfUnitOfWork();
+            medalService = new MedalService();
+        }
 
         [HttpGet]
         [Route("api/likes/{id}")]
@@ -41,26 +48,28 @@ namespace CourseProject.Controllers
 
             var comment = db.Comments.Find(x=>x.Id == model.CommentId);
 
+            await medalService.CheckMedals(user.UserName);
+
             var result = CommentsController.InitCommentsModel(comment).First();
 
             return Ok(result);
         }
 
-        [HttpPost]
-        [Route("api/likes/delete/{id}")]
-        public async Task<IHttpActionResult> DeleteLike(int id)
-        {
-            var result = await db.Likes.Delete(id);
+        //[HttpPost]
+        //[Route("api/likes/delete/{id}")]
+        //public async Task<IHttpActionResult> DeleteLike(int id)
+        //{
+        //    var result = await db.Likes.Delete(id);
 
-            if (result == null)
-            {
-                return BadRequest("Null reference");
-            }
+        //    if (result == null)
+        //    {
+        //        return BadRequest("Null reference");
+        //    }
 
-            db.Save();
+        //    db.Save();
 
-            return Ok(new { status = "200" });
-        }
+        //    return Ok(new { status = "200" });
+        //}
 
 
         private async void RemoveLike(NewLikeModel model, ApplicationUser user)
@@ -75,5 +84,8 @@ namespace CourseProject.Controllers
                 }
             }
         }
+
+       
+
     }
 }

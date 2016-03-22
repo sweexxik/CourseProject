@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
 using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
@@ -11,8 +10,12 @@ namespace CourseProject.Controllers
 {
     public class ChaptersController : ApiController
     {
-        private IUnitOfWork db = new EfUnitOfWork();
+        private readonly IUnitOfWork db;
 
+        public ChaptersController()
+        {
+            db = new EfUnitOfWork();
+        }
 
         public IEnumerable<Chapter> GetCategories()
         {

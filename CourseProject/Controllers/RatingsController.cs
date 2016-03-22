@@ -10,7 +10,12 @@ namespace CourseProject.Controllers
 {
     public class RatingsController : ApiController
     {
-        private IUnitOfWork db = new EfUnitOfWork();
+        private readonly IUnitOfWork db;
+
+        public RatingsController()
+        {
+            db = new EfUnitOfWork();
+        }
        
         [HttpPost]
         [Authorize]

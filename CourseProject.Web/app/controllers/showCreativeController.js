@@ -13,6 +13,7 @@ app.controller('showCreativeController', ['$window','$route','$scope', '$locatio
     $scope.percentage3 = 0;
     $scope.percentage4 = 0;
     $scope.percentage5 = 0;
+
     $scope.newComment = undefined;
 
     var creativeId = $routeParams.Id; 
@@ -41,18 +42,8 @@ app.controller('showCreativeController', ['$window','$route','$scope', '$locatio
     $scope.storeChapterId = function(id){
         savedChapter++;
         console.log(id);
-    }
-  
-    $scope.test = function () {
-        // console.log("texst");
-        // var temp1 = $scope.chapters[2];
-        // var temp2 = $scope.chapters[0];
-        // console.log(temp1);
-        // console.log(temp2);
-        // $scope.chapters[0] = temp1;
-        // $scope.chapters[2] = temp2;
-
-    }
+    }  
+    
     creativeService.getCreative(creativeId).then(function (results) {
         initCreative(results);
         console.log($scope.authentication);
@@ -78,7 +69,7 @@ app.controller('showCreativeController', ['$window','$route','$scope', '$locatio
     $scope.createComment = function(formData){        
         initComment();
         creativeService.createComment(newCommentModel).then(function(results){
-             $route.reload();
+            $scope.comments = results.data;
          });     
     };
 

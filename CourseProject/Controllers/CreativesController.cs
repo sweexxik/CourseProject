@@ -6,12 +6,20 @@ using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
 using CourseProject.Repositories;
+using CourseProject.Services;
 
 namespace CourseProject.Controllers
 {
     public class CreativesController : ApiController
     {
-        private IUnitOfWork db = new EfUnitOfWork();
+        private readonly IUnitOfWork db;
+        private readonly IMedalService medalService;
+
+        public CreativesController()
+        {
+            db = new EfUnitOfWork();
+            medalService = new MedalService();
+        }
 
         [AllowAnonymous]
         [HttpGet]
@@ -65,6 +73,7 @@ namespace CourseProject.Controllers
         public async Task<IHttpActionResult> DeleteCreative(int id)
         {
             var currentCreative = await db.Creatives.Get(id);
+
             var userId = currentCreative.User.Id;
 
             var item = await db.Creatives.Delete(id);
@@ -76,6 +85,8 @@ namespace CourseProject.Controllers
 
             db.Save();
 
+            await medalService.CheckMedals(currentCreative.User.UserName);
+
             var result = db.Creatives.Find(x => x.User.Id == userId);
 
             return Ok(result);
@@ -86,13 +97,15 @@ namespace CourseProject.Controllers
         [HttpPost]
         [Authorize]
         [Route("api/creatives")]
-        public async Task<IHttpActionResult> PostCreative(NewCreativeModel model)
+        public async Task<IHttpActionResult> CreateCreative(NewCreativeModel model)
         {
             var creative = await InitNewCreative(model);
 
             db.Creatives.Create(creative);
 
             db.Save();
+
+            await medalService.CheckMedals(creative.User.UserName);
 
             return Ok(new {status = "200"} );
         }
@@ -129,7 +142,6 @@ namespace CourseProject.Controllers
                 Name = model.Name,
                 Description = model.Description,
                 Category = await db.Categories.Get(model.CategoryId)
-
             };
 
             var user = await db.FindUser(model.UserName);

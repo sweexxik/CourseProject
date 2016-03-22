@@ -8,7 +8,12 @@ namespace CourseProject.Controllers
 {
     public class CategoriesController : ApiController
     {
-        private IUnitOfWork db = new EfUnitOfWork();
+        private readonly IUnitOfWork db;
+
+        public CategoriesController()
+        {
+            db = new EfUnitOfWork();
+        }
 
         // GET: api/Categories
         public IEnumerable<CreativeCategory> GetCategories()

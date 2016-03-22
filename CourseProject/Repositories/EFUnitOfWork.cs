@@ -20,6 +20,7 @@ namespace CourseProject.Repositories
         private ChaptersRepository chaptersRepository;
         private CreativeCategoryRepository categoryRepository;
         private RatingsRepository ratingsRepository;
+        private MedalsRepository medalsRepository;
         private readonly UserManager<ApplicationUser> userManager;
         private bool isDisposed;
 
@@ -31,49 +32,36 @@ namespace CourseProject.Repositories
         
         public IRepository<Creative> Creatives
         {
-            get
-            {
-                return creativesRepository ?? (creativesRepository = new CreativesRepository(db));
-            }
+            get { return creativesRepository ?? (creativesRepository = new CreativesRepository(db)); }
         }
 
         public IRepository<CreativeCategory> Categories
         {
-            get
-            {
-                return categoryRepository ?? (categoryRepository = new CreativeCategoryRepository(db));
-            }
+            get { return categoryRepository ?? (categoryRepository = new CreativeCategoryRepository(db)); }
         }
 
         public IRepository<Rating> Ratings {
-            get
-            {
-                return ratingsRepository ?? (ratingsRepository = new RatingsRepository(db));
-            }
+            get { return ratingsRepository ?? (ratingsRepository = new RatingsRepository(db)); }
+        }
+
+        public IRepository<Medal> Medals
+        {
+            get { return medalsRepository ?? (medalsRepository = new MedalsRepository(db)); }
         }
 
         public IRepository<Comment> Comments
         {
-            get
-            {
-                return commentsRepository ?? (commentsRepository = new CommentsRepository(db));
-            }
+            get { return commentsRepository ?? (commentsRepository = new CommentsRepository(db)); }
         }
 
         public IRepository<Chapter> Chapters
         {
-            get
-            {
-                return chaptersRepository ?? (chaptersRepository = new ChaptersRepository(db));
-            }
+            get { return chaptersRepository ?? (chaptersRepository = new ChaptersRepository(db)); }
         }
 
         public IRepository<Like> Likes
         {
-            get
-            {
-                return likesRepository ?? (likesRepository = new LikesRepository(db));
-            }
+            get { return likesRepository ?? (likesRepository = new LikesRepository(db)); }
         }
 
         public async Task<IdentityResult> UpdateUser(ApplicationUser user)
@@ -83,7 +71,7 @@ namespace CourseProject.Repositories
 
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
         {
-            var user = new ApplicationUser()
+            var user = new ApplicationUser
             {
                 UserName = userModel.UserName,
                 JoinDate = DateTime.Now
@@ -96,16 +84,7 @@ namespace CourseProject.Repositories
 
         public async Task<ApplicationUser> FindUser(string userName)
         {
-            try
-            {
-             var user =  await userManager.FindByNameAsync(userName);
-                return user;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return null;
-            }
+            return await userManager.FindByNameAsync(userName);
         }
 
         public async Task<ApplicationUser> FindUser(string userName, string password)

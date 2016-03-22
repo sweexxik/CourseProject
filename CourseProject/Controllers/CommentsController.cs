@@ -7,12 +7,20 @@ using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
 using CourseProject.Repositories;
+using CourseProject.Services;
 
 namespace CourseProject.Controllers
 {
     public class CommentsController : ApiController
     {
-        private IUnitOfWork db = new EfUnitOfWork();
+        private readonly IUnitOfWork db;
+        private readonly IMedalService medalService;
+
+        public CommentsController()
+        {
+            db = new EfUnitOfWork();
+            medalService = new MedalService();
+        }
 
         [AllowAnonymous]
         [HttpGet]
@@ -30,13 +38,16 @@ namespace CourseProject.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> AddComment(NewCommentModel model)
         {
-            var comment =  await InitNewComment(model);
+          
+            var comment = await InitNewComment(model);
            
             db.Comments.Create(comment);
 
             db.Save();
 
-            return Ok(new { status = "200" });
+            await medalService.CheckMedals(model.UserName);
+
+            return Ok(db.Comments.Find(x=>x.CreativeId == comment.CreativeId));
         }
 
         [Authorize]
@@ -44,7 +55,10 @@ namespace CourseProject.Controllers
         [Route("api/comments/delete/{id}")]
         public async Task<IHttpActionResult> DeleteComment(int id)
         {
-       
+            var comm = await db.Comments.Get(id);
+
+            var userName = comm.User.UserName;
+
             var comment = await db.Comments.Delete(id);
 
             if (comment == null)
@@ -53,6 +67,8 @@ namespace CourseProject.Controllers
             }
 
             db.Save();
+            
+            await medalService.CheckMedals(userName);
 
             var comments = db.Comments.Find(x => x.CreativeId == comment.CreativeId);
 

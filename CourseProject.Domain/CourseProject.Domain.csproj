@@ -56,6 +56,7 @@
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\CreativeCategory.cs" />
     <Compile Include="Entities\Like.cs" />
+    <Compile Include="Entities\Medal.cs" />
     <Compile Include="Entities\Rating.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -17,60 +17,18 @@ namespace CourseProject.Controllers
     {
         private readonly string workingFolder = HttpRuntime.AppDomainAppPath + @"\Uploads";
 
-        private IUnitOfWork db;
+        private readonly IUnitOfWork db;
 
         public UploadController()
         {
             db = new EfUnitOfWork();
         }
-
-        [HttpGet]
-        [Authorize]
-        [Route("api/upload/{fileName}")]
-        public async Task<IHttpActionResult> Get(string fileName)
-        {
-            var photoFolder = new DirectoryInfo(workingFolder);
-
-            var result = "";
-
-            foreach (var fileInfo in photoFolder.GetFiles())
-            {
-                if (fileInfo.Name.Split('.')[0] == fileName)
-                {
-                    result = fileInfo.FullName;
-                }
-            }
-
-            return Ok(result);
-        }
-
+        
  
         [HttpDelete]
-        public async Task<IHttpActionResult> Delete(string fileName)
+        public IHttpActionResult Delete(string fileName)
         {
-            if (!FileExists(fileName))
-            {
-                return NotFound();
-            }
-            try
-            {
-                var filePath = Directory.GetFiles(workingFolder, fileName)
-                  .FirstOrDefault();
-
-                await Task.Factory.StartNew(() =>
-                {
-                    if (filePath != null)
-                        File.Delete(filePath);
-                });
-
-              
-                return Ok(new { message = "OK" });
-            }
-            catch (Exception ex)
-            {
-               
-                return BadRequest("NE ok");
-            }
+            return Ok();
         }
 
         [HttpPost]
