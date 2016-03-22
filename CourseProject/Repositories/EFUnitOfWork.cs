@@ -76,6 +76,11 @@ namespace CourseProject.Repositories
             }
         }
 
+        public async Task<IdentityResult> UpdateUser(ApplicationUser user)
+        {
+            return await userManager.UpdateAsync(user);
+        }
+
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
         {
             var user = new ApplicationUser()

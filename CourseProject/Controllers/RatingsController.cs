@@ -13,6 +13,7 @@ namespace CourseProject.Controllers
         private IUnitOfWork db = new EfUnitOfWork();
        
         [HttpPost]
+        [Authorize]
         [Route("api/rating")]
         public async Task<IHttpActionResult> AddRating(NewRatingModel model)
         {

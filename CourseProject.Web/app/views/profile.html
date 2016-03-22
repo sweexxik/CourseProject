@@ -1,0 +1,109 @@
+<div class="container">
+	
+
+<p align="center"><a class="btn icon-btn btn-success" data-ng-click="initNewUserInfo()"><span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>Edit profile</a></p>
+<div class="col-md-4">
+	&nbsp;
+</div>
+<div class="col-md-8">
+<table class="table">
+<thead>
+	<tr>
+		<th>Property</th>
+		<th>Value</th>
+	</tr>
+</thead>
+	<tr>
+		<td>UserName</td>
+		<td>{{userInfo.userName}}</td>
+
+	</tr>
+	<tr>
+		<td>First Name</td>
+		<td data-ng-if="userInfo.firstName != undefined">{{userInfo.firstName}}</td>
+		<td data-ng-if="(userInfo.firstName == undefined) && (newUserInfo == undefined)">NULL</td>			
+		<td data-ng-if="newUserInfo != undefined">
+			<div class="col-md-6">
+				<input type="text" class="form-control" data-ng-model="newUserInfo.firstName" placeholder="Set First Name" required autofocus>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>Avatar</td>
+		<td>
+		<img data-ng-if="userInfo.firstName != undefined" width="100px" height="100px" data-ng-src="{{userInfo.avatarUri}}"></td>
+		<img data-ng-if="newUserInfo != undefined" width="100px" height="100px" data-ng-src="{{newUserInfo.avatarUri}}"></td>
+	</tr>
+	<tr>
+		<td>Last Name</td>
+		<td data-ng-if="userInfo.lastName != undefined">{{userInfo.lastName}}</td>
+		<td data-ng-if="(userInfo.firstName == undefined) && (newUserInfo == undefined)">NULL</td>				
+		<td data-ng-if="newUserInfo != undefined">
+			<div class="col-md-6">
+				<input type="text" value="{{newUserInfo.lastName}}" class="form-control" data-ng-model="newUserInfo.lastName" placeholder="Set Last Name" required autofocus>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>Register Date</td>
+		<td>{{userInfo.joinDate}}</td>
+	</tr>
+	<tr>
+		<td>Phone Number</td>
+		<td data-ng-if="userInfo.phoneNumber != undefined">{{userInfo.phoneNumber}}</td>
+		<td data-ng-if="(userInfo.firstName == undefined) && (newUserInfo == undefined)">NULL</td>					
+		<td data-ng-if="newUserInfo != undefined">
+			<div class="col-md-6">
+				<input type="text" value="{{newUserInfo.phoneNumber}}" class="form-control" data-ng-model="newUserInfo.phoneNumber" placeholder="Set Phone Number" required autofocus>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>Email</td>
+		<td data-ng-if="userInfo.email != undefined">{{userInfo.email}}</td>
+		<td data-ng-if="(userInfo.firstName == undefined) && (newUserInfo == undefined)">NULL</td>				
+		<td data-ng-if="newUserInfo != undefined">
+			<div class="col-md-6">
+				<input type="text" value="{{newUserInfo.email}}" class="form-control" data-ng-model="newUserInfo.email" placeholder="Set Email" required autofocus>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>User Id</td>
+		<td>{{userInfo.id}}</td>
+	</tr>
+	<tr>
+		<td>Roles</td>
+		<td>
+			<ul data-ng-repeat="role in userInfo.roles">
+				<li>{{role.roleId}}</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td>Photo</td>
+		<td>
+		<div class="btn btn-primary-outline" ngf-select ng-model="file" ngf-multiple="false">Select File</div>
+		 <div ngf-drop ngf-select ng-model="files" class="drop-box" 
+        ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
+        accept="image/*,application/pdf" 
+        ngf-pattern="'image/*,application/pdf'">Drop pdfs or images here or click to upload</div>
+         <ul>
+        	<li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}</li>
+    	</ul>
+		    <div data-ng-if="log != ''">Upload Log:
+		    	<pre style="width: 50%; height: 20%">{{log}}</pre>
+		    </div>		
+		</td>
+	</tr>
+	<tr><td><button class="btn btn-primary" data-ng-click="saveUserInfo()">Save changes</button></td></tr>
+</table>
+
+<br>
+<br>
+<br>
+<br>
+</div>
+</div>
+</div>
+</div>

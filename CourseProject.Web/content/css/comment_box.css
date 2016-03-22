@@ -1,3 +1,4 @@
+
 .widget-area.blank {
 background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
 -webkit-box-shadow: none;
@@ -53,7 +54,7 @@ color: #777777;
 float: left;
 font-family: Lato;
 font-size: 14px;
-height: 142px;
+min-height: 70px;
 letter-spacing: 0.3px;
 padding: 20px;
 width: 100%;

@@ -1,8 +1,12 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
+using CourseProject.Providers;
 using CourseProject.Repositories;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
@@ -41,6 +45,50 @@ namespace CourseProject.Controllers
             return Ok();
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("info/{userName}")]
+        public async Task<IHttpActionResult> GetUserInfo(string userName)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await db.FindUser(userName);
+
+            return Ok(user);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("saveInfo")]
+        public async Task<IHttpActionResult> SaveUserInfo(UpdateUserModel model)
+        {
+            var user = await db.FindUser(model.UserName);
+
+            if (user != null)
+            {
+                var updUser = SetUserData(user, model);
+
+                await db.UpdateUser(updUser);
+
+                return Ok(user);
+               
+            }
+
+            return BadRequest("User not found");
+        }
+
+        [HttpPost]
+        [Route("avatar")]
+        public IHttpActionResult SaveAvatar()
+        {
+            return Ok();
+        }
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -78,6 +126,16 @@ namespace CourseProject.Controllers
             }
 
             return null;
+        }
+
+        private ApplicationUser SetUserData(ApplicationUser user, UpdateUserModel model)
+        {
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+
+            return user;
         }
     }
 }

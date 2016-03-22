@@ -61,3 +61,6 @@ body {
  
 .carousel-inner .item, .modal-content {text-align: left; min-width: 1000px; min-height:600px;font-size: 25px}
 .carousel-inner .item {padding: 20px 140px;}
+
+.btn-glyphicon { padding:8px; background:#ffffff; margin-right:4px; }
+.icon-btn { padding: 1px 15px 3px 2px; border-radius:50px;}

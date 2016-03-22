@@ -17,6 +17,7 @@ namespace CourseProject.Interfaces
 
         Task<ApplicationUser> FindUser(string userName);
         Task<ApplicationUser> FindUser(string userName, string password);
+        Task<IdentityResult> UpdateUser(ApplicationUser user);
         Task<IdentityResult> RegisterUser(UserModel userModel);
         Task<bool> CheckUserRole(string userId);
         void Save();

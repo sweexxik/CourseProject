@@ -2,11 +2,15 @@
 app.controller('editCreativeController', ['$http', '$scope','$route','$routeParams','creativeService','$window','$location',
 	function ($http, $scope, $route, $routeParams,creativeService, $window, $location) {
  		
+		var creativeId = $routeParams.Id; 	
+
  		$scope.creative = []; 	
  		$scope.chapters = []; 
  		$scope.stub = []; 
+ 		$scope.selectedchapter = {};
+		$scope.selectedchapter.creativeId = creativeId;
 
- 		var creativeId = $routeParams.Id; 		
+ 			
  		var chapterModel = {
 	    	body:"",
 	        creativeId:0,    	
@@ -52,8 +56,7 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
     	}       
 
 		$scope.newChapter = function(){
-			 $scope.selectedchapter = {};
-			 $scope.selectedchapter.creativeId = creativeId;
+	
 		}
 
 		$scope.savePositions = function(){

@@ -11,5 +11,7 @@ namespace CourseProject.Domain.Entities
 
         public DateTime JoinDate { get; set; }
 
+        public string AvatarUri { get; set; }
+
     }
 }

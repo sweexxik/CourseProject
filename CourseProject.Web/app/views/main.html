@@ -1,50 +1,29 @@
-﻿    <div class="col-md-8">   
-        <table class="table table-striped table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <td>Description</td>
-                    <th>Chapters</th>
-                    <th>rating</th>
-                    <th>Comments</th>                    
-                </tr>
-            </thead>
-            <tbody>           
-                <tr  data-ng-repeat="creative in creatives">
-                    <td>
-                        {{ creative.userName }}                                                            
-                    </td>
-                    <td>
-                        {{ creative.name }}
-                        <a data-ng-href="#/show/{{creative.id}}" >Show</a> 
-                    </td>
-                    <td>
-                        {{ creative.category.name }}
-                    </td>
-                    <td>
-                        {{creative.description}}
-                    </td>
-                    <td>                      
-                        <div data-ng-if="creative.chapters.length > 0 "class="container-element box box-blue">
-                            <div class="container-element box box-blue">
-                                <ul> 
-                                    <li ng-repeat="item in creative.chapters">                  
-                                        {{item.name}}
-                                    </li>
-                                </ul>
-                                 <div class="clearfix"></div>
-                            </div>
-                        </div>                       
-                    </td>                  
-                    <td>
-                        {{ creative.rating }}
-                    </td>
-                    <td>
-                        <a data-ng-href="#/comments/{{creative.id}}">{{ creative.comments.length }}</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>   
+﻿    <div class="container" data-ng-repeat="creative in creatives">
+<div class="col-md-1">&nbsp;</div>
+    <div  class="col-md-10 margin-bottom-30">
+
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                    <span class="caption-subject text-uppercase">{{creative.name}}</span>
+                    <span class="caption-helper">...</span>
+                </div>
+                <div class="actions">
+                    <a ng-href="#/show/{{creative.id}}" class="btn"><i class="glyphicon glyphicon-pencil"></i>Show</a>
+                    <a href="javascript:;" class="btn"><i class="glyphicon glyphicon-paperclip"></i>Comment</a>
+                    <a href="javascript:;" class="btn btn-circle"><i class="glyphicon glyphicon-resize-full"></i></a>
+                </div>
+            </div>
+            <div class="col-md-1">&nbsp;</div>
+            <div class="portlet-body col-md-8">
+                <h4 class="text-center">{{creative.description}}</h4>
+                <p class="text-center" data-ng-repeat="chapter in creative.chapters">
+                    {{$index + 1}}. {{chapter.name}}
+                </p>
+            </div>
+        </div>
+    </div>
+
+
     </div>
