@@ -46,25 +46,34 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
         return $http.post(serviceBase + '/api/creatives', JSON.stringify(data), {
             headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
             .then(function (results) { return results; });
-    }
+    };
 
      var _createComment = function(data) {       
         return $http.post(serviceBase + '/api/comments', JSON.stringify(data), {
             headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
             .then(function (results) { return results; });
-    }
+    };
 
     var _createLike = function(data) {       
         return $http.post(serviceBase + '/api/likes', JSON.stringify(data), {
             headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
             .then(function (results) { return results; });
-    }
+    };
 
     var _createRating = function(data) {       
         return $http.post(serviceBase + '/api/rating', JSON.stringify(data), {
             headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
             .then(function (results) { return results; });
-    }
+    };
+
+    var _setTags = function(id, data){
+        return $http.post(serviceBase + '/api/tags/'+ id, JSON.stringify(data),{
+        headers: { contentType: 'application/json; charset=utf-8', dataType: "json" }    
+        }).then(function(results){
+            return results;
+        });
+    };
+
 
     var _deleteCreative = function (id) {   
         return $http.post(serviceBase + 'api/creatives/delete/' + id)
@@ -96,6 +105,8 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.getComments = _getComments;
     creativesServiceFactory.getAllTags = _getAllTags;
     creativesServiceFactory.getCreativeTags = _getCreativeTags
+
+    creativesServiceFactory.setTags = _setTags;
 
     creativesServiceFactory.createCreative = _createCreative;
     creativesServiceFactory.createComment = _createComment;

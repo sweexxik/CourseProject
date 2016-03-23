@@ -81,6 +81,7 @@ namespace CourseProject.Repositories
 
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
         {
+           
             var user = new ApplicationUser
             {
                 UserName = userModel.UserName,

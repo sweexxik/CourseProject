@@ -14,13 +14,11 @@ namespace CourseProject.Controllers
     {
         private readonly IUnitOfWork db;
         private readonly IMedalService medalService;
-        private readonly ITagsService tagsService;
 
         public CreativesController()
         {
             db = new EfUnitOfWork();
             medalService = new MedalService();
-            tagsService = new TagsService();
         }
 
         [AllowAnonymous]
@@ -63,7 +61,8 @@ namespace CourseProject.Controllers
                 Name = creative.Name,
                 Description = creative.Description,
                 Category = creative.Category,
-                Rating = creative.Rating
+                Rating = creative.Rating,
+                Tags = creative.Tags
             };
 
             return Ok(result);
@@ -76,11 +75,13 @@ namespace CourseProject.Controllers
         {
             var currentCreative = await db.Creatives.Get(id);
 
+            db.Tags.RemoveRange(currentCreative.Tags);
+
             var userId = currentCreative.User.Id;
 
             var userName = currentCreative.User.UserName;
 
-            var item = await db.Creatives.Delete(id);
+            var item = await db.Creatives.Remove(id);
 
             if (item == null)
             {
@@ -94,8 +95,6 @@ namespace CourseProject.Controllers
             var result = db.Creatives.Find(x => x.User.Id == userId);
 
             return Ok(result);
-            
-         
         }
 
         [HttpPost]
@@ -110,16 +109,14 @@ namespace CourseProject.Controllers
 
             var creative = await InitNewCreative(model);
 
-            db.Creatives.Create(creative);
-           
+            db.Creatives.Add(creative);
 
-            db.Save();
 
-            await medalService.CheckMedals(creative.User.UserName);
+           db.Save();
 
-      
+           await medalService.CheckMedals(creative.User.UserName);
 
-            return Ok(new {status = "200"} );
+           return Ok(new {status = "200"} );
         }
 
         [HttpPost]
@@ -133,8 +130,9 @@ namespace CourseProject.Controllers
             creative.Description = model.Description;
 
             db.Creatives.Update(creative);
-            db.Save();
            
+            db.Save();
+
             return Ok(new { status = "200" });
         }
 
@@ -144,6 +142,7 @@ namespace CourseProject.Controllers
             {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -179,9 +178,11 @@ namespace CourseProject.Controllers
                    Name = creative.Name,
                    Description = creative.Description,
                    Category = creative.Category,
-                   Rating = creative.Rating
+                   Rating = creative.Rating,
+                   Tags = creative.Tags
                 });
             }
+
             return creatives;
         }
     }

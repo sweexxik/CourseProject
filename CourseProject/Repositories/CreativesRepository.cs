@@ -33,7 +33,7 @@ namespace CourseProject.Repositories
             return db.Creatives.Where(predicate).ToList();
         }
 
-        public void Create(Creative item)
+        public void Add(Creative item)
         {
             db.Creatives.Add(item);
         }
@@ -43,7 +43,7 @@ namespace CourseProject.Repositories
            db.Entry(item).State = EntityState.Modified;
         }
 
-        public async Task<Creative> Delete(int id)
+        public async Task<Creative> Remove(int id)
         {
             var item = await db.Creatives.FindAsync(id);
 
@@ -52,6 +52,16 @@ namespace CourseProject.Repositories
             db.Creatives.Remove(item);
 
             return item;
+        }
+
+        public void AddRange(IEnumerable<Creative> range)
+        {
+            db.Creatives.AddRange(range);
+        }
+
+        public void RemoveRange(IEnumerable<Creative> range)
+        {
+            db.Creatives.RemoveRange(range);
         }
     }
 }

@@ -41,7 +41,7 @@ namespace CourseProject.Controllers
           
             var comment = await InitNewComment(model);
            
-            db.Comments.Create(comment);
+            db.Comments.Add(comment);
 
             db.Save();
 
@@ -59,7 +59,7 @@ namespace CourseProject.Controllers
 
             var userName = comm.User.UserName;
 
-            var comment = await db.Comments.Delete(id);
+            var comment = await db.Comments.Remove(id);
 
             if (comment == null)
             {
@@ -90,24 +90,23 @@ namespace CourseProject.Controllers
 
         public static List<NewCommentModel> InitCommentsModel(IEnumerable<Comment> list)
         {
-            try
-            {
-
-          
             var comments = new List<NewCommentModel>();
 
             foreach (var comment in list)
             {
                 var likes = new List<NewLikeModel>();
 
-                foreach (var like in comment.Likes)
+                if (comment.Likes != null)
                 {
-                    likes.Add(new NewLikeModel
+                    foreach (var like in comment.Likes)
                     {
-                        Id = like.Id,
-                        UserName = like.User.UserName,
-                        CommentId = like.CommentId
-                    });
+                        likes.Add(new NewLikeModel
+                        {
+                            Id = like.Id,
+                            UserName = like.User.UserName,
+                            CommentId = like.CommentId
+                        });
+                    }
                 }
 
                 comments.Add(new NewCommentModel
@@ -121,12 +120,7 @@ namespace CourseProject.Controllers
                 });
             }
             return comments;
-            }
-            catch (Exception e )
-            {
-                throw new Exception();
-               
-            }
+
         }
     }
 }

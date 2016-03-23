@@ -1,6 +1,6 @@
 ﻿namespace CourseProject.Models
 {
-    public class AddOrUpdateChapterModel
+    public class NewChapterModel
     {
         public int Id { get; set; }
 

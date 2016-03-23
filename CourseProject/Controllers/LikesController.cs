@@ -9,6 +9,7 @@ using CourseProject.Services;
 
 namespace CourseProject.Controllers
 {
+    [Authorize]
     public class LikesController : ApiController
     {
         private readonly IUnitOfWork db;
@@ -41,7 +42,7 @@ namespace CourseProject.Controllers
             }
             else
             {
-                db.Likes.Create(new Like { CommentId = model.CommentId, User = user });
+                db.Likes.Add(new Like { CommentId = model.CommentId, User = user });
             }
 
             db.Save();
@@ -63,7 +64,7 @@ namespace CourseProject.Controllers
             {
                 if (like.User.Id == user.Id)
                 {
-                    await db.Likes.Delete(like.Id);
+                    await db.Likes.Remove(like.Id);
                 }
             }
         }

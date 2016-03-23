@@ -34,7 +34,7 @@ namespace CourseProject.Repositories
             return db.Medals.Where(predicate).ToList();
         }
 
-        public void Create(Medal item)
+        public void Add(Medal item)
         {
             db.Medals.Add(item);
         }
@@ -44,7 +44,7 @@ namespace CourseProject.Repositories
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public async Task<Medal> Delete(int id)
+        public async Task<Medal> Remove(int id)
         {
             var item = await db.Medals.FindAsync(id);
 
@@ -53,6 +53,16 @@ namespace CourseProject.Repositories
             db.Medals.Remove(item);
 
             return item;
+        }
+
+        public void AddRange(IEnumerable<Medal> range)
+        {
+            db.Medals.AddRange(range);
+        }
+
+        public void RemoveRange(IEnumerable<Medal> range)
+        {
+            db.Medals.RemoveRange(range);
         }
     }
 }

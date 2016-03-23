@@ -296,13 +296,18 @@
     <Compile Include="Migrations\201603231423024_tagsonetomay1.Designer.cs">
       <DependentUpon>201603231423024_tagsonetomay1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603231750102_Tag_Creative.cs" />
+    <Compile Include="Migrations\201603231750102_Tag_Creative.Designer.cs">
+      <DependentUpon>201603231750102_Tag_Creative.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AddOrUpdateChapterModel.cs" />
+    <Compile Include="Models\NewChapterModel.cs" />
     <Compile Include="Models\NewTagsModel.cs" />
     <Compile Include="Models\NewCommentModel.cs" />
     <Compile Include="Models\NewCreativeModel.cs" />
     <Compile Include="Models\NewLikeModel.cs" />
     <Compile Include="Models\NewRatingModel.cs" />
+    <Compile Include="Models\TagsViewModel.cs" />
     <Compile Include="Models\UpdateUserModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -316,7 +321,7 @@
     <Compile Include="Repositories\LikesRepository.cs" />
     <Compile Include="Repositories\MedalsRepository.cs" />
     <Compile Include="Repositories\RatingsRepository.cs" />
-    <Compile Include="Repositories\TagsREpository.cs" />
+    <Compile Include="Repositories\TagsRepository.cs" />
     <Compile Include="Services\MedalService.cs" />
     <Compile Include="Services\TagsService.cs" />
     <Compile Include="Startup.cs" />
@@ -408,6 +413,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603231423024_tagsonetomay1.resx">
       <DependentUpon>201603231423024_tagsonetomay1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603231750102_Tag_Creative.resx">
+      <DependentUpon>201603231750102_Tag_Creative.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

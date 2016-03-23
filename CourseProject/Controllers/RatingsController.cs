@@ -8,6 +8,7 @@ using CourseProject.Repositories;
 
 namespace CourseProject.Controllers
 {
+    [Authorize]
     public class RatingsController : ApiController
     {
         private readonly IUnitOfWork db;
@@ -18,7 +19,6 @@ namespace CourseProject.Controllers
         }
        
         [HttpPost]
-        [Authorize]
         [Route("api/rating")]
         public async Task<IHttpActionResult> AddRating(NewRatingModel model)
         {
@@ -36,7 +36,7 @@ namespace CourseProject.Controllers
                 User = await db.FindUser(model.UserName)
             };
 
-            db.Ratings.Create(rating);
+            db.Ratings.Add(rating);
 
             db.Save();
             

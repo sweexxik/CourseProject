@@ -33,7 +33,7 @@ namespace CourseProject.Repositories
             return db.Chapters.Where(predicate).ToList();
         }
 
-        public void Create(Chapter item)
+        public void Add(Chapter item)
         {
             db.Chapters.Add(item);
         }
@@ -43,7 +43,7 @@ namespace CourseProject.Repositories
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public async Task<Chapter> Delete(int id)
+        public async Task<Chapter> Remove(int id)
         {
             var item = await db.Chapters.FindAsync(id);
 
@@ -52,6 +52,16 @@ namespace CourseProject.Repositories
             db.Chapters.Remove(item);
 
             return item;
+        }
+
+        public void AddRange(IEnumerable<Chapter> range)
+        {
+            db.Chapters.AddRange(range);
+        }
+
+        public void RemoveRange(IEnumerable<Chapter> range)
+        {
+            db.Chapters.RemoveRange(range);
         }
     }
 }

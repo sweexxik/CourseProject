@@ -9,6 +9,8 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
  		$scope.stub = []; 
  		$scope.selectedchapter = {};
 		$scope.selectedchapter.creativeId = creativeId;
+		$scope.recievedTags = [];
+		$scope.tags = [];
 
  			
  		var chapterModel = {
@@ -40,7 +42,8 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
  		creativeService.getCreative(creativeId).then(function (results) {
             $scope.creative = results.data;
             $scope.chapters = creativeService.sortChapters(results.data); 
-            console.log($scope.creative)    
+            $scope.tags = $scope.creative.tags;
+            console.log($scope.creative);  
         }, function (error) {
             console.log(error);
         });
@@ -55,9 +58,29 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
        		}        
     	}       
 
-		$scope.newChapter = function(){
-	
-		}
+		creativeService.getAllTags().then(function(results){
+	        $scope.recievedTags = results.data;
+		    }, function(error){
+		        console.log(error);
+		  	});
+
+		$scope.loadTags = function($query) {
+       		return $scope.recievedTags.filter(function(tag) {
+	        	return tag.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
+	      		});
+    	};
+
+    	$scope.saveTags = function(){
+    		
+    		for (var i = 0; i < $scope.tags.length; i++) {
+    			$scope.tags[i].creativeId = creativeId;
+    		}
+
+    		creativeService.setTags(creativeId,$scope.tags).then(function(results){
+    			$scope.creative = results.data;
+    			console.log(results.data);
+    		});
+    	}
 
 		$scope.savePositions = function(){
 			postData($scope.chapters,'chapters/all');
@@ -80,7 +103,7 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
 	             headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
 	    	 .success(function (response) {
 	                console.log(response);
-	                $route.reload();  	               
+	               	            
 	            })
 	    	 .error(function (err, status) {
 	            console.log(err);

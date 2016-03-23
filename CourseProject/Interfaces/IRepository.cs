@@ -9,8 +9,12 @@ namespace CourseProject.Interfaces
         IEnumerable<T> GetAll();
         Task<T> Get(int id);
         IEnumerable<T> Find(Func<T, bool> predicate);
-        void Create(T item);
+        void Add(T item);
+       
         void Update(T item);
-        Task<T> Delete(int id);
+        Task<T> Remove(int id);
+
+        void AddRange(IEnumerable<T> range);
+        void RemoveRange(IEnumerable<T> range);
     }
 }

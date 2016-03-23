@@ -32,7 +32,7 @@ namespace CourseProject.Repositories
             return db.Comments.Where(predicate).ToList();
         }
 
-        public void Create(Comment item)
+        public void Add(Comment item)
         {
             db.Comments.Add(item);
         }
@@ -42,7 +42,7 @@ namespace CourseProject.Repositories
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public async Task<Comment> Delete(int id)
+        public async Task<Comment> Remove(int id)
         {
             var item = await db.Comments.FindAsync(id);
 
@@ -51,6 +51,16 @@ namespace CourseProject.Repositories
             db.Comments.Remove(item);
 
             return item;
+        }
+
+        public void AddRange(IEnumerable<Comment> range)
+        {
+            db.Comments.AddRange(range);
+        }
+
+        public void RemoveRange(IEnumerable<Comment> range)
+        {
+            db.Comments.RemoveRange(range);
         }
     }
 }

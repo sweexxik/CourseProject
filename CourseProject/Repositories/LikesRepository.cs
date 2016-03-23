@@ -33,7 +33,7 @@ namespace CourseProject.Repositories
             return db.Likes.Where(predicate).ToList();
         }
 
-        public void Create(Like item)
+        public void Add(Like item)
         {
             db.Likes.Add(item);
         }
@@ -43,7 +43,7 @@ namespace CourseProject.Repositories
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public async Task<Like> Delete(int id)
+        public async Task<Like> Remove(int id)
         {
             var item = await db.Likes.FindAsync(id);
 
@@ -52,6 +52,16 @@ namespace CourseProject.Repositories
             db.Likes.Remove(item);
 
             return item;
+        }
+
+        public void AddRange(IEnumerable<Like> range)
+        {
+            db.Likes.AddRange(range);
+        }
+
+        public void RemoveRange(IEnumerable<Like> range)
+        {
+            db.Likes.RemoveRange(range);
         }
     }
 }

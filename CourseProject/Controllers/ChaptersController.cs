@@ -8,6 +8,7 @@ using CourseProject.Repositories;
 
 namespace CourseProject.Controllers
 {
+    [Authorize]
     public class ChaptersController : ApiController
     {
         private readonly IUnitOfWork db;
@@ -24,7 +25,7 @@ namespace CourseProject.Controllers
 
 
         [Route("api/chapters")]
-        public IHttpActionResult PostCreative(AddOrUpdateChapterModel model)
+        public IHttpActionResult PostCreative(NewChapterModel model)
         {
             var chapter = InitChapter(model);
 
@@ -51,7 +52,7 @@ namespace CourseProject.Controllers
         [Route("api/chapters/delete")]
         public async Task<IHttpActionResult> DeleteChapter([FromBody]Chapter model)
         {
-            var item = await db.Chapters.Delete(model.Id);
+            var item = await db.Chapters.Remove(model.Id);
 
             if (item == null)
             {
@@ -64,11 +65,11 @@ namespace CourseProject.Controllers
         }
 
 
-        private void AddOrUpdateChapter(AddOrUpdateChapterModel model, Chapter chapter)
+        private void AddOrUpdateChapter(NewChapterModel model, Chapter chapter)
         {
             if (model.Id == 0)
             {
-                db.Chapters.Create(chapter);
+                db.Chapters.Add(chapter);
             }
             else
             {
@@ -78,7 +79,7 @@ namespace CourseProject.Controllers
             db.Save();
         }
 
-        private static Chapter InitChapter(AddOrUpdateChapterModel model)
+        private static Chapter InitChapter(NewChapterModel model)
         {
             return new Chapter
             {

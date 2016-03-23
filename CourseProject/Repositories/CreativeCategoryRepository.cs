@@ -34,7 +34,7 @@ namespace CourseProject.Repositories
             return db.Categories.Where(predicate).ToList();
         }
 
-        public void Create(CreativeCategory item)
+        public void Add(CreativeCategory item)
         {
             db.Categories.Add(item);
         }
@@ -44,7 +44,7 @@ namespace CourseProject.Repositories
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public async Task<CreativeCategory> Delete(int id)
+        public async Task<CreativeCategory> Remove(int id)
         {
             var item = await db.Categories.FindAsync(id);
 
@@ -53,6 +53,16 @@ namespace CourseProject.Repositories
             db.Categories.Remove(item);
 
             return item;
+        }
+
+        public void AddRange(IEnumerable<CreativeCategory> range)
+        {
+            db.Categories.AddRange(range);
+        }
+
+        public void RemoveRange(IEnumerable<CreativeCategory> range)
+        {
+            db.Categories.RemoveRange(range);
         }
     }
 }

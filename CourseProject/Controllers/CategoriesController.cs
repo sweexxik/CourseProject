@@ -6,6 +6,7 @@ using CourseProject.Repositories;
 
 namespace CourseProject.Controllers
 {
+    [AllowAnonymous]
     public class CategoriesController : ApiController
     {
         private readonly IUnitOfWork db;

@@ -33,7 +33,7 @@ namespace CourseProject.Repositories
             return db.Ratings.Where(predicate).ToList();
         }
 
-        public void Create(Rating item)
+        public void Add(Rating item)
         {
             db.Ratings.Add(item);
         }
@@ -43,7 +43,7 @@ namespace CourseProject.Repositories
             db.Entry(item).State = EntityState.Modified;
         }
 
-        public async Task<Rating> Delete(int id)
+        public async Task<Rating> Remove(int id)
         {
             var item = await db.Ratings.FindAsync(id);
 
@@ -52,6 +52,16 @@ namespace CourseProject.Repositories
             db.Ratings.Remove(item);
 
             return item;
+        }
+
+        public void AddRange(IEnumerable<Rating> range)
+        {
+            db.Ratings.AddRange(range);
+        }
+
+        public void RemoveRange(IEnumerable<Rating> range)
+        {
+            db.Ratings.RemoveRange(range);
         }
     }
 }
