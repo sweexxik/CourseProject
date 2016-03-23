@@ -300,6 +300,10 @@
     <Compile Include="Migrations\201603231750102_Tag_Creative.Designer.cs">
       <DependentUpon>201603231750102_Tag_Creative.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603231846160_chapterCreated.cs" />
+    <Compile Include="Migrations\201603231846160_chapterCreated.Designer.cs">
+      <DependentUpon>201603231846160_chapterCreated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\NewChapterModel.cs" />
     <Compile Include="Models\NewTagsModel.cs" />
@@ -416,6 +420,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603231750102_Tag_Creative.resx">
       <DependentUpon>201603231750102_Tag_Creative.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603231846160_chapterCreated.resx">
+      <DependentUpon>201603231846160_chapterCreated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

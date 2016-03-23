@@ -11,5 +11,9 @@
         public int Number { get; set; }
 
         public int CreativeId { get; set; }
+
+        public string CreatedOn { get; set; }
+
+        public bool Edit { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Domain.Entities;
@@ -87,7 +88,8 @@ namespace CourseProject.Controllers
                 Name = model.Name,
                 Body = model.Body,
                 Number = model.Number,
-                CreativeId = model.CreativeId
+                CreativeId = model.CreativeId,
+                Created = DateTime.Now
             };
         }
 

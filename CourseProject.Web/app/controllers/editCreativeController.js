@@ -148,7 +148,5 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
 	        chapterModel.id = $scope.selectedchapter.id;
 	        chapterModel.creativeId = $scope.selectedchapter.creativeId;
 	        chapterModel.name = $scope.selectedchapter.name;
-	    };
-
-   		
+	    };   		
 }]);

@@ -1,5 +1,5 @@
 ﻿
-var app = angular.module('AngularAuthApp', ['ngRoute', 'ngTagsInput', 'LocalStorageModule', 'angular-loading-bar', 'dndLists','ngFileUpload']);
+var app = angular.module('AngularAuthApp', ['ngRoute','angular-markdown-editable', 'ngTagsInput', 'LocalStorageModule', 'angular-loading-bar', 'dndLists','ngFileUpload']);
 
 app.config(function ($routeProvider) {
 
@@ -53,10 +53,14 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/admin.html"
     });
 
+    $routeProvider.when("/chapters/:creativeId", {
+        controller: "chaptersController",
+        templateUrl: "/app/views/chapters.html"
+    });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });
-
 
 var serviceBase = 'http://localhost:57507/';
 app.constant('ngAuthSettings', {

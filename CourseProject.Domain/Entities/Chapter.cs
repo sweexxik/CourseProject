@@ -1,4 +1,6 @@
-﻿namespace CourseProject.Domain.Entities
+﻿using System;
+
+namespace CourseProject.Domain.Entities
 {
     public class Chapter
     {
@@ -11,6 +13,8 @@
         public string  Body { get; set; }
 
         public int CreativeId { get; set; }
+
+        public DateTime Created { get; set; }
       
     }
 }
