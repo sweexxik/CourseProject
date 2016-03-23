@@ -202,6 +202,7 @@
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Interfaces\IMedalService.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\ITagsService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\201603171237585_compose 2 storages.cs" />
     <Compile Include="Migrations\201603171237585_compose 2 storages.Designer.cs">
@@ -275,10 +276,29 @@
     <Compile Include="Migrations\201603231028395_TagEntity.Designer.cs">
       <DependentUpon>201603231028395_TagEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603231337269_TagsManyToMany.cs" />
+    <Compile Include="Migrations\201603231337269_TagsManyToMany.Designer.cs">
+      <DependentUpon>201603231337269_TagsManyToMany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603231401182_tagsOneToMany.cs" />
+    <Compile Include="Migrations\201603231401182_tagsOneToMany.Designer.cs">
+      <DependentUpon>201603231401182_tagsOneToMany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603231416335_tagsManyToManyNew.cs" />
+    <Compile Include="Migrations\201603231416335_tagsManyToManyNew.Designer.cs">
+      <DependentUpon>201603231416335_tagsManyToManyNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603231418255_tagsManyToManyNewFix.cs" />
+    <Compile Include="Migrations\201603231418255_tagsManyToManyNewFix.Designer.cs">
+      <DependentUpon>201603231418255_tagsManyToManyNewFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603231423024_tagsonetomay1.cs" />
+    <Compile Include="Migrations\201603231423024_tagsonetomay1.Designer.cs">
+      <DependentUpon>201603231423024_tagsonetomay1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AddOrUpdateChapterModel.cs" />
     <Compile Include="Models\NewTagsModel.cs" />
-    <Compile Include="Models\PhotoActionResult.cs" />
     <Compile Include="Models\NewCommentModel.cs" />
     <Compile Include="Models\NewCreativeModel.cs" />
     <Compile Include="Models\NewLikeModel.cs" />
@@ -298,6 +318,7 @@
     <Compile Include="Repositories\RatingsRepository.cs" />
     <Compile Include="Repositories\TagsREpository.cs" />
     <Compile Include="Services\MedalService.cs" />
+    <Compile Include="Services\TagsService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="DbContext\AuthContext.cs" />
   </ItemGroup>
@@ -372,6 +393,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603231028395_TagEntity.resx">
       <DependentUpon>201603231028395_TagEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603231337269_TagsManyToMany.resx">
+      <DependentUpon>201603231337269_TagsManyToMany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603231401182_tagsOneToMany.resx">
+      <DependentUpon>201603231401182_tagsOneToMany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603231416335_tagsManyToManyNew.resx">
+      <DependentUpon>201603231416335_tagsManyToManyNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603231418255_tagsManyToManyNewFix.resx">
+      <DependentUpon>201603231418255_tagsManyToManyNewFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603231423024_tagsonetomay1.resx">
+      <DependentUpon>201603231423024_tagsonetomay1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

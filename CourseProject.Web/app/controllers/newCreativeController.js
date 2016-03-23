@@ -13,12 +13,17 @@ app.controller('newCreativeController',
     	name:"",
         categoryId: 0,    	
     	userName:"",
-        Description:""   
+        Description:"",
+        tags:{}   
     };
 
-    $scope.loadTags = function(query) {
-        return $scope.recievedTags;
+    $scope.loadTags = function($query) {
+        return $scope.recievedTags.filter(function(tag) {
+        return tag.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
+      });;
     };
+
+
 
     creativeService.getCategories().then(function (results) {
         $scope.categories = results.data;
@@ -27,20 +32,21 @@ app.controller('newCreativeController',
         console.log(error);
     });
 
-    creativeService.getTags().then(function(results){
+    creativeService.getAllTags().then(function(results){
         $scope.recievedTags = results.data;
-        console.log($scope.recievedTags);
     }, function(error){
         console.log(error);
     });
+
+
     
-    $scope.create = function(formData){
+    $scope.createCreative = function(formData){
         newCreative.userName = localStorageService.get('authorizationData').userName;
         newCreative.categoryId = $scope.currentCategory.id;
         newCreative.name = $scope.creativeName;
         newCreative.Description = $scope.creativeDescription;
-        console.log(newCreative.Description);
-        
+        newCreative.tags = $scope.tags;
+        console.log(newCreative);
         creativeService.createCreative(newCreative).then(function(results){
             $location.path("/home");
         });     

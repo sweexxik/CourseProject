@@ -10,16 +10,16 @@ namespace CourseProject.Domain.Entities
 
         public string Description { get; set; }
 
-        public virtual List<Tag> Tags { get; set; }
-
         public virtual ApplicationUser User { get; set; }
 
         public virtual CreativeCategory Category { get; set; }
 
-        public virtual List<Chapter> Chapters { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
 
-        public virtual List<Comment> Comments { get; set; }
+        public virtual ICollection<Chapter> Chapters { get; set; }
 
-        public virtual List<Rating> Rating { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual ICollection<Rating> Rating { get; set; }
     }
 }

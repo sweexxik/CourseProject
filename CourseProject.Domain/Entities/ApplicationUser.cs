@@ -14,6 +14,6 @@ namespace CourseProject.Domain.Entities
 
         public string AvatarUri { get; set; }
 
-        public virtual List<Medal> Medals { get; set; }
+        public virtual ICollection<Medal> Medals { get; set; }
     }
 }

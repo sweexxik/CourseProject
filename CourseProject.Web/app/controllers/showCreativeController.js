@@ -6,8 +6,9 @@ app.controller('showCreativeController', ['$window','$route','$scope', '$locatio
     $scope.creative = [];   
     $scope.chapters = []; 
     $scope.comments = [];
+    $scope.tags = [];
     $scope.ratings = [];
-
+    
     $scope.percentage1 = 0;
     $scope.percentage2 = 0;
     $scope.percentage3 = 0;
@@ -57,6 +58,13 @@ app.controller('showCreativeController', ['$window','$route','$scope', '$locatio
         console.log(error);
         });
 
+    creativeService.getCreativeTags(creativeId).then(function(result){
+        $scope.tags = result.data;
+        console.log($scope.tags);
+    }, function(error){
+        console.log(error);
+    });
+
      $scope.showNewComment = function(){
         if(authService.authentication.isAuth) {
             $scope.newComment = {};
@@ -70,6 +78,7 @@ app.controller('showCreativeController', ['$window','$route','$scope', '$locatio
         initComment();
         creativeService.createComment(newCommentModel).then(function(results){
             $scope.comments = results.data;
+            console.log(results.data);
          });     
     };
 

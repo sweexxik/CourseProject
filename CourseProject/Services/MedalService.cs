@@ -30,7 +30,7 @@ namespace CourseProject.Services
           
         }
 
-        private async Task CheckUserMedals(ApplicationUser user, List<Medal> userMedals)
+        private async Task CheckUserMedals(ApplicationUser user, ICollection<Medal> userMedals)
         {
             await CheckLikesMedal(user, userMedals);
 
@@ -40,7 +40,7 @@ namespace CourseProject.Services
 
         }
 
-        private async Task CheckLikesMedal(ApplicationUser user, List<Medal> userMedals)
+        private async Task CheckLikesMedal(ApplicationUser user, ICollection<Medal> userMedals)
         {
             var likesCount = db.Likes.Find(x => x.User.Id == user.Id).Count();
 
@@ -56,7 +56,7 @@ namespace CourseProject.Services
             }
         }
 
-        private async Task CheckCommentsMedal(ApplicationUser user, List<Medal> userMedals)
+        private async Task CheckCommentsMedal(ApplicationUser user, ICollection<Medal> userMedals)
         {
             var commentsMedal = await db.Medals.Get(2);
 
@@ -72,7 +72,7 @@ namespace CourseProject.Services
             }
         }
 
-        private async Task CheckCreativesMedal(ApplicationUser user, List<Medal> userMedals)
+        private async Task CheckCreativesMedal(ApplicationUser user, ICollection<Medal> userMedals)
         {
             var creativesMedal = await db.Medals.Get(3);
 

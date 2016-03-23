@@ -9,15 +9,16 @@
                     &nbsp;
                 </div>
                 <div class="col-md-8">
+                   
+               
                     <h2 class="form-login-heading">Creative Name</h2>
                     <input type="text" class="form-control" data-ng-model="creativeName" placeholder="Creative Name" required autofocus> 
                     <h2 class="form-login-heading">Creative Description</h2>
                     <textarea type="text" class="form-control" data-ng-model="creativeDescription" placeholder="Creative Description" required autofocus>{{creativeDescription}} </textarea> 
                     <h2 class="form-login-heading">Select tags</h2>
-                   <tags-input ng-model="tags" display-property="name" add-on-paste="true">
-                  <auto-complete source="loadTags($query)"></auto-complete>
-                 </tags-input>
-    
+                    <tags-input ng-model="tags" display-property="name" placeholder="Add tags" debounce-delay="0" add-on-paste="true">
+                    <auto-complete max-results-to-show="5" source="loadTags($query)"></auto-complete>
+                    </tags-input>   
     
                     <h2 class="form-login-heading">Category</h2>  
                     <select class="form-control" data-ng-model="currentCategory" data-ng-options="act.name for act in categories">
@@ -27,8 +28,9 @@
                         &nbsp;
                     </div>
                     <div class="col-md-4">
-                        <button class="btn btn-md btn-info btn-block" type="submit" data-ng-click="create()">Create</button>
+                        <button class="btn btn-md btn-info btn-block" type="submit" data-ng-click="createCreative()" >Create</button>
                     </div>
+
                 </div>
                 <div class="col-md-2">
                     &nbsp;

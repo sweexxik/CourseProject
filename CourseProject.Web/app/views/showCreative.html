@@ -106,6 +106,9 @@
         </div>
         
         <div class="container text-center">
+        <div>
+            <button class="btn btn-success" data-ng-repeat="tag in tags"> {{tag.name}}</button>
+        </div>
             <button data-ng-if="chapters.length > 0" data-ng-click="test()" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">
                 Read mode   
             </button>
@@ -114,7 +117,7 @@
                     <div class="modal-content">
                         <div id="Carousel" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">   
-                                <div class="item fill" ng-class="{active:!$index}" ng-repeat="chapter in chapters">
+                                <div class="item fill" data-ng-class="{active:!$index}" data-ng-repeat="chapter in chapters">
                                     <div class="carousel-caption" style="position: relative;">
                                         <p align="left"> Chapter #{{chapter.number}}&nbsp;{{chapter.name}}</p>
                                     </div>   
@@ -199,8 +202,7 @@
                                     </form>
                                 </div><!-- Status Upload  -->
                             </div><!-- Widget Area -->
-                        </div>
-        
+                        </div>        
     </div>
 </div>
 

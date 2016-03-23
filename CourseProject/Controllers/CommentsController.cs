@@ -47,7 +47,7 @@ namespace CourseProject.Controllers
 
             await medalService.CheckMedals(model.UserName);
 
-            return Ok(db.Comments.Find(x=>x.CreativeId == comment.CreativeId));
+            return Ok(InitCommentsModel(db.Comments.Find(x=>x.CreativeId == comment.CreativeId)));
         }
 
         [Authorize]
@@ -90,6 +90,10 @@ namespace CourseProject.Controllers
 
         public static List<NewCommentModel> InitCommentsModel(IEnumerable<Comment> list)
         {
+            try
+            {
+
+          
             var comments = new List<NewCommentModel>();
 
             foreach (var comment in list)
@@ -117,6 +121,12 @@ namespace CourseProject.Controllers
                 });
             }
             return comments;
+            }
+            catch (Exception e )
+            {
+                throw new Exception();
+               
+            }
         }
     }
 }

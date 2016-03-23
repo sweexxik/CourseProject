@@ -26,10 +26,16 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             .then(function (results) { return results; });
     };
 
-    var _getTags = function () {
+    var _getAllTags = function () {
         return $http.get(serviceBase + 'api/tags')
             .then(function (results) { return results; });
     };
+
+    var _getCreativeTags = function (creativeId) {
+        return $http.get(serviceBase + 'api/tags/' + creativeId )
+            .then(function (results) { return results; });
+    };
+
 
     var _getComments = function(id){
         return $http.get(serviceBase + 'api/comments/' + id)
@@ -88,7 +94,8 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.getCreative = _getCreative;
     creativesServiceFactory.getCategories = _getCategories;
     creativesServiceFactory.getComments = _getComments;
-    creativesServiceFactory.getTags = _getTags;
+    creativesServiceFactory.getAllTags = _getAllTags;
+    creativesServiceFactory.getCreativeTags = _getCreativeTags
 
     creativesServiceFactory.createCreative = _createCreative;
     creativesServiceFactory.createComment = _createComment;

@@ -14,11 +14,13 @@ namespace CourseProject.Controllers
     {
         private readonly IUnitOfWork db;
         private readonly IMedalService medalService;
+        private readonly ITagsService tagsService;
 
         public CreativesController()
         {
             db = new EfUnitOfWork();
             medalService = new MedalService();
+            tagsService = new TagsService();
         }
 
         [AllowAnonymous]
@@ -76,6 +78,8 @@ namespace CourseProject.Controllers
 
             var userId = currentCreative.User.Id;
 
+            var userName = currentCreative.User.UserName;
+
             var item = await db.Creatives.Delete(id);
 
             if (item == null)
@@ -85,7 +89,7 @@ namespace CourseProject.Controllers
 
             db.Save();
 
-            await medalService.CheckMedals(currentCreative.User.UserName);
+            await medalService.CheckMedals(userName);
 
             var result = db.Creatives.Find(x => x.User.Id == userId);
 
@@ -99,13 +103,21 @@ namespace CourseProject.Controllers
         [Route("api/creatives")]
         public async Task<IHttpActionResult> CreateCreative(NewCreativeModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var creative = await InitNewCreative(model);
 
             db.Creatives.Create(creative);
+           
 
             db.Save();
 
             await medalService.CheckMedals(creative.User.UserName);
+
+      
 
             return Ok(new {status = "200"} );
         }
@@ -141,9 +153,10 @@ namespace CourseProject.Controllers
             {
                 Name = model.Name,
                 Description = model.Description,
-                Category = await db.Categories.Get(model.CategoryId)
+                Category = await db.Categories.Get(model.CategoryId),
+                Tags = model.Tags
             };
-
+            
             var user = await db.FindUser(model.UserName);
 
             creative.User = user;
