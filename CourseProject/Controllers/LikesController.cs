@@ -54,24 +54,7 @@ namespace CourseProject.Controllers
 
             return Ok(result);
         }
-
-        //[HttpPost]
-        //[Route("api/likes/delete/{id}")]
-        //public async Task<IHttpActionResult> DeleteLike(int id)
-        //{
-        //    var result = await db.Likes.Delete(id);
-
-        //    if (result == null)
-        //    {
-        //        return BadRequest("Null reference");
-        //    }
-
-        //    db.Save();
-
-        //    return Ok(new { status = "200" });
-        //}
-
-
+        
         private async void RemoveLike(NewLikeModel model, ApplicationUser user)
         {
             var likes = db.Likes.Find(x => x.CommentId == model.CommentId);
@@ -84,8 +67,5 @@ namespace CourseProject.Controllers
                 }
             }
         }
-
-       
-
     }
 }

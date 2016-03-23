@@ -1,61 +1,76 @@
 'use strict';
-app.controller('profileController', ['$http','$scope', '$location', 'authService','$timeout','Upload', function ($http,$scope, $location, authService, $timeout,Upload) {
+app.controller('profileController', ['$anchorScroll','$http','$scope', '$location', 'authService','$timeout','Upload', function ($anchorScroll,$http,$scope, $location, authService, $timeout,Upload) {
   
     $scope.authentication = authService.authentication;
     $scope.userInfo = {};
-    $scope.newUserInfo = undefined;
+    $scope.newUserInfo = {};
     $scope.flagHide = false;
+    $scope.progressPercentage = 0;
+    $scope.showUpload = "";
 
-    console.log($scope.authentication);
+    var newData = {
+        firstName:"",
+        lastName: "",      
+        userName:"",
+        email:"",
+        OldPassword:"",
+        NewPassword:"",
+        ConfirmPassword:""   
+    };
 
-    $scope.profileInfo = authService.getProfileInfo().then(function(results){
+
+     authService.getProfileInfo().then(function(results){
         $scope.userInfo = results.data;
-        console.log($scope.userInfo);
-
+          console.log( $scope.userInfo);
     });
 
-   
+   $scope.scrollTo = function (id) {
+        $scope.showUpload = "show";    
+        $anchorScroll(id);  
+    
+    };
 
     $scope.initNewUserInfo = function () {
         $scope.newUserInfo = $.extend({}, $scope.userInfo);
-        console.log($scope.newUserInfo);
-        $scope.userInfo.firstName = undefined;
-        $scope.userInfo.lastName = undefined;
-        $scope.userInfo.avatarUri = undefined;
-        $scope.userInfo.email = undefined;
-        $scope.userInfo.phoneNumber = undefined;
-        console.log($scope.newUserInfo);
-
-
-    }
-    $scope.saveUserInfo = function () {
-        $scope.newUserInfo.userName = $scope.userInfo.userName;
-        authService.saveUserInfo($scope.newUserInfo).then(function(results){
-            $scope.upload($scope.files);
-            $scope.userInfo = results.data;
-            $scope.newUserInfo = undefined;
-
-            });
-       
     };
+    
+    $scope.saveUserInfo = function () {
+        newData.userName = $scope.userInfo.userName;
+        newData.firstName = $scope.userInfo.firstName;
+        newData.lastName = $scope.userInfo.lastName;
+        newData.email = $scope.userInfo.email;
+        newData.OldPassword = $scope.newUserInfo.oldPassword;
+        newData.NewPassword = $scope.newUserInfo.newPassword;
+        newData.ConfirmPassword = $scope.newUserInfo.passConfirm;
 
-    // $scope.$watch('files', function () {
-    //     $scope.upload($scope.files);
-    // });
+       
+        authService.saveUserInfo(newData).then(function(results){            
+          $scope.userInfo = results.data;       
+        });
+      };
 
-    // $scope.$watch('file', function () {
-    //     if ($scope.file != null) {
-    //         $scope.files = [$scope.file]; 
-    //     }
-    // });
+
+      $scope.updateAvatar = function(){
+          $scope.upload($scope.file);
+      };
+
+       
+
+
+    //$scope.upload($scope.files);
+
+    $scope.$watch('file', function () {
+       console.log($scope.file);
+
+    });
+  
 
     $scope.log = '';
 
-    $scope.upload = function (files) {
+    $scope.upload = function (file) {
         console.log("Upload starts");
-        if (files && files.length) {
-            for (var i = 0; i < files.length; i++) {
-              var file = files[i];
+            console.log(file);
+           
               if (!file.$error) {
                 Upload.upload({
                     url: 'http://localhost:57507/api/upload/',
@@ -64,23 +79,27 @@ app.controller('profileController', ['$http','$scope', '$location', 'authService
                       file: file  
                     }
                 }).then(function (resp) {
+                    console.log(resp);
                     $timeout(function() {
                         $scope.log = 'file: ' +
                         resp.config.data.file.name +                     
                         '\n' + $scope.log;
                          $scope.userInfo = resp.data;
+                         $scope.showUpload = "hide";
                     });
                 }, null, function (evt) {
-                    var progressPercentage = parseInt(100.0 *
+
+                     $scope.progressPercentage = parseInt(100.0 *
                             evt.loaded / evt.total);
-                    $scope.log = 'progress: ' + progressPercentage + 
+                    $scope.log = 'progress: ' +  $scope.progressPercentage + 
                         '% ' + evt.config.data.file.name + '\n' + 
                       $scope.log;
+                                       console.log($scope.progressPercentage);
                       
                 });
               }
-            }
-        }
+            
+        
     };
 
 

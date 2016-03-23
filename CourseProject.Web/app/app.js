@@ -1,5 +1,5 @@
 ﻿
-var app = angular.module('AngularAuthApp', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'dndLists','ngFileUpload']);
+var app = angular.module('AngularAuthApp', ['ngRoute', 'ngTagsInput', 'LocalStorageModule', 'angular-loading-bar', 'dndLists','ngFileUpload']);
 
 app.config(function ($routeProvider) {
 
@@ -42,9 +42,15 @@ app.config(function ($routeProvider) {
         controller: "commentsController",
         templateUrl: "/app/views/comments.html"
     });
+    
     $routeProvider.when("/profile/", {
         controller: "profileController",
         templateUrl: "/app/views/profile.html"
+    });
+
+    $routeProvider.when("/admin", {
+        controller: "adminController",
+        templateUrl: "/app/views/admin.html"
     });
 
     $routeProvider.otherwise({ redirectTo: "/home" });

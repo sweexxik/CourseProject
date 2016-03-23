@@ -1,121 +1,142 @@
 <div class="container">
-	
-
-<p align="center"><a class="btn icon-btn btn-success" data-ng-click="initNewUserInfo()"><span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>Edit profile</a></p>
-<div class="col-md-4">
-	&nbsp;
-</div>
-<div class="col-md-8">
-<table class="table">
-<thead>
-	<tr>
-		<th>Property</th>
-		<th>Value</th>
-	</tr>
-</thead>
-	<tr>
-		<td>UserName</td>
-		<td>{{userInfo.userName}}</td>
-
-	</tr>
-	<tr>
-		<td>First Name</td>
-		<td data-ng-if="userInfo.firstName != undefined">{{userInfo.firstName}}</td>
-		<td data-ng-if="(userInfo.firstName == undefined) && (newUserInfo == undefined)">NULL</td>			
-		<td data-ng-if="newUserInfo != undefined">
-			<div class="col-md-6">
-				<input type="text" class="form-control" data-ng-model="newUserInfo.firstName" placeholder="Set First Name" required autofocus>
+	<div class="row" id="main">
+	    <div class="col-md-4 well" id="leftPanel">
+			<div class="row">
+	            <div class="col-md-12 text-center">
+	                <div>
+	        			<img width="150px" height="150px" align="center" src="{{userInfo.avatarUri}}" alt="Texto Alternativo" class="img-thumbnail">
+	        			<h2>{{userInfo.firstName}} {{userInfo.lastName}}</h2>
+	        			<p>Description</p>
+	                    <div class="btn-group">
+	                        <button data-ng-click="scrollTo('#upload')" type="button" class="btn btn-warning">
+	                            Upload
+	                        </button>
+	                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+	                        	<span class="caret"></span><span class="sr-only">Social</span>
+	                        </button>
+	                        <ul class="dropdown-menu" role="menu">
+	                            <li><a href="#">Twitter</a></li>
+	                            <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
+	                            <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
+	                            <li class="divider"></li>
+	                            <li><a href="#">Github</a></li>
+	                        </ul><br>
+	                        <a ng-if="userInfo.roles[0].roleId == '4c05d228-9442-4df9-9bcb-11ee9c1da16e'" href="#/admin" type="button" class="btn btn-warning">
+	                            Admin Panel
+	                        </a>
+	                    </div>
+	        		</div>
+	        	</div>
+	        </div>
+	    </div>
+	    <div class="col-md-8 well" id="rightPanel">
+	        <div class="row">
+	    		<div class="col-md-12">
+			    	<form role="form">
+						<h2>Edit your profile.<small>It's always easy</small></h2>
+						<hr class="colorgraph">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group">
+			                        <input type="text" data-ng-model="userInfo.firstName" name="first_name" id="first_name"  class="form-control input-lg" placeholder="First Name" tabindex="1">
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group">
+									<input type="text" data-ng-model="userInfo.lastName" name="last_name" id="last_name" class="form-control input-lg" placeholder="Last Name" tabindex="2">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<input type="text" data-ng-model="userInfo.email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-4 col-md-4">
+								<div class="form-group">
+									<input type="password" data-ng-model="newUserInfo.oldPassword" name="oldPassword" id="password" class="form-control input-lg" placeholder="Old Password" tabindex="5">
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-4 col-md-4">
+								<div class="form-group">
+									<input type="password" data-ng-model="newUserInfo.newPassword" name="newPassword" id="new_password" class="form-control input-lg" placeholder="New Password" tabindex="6">
+								</div>
+							</div>
+								<div class="col-xs-12 col-sm-4 col-md-4">
+								<div class="form-group">
+									<input type="password" data-ng-model="newUserInfo.passConfirm" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6">
+								</div>
+							</div>
+						</div>
+						<hr class="colorgraph">
+						<div class="row">
+							<div class="col-xs-12 col-md-6"></div>
+							<div class="col-xs-12 col-md-6"><a data-ng-click="saveUserInfo()" class="btn btn-success btn-block btn-lg">Save</a></div>
+						</div>
+					</form>
+				</div>
 			</div>
-		</td>
-	</tr>
-	<tr>
-		<td>Avatar</td>
-		<td data-ng-if="userInfo.avatarUri != undefined">
-			<img  width="100px" height="100px" data-ng-src="{{userInfo.avatarUri}}">
-		</td>
-		<td data-ng-if="(userInfo.avatarUri == undefined) && (newUserInfo == undefined)">NULL</td>	
-		<td data-ng-if="newUserInfo != undefined" >
-		<div class="btn btn-primary-outline" ngf-select ng-model="$parent.file" ngf-multiple="false">Select File</div>
-		<div ngf-drop ngf-select ng-model="$parent.files" class="drop-box" ngf-drag-over-class="'dragover'"
-			ngf-multiple="true" ngf-allow-dir="true" accept="image/*,application/pdf" ngf-pattern="'image/*,application/pdf'">
-			Drop pdfs or images here or click to upload
 		</div>
-        <ul>
-        	<li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}</li>
-    	</ul>
-		<div data-ng-if="log != ''">Upload Log:
-		    <pre style="width: 50%; height: 20%">{{log}}</pre>
+	    <div id="upload" data-ng-if="showUpload == 'show'" class="row" >
+		    <div class="col-md-2">&nbsp;</div>
+		    	<div class="col-md-7">
+					<div class="panel panel-default">
+						<div class="panel-heading"><strong>Upload files</strong> <small> </small></div>
+						<div class="panel-body">
+
+						   	<div style="margin-left: 40%;width: 20%" class="btn btn-primary" accept="image/*" ngf-pattern="'image/*'" ngf-select ng-model="$parent.file" ngf-multiple="false">
+						   	Select File
+						   	</div>	
+						  	<div ngf-drop ngf-select ng-model="$parent.file" class="drop-box upload-drop-zone" ngf-drag-over-class="'dragover'" ngf-multiple="false" 	 ngf-allow-dir="true" accept="image/*" ngf-pattern="'image/*'">
+						  		 Or drag and drop files here 
+						  	</div>				
+						<div class="js-upload-finished" data-ng-if="file.name" >
+							Files:
+						    <ul>
+						        <li style="font:smaller">{{file.name}} {{file.$error}} {{file.$errorParam}}</li>
+						    </ul>
+	    					<div class="progress">
+								<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : progressPercentage*10}">
+									<span class="sr-only">60% Complete</span>
+							 	</div>
+							</div>
+	    					Upload Log:
+	    					<pre>{{log}}</pre>
+	    					<a data-ng-click="updateAvatar()" class="btn btn-success btn-block btn-lg">Upload</a>
+						</div>
+						
+					</div>
+				</div>
+			</div>	
 		</div>
-		</td>
-	</tr>
-	<tr>
-		<td>Last Name</td>
-		<td data-ng-if="userInfo.lastName != undefined">{{userInfo.lastName}}</td>
-		<td data-ng-if="(userInfo.firstName == undefined) && (newUserInfo == undefined)">NULL</td>				
-		<td data-ng-if="newUserInfo != undefined">
-			<div class="col-md-6">
-				<input type="text" value="{{newUserInfo.lastName}}" class="form-control" data-ng-model="newUserInfo.lastName" placeholder="Set Last Name" required autofocus>
+		<div class="container">
+		<div class="row">
+			<div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+				<ul class="event-list">
+					<li data-ng-repeat="medal in userInfo.medals">				
+						<time datetime="2014-07-20">
+							<span class="day">{{$index + 1}}</span>
+							<span class="month">Medal</span>						
+						</time>
+						<img alt="Independence Day" data-ng-src="{{medal.imageUri}}" />
+						<div class="info">
+							<h2 class="title">{{medal.name}}</h2>
+							<p class="desc">{{medal.description}}</p>
+						</div>
+						<div class="social">
+							<ul>
+								<li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
+								<li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
+								<li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
+							</ul>
+						</div>
+					</li>
+    	
+				</ul>
 			</div>
-		</td>
-	</tr>
-	<tr>
-		<td>Register Date</td>
-		<td>{{userInfo.joinDate}}</td>
-	</tr>
-	<tr>
-		<td>Phone Number</td>
-		<td data-ng-if="userInfo.phoneNumber != undefined">{{userInfo.phoneNumber}}</td>
-		<td data-ng-if="(userInfo.firstName == undefined) && (newUserInfo == undefined)">NULL</td>					
-		<td data-ng-if="newUserInfo != undefined">
-			<div class="col-md-6">
-				<input type="text" value="{{newUserInfo.phoneNumber}}" class="form-control" data-ng-model="newUserInfo.phoneNumber" placeholder="Set Phone Number" required autofocus>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td>Email</td>
-		<td data-ng-if="userInfo.email != undefined">{{userInfo.email}}</td>
-		<td data-ng-if="(userInfo.firstName == undefined) && (newUserInfo == undefined)">NULL</td>				
-		<td data-ng-if="newUserInfo != undefined">
-			<div class="col-md-6">
-				<input type="text" value="{{newUserInfo.email}}" class="form-control" data-ng-model="newUserInfo.email" placeholder="Set Email" required autofocus>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td>User Id</td>
-		<td>{{userInfo.id}}</td>
-	</tr>
-	<tr>
-		<td>
-			Medals:
-		</td>
-		<td>
-			<ul>
-				<li data-ng-repeat="medal in userInfo.medals">
-					{{medal.name}}
-				</li>
-				
-			</ul>
-		</td>
-	</tr>
-	<tr>
-		<td>Roles</td>
-		<td>
-			<ul data-ng-repeat="role in userInfo.roles">
-				<li>{{role.roleId}}</li>
-			</ul>
-		</td>
-	</tr>
+		</div>
+	</div>
+	</div>
 
-	<tr><td><button class="btn btn-primary" data-ng-click="saveUserInfo()">Save changes</button></td></tr>
-</table>
+</div>
 
-<br>
-<br>
-<br>
-<br>
-</div>
-</div>
-</div>
-</div>
+

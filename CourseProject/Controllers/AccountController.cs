@@ -11,7 +11,7 @@ namespace CourseProject.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private IUnitOfWork db;
+        private readonly IUnitOfWork db;
 
         public AccountController()
         {
@@ -27,16 +27,11 @@ namespace CourseProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await db.RegisterUser(userModel);
+            var result = await db.RegisterUser(userModel);
 
-            IHttpActionResult errorResult = GetErrorResult(result);
+            var errorResult = GetErrorResult(result);
 
-            if (errorResult != null)
-            {
-                return errorResult;
-            }
-
-            return Ok();
+            return errorResult ?? Ok();
         }
 
         [Authorize]
@@ -59,17 +54,32 @@ namespace CourseProject.Controllers
         [Route("saveInfo")]
         public async Task<IHttpActionResult> SaveUserInfo(UpdateUserModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var user = await db.FindUser(model.UserName);
 
-            if (user != null)
+            var updUser = SetUserData(user, model);
+
+            var result = await db.UpdateUser(updUser);
+
+            var errorResult = GetErrorResult(result);
+
+            if (model.OldPassword != null)
             {
-                var updUser = SetUserData(user, model);
+                var resultChange = await db.ChangePassword(user.Id, model.OldPassword, model.NewPassword);
 
-                await db.UpdateUser(updUser);
-
-                return Ok(user);
+                if (errorResult == null)
+                {
+                    errorResult = GetErrorResult(resultChange);
+                }
             }
-            return BadRequest("User not found");
+
+            return errorResult ?? Ok(user);
+
+
         }
         
         protected override void Dispose(bool disposing)

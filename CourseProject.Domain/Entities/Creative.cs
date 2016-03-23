@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CourseProject.Domain.Entities
 {
@@ -11,7 +10,7 @@ namespace CourseProject.Domain.Entities
 
         public string Description { get; set; }
 
-
+        public virtual List<Tag> Tags { get; set; }
 
         public virtual ApplicationUser User { get; set; }
 

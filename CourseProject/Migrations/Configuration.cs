@@ -1,3 +1,5 @@
+using CourseProject.DbContext;
+
 namespace CourseProject.Migrations
 {
     using System;
@@ -5,14 +7,14 @@ namespace CourseProject.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<CourseProject.UserEntities.AuthContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<AuthContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(CourseProject.UserEntities.AuthContext context)
+        protected override void Seed(AuthContext context)
         {
             //  This method will be called after migrating to the latest version.
 

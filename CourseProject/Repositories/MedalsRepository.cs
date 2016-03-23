@@ -4,9 +4,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using CourseProject.DbContext;
 using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
-using CourseProject.UserEntities;
 
 namespace CourseProject.Repositories
 {

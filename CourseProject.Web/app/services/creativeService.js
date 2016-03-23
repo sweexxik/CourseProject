@@ -26,6 +26,11 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             .then(function (results) { return results; });
     };
 
+    var _getTags = function () {
+        return $http.get(serviceBase + 'api/tags')
+            .then(function (results) { return results; });
+    };
+
     var _getComments = function(id){
         return $http.get(serviceBase + 'api/comments/' + id)
         .then(function(results){ return results;});
@@ -83,6 +88,7 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.getCreative = _getCreative;
     creativesServiceFactory.getCategories = _getCategories;
     creativesServiceFactory.getComments = _getComments;
+    creativesServiceFactory.getTags = _getTags;
 
     creativesServiceFactory.createCreative = _createCreative;
     creativesServiceFactory.createComment = _createComment;

@@ -7,6 +7,7 @@ app.controller('newCreativeController',
     $scope.currentCategory = "";
     $scope.creativeName = "";
     $scope.creativeDescription = ""
+    $scope.tags = [];
 
     var newCreative = {
     	name:"",
@@ -15,11 +16,21 @@ app.controller('newCreativeController',
         Description:""   
     };
 
+    $scope.loadTags = function(query) {
+        return $scope.recievedTags;
+    };
+
     creativeService.getCategories().then(function (results) {
         $scope.categories = results.data;
         $scope.currentCategory = results.data[0];
-        console.log(results.data);   
     }, function (error) {
+        console.log(error);
+    });
+
+    creativeService.getTags().then(function(results){
+        $scope.recievedTags = results.data;
+        console.log($scope.recievedTags);
+    }, function(error){
         console.log(error);
     });
     

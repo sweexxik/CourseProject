@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
+using CourseProject.DbContext;
 using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
-using CourseProject.UserEntities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -21,6 +20,7 @@ namespace CourseProject.Repositories
         private CreativeCategoryRepository categoryRepository;
         private RatingsRepository ratingsRepository;
         private MedalsRepository medalsRepository;
+        private TagsRepository tagsRepository;
         private readonly UserManager<ApplicationUser> userManager;
         private bool isDisposed;
 
@@ -64,10 +64,20 @@ namespace CourseProject.Repositories
             get { return likesRepository ?? (likesRepository = new LikesRepository(db)); }
         }
 
+        public IRepository<Tag> Tags
+        {
+            get { return tagsRepository ?? (tagsRepository = new TagsRepository(db)); }
+        }
+
         public async Task<IdentityResult> UpdateUser(ApplicationUser user)
         {
             return await userManager.UpdateAsync(user);
         }
+
+        public async Task<IdentityResult> ChangePassword(string userId, string pass, string newPass)
+        {
+            return await userManager.ChangePasswordAsync(userId, pass, newPass);
+        } 
 
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
         {

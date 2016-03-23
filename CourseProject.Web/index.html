@@ -13,11 +13,15 @@
  <!--  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+
+    <link rel="stylesheet" href="content/css/ng-tags-input.min.css" />
+    <link rel="stylesheet" href="content/css/ng-tags-input.bootstrap.min.css" />   
     <link rel="stylesheet" ng-href="https://bootswatch.com/lumen/bootstrap.min.css">  
     <link href="content/css/loading-bar.css" rel="stylesheet" />
     <link href="content/css/modal.css" rel="stylesheet" />
     <link href="content/css/panelWithTabNavs.css" rel="stylesheet" />
     <link href="content/css/navtabs.css" rel="stylesheet" />
+    <link href="content/css/medal-view.css" rel="stylesheet" />
     <link href="content/css/comment_box.css" rel="stylesheet" />
     <link href="content/css/font-awesome.min.css" rel="stylesheet" /> 
     <link href="content/css/social-buttons.css" rel="stylesheet" />
@@ -77,18 +81,19 @@
     </div>
 
     <!-- 3rd party libraries -->
-    
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
 
+    <script src="scripts/ng-tags-input.min.js"></script>
     <script src="scripts/ng-file-upload.js"></script>
     <script src="scripts/ng-file-upload-shim.min.js"></script>
     <script src="scripts/angular-local-storage.min.js"></script>
     <script src="scripts/loading-bar.min.js"></script>
+ 
 
     <script src="scripts/angular-drag-and-drop-lists.min.js"></script>
 
@@ -101,6 +106,7 @@
     <script src="app/services/creativeService.js?v=2"></script>
     <script src="app/services/tokensManagerService.js?v=2"></script>
     <!-- Load controllers -->
+    <script src="app/controllers/adminController.js?v=2"></script>
     <script src="app/controllers/indexController.js?v=2"></script>
     <script src="app/controllers/homeController.js?v=2"></script>
     <script src="app/controllers/loginController.js?v=2"></script>
@@ -109,8 +115,8 @@
     <script src="app/controllers/commentsController.js?v=2"></script>
     <script src="app/controllers/mainController.js?v=2"></script>
     <script src="app/controllers/showCreativeController.js?v=2"></script>
-     <script src="app/controllers/editCreativeController.js?v=2"></script>
-       <script src="app/controllers/profileController.js?v=2"></script>
+    <script src="app/controllers/editCreativeController.js?v=2"></script>
+    <script src="app/controllers/profileController.js?v=2"></script>
     <!-- Load custom filters -->
     <!-- Load custom directives -->
 

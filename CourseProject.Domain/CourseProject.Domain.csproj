@@ -58,6 +58,7 @@
     <Compile Include="Entities\Like.cs" />
     <Compile Include="Entities\Medal.cs" />
     <Compile Include="Entities\Rating.cs" />
+    <Compile Include="Entities\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

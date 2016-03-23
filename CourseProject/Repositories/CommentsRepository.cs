@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using CourseProject.DbContext;
 using CourseProject.Domain.Entities;
-using CourseProject.UserEntities;
 
 namespace CourseProject.Repositories
 {

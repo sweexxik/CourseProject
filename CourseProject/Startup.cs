@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Http;
 using CourseProject.Providers;
-using CourseProject.UserEntities;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
