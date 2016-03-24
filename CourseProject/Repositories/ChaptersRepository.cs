@@ -54,6 +54,31 @@ namespace CourseProject.Repositories
             return item;
         }
 
+        public async Task<IEnumerable<Creative>> Search(string pattern)
+        {
+            var ftsResults1 = db.Chapters.Where(c => c.Name.Contains(pattern)).Select(c => c.Id);
+
+            var ftsResults2 = db.Chapters.Where(c => c.Body.Contains(pattern)).Select(c => c.Id);
+
+            var ftsResults = ftsResults1.Union(ftsResults2).Distinct();
+
+            var foundedChapters = db.Chapters.Where(chapter => ftsResults.Contains(chapter.Id)).ToList();
+
+            var foundedCreatives = new List<Creative>();
+
+            foreach (var chapter in foundedChapters)
+            {
+                var creative = await db.Creatives.FindAsync(chapter.CreativeId);
+
+                if (!foundedCreatives.Contains(creative))
+                {
+                    foundedCreatives.Add(creative);
+                }
+            }
+
+            return foundedCreatives;
+        }
+
         public void AddRange(IEnumerable<Chapter> range)
         {
             db.Chapters.AddRange(range);

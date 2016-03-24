@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using CourseProject.DbContext;
 using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
@@ -53,6 +52,12 @@ namespace CourseProject.Repositories
             db.Categories.Remove(item);
 
             return item;
+        }
+
+        public Task<IEnumerable<Creative>> Search(string pattern)
+        {
+            //todo implement?
+            throw new NotImplementedException();
         }
 
         public void AddRange(IEnumerable<CreativeCategory> range)

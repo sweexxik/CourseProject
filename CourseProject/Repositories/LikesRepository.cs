@@ -54,6 +54,11 @@ namespace CourseProject.Repositories
             return item;
         }
 
+        public Task<IEnumerable<Creative>> Search(string pattern)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddRange(IEnumerable<Like> range)
         {
             db.Likes.AddRange(range);

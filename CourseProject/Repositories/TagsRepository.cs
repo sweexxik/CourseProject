@@ -54,6 +54,27 @@ namespace CourseProject.Repositories
             return item;
         }
 
+        public async Task<IEnumerable<Creative>> Search(string pattern)
+        {
+            var ftsResults = db.Tags.Where(x => x.Name.Contains(pattern)).Select(t => t.Id);
+
+            var foundedTags = db.Tags.Where(tag => ftsResults.Contains(tag.Id)).ToList();
+
+            var foundedCreatives = new List<Creative>();
+
+            foreach (var tag in foundedTags)
+            {
+                var creative = await db.Creatives.FindAsync(tag.CreativeId);
+
+                if (!foundedCreatives.Contains(creative))
+                {
+                    foundedCreatives.Add(creative);
+                }
+            }
+
+            return foundedCreatives;
+        }
+
         public void AddRange(IEnumerable<Tag> range)
         {
             db.Tags.AddRange(range);

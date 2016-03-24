@@ -29,7 +29,7 @@ namespace CourseProject.Repositories
             db = new AuthContext();
             userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         }
-        
+
         public IRepository<Creative> Creatives
         {
             get { return creativesRepository ?? (creativesRepository = new CreativesRepository(db)); }
@@ -40,7 +40,8 @@ namespace CourseProject.Repositories
             get { return categoryRepository ?? (categoryRepository = new CreativeCategoryRepository(db)); }
         }
 
-        public IRepository<Rating> Ratings {
+        public IRepository<Rating> Ratings
+        {
             get { return ratingsRepository ?? (ratingsRepository = new RatingsRepository(db)); }
         }
 
@@ -77,11 +78,11 @@ namespace CourseProject.Repositories
         public async Task<IdentityResult> ChangePassword(string userId, string pass, string newPass)
         {
             return await userManager.ChangePasswordAsync(userId, pass, newPass);
-        } 
+        }
 
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
         {
-           
+
             var user = new ApplicationUser
             {
                 UserName = userModel.UserName,
@@ -110,7 +111,7 @@ namespace CourseProject.Repositories
 
         public async Task<bool> CheckUserRole(string userId)
         {
-          return await userManager.IsInRoleAsync(userId, "Admin");
+            return await userManager.IsInRoleAsync(userId, "Admin");
         }
 
         public virtual void Dispose(bool disposing)
@@ -131,5 +132,7 @@ namespace CourseProject.Repositories
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
     }
+
 }

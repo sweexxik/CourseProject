@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CourseProject.Domain.Entities;
 
 namespace CourseProject.Interfaces
 {
@@ -13,6 +14,8 @@ namespace CourseProject.Interfaces
        
         void Update(T item);
         Task<T> Remove(int id);
+
+        Task<IEnumerable<Creative>> Search(string pattern);
 
         void AddRange(IEnumerable<T> range);
         void RemoveRange(IEnumerable<T> range);

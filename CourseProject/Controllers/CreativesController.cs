@@ -22,6 +22,32 @@ namespace CourseProject.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost]
+        [Route("api/creatives/search")]
+        public async Task<IHttpActionResult> Search(SearchViewModel model)
+        {
+            var list1 = await db.Creatives.Search(model.Pattern);
+            var list2 = await db.Chapters.Search(model.Pattern);
+            var list3 = await db.Comments.Search(model.Pattern);
+            var list4 = await db.Tags.Search(model.Pattern);
+
+            var l1 = list1.ToList();
+            var l2 = list2.ToList();
+            var l3 = list3.ToList();
+            var l4 = list4.ToList();
+
+            var result1 = l1.ToList().Intersect(l2).Intersect(l3);
+
+            var result2 = l1.Union(l2).Union(l3).Union(l4);
+
+            var result3 = result2.Distinct();
+
+
+
+            return Ok(result3);
+        }
+
+        [AllowAnonymous]
         [HttpGet]
         [Route("api/creatives/getall")]
         public IHttpActionResult GetAllCreatives(){

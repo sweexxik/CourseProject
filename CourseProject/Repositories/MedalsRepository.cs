@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using CourseProject.DbContext;
 using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
@@ -53,6 +52,11 @@ namespace CourseProject.Repositories
             db.Medals.Remove(item);
 
             return item;
+        }
+
+        public Task<IEnumerable<Creative>> Search(string pattern)
+        {
+            throw new NotImplementedException();
         }
 
         public void AddRange(IEnumerable<Medal> range)

@@ -1,5 +1,7 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Interception;
 using CourseProject.Domain.Entities;
+using Fissoft.EntityFramework.Fts;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CourseProject.DbContext
@@ -9,6 +11,7 @@ namespace CourseProject.DbContext
         public AuthContext()
             : base("AuthContext")
         {
+            DbInterception.Add(new FtsInterceptor());
         }
 
         public DbSet<Creative> Creatives { get; set; }

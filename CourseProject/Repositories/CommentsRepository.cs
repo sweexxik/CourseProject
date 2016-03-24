@@ -53,6 +53,31 @@ namespace CourseProject.Repositories
             return item;
         }
 
+        public async Task<IEnumerable<Creative>> Search(string pattern)
+        {
+            var ftsResults1 = db.Comments.Where(c => c.Text.Contains(pattern)).Select(c => c.Id);
+
+            var ftsResults2 = db.Comments.Where(c => c.User.UserName.Contains(pattern)).Select(c => c.Id);
+
+            var ftsResults = ftsResults1.Union(ftsResults2).Distinct();
+
+            var foundedComments = db.Comments.Where(comment => ftsResults.Contains(comment.Id)).ToList();
+
+            var foundedCreatives = new List<Creative>();
+
+            foreach (var comment in foundedComments)
+            {
+                var creative = await db.Creatives.FindAsync(comment.CreativeId);
+
+                if (!foundedCreatives.Contains(creative))
+                {
+                    foundedCreatives.Add(creative);
+                }
+            }
+
+            return foundedCreatives;
+        }
+
         public void AddRange(IEnumerable<Comment> range)
         {
             db.Comments.AddRange(range);
