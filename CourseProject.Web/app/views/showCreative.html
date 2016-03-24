@@ -122,8 +122,11 @@
                                 <div class="item fill" data-ng-class="{active:!$index}" data-ng-repeat="chapter in chapters">
                                     <div class="carousel-caption" style="position: relative;">
                                         <p align="left"> Chapter #{{chapter.number}}&nbsp;{{chapter.name}}</p>
+                                    </div> 
+                                 
+                                    <div ng-bind-html="chapter.body">                       
                                     </div>   
-                                    {{chapter.body}}      
+                                  
                             
                             <span class="left carousel-control" data-target="#Carousel" data-slide="prev" data-ng-click="storeChapterId(chapter.id)">
                                 <span class="glyphicon glyphicon-chevron-left"></span>
@@ -141,8 +144,11 @@
     </div>
         <div ng-repeat="item in chapters">
 			<h2 class="form-login-heading">Chapter #{{item.number}}: {{item.name}}</h2>	
-			<h3 class="form-login-heading">{{item.body}}</h3>  
-			<br><hr>
+			
+            <div ng-bind-html="item.body">                       
+            </div>    
+			
+            <br><hr>
 
 		</div>	
         <h2 class="text-center form-login-heading">Comments: {{comments.length}}</h2><hr><br>       

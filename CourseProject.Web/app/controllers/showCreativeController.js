@@ -1,6 +1,6 @@
 ﻿'use strict';
-app.controller('showCreativeController', ['$window','$route','$scope', '$location','$timeout','$routeParams','authService','creativeService','localStorageService',
-    function ($window,$route,$scope, $location,$timeout,$routeParams, authService,creativeService,localStorageService) {
+app.controller('showCreativeController', ['$showdown','$sce','$window','$route','$scope', '$location','$timeout','$routeParams','authService','creativeService','localStorageService',
+    function ($showdown,$sce, $window, $route, $scope, $location, $timeout, $routeParams, authService, creativeService, localStorageService) {
     
     $scope.authentication = authService.authentication;
     $scope.creative = [];   
@@ -41,13 +41,11 @@ app.controller('showCreativeController', ['$window','$route','$scope', '$locatio
     };
 
     $scope.storeChapterId = function(id){
-        savedChapter++;
-        console.log(id);
+        savedChapter++;       
     }  
     
     creativeService.getCreative(creativeId).then(function (results) {
-        initCreative(results);
-        console.log($scope.authentication);
+        initCreative(results);       
         }, function (error) {
             console.log(error);
         });
@@ -59,8 +57,7 @@ app.controller('showCreativeController', ['$window','$route','$scope', '$locatio
         });
 
     creativeService.getCreativeTags(creativeId).then(function(result){
-        $scope.tags = result.data;
-        console.log($scope.tags);
+        $scope.tags = result.data;      
     }, function(error){
         console.log(error);
     });
@@ -138,6 +135,11 @@ app.controller('showCreativeController', ['$window','$route','$scope', '$locatio
         $scope.ratings = results.data.rating;
         $scope.ratingsAvg = calcAvg();
         setPercentage();
+
+        for (var i = 0; i < $scope.chapters.length; i++) {
+            var md = $showdown.makeHtml($scope.chapters[i].body);
+            $scope.chapters[i].body = $sce.trustAsHtml(md);
+        }      
    }
 
    var initComment = function(){

@@ -3,10 +3,11 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
 	function ($http, $scope, $route, $routeParams,creativeService, $window, $location) {
  		
 		var creativeId = $routeParams.Id; 	
-
+		$scope.creativeId = creativeId;
  		$scope.creative = []; 	
  		$scope.chapters = []; 
  		$scope.stub = []; 
+ 		$scope.notes = [];
  		$scope.selectedchapter = {};
 		$scope.selectedchapter.creativeId = creativeId;
 		$scope.recievedTags = [];
@@ -28,8 +29,15 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
     	};       
 
 		$scope.editChapter = function(item){			
-        	 $scope.selectedchapter = item;
+	        creativeService.getChapters(creativeId).then(function(results){
+	        $scope.notes = results.data; 
+	        console.log($scope.notes);      
+   			});
         }
+
+        $scope.newChapter = function(){
+
+        };
 
      	$scope.deleteChapter = function(item){			
         	var data = item;
@@ -148,5 +156,25 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
 	        chapterModel.id = $scope.selectedchapter.id;
 	        chapterModel.creativeId = $scope.selectedchapter.creativeId;
 	        chapterModel.name = $scope.selectedchapter.name;
-	    };   		
+	    };   
+
+  	$scope.sortingLog = []; 
+  
+	 $scope.sortableOptions = {
+	  		    update: function(e, ui) {
+	  		    	console.log($scope.chapters);
+	      var logEntry = $scope.chapters.map(function(i){
+	        return i.number;
+	      }).join(', ');
+	      $scope.sortingLog.push('Было: ' + logEntry);
+	    },
+	    stop: function(e, ui) {
+	    	console.log($scope.chapters);
+	      var logEntry = $scope.chapters.map(function(i){
+	        return i.number;
+	      }).join(', ');
+	      $scope.sortingLog.push('Стало: ' + logEntry);
+	    }
+	  };
+
 }]);

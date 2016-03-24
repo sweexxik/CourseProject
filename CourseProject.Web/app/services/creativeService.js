@@ -26,6 +26,11 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             .then(function (results) { return results; });
     };
 
+    var _getChapter = function (chapterId) {
+        return $http.get(serviceBase + 'api/chapters/' + chapterId)
+            .then(function (results) { return results; });
+    };
+
     var _getAllTags = function () {
         return $http.get(serviceBase + 'api/tags')
             .then(function (results) { return results; });
@@ -35,7 +40,6 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
         return $http.get(serviceBase + 'api/tags/' + creativeId )
             .then(function (results) { return results; });
     };
-
 
     var _getComments = function(id){
         return $http.get(serviceBase + 'api/comments/' + id)
@@ -74,6 +78,14 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
         });
     };
 
+    var _saveChapter = function(data){
+        return $http.post(serviceBase + '/api/chapters/', JSON.stringify(data),{
+        headers: { contentType: 'application/json; charset=utf-8', dataType: "json" }    
+        }).then(function(results){
+            return results;
+        });
+    };
+
 
     var _deleteCreative = function (id) {   
         return $http.post(serviceBase + 'api/creatives/delete/' + id)
@@ -105,8 +117,9 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.getComments = _getComments;
     creativesServiceFactory.getAllTags = _getAllTags;
     creativesServiceFactory.getCreativeTags = _getCreativeTags
-
+    creativesServiceFactory.getChapter = _getChapter
     creativesServiceFactory.setTags = _setTags;
+    creativesServiceFactory.saveChapter = _saveChapter
 
     creativesServiceFactory.createCreative = _createCreative;
     creativesServiceFactory.createComment = _createComment;

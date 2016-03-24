@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Domain.Entities;
@@ -19,24 +20,30 @@ namespace CourseProject.Controllers
             db = new EfUnitOfWork();
         }
 
-        public IEnumerable<Chapter> GetCategories()
+        [HttpGet]
+        [Route("api/chapters/{chapterId}")]
+        public IHttpActionResult GetChapter(int chapterId)
         {
-            return db.Chapters.GetAll();
+            var result = InitChapterViewModel(db.Chapters.Find(x => x.Id == chapterId));
+
+            return Ok(result);
         }
 
-
+        [HttpPost]
         [Route("api/chapters")]
-        public IHttpActionResult PostCreative(NewChapterModel model)
+        public IHttpActionResult AddOrUpdateChapter(NewChapterModel model)
         {
             var chapter = InitChapter(model);
 
             AddOrUpdateChapter(model, chapter);
 
-            return Ok(new { status = "200" });
+            db.Save();
+
+            return Ok(model);
         }
 
         [Route("api/chapters/all")]
-        public async Task<IHttpActionResult> PostAllChapters([FromBody]List<Chapter> model)
+        public async Task<IHttpActionResult> PostAllChapters([FromBody] List<Chapter> model)
         {
             foreach (var chapter in model)
             {
@@ -46,12 +53,12 @@ namespace CourseProject.Controllers
 
             db.Save();
 
-            return Ok(new { status = "200" });
+            return Ok(new {status = "200"});
         }
 
         [HttpPost]
         [Route("api/chapters/delete")]
-        public async Task<IHttpActionResult> DeleteChapter([FromBody]Chapter model)
+        public async Task<IHttpActionResult> DeleteChapter([FromBody] Chapter model)
         {
             var item = await db.Chapters.Remove(model.Id);
 
@@ -62,7 +69,7 @@ namespace CourseProject.Controllers
 
             db.Save();
 
-            return Ok(new { status = "200" });
+            return Ok(new {status = "200"});
         }
 
 
@@ -86,13 +93,32 @@ namespace CourseProject.Controllers
             {
                 Id = model.Id,
                 Name = model.Name,
-                Body = model.Body,
+                Body = model.Text,
                 Number = model.Number,
                 CreativeId = model.CreativeId,
-                Created = DateTime.Now
+                Created = DateTime.Parse(model.CreatedOn)
             };
         }
 
+        private static List<NewChapterModel> InitChapterViewModel(IEnumerable<Chapter> chapters)
+        {
+            var result = new List<NewChapterModel>();
 
+            foreach (var chapter in chapters)
+            {
+                result.Add(new NewChapterModel
+                {
+                    Id = chapter.Id,
+                    CreativeId = chapter.CreativeId,
+                    Name = chapter.Name,
+                    Number = chapter.Number,
+                    Text = chapter.Body,
+                    CreatedOn = chapter.Created.ToString(CultureInfo.CurrentCulture),
+                    Edit = false
+                });
+            }
+
+            return result;
+        }
     }
 }
