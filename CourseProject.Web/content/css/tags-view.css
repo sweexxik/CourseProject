@@ -54,12 +54,6 @@
   color: white;
 }
 
-body {
-  font-family: 'Roboto Condensed', 'sans-serif';
-  padding: 0;
-  background-color: yellow;
-}
-
 .widget--tags {
   margin: 0 auto;
   max-width: 900px;

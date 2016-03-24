@@ -19,7 +19,7 @@ app.controller('profileController', ['$anchorScroll','$http','$scope', '$locatio
     };
 
 
-     authService.getProfileInfo().then(function(results){
+    authService.getProfileInfo().then(function(results){
         $scope.userInfo = results.data;
           console.log( $scope.userInfo);
     });

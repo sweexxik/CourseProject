@@ -142,7 +142,7 @@ namespace CourseProject.Controllers
 
            await medalService.CheckMedals(creative.User.UserName);
 
-           return Ok(new {status = "200"} );
+           return Ok(db.Creatives.Find(c=>c.User.UserName == model.UserName));
         }
 
         [HttpPost]

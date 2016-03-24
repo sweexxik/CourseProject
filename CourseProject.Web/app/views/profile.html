@@ -4,7 +4,8 @@
 			<div class="row">
 	            <div class="col-md-12 text-center">
 	                <div>
-	        			<img width="150px" height="150px" align="center" src="{{userInfo.avatarUri}}" alt="Texto Alternativo" class="img-thumbnail">
+	        			<img data-ng-if="userInfo.avatarUri" style="width: 200px; height:200px;" align="center" data-ng-src="{{userInfo.avatarUri}}" alt="Texto Alternativo" class="img-thumbnail">
+	        			<img data-ng-if="userInfo.avatarUri == undefined" style="width: 200px; height:200px;" align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-thumbnail">
 	        			<h2>{{userInfo.firstName}} {{userInfo.lastName}}</h2>
 	        			<p>Description</p>
 	                    <div class="btn-group">
@@ -48,7 +49,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<input type="text" data-ng-model="userInfo.email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+							<input type="email" data-ng-model="userInfo.email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
 						</div>
 						<div class="row">
 							<div class="col-xs-12 col-sm-4 col-md-4">

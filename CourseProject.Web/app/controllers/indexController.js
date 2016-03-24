@@ -5,7 +5,12 @@ app.controller('indexController', ['$http','$scope', '$location', 'authService',
   	//todo save theme in coockies
 
     $scope.pattern = '';
+    $scope.show = true;
 
+    $scope.hide = function()
+    {
+        $scope.show = false;
+    };
    
    
     $scope.logOut = function () {
