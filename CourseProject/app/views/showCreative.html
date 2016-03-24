@@ -1,0 +1,220 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="page-header text-center">
+            <h1 class="form-login-heading">{{creative.name}}</h1>
+			<p class="form-login-heading">Author : {{creative.userName}}</p>
+            <!-- RATING BEGIN -->
+            <div class="container">
+                <div class="col-md-1">&nbsp;</div> 
+                <div class="col-xs-12 col-md-10">
+                    <div class="well well-sm">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6 text-center">
+                                <h1 class="rating-num">{{ratingsAvg}}</h1>
+                                <div class="rating">
+                                    <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
+                                    </span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
+                                    </span><span class="glyphicon glyphicon-star-empty"></span>
+                                </div>
+                                <div>
+                                    <span class="glyphicon glyphicon-user"></span>{{ratings.length}} total
+                                </div>
+                                <button type="button" class="btn btn-default btn-sm" aria-label="Left Align" data-ng-click="setRating(1)">
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"> 1 </span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm" aria-label="Left Align" data-ng-click="setRating(2)">
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"> 2 </span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm" aria-label="Left Align" data-ng-click="setRating(3)">
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"> 3 </span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm" aria-label="Left Align" data-ng-click="setRating(4)">
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"> 4 </span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm" aria-label="Left Align" data-ng-click="setRating(5)">
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"> 5 </span>
+                                </button>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="row rating-desc">
+                                    <div class="col-xs-3 col-md-3 text-right">
+                                        <span class="glyphicon glyphicon-star"></span>5
+                                    </div>
+                                    <div class="col-xs-8 col-md-9">
+                                        <div class="progress progress-striped">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="5"
+                                                aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : percentage5}">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3 col-md-3 text-right">
+                                        <span class="glyphicon glyphicon-star"></span>4
+                                    </div>
+                                    <div class="col-xs-8 col-md-9">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
+                                                aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : percentage4}">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end 4 -->
+                                    <div class="col-xs-3 col-md-3 text-right">
+                                        <span class="glyphicon glyphicon-star"></span>3
+                                    </div>
+                                    <div class="col-xs-8 col-md-9">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
+                                                aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : percentage3}">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end 3 -->
+                                    <div class="col-xs-3 col-md-3 text-right">
+                                        <span class="glyphicon glyphicon-star"></span>2
+                                    </div>
+                                    <div class="col-xs-8 col-md-9">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
+                                                aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : percentage2}">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end 2 -->
+                                    <div class="col-xs-3 col-md-3 text-right">
+                                        <span class="glyphicon glyphicon-star"></span>1
+                                    </div>
+                                    <div class="col-xs-8 col-md-9">
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
+                                                aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : percentage1}">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end 1 -->
+                                </div>
+                                <!-- end row -->
+                            </div>
+                        </div>
+                    </div>
+                </div></div>
+            <!-- RATING END -->
+        </div>
+        
+        <div class="container text-center">
+      
+        <div class="widget--tags">
+            <a data-ng-repeat="tag in tags" class="tag" data-count="{{tag.count}}" href="#tag">{{tag.name}}</a>
+        </div>
+
+            <button data-ng-if="chapters.length > 0" data-ng-click="test()" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">
+                Read mode   
+            </button>
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div id="Carousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">   
+                                <div class="item fill" data-ng-class="{active:!$index}" data-ng-repeat="chapter in chapters">
+                                    <div class="carousel-caption" style="position: relative;">
+                                        <p align="left"> Chapter #{{chapter.number}}&nbsp;{{chapter.name}}</p>
+                                    </div> 
+                                 
+                                    <div ng-bind-html="chapter.body">                       
+                                    </div>   
+                                  
+                            
+                            <span class="left carousel-control" data-target="#Carousel" data-slide="prev" data-ng-click="storeChapterId(chapter.id)">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </span>
+                            <span class="right carousel-control" data-target="#Carousel" data-slide="next" data-ng-click="storeChapterId(chapter.id)">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </span>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+        <div ng-repeat="item in chapters">
+			<h2 class="form-login-heading">Chapter #{{item.number}}: {{item.name}}</h2>	
+			
+            <div ng-bind-html="item.body">                       
+            </div>    
+			
+            <br><hr>
+
+		</div>	
+        <h2 class="text-center form-login-heading">Comments: {{comments.length}}</h2><hr><br>       
+        <span  data-ng-repeat="comment in comments" >   
+        <div class="col-md-12">
+            <div class="col-md-2">
+                <div class="thumbnail">
+                    <img class="img-responsive" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>#{{$index+1}} {{comment.userName}}</strong> 
+                            <span class="text-muted">
+                            commented {{comment.postDate.split('T')[0]}} at {{comment.postDate.split('T')[1].slice(0,-4) }}
+                            </span> 
+
+                    </div>
+                    <div class="panel-body status-upload">
+                        {{comment.text}}                 
+                        <div data-ng-if="authentication.isAuth" class="status-upload"> 
+                             <ul class="pull-right">
+                             <button class="btn btn-primary-outline" style="position:absolute;top:0;right:0;margin-right: 2%" data-ng-if="comment.userName == authentication.userName " data-ng-click="deleteComment(comment.id)"> <i class="fa fa-times fa-2x"></i> </button>
+                                <li>
+                                   <a data-ng-click="setLike(comment.id)" title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio">
+                                        <i class="fa fa-2x fa-thumbs-o-up ">{{comment.likes.length}}</i>
+                                    </a>
+
+                                </li>
+                                                                                               
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </span>
+        <div  class="text-center">
+            <button type="button" class="btn btn-info" data-ng-click="showNewComment()">New comment</button>
+         </div>
+
+
+         <div class="row" data-ng-if="newComment != undefined">
+         <div class="col-md-3">&nbsp;</div>
+             <div class="col-md-6">
+             <div class="widget-area no-padding blank">
+                 <div class="status-upload">
+                    <form>
+                        <textarea data-ng-model="newComment.text" placeholder="What do you think right now?" ></textarea>
+                                        <ul>
+                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
+                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
+                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>
+                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>
+                                        </ul>
+                                        <button type="button" data-ng-click="createComment()" class="btn btn-success green"><i class="fa fa-share"></i>Publish</button>
+                                    </form>
+                                </div><!-- Status Upload  -->
+                            </div><!-- Widget Area -->
+                        </div>        
+    </div>
+</div>
+
+
+ </div>
+
+

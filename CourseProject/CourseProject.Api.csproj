@@ -210,13 +210,85 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\app.js" />
+    <Content Include="app\controllers\adminController.js" />
+    <Content Include="app\controllers\chaptersController.js" />
+    <Content Include="app\controllers\commentsController.js" />
+    <Content Include="app\controllers\editCreativeController.js" />
+    <Content Include="app\controllers\homeController.js" />
+    <Content Include="app\controllers\indexController.js" />
+    <Content Include="app\controllers\loginController.js" />
+    <Content Include="app\controllers\mainController.js" />
+    <Content Include="app\controllers\profileController.js" />
+    <Content Include="app\controllers\searchController.js" />
+    <Content Include="app\controllers\showCreativeController.js" />
+    <Content Include="app\controllers\signupController.js" />
+    <Content Include="app\services\authInterceptorService.js" />
+    <Content Include="app\services\authService.js" />
+    <Content Include="app\services\creativeService.js" />
+    <Content Include="app\services\searchService.js" />
+    <Content Include="app\services\tokensManagerService.js" />
+    <Content Include="app\views\admin.html" />
+    <Content Include="app\views\associate.html" />
+    <Content Include="app\views\chapters.html" />
+    <Content Include="app\views\comments.html" />
+    <Content Include="app\views\editCreative.html" />
+    <Content Include="app\views\home.html" />
+    <Content Include="app\views\login.html" />
+    <Content Include="app\views\main.html" />
+    <Content Include="app\views\profile.html" />
+    <Content Include="app\views\search.html" />
+    <Content Include="app\views\showCreative.html" />
+    <Content Include="app\views\signup.html" />
     <Content Include="App_Data\DataStore.mdf" />
     <Content Include="App_Data\DataStore_log.ldf">
       <DependentUpon>DataStore.mdf</DependentUpon>
     </Content>
+    <Content Include="content\css\angular-ui-tree.css" />
+    <Content Include="content\css\bootstrap.min.css" />
+    <Content Include="content\css\comment_box.css" />
+    <Content Include="content\css\darkbootstrap.css" />
+    <Content Include="content\css\drag&amp;drop.css" />
+    <Content Include="content\css\font-awesome.min.css" />
+    <Content Include="content\css\jCloud.css" />
+    <Content Include="content\css\jquery-ui.css" />
+    <Content Include="content\css\loading-bar.css" />
+    <Content Include="content\css\loading-bar.min.css" />
+    <Content Include="content\css\markdown.css" />
+    <Content Include="content\css\medal-view.css" />
+    <Content Include="content\css\modal.css" />
+    <Content Include="content\css\navtabs.css" />
+    <Content Include="content\css\ng-sortable.css" />
+    <Content Include="content\css\ng-tags-input.bootstrap.min.css" />
+    <Content Include="content\css\ng-tags-input.min.css" />
+    <Content Include="content\css\panelWithTabNavs.css" />
+    <Content Include="content\css\search-view.css" />
+    <Content Include="content\css\site.css" />
+    <Content Include="content\css\social-buttons.css" />
+    <Content Include="content\css\tags-view.css" />
+    <Content Include="content\css\ul-chapters-drag.css" />
+    <Content Include="content\css\upload-form.css" />
+    <Content Include="content\fonts\fontawesome-webfont.svg" />
+    <Content Include="content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="index.html" />
+    <Content Include="Scripts\angular-drag-and-drop-lists.min.js" />
+    <Content Include="Scripts\angular-local-storage.min.js" />
+    <Content Include="Scripts\authComplete.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\loading-bar.min.js" />
+    <Content Include="Scripts\markdown-editable.js" />
+    <Content Include="Scripts\ng-file-upload-shim.min.js" />
+    <Content Include="Scripts\ng-file-upload.js" />
+    <Content Include="Scripts\ng-showdown.js" />
+    <Content Include="Scripts\ng-sortable.js" />
+    <Content Include="Scripts\ng-tags-input.min.js" />
+    <Content Include="Scripts\showdown.min.js" />
+    <Content Include="Scripts\sortable.js" />
+    <Content Include="Scripts\UI-angular-jquery-script.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -226,9 +298,11 @@
     <Compile Include="Controllers\CreativesController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\RatingsController.cs" />
+    <Compile Include="Controllers\SecuredController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="DbContext\FtsInterseptor.cs" />
+    <Compile Include="Filters\RequireHttpsAttribute.cs" />
     <Compile Include="Interfaces\IMedalService.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ITagsService.cs" />
@@ -356,6 +430,7 @@
     <Compile Include="Repositories\MedalsRepository.cs" />
     <Compile Include="Repositories\RatingsRepository.cs" />
     <Compile Include="Repositories\TagsRepository.cs" />
+    <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Services\MedalService.cs" />
     <Compile Include="Services\TagsService.cs" />
     <Compile Include="Startup.cs" />
@@ -364,7 +439,16 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="content\fonts\fontawesome-webfont.eot" />
+    <Content Include="content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="content\fonts\fontawesome-webfont.woff" />
+    <Content Include="content\fonts\FontAwesome.otf" />
+    <Content Include="content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\CourseProject20160316104631.pubxml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\CourseProjectApi20160324093711 - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

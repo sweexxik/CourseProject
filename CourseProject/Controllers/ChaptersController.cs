@@ -89,6 +89,7 @@ namespace CourseProject.Controllers
 
         private static Chapter InitChapter(NewChapterModel model)
         {
+            //todo fix datetime
             return new Chapter
             {
                 Id = model.Id,
@@ -96,7 +97,7 @@ namespace CourseProject.Controllers
                 Body = model.Text,
                 Number = model.Number,
                 CreativeId = model.CreativeId,
-                Created = DateTime.Parse(model.CreatedOn)
+                Created = DateTime.Now
             };
         }
 
