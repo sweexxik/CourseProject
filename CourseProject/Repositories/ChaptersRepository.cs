@@ -11,9 +11,9 @@ namespace CourseProject.Repositories
 {
     class ChaptersRepository : IRepository<Chapter>
     {
-        private readonly AuthContext db;
+        private readonly DatabaseContext db;
 
-        public ChaptersRepository(AuthContext context)
+        public ChaptersRepository(DatabaseContext context)
         {
             db = context;
         }

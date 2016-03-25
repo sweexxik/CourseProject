@@ -11,9 +11,9 @@ namespace CourseProject.Repositories
 {
     public class CreativeCategoryRepository : IRepository<CreativeCategory>
     {
-        private readonly AuthContext db;
+        private readonly DatabaseContext db;
 
-        public CreativeCategoryRepository(AuthContext context)
+        public CreativeCategoryRepository(DatabaseContext context)
         {
             db = context;
         }

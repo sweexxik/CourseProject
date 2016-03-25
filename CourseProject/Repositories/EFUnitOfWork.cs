@@ -11,7 +11,7 @@ namespace CourseProject.Repositories
 {
     public class EfUnitOfWork : IUnitOfWork
     {
-        private readonly AuthContext db;
+        private readonly DatabaseContext db;
 
         private CreativesRepository creativesRepository;
         private CommentsRepository commentsRepository;
@@ -26,7 +26,7 @@ namespace CourseProject.Repositories
 
         public EfUnitOfWork()
         {
-            db = new AuthContext();
+            db = new DatabaseContext();
             userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         }
 

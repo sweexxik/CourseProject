@@ -9,7 +9,7 @@ using CourseProject.Services;
 
 namespace CourseProject.Controllers
 {
-    [Authorize]
+
     public class TagsController : ApiController
     {
         private readonly IUnitOfWork db;

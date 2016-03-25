@@ -68,6 +68,7 @@ app.config(function ($routeProvider) {
 });
 
 var serviceBase = 'http://localhost:57507/';
+//var serviceBase = 'http://courseprojectapi20160324093711.azurewebsites.net/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'ngAuthApp'

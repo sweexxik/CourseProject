@@ -55,7 +55,7 @@ namespace CourseProject.DbContext
                 {
                     if (parameter.Value == DBNull.Value)
                         continue;
-                    var value = (string) parameter.Value;
+                    var value = (string)parameter.Value;
                     if (value.IndexOf(FullTextPrefix, StringComparison.Ordinal) >= 0)
                     {
                         parameter.Size = 4096;

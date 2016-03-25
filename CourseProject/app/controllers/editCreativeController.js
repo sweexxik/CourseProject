@@ -1,7 +1,9 @@
 'use strict';
-app.controller('editCreativeController', ['$http', '$scope','$route','$routeParams','creativeService','$window','$location',
-	function ($http, $scope, $route, $routeParams,creativeService, $window, $location) {
+app.controller('editCreativeController', ['ngAuthSettings','$http', '$scope','$route','$routeParams','creativeService','$window','$location',
+	function (ngAuthSettings, $http, $scope, $route, $routeParams,creativeService, $window, $location) {
  		
+ 		 var serviceBase = ngAuthSettings.apiServiceBaseUri;
+
 		var creativeId = $routeParams.Id; 	
 		$scope.creativeId = creativeId;
  		$scope.creative = []; 	
@@ -107,7 +109,7 @@ app.controller('editCreativeController', ['$http', '$scope','$route','$routePara
 	    };
 
 	    var postData = function(data, link){
-	    	 $http.post('http://localhost:57507/api/' + link, JSON.stringify(data), {
+	    	 $http.post(serviceBase + 'api/' + link, JSON.stringify(data), {
 	             headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
 	    	 .success(function (response) {
 	                console.log(response);

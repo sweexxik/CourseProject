@@ -11,9 +11,9 @@ namespace CourseProject.Repositories
 {
     public class MedalsRepository : IRepository<Medal>
     {
-        private readonly AuthContext db;
+        private readonly DatabaseContext db;
 
-        public MedalsRepository(AuthContext context)
+        public MedalsRepository(DatabaseContext context)
         {
             db = context;
         }

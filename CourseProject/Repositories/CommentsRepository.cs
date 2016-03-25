@@ -10,9 +10,9 @@ namespace CourseProject.Repositories
 {
     class CommentsRepository : Interfaces.IRepository<Comment>
     {
-        private readonly AuthContext db;
+        private readonly DatabaseContext db;
 
-        public CommentsRepository(AuthContext context)
+        public CommentsRepository(DatabaseContext context)
         {
             db = context;
         }

@@ -64,10 +64,6 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fissoft.EntityFramework.Fts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fissoft.EntityFramework.Fts.1.0.0.8\lib\net45\Fissoft.EntityFramework.Fts.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
@@ -285,7 +281,9 @@
     <Content Include="Scripts\showdown.min.js" />
     <Content Include="Scripts\sortable.js" />
     <Content Include="Scripts\UI-angular-jquery-script.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -298,11 +296,12 @@
     <Compile Include="Controllers\CreativesController.cs" />
     <Compile Include="Controllers\LikesController.cs" />
     <Compile Include="Controllers\RatingsController.cs" />
-    <Compile Include="Controllers\SecuredController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="DbContext\AzureDbConfiguration.cs" />
     <Compile Include="DbContext\FtsInterseptor.cs" />
     <Compile Include="Filters\RequireHttpsAttribute.cs" />
+    <Compile Include="Interfaces\ICreativeService.cs" />
     <Compile Include="Interfaces\IMedalService.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ITagsService.cs" />
@@ -430,11 +429,11 @@
     <Compile Include="Repositories\MedalsRepository.cs" />
     <Compile Include="Repositories\RatingsRepository.cs" />
     <Compile Include="Repositories\TagsRepository.cs" />
-    <Compile Include="Results\ChallengeResult.cs" />
+    <Compile Include="Services\CreativeService.cs" />
     <Compile Include="Services\MedalService.cs" />
     <Compile Include="Services\TagsService.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="DbContext\AuthContext.cs" />
+    <Compile Include="DbContext\DatabaseContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

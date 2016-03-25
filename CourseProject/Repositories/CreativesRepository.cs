@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 using CourseProject.DbContext;
 using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
-using SphinxConnector.FluentApi;
+
 
 namespace CourseProject.Repositories
 {
     class CreativesRepository : IRepository<Creative>
     {
-        private readonly AuthContext db;
+        private readonly DatabaseContext db;
 
-        public CreativesRepository(AuthContext context)
+        public CreativesRepository(DatabaseContext context)
         {
            
             db = context;
@@ -62,6 +62,21 @@ namespace CourseProject.Repositories
 
         public async Task<IEnumerable<Creative>> Search(string pattern)
         {
+            var s = FtsInterceptor.Fts(pattern);
+
+            try
+            {
+                var ftsResults123 = db.Creatives.Where(c => c.Name.Contains(s)).Select(c => c.Id);
+                var res = db.Creatives.Where(c => ftsResults123.Contains(c.Id));
+
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
+
+
             var ftsResults = db.Creatives.Where(c => c.Name.Contains(pattern)).Select(c => c.Id);
 
             return db.Creatives.Where(creative => ftsResults.Contains(creative.Id)).ToList();
@@ -75,37 +90,6 @@ namespace CourseProject.Repositories
         public void RemoveRange(IEnumerable<Creative> range)
         {
             db.Creatives.RemoveRange(range);
-        }
-
-        public IEnumerable<Creative> RunFullTextContainsQuery(Expression<Func<Creative, object>> property, string search)
-        {
-            if (string.IsNullOrWhiteSpace(search))
-            {
-                return Enumerable.Empty<Creative>();
-            }
-
-            var unaryExpression = property.Body as UnaryExpression;
-
-            var memberExpression = property.Body as MemberExpression ?? (unaryExpression != null ? unaryExpression.Operand as MemberExpression : null);
-
-            if (memberExpression == null)
-            {
-                throw new Exception(string.Format("Invalid lambda expression: '{0}'.", property));
-            }
-
-            var query = string.Format("SELECT * FROM {0} WHERE CONTAINS( {1}, @search)", GetTableName(), memberExpression.Member.Name);
-
-            return db.Database.SqlQuery<Creative>(query, new SqlParameter("@search", search)).ToList();
-        }
-
-        private string GetTableName()
-        {
-            var objectContext = ((IObjectContextAdapter)db).ObjectContext;
-            var sql = objectContext.CreateObjectSet<Creative>().ToTraceString();
-            var regex = new Regex(@"FROM\s+(?<table>.+)\s+AS");
-            var match = regex.Match(sql);
-
-            return match.Groups["table"].Value;
         }
     }
 }

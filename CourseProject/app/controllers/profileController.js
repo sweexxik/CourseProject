@@ -1,6 +1,9 @@
 'use strict';
-app.controller('profileController', ['$anchorScroll','$http','$scope', '$location', 'authService','$timeout','Upload', function ($anchorScroll,$http,$scope, $location, authService, $timeout,Upload) {
+app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$scope', '$location', 'authService','$timeout','Upload',
+   function (ngAuthSettings,$anchorScroll,$http,$scope, $location, authService, $timeout,Upload) {
   
+    var serviceBase = ngAuthSettings.apiServiceBaseUri;
+
     $scope.authentication = authService.authentication;
     $scope.userInfo = {};
     $scope.newUserInfo = {};
@@ -53,10 +56,7 @@ app.controller('profileController', ['$anchorScroll','$http','$scope', '$locatio
       $scope.updateAvatar = function(){
           $scope.upload($scope.file);
       };
-
-       
-
-
+      
     //$scope.upload($scope.files);
 
     $scope.$watch('file', function () {
@@ -69,11 +69,10 @@ app.controller('profileController', ['$anchorScroll','$http','$scope', '$locatio
 
     $scope.upload = function (file) {
         console.log("Upload starts");
-            console.log(file);
-           
+            console.log(file);           
               if (!file.$error) {
                 Upload.upload({
-                    url: 'http://localhost:57507/api/upload/',
+                    url: serviceBase + 'api/upload/',
                     data: {
                       username: $scope.authentication.userName,
                       file: file  
@@ -98,8 +97,6 @@ app.controller('profileController', ['$anchorScroll','$http','$scope', '$locatio
                       
                 });
               }
-            
-        
     };
 
 

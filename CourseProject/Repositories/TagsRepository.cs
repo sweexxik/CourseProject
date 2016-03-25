@@ -11,9 +11,9 @@ namespace CourseProject.Repositories
 {
     public class TagsRepository : IRepository<Tag>
     {
-        private readonly AuthContext db;
+        private readonly DatabaseContext db;
 
-        public TagsRepository(AuthContext context)
+        public TagsRepository(DatabaseContext context)
         {
             db = context;
         }

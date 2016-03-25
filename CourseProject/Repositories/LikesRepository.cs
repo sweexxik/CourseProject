@@ -11,9 +11,9 @@ namespace CourseProject.Repositories
 {
     class LikesRepository : IRepository<Like>
     {
-        private readonly AuthContext db;
+        private readonly DatabaseContext db;
 
-        public LikesRepository(AuthContext context)
+        public LikesRepository(DatabaseContext context)
         {
             db = context;
         }
