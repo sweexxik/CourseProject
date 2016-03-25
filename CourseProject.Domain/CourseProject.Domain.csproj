@@ -41,6 +41,10 @@
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Lucene.Net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=85089178b9ac3181, processorArchitecture=MSIL">
       <HintPath>..\packages\Lucene.Net.3.0.3\lib\NET40\Lucene.Net.dll</HintPath>
       <Private>True</Private>
@@ -83,6 +87,17 @@
     <Compile Include="Entities\Medal.cs" />
     <Compile Include="Entities\Rating.cs" />
     <Compile Include="Entities\Tag.cs" />
+    <Compile Include="LuceneEngine\ADocument.cs" />
+    <Compile Include="LuceneEngine\BaseSearch.cs" />
+    <Compile Include="LuceneEngine\BaseSearcher.cs" />
+    <Compile Include="LuceneEngine\BaseWriter.cs" />
+    <Compile Include="LuceneEngine\IDocument.cs" />
+    <Compile Include="LuceneEngine\SearchException.cs" />
+    <Compile Include="LuceneEngine\SearchResult.cs" />
+    <Compile Include="LuceneEntities\CreativeDocument.cs" />
+    <Compile Include="LuceneEntities\CreativeWriter.cs" />
+    <Compile Include="LuceneEntities\ExtensionMethods.cs" />
+    <Compile Include="LuceneEntities\CreativeSearcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
