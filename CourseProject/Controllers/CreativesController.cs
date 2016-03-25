@@ -8,14 +8,10 @@ namespace CourseProject.Controllers
 {
     public class CreativesController : ApiController
     {
-    
-        private readonly IMedalService medalService;
         private readonly ICreativeService creativeService;
-       
 
         public CreativesController()
         {
-            medalService = new MedalService();
             creativeService = new CreativeService();
         }
 
