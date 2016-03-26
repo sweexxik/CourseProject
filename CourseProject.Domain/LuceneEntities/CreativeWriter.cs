@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using CourseProject.Domain.Entities;
 using CourseProject.Domain.LuceneEngine;
@@ -20,16 +19,7 @@ namespace CourseProject.Domain.LuceneEntities
 
         public void AddUpdateCreativesToIndex(List<Creative> people)
         {
-            try
-            {
-                AddUpdateItemsToIndex(people.Select(p => (CreativeDocument)p).ToList());
-            }
-            catch (Exception e)
-            {
-                
-                throw new Exception(e.Message);
-            }
-          
+            AddUpdateItemsToIndex(people.Select(p => (CreativeDocument) p).ToList());
         }
 
         public void DeleteCreativeFromIndex(Creative person)

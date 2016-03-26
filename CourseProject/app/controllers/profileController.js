@@ -11,6 +11,7 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
     $scope.progressPercentage = 0;
     $scope.showUpload = "";
     $scope.isAdmin = false;
+    $scope.showLoading = false;
 
     var newData = {
         firstName:"",
@@ -80,21 +81,20 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
 
     $scope.log = '';
 
-    $scope.upload = function (file) {
-        console.log("Upload starts");
-            console.log(file);           
+    $scope.upload = function (file) {               
               if (!file.$error) {
+                $scope.showLoading = true;
                 Upload.upload({
                     url: serviceBase + 'api/upload/',
                     data: {
                       username: $scope.authentication.userName,
                       file: file  
                     }
-                }).then(function (resp) {
-                    console.log(resp);
+                }).then(function (resp) {                    
                     $timeout(function() {                      
-                         $scope.userInfo = resp.data;
-                         $('.global-modal').css('display', "none")                       
+                      $scope.userInfo = resp.data;
+                      $scope.showLoading = false;
+                      $('.global-modal').toggleClass('global-modal-show');                     
                     });
                 }, null, function (evt) {
                     $scope.progressPercentage = parseInt(100.0 * evt.loaded / evt.total);    

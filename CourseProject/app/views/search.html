@@ -1,10 +1,71 @@
-   		<div data-ng-if="results.length == 0"> No results</div>
-        <div data-ng-if="results.length > 0" class="col-md-12" data-ng-repeat="creative in results">
-
-            <div class="col-md-2">
-            &nbsp;
+ <div class="jumbotron">
+    <div class="container">
+        <div class="page-header text-center">
+            <h1>Search everywhere</h1>
         </div>
-            <div class="col-md-8 margin-bottom-30">            
+        <p>Creative name, Chapter name, Chapter text, Author name, Comment text, Comment author</p>  
+   	    <div class="col-md-12">
+        <div class="col-md-3">&nbsp;</div>
+        <div class="col-md-6">
+          <div class="input-group" id="adv-search">
+                <input type="text" class="form-control" placeholder="Search for documents" />
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                    
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+        <div class="col-md-3">&nbsp;</div>
+        <div class="col-md-6">    
+         <ul class="list-group">                  
+                    <li class="list-group-item">
+                        Creative name
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionSuccess" class="label-success"></label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Chapter name
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionInfo" class="label-info"></label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Chapter text
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionWarning" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionWarning" class="label-warning"></label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Author name
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionDanger" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionDanger" class="label-danger"></label>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        Comment text
+                        <div class="material-switch pull-right">
+                            <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
+                            <label for="someSwitchOptionPrimary" class="label-danger"></label>
+                        </div>
+                    </li>
+                </ul>
+        </div>
+        </div>
+        </div>
+
+        <div data-ng-if="results.length == 0"> No results</div>
+        <div data-ng-if="results.length > 0" class="col-md-12" data-ng-repeat="creative in results">
+        
+            <div class="col-md-12 margin-bottom-30">            
                 <!-- BEGIN Portlet PORTLET-->
                 <div class="portlet portlet-bordered">
                     <div class="portlet-title">
@@ -14,17 +75,7 @@
                             <span class="caption-helper">weekly stats...</span>
                         </div>
                         <div class="actions">  
-                         <a ng-href="#/show/{{creative.id}}" class="btn"><i class="glyphicon glyphicon-pencil"></i>Show</a>
-                           <a data-ng-href="#show/{{creative.id}}" class="btn">
-                                <i class="glyphicon glyphicon-pencil"></i>Edit
-                            </a>                       
-                            
-                            <a data-ng-click="deleteCreative(creative.id)" class="btn btn-red btn-circle">
-                                <i class="glyphicon glyphicon-trash"></i>
-                            </a>
-                            <a href="javascript:;" class="btn btn-red btn-circle">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </a>
+                         <a ng-href="#/show/{{creative.id}}" class="btn"><i class="glyphicon glyphicon-pencil"></i>Show</a>  
                         </div>
                     </div>
                     <div class="portlet-body">

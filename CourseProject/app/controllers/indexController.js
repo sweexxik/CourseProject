@@ -20,8 +20,7 @@ app.controller('indexController', ['$http','$scope', '$location', 'authService',
 
     $scope.search = function(){ 
         searchService.setSearchPattern($scope.pattern);
-        $location.path('/search');
-        
+        $location.path('/search');       
        
     };
 

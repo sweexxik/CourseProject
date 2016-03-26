@@ -1,27 +1,19 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
-using CourseProject.Domain.Interfaces;
-using CourseProject.Domain.Repositories;
+using CourseProject.Interfaces;
 using CourseProject.Providers;
 
 namespace CourseProject.Controllers
 {
     public class UploadController : ApiController
     {
-        private readonly string workingFolder = HttpRuntime.AppDomainAppPath + @"\Uploads";
+        private readonly IAccountService service;
 
-        private readonly IUnitOfWork db;
-
-        public UploadController()
+        public UploadController(IAccountService serv)
         {
-            db = new EfUnitOfWork();
+            service = serv;
         }
         
  
@@ -43,19 +35,11 @@ namespace CourseProject.Controllers
 
             try
             {
-                var provider = new CustomMultipartFormDataStreamProvider(workingFolder);
+                var provider = new CustomMultipartFormDataStreamProvider(service.WorkingFolder);
 
                 await Request.Content.ReadAsMultipartAsync(provider);
-  
-                var user = await db.FindUser(provider.FormData.Get("username"));
 
-                var result = CloudinaryUpload(provider);
-
-                user.AvatarUri = result.Uri.AbsoluteUri;
-
-                await db.UpdateUser(user);
-
-                return Ok(user);
+                return Ok(await service.UploadFile(provider));
             }
 
             catch (Exception ex)
@@ -64,25 +48,6 @@ namespace CourseProject.Controllers
             }
         }
 
-        private ImageUploadResult CloudinaryUpload(CustomMultipartFormDataStreamProvider provider)
-        {
-            var account = new Account("ddttiy9ko", "799681156658259", "_A8bJk28HFotHtOJCMPFKrb1rII");
-
-            var cloudinary = new Cloudinary(account);
-
-            var uploadParams = new ImageUploadParams();
-
-            uploadParams.File = new FileDescription($"{provider.FileData[0].LocalFileName}");
-
-            return cloudinary.Upload(uploadParams);
-        }
-
-        public bool FileExists(string fileName)
-        {
-            var file = Directory.GetFiles(workingFolder, fileName)
-              .FirstOrDefault();
-
-            return file != null;
-        }
+       
     }
 }

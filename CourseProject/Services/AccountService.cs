@@ -1,23 +1,31 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using CourseProject.Domain.Entities;
 using CourseProject.Domain.Interfaces;
 using CourseProject.Domain.Models;
 using CourseProject.Interfaces;
 using CourseProject.Models;
+using CourseProject.Providers;
 using Microsoft.AspNet.Identity;
 
 namespace CourseProject.Services
 {
     public class AccountService : IAccountService
     {
+
         private readonly IUnitOfWork db;
-   
+
+        public string WorkingFolder => HttpRuntime.AppDomainAppPath + @"\Uploads";
+
         public AccountService(IUnitOfWork repo)
         {
             db = repo;
         }
-
+         
         public async Task<UserViewModel> GetUserInfo(string userName)
         {
             var user = await db.FindUser(userName);
@@ -39,6 +47,40 @@ namespace CourseProject.Services
             var user = await db.FindUser(model.UserName);
 
             return await db.ChangePassword(user.Id, model.OldPassword, model.NewPassword);
+        }
+
+        public async Task<UserViewModel> UploadFile(CustomMultipartFormDataStreamProvider provider)
+        {
+            var user = await db.FindUser(provider.FormData.Get("username"));
+
+            var result = CloudinaryUpload(provider);
+
+            user.AvatarUri = result.Uri.AbsoluteUri;
+
+            await db.UpdateUser(user);
+
+            return InitUserViewModel(user);
+        }
+
+        private ImageUploadResult CloudinaryUpload(CustomMultipartFormDataStreamProvider provider)
+        {
+            var account = new Account("ddttiy9ko", "799681156658259", "_A8bJk28HFotHtOJCMPFKrb1rII");
+
+            var cloudinary = new Cloudinary(account);
+
+            var uploadParams = new ImageUploadParams();
+
+            uploadParams.File = new FileDescription($"{provider.FileData[0].LocalFileName}");
+
+            return cloudinary.Upload(uploadParams);
+        }
+
+        public bool FileExists(string fileName)
+        {
+            var file = Directory.GetFiles(WorkingFolder, fileName)
+              .FirstOrDefault();
+
+            return file != null;
         }
 
         public void Dispose(bool disposing)

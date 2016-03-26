@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
@@ -74,25 +75,36 @@ namespace CourseProject.Services
 
         public async Task<IEnumerable<NewCreativeModel>> SearchCreatives(string pattern)
         {
-            var writer = new CreativeWriter(dataFolder);
-
-            var searcher = new CreativeSearcher(dataFolder);
-
-            writer.AddUpdateCreativesToIndex(db.Creatives.GetAll().ToList());
-
-            var res = searcher.SearchCreative(pattern, string.Empty);
-
             var results = new List<Creative>();
 
-            foreach (var item in res.SearchResultItems)
+            try
             {
-                var creative = await db.Creatives.Get(item.Id);
+                var writer = new CreativeWriter(dataFolder);
 
-                if (creative != null)
+                var searcher = new CreativeSearcher(dataFolder);
+
+                writer.AddUpdateCreativesToIndex(db.Creatives.GetAll().ToList());
+
+                var res = searcher.SearchCreative(pattern, string.Empty);
+
+               
+
+                foreach (var item in res.SearchResultItems)
                 {
-                    results.Add(creative);
+                    var creative = await db.Creatives.Get(item.Id);
+
+                    if (creative != null)
+                    {
+                        results.Add(creative);
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                
+                throw new AccessViolationException(e.Message);
+            }
+           
 
             return InitCreativesModel(results);
         }

@@ -132,6 +132,9 @@ namespace CourseProject.Domain.LuceneEntities
 
         public static explicit operator CreativeDocument(Creative creative)
         {
+            if (creative.Chapters == null)
+                return new CreativeDocument();
+
             return new CreativeDocument
             {
                Id = creative.Id,
