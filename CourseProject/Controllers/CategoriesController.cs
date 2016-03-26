@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using CourseProject.Domain.Entities;
-using CourseProject.Interfaces;
-using CourseProject.Repositories;
+using CourseProject.Domain.Interfaces;
+using CourseProject.Domain.Repositories;
 
 namespace CourseProject.Controllers
 {

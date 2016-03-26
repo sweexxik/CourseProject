@@ -1,7 +1,7 @@
 ﻿'use strict';
 app.controller('homeController',
- ['$http','$scope','creativeService', 'localStorageService', '$location','authService','$window','$uibModal',
-  function ($http, $scope, creativeService, localStorageService, $location, authService, $window,$uibModal) {
+ ['$http','$scope','creativeService', 'localStorageService', '$location','authService','$window','$uibModal','$route',
+  function ($http, $scope, creativeService, localStorageService, $location, authService, $window,$uibModal, $route) {
 
  	$scope.authentication = authService.authentication;
     $scope.userInfo = [];

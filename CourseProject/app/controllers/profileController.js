@@ -10,11 +10,13 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
     $scope.flagHide = false;
     $scope.progressPercentage = 0;
     $scope.showUpload = "";
+    $scope.isAdmin = false;
 
     var newData = {
         firstName:"",
         lastName: "",      
         userName:"",
+        phoneNumber:"",
         email:"",
         OldPassword:"",
         NewPassword:"",
@@ -24,7 +26,10 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
 
     authService.getProfileInfo().then(function(results){
         $scope.userInfo = results.data;
-          console.log( $scope.userInfo);
+        if($scope.userInfo.roles[0] == 'fbf6669f-3305-482b-8c08-a25f6ef53bea'){
+          $scope.isAdmin = true;
+          console.log($scope.userInfo);
+        }
     });
 
    $scope.scrollTo = function (id) {
@@ -42,13 +47,21 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
         newData.firstName = $scope.userInfo.firstName;
         newData.lastName = $scope.userInfo.lastName;
         newData.email = $scope.userInfo.email;
+        newData.phoneNumber = $scope.userInfo.phoneNumber;       
+
+        authService.saveUserInfo(newData).then(function(results){            
+          $scope.userInfo = results.data;       
+        });
+      };
+
+      $scope.changePassword = function(){
         newData.OldPassword = $scope.newUserInfo.oldPassword;
         newData.NewPassword = $scope.newUserInfo.newPassword;
         newData.ConfirmPassword = $scope.newUserInfo.passConfirm;
+        newData.userName = $scope.userInfo.userName;
 
-       
-        authService.saveUserInfo(newData).then(function(results){            
-          $scope.userInfo = results.data;       
+        authService.changePassword(newData).then(function(results){
+            console.log(results.data);
         });
       };
 
@@ -79,29 +92,15 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
                     }
                 }).then(function (resp) {
                     console.log(resp);
-                    $timeout(function() {
-                        $scope.log = 'file: ' +
-                        resp.config.data.file.name +                     
-                        '\n' + $scope.log;
+                    $timeout(function() {                      
                          $scope.userInfo = resp.data;
-                         $scope.showUpload = "hide";
+                         $('.global-modal').css('display', "none")                       
                     });
                 }, null, function (evt) {
-
-                     $scope.progressPercentage = parseInt(100.0 *
-                            evt.loaded / evt.total);
-                    $scope.log = 'progress: ' +  $scope.progressPercentage + 
-                        '% ' + evt.config.data.file.name + '\n' + 
-                      $scope.log;
-                                       console.log($scope.progressPercentage);
-                      
+                    $scope.progressPercentage = parseInt(100.0 * evt.loaded / evt.total);    
                 });
               }
     };
-
-
-
-
 
 
 }]);

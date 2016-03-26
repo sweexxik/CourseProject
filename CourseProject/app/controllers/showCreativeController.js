@@ -45,7 +45,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
     }  
     
     creativeService.getCreative(creativeId).then(function (results) {
-        initCreative(results);       
+        initCreative(results.data);       
         }, function (error) {
             console.log(error);
         });
@@ -129,17 +129,21 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         return defaultResult;
    };
 
-    var initCreative = function (results) {
-        $scope.creative = results.data;
-        $scope.chapters = creativeService.sortChapters(results.data); 
-        $scope.ratings = results.data.rating;
-        $scope.ratingsAvg = calcAvg();
-        setPercentage();
+    var initCreative = function (data) {
+        console.log(data);
+        if(data != null){
+            $scope.creative = data;
+            $scope.chapters = creativeService.sortChapters(data); 
+            $scope.ratings = data.rating;
+            $scope.ratingsAvg = calcAvg();
+            setPercentage();
 
-        for (var i = 0; i < $scope.chapters.length; i++) {
-            var md = $showdown.makeHtml($scope.chapters[i].body);
-            $scope.chapters[i].body = $sce.trustAsHtml(md);
-        }      
+            for (var i = 0; i < $scope.chapters.length; i++) {
+                var md = $showdown.makeHtml($scope.chapters[i].body);
+                $scope.chapters[i].body = $sce.trustAsHtml(md);
+            }      
+        }
+        
    }
 
    var initComment = function(){

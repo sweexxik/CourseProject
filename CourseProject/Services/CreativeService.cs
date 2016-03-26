@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
-using CourseProject.Domain.LuceneEngine;
+using CourseProject.Domain.Interfaces;
 using CourseProject.Domain.LuceneEntities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
-using CourseProject.Repositories;
-
 namespace CourseProject.Services
 {
     public class CreativeService : ICreativeService
@@ -18,10 +15,10 @@ namespace CourseProject.Services
         private readonly IUnitOfWork db;
         private readonly IMedalService medalService;
 
-        public CreativeService()
+        public CreativeService(IUnitOfWork repo, IMedalService medal)
         {
-            db = new EfUnitOfWork();
-            medalService = new MedalService();
+            db = repo;
+            medalService = medal;
         }
 
         public async Task<IEnumerable<NewCreativeModel>> UpdateCreative(NewCreativeModel model)
@@ -38,8 +35,6 @@ namespace CourseProject.Services
 
             return InitCreativesModel(db.Creatives.Find(c => c.User.UserName == model.UserName));
         }
-    
-
 
         public async Task<IEnumerable<NewCreativeModel>> CreateCreative(NewCreativeModel model)
         {
@@ -59,25 +54,33 @@ namespace CourseProject.Services
         {
             var currentCreative = await db.Creatives.Get(id);
 
-            var user = currentCreative.User;
+            if (currentCreative == null)
+            {
+                return null;
+            }
+
+            var userId = currentCreative.User.Id;
 
             db.Tags.RemoveRange(currentCreative.Tags);
 
-            await db.Creatives.Remove(id);
+            var result = await db.Creatives.Remove(id);
+
+            if (!result) return null;
 
             db.Save();
 
-            return InitCreativesModel(db.Creatives.Find(x => x.User.Id == user.Id)));
+            return InitCreativesModel(db.Creatives.Find(x=>x.User.Id == userId)) ;
         }
 
         public async Task<IEnumerable<NewCreativeModel>> SearchCreatives(string pattern)
         {
             var writer = new CreativeWriter(dataFolder);
+
             var searcher = new CreativeSearcher(dataFolder);
 
             writer.AddUpdateCreativesToIndex(db.Creatives.GetAll().ToList());
 
-            SearchResult res = searcher.SearchCreative(pattern, string.Empty);
+            var res = searcher.SearchCreative(pattern, string.Empty);
 
             var results = new List<Creative>();
 
@@ -96,12 +99,16 @@ namespace CourseProject.Services
 
         public async Task<Creative> GetCreativeById(int id)
         {
-           return await db.Creatives.Get(id);
+            var result = await db.Creatives.Get(id);
+
+            return result;
         }
 
         public async Task<IEnumerable<NewCreativeModel>> GetUsersCreatives(string userName)
         {
             var user = await db.FindUser(userName);
+
+            if (user == null) return null;
 
             var list = db.Creatives.Find(x => x.User == user).ToList();
 

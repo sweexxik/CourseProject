@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
+using CourseProject.Domain.Interfaces;
+using CourseProject.Domain.Repositories;
 using CourseProject.Interfaces;
 using CourseProject.Models;
-using CourseProject.Repositories;
 
 namespace CourseProject.Services
 {
@@ -16,34 +19,34 @@ namespace CourseProject.Services
             db = new EfUnitOfWork();
         }
 
-        public IEnumerable<TagsViewModel> GetTags()
+        public IEnumerable<TagsViewModel> GetAllTags()
         {
-            var tagCollection = db.Tags.GetAll().ToList();
-
-            var result = new List<TagsViewModel>();
-
-            var tagGroups = tagCollection.GroupBy(x => x.Name);
-
-            foreach (var tagGroup in tagGroups)
-            {
-                var firstTag = tagGroup.First();
-
-                result.Add(new TagsViewModel
-                {
-                    Id = firstTag.Id,
-                    Name = firstTag.Name,
-                    Count = tagGroup.Count()
-                });
-            }
-
-            return result;
+            return InitTagsViewModel(db.Tags.GetAll().ToList()); 
         }
 
-        public IEnumerable<TagsViewModel> GetTags(List<Tag> inputTags)
+        public async Task<IEnumerable<TagsViewModel>> GetCreativeTags(int creativeId)
         {
-            var result = new List<TagsViewModel>();
+            var creative = await db.Creatives.Get(creativeId);
 
+            return creative != null ? InitTagsViewModel(creative.Tags) : new List<TagsViewModel>();
+        }
+
+        public IEnumerable<TagsViewModel> SaveTags(int creativeId, IEnumerable<Tag> tags)
+        {
+            db.Tags.RemoveRange(db.Tags.GetAll());
+
+            db.Tags.AddRange(tags);
+
+            db.Save();
+
+            return InitTagsViewModel(db.Tags.Find(x => x.CreativeId == creativeId));
+        }
+
+        private IEnumerable<TagsViewModel> InitTagsViewModel(IEnumerable<Tag> inputTags)
+        {
             var allTags = db.Tags.GetAll().ToList();
+
+            var result = new List<TagsViewModel>();
 
             var tagGroups = inputTags.GroupBy(x => x.Name);
 
@@ -55,13 +58,14 @@ namespace CourseProject.Services
                 {
                     Id = firstTag.Id,
                     Name = firstTag.Name,
-                    Count = allTags.Count(x=>x.Name == firstTag.Name)
+                    Count = allTags.Count(x => x.Name == firstTag.Name)
                 });
             }
 
             return result;
         }
     }
+  
 
     class Compare : IEqualityComparer<Tag>
     {

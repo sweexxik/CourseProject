@@ -1,125 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
-using CourseProject.Repositories;
 
 namespace CourseProject.Controllers
 {
     [Authorize]
-    public class ChaptersController : ApiController
+    public class ChaptersController : BaseApiController
     {
-        private readonly IUnitOfWork db;
+        private readonly IChaptersService service;
 
-        public ChaptersController()
+        public ChaptersController(IChaptersService serv)
         {
-            db = new EfUnitOfWork();
+            service = serv;
         }
 
         [HttpGet]
         [Route("api/chapters/{chapterId}")]
-        public IHttpActionResult GetChapter(int chapterId)
+        public async Task<IHttpActionResult> GetChapter(int chapterId)
         {
-            var result = InitChapterViewModel(db.Chapters.Find(x => x.Id == chapterId));
-
-            return Ok(result);
+            return Ok(await service.GetChapter(chapterId));
         }
 
         [HttpPost]
         [Route("api/chapters")]
         public IHttpActionResult AddOrUpdateChapter(NewChapterModel model)
         {
-            var chapter = InitChapter(model);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            AddOrUpdateChapter(model, chapter);
-
-            db.Save();
+            service.AddOrUpdateChapter(model);
 
             return Ok(model);
         }
 
         [Route("api/chapters/all")]
-        public async Task<IHttpActionResult> PostAllChapters([FromBody] List<Chapter> model)
+        public async Task<IHttpActionResult> PostAllChapters([FromBody] List<NewChapterModel> model)
         {
-            foreach (var chapter in model)
+            if (!ModelState.IsValid)
             {
-                var ch = await db.Chapters.Get(chapter.Id);
-                ch.Number = chapter.Number;
+                return BadRequest(ModelState);
             }
 
-            db.Save();
+            //todo test it
 
-            return Ok(new {status = "200"});
+            await service.SetChaptersPositions(model);
+
+            return Ok(HttpStatusCode.OK);
         }
 
         [HttpPost]
-        [Route("api/chapters/delete")]
-        public async Task<IHttpActionResult> DeleteChapter([FromBody] Chapter model)
+        [Route("api/chapters/delete/{chapterId}")]
+        public async Task<IHttpActionResult> DeleteChapter(int chapterId)
         {
-            var item = await db.Chapters.Remove(model.Id);
-
-            if (item == null)
-            {
-                return BadRequest("Null reference");
-            }
-
-            db.Save();
-
-            return Ok(new {status = "200"});
-        }
-
-
-        private void AddOrUpdateChapter(NewChapterModel model, Chapter chapter)
-        {
-            if (model.Id == 0)
-            {
-                db.Chapters.Add(chapter);
-            }
-            else
-            {
-                db.Chapters.Update(chapter);
-            }
-
-            db.Save();
-        }
-
-        private static Chapter InitChapter(NewChapterModel model)
-        {
-            //todo fix datetime
-            return new Chapter
-            {
-                Id = model.Id,
-                Name = model.Name,
-                Body = model.Text,
-                Number = model.Number,
-                CreativeId = model.CreativeId,
-                Created = DateTime.Now
-            };
-        }
-
-        private static List<NewChapterModel> InitChapterViewModel(IEnumerable<Chapter> chapters)
-        {
-            var result = new List<NewChapterModel>();
-
-            foreach (var chapter in chapters)
-            {
-                result.Add(new NewChapterModel
-                {
-                    Id = chapter.Id,
-                    CreativeId = chapter.CreativeId,
-                    Name = chapter.Name,
-                    Number = chapter.Number,
-                    Text = chapter.Body,
-                    CreatedOn = chapter.Created.ToString(CultureInfo.CurrentCulture),
-                    Edit = false
-                });
-            }
-
-            return result;
+            return await service.DeleteChapter(chapterId) ? Ok(HttpStatusCode.OK) : GetErrorResult(false);
         }
     }
 }

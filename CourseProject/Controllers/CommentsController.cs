@@ -1,53 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
-using CourseProject.Repositories;
-using CourseProject.Services;
 
 namespace CourseProject.Controllers
 {
-    public class CommentsController : ApiController
+    public class CommentsController : BaseApiController
     {
-        private readonly IUnitOfWork db;
-        private readonly IMedalService medalService;
+        private readonly ICommentsService service;
 
-        public CommentsController()
+        public CommentsController(ICommentsService serv)
         {
-            db = new EfUnitOfWork();
-            medalService = new MedalService();
+            service = serv;
         }
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("api/comments/{id}")]
-        public IHttpActionResult GetComments(int id)
+        [Route("api/comments/{creativeId}")]
+        public IHttpActionResult GetComments(int creativeId)
         {
-            var list = db.Comments.Find(x => x.CreativeId == id).ToList();
+            if (creativeId == 0)
+            {
+                return BadRequest("Creative Id is 0");
+            }
 
-            var comments = InitCommentsModel(list);
-
-            return Ok(comments);
+            return Ok(service.GetComments(creativeId));
         }
 
         [Authorize]
         [HttpPost]
         public async Task<IHttpActionResult> AddComment(NewCommentModel model)
         {
-          
-            var comment = await InitNewComment(model);
-           
-            db.Comments.Add(comment);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            db.Save();
-
-            await medalService.CheckMedals(model.UserName);
-
-            return Ok(InitCommentsModel(db.Comments.Find(x=>x.CreativeId == comment.CreativeId)));
+            return Ok(await service.AddComment(model));
         }
 
         [Authorize]
@@ -55,72 +45,8 @@ namespace CourseProject.Controllers
         [Route("api/comments/delete/{id}")]
         public async Task<IHttpActionResult> DeleteComment(int id)
         {
-            var comm = await db.Comments.Get(id);
-
-            var userName = comm.User.UserName;
-
-            var comment = await db.Comments.Remove(id);
-
-            if (comment == null)
-            {
-                return BadRequest("Null reference");
-            }
-
-            db.Save();
-            
-            await medalService.CheckMedals(userName);
-
-            var comments = db.Comments.Find(x => x.CreativeId == comment.CreativeId);
-
-            var result = InitCommentsModel(comments);
-
-            return Ok(result);
-        }
-
-        private async Task<Comment> InitNewComment(NewCommentModel model)
-        {
-            return new Comment
-            {
-              CreativeId = model.CreativeId,
-              Text = model.Text,
-              User = await db.FindUser(model.UserName),
-              PostDate = DateTime.Now
-            };
-        }
-
-        public static List<NewCommentModel> InitCommentsModel(IEnumerable<Comment> list)
-        {
-            var comments = new List<NewCommentModel>();
-
-            foreach (var comment in list)
-            {
-                var likes = new List<NewLikeModel>();
-
-                if (comment.Likes != null)
-                {
-                    foreach (var like in comment.Likes)
-                    {
-                        likes.Add(new NewLikeModel
-                        {
-                            Id = like.Id,
-                            UserName = like.User.UserName,
-                            CommentId = like.CommentId
-                        });
-                    }
-                }
-
-                comments.Add(new NewCommentModel
-                {
-                    UserName = comment.User.UserName,
-                    Id = comment.Id,
-                    CreativeId = comment.CreativeId,
-                    Text = comment.Text,
-                    Likes = likes,
-                    PostDate = comment.PostDate
-                });
-            }
-            return comments;
-
+            return await service.DeleteComment(id) ?  Ok(HttpStatusCode.OK) : GetErrorResult(false);
         }
     }
 }
+

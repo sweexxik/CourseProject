@@ -1,35 +1,31 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
-using CourseProject.Domain.Entities;
+using CourseProject.Domain.Models;
 using CourseProject.Interfaces;
 using CourseProject.Models;
-using CourseProject.Repositories;
-using Microsoft.AspNet.Identity;
 
 namespace CourseProject.Controllers
 {
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseApiController
     {
-        private readonly IUnitOfWork db;
+        private readonly IAccountService service;
 
-        public AccountController()
+        public AccountController(IAccountService serv)
         {
-            db = new EfUnitOfWork();
+            service = serv;
         }
 
         [AllowAnonymous]
         [Route("Register")]
-        public async Task<IHttpActionResult> Register(UserModel userModel)
+        public async Task<IHttpActionResult> Register(UserModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var result = await db.RegisterUser(userModel);
-
-            var errorResult = GetErrorResult(result);
+            var errorResult = GetErrorResult(await service.CreateUser(model));
 
             return errorResult ?? Ok();
         }
@@ -39,95 +35,51 @@ namespace CourseProject.Controllers
         [Route("info/{userName}")]
         public async Task<IHttpActionResult> GetUserInfo(string userName)
         {
-            if (!ModelState.IsValid)
+            if (userName == null)
             {
-                return BadRequest(ModelState);
+                return BadRequest("User name is null");
             }
 
-            var user = await db.FindUser(userName);
-
-            return Ok(user);
+            return Ok(await service.GetUserInfo(userName));
         }
 
         [Authorize]
         [HttpPost]
         [Route("saveInfo")]
-        public async Task<IHttpActionResult> SaveUserInfo(UpdateUserModel model)
+        public async Task<IHttpActionResult> SaveUserInfo(UserViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = await db.FindUser(model.UserName);
+            var errorResult = GetErrorResult(await service.SaveUserData(model)); 
 
-            var updUser = SetUserData(user, model);
+            return errorResult ?? Ok(await service.GetUserInfo(model.UserName));
+        }
 
-            var result = await db.UpdateUser(updUser);
-
-            var errorResult = GetErrorResult(result);
-
-            if (model.OldPassword != null)
+        [Authorize]
+        [HttpPost]
+        [Route("changePassword")]
+        public async Task<IHttpActionResult> ChangePassword(ChangePasswordModel model)
+        {
+            if (!ModelState.IsValid)
             {
-                var resultChange = await db.ChangePassword(user.Id, model.OldPassword, model.NewPassword);
-
-                if (errorResult == null)
-                {
-                    errorResult = GetErrorResult(resultChange);
-                }
+                return BadRequest(ModelState);
             }
 
-            return errorResult ?? Ok(user);
+            var errorResult = GetErrorResult(await service.ChangePassword(model));
 
-
+            return errorResult ?? Ok(await service.GetUserInfo(model.UserName));
         }
-        
+
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+            service.Dispose(disposing);
 
             base.Dispose(disposing);
         }
 
-        private IHttpActionResult GetErrorResult(IdentityResult result)
-        {
-            if (result == null)
-            {
-                return InternalServerError();
-            }
-
-            if (!result.Succeeded)
-            {
-                if (result.Errors != null)
-                {
-                    foreach (string error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error);
-                    }
-                }
-
-                if (ModelState.IsValid)
-                {
-                    return BadRequest();
-                }
-
-                return BadRequest(ModelState);
-            }
-
-            return null;
-        }
-
-        private ApplicationUser SetUserData(ApplicationUser user, UpdateUserModel model)
-        {
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.Email = model.Email;
-            user.PhoneNumber = model.PhoneNumber;
-
-            return user;
-        }
+       
     }
 }

@@ -2,7 +2,7 @@
 app.controller('editCreativeController', ['ngAuthSettings','$http', '$scope','$route','$routeParams','creativeService','$window','$location',
 	function (ngAuthSettings, $http, $scope, $route, $routeParams,creativeService, $window, $location) {
  		
- 		 var serviceBase = ngAuthSettings.apiServiceBaseUri;
+ 		var serviceBase = ngAuthSettings.apiServiceBaseUri;
 
 		var creativeId = $routeParams.Id; 	
 		$scope.creativeId = creativeId;

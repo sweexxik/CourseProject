@@ -1,31 +1,21 @@
 <div class="container">
 	<div class="row" id="main">
-	    <div class="col-md-4 well" id="leftPanel">
+	    <div class="col-md-4 well" >
 			<div class="row">
 	            <div class="col-md-12 text-center">
 	                <div>
 	        			<img data-ng-if="userInfo.avatarUri" style="width: 200px; height:200px;" align="center" data-ng-src="{{userInfo.avatarUri}}" alt="Texto Alternativo" class="img-thumbnail">
 	        			<img data-ng-if="userInfo.avatarUri == undefined" style="width: 200px; height:200px;" align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-thumbnail">
 	        			<h2>{{userInfo.firstName}} {{userInfo.lastName}}</h2>
-	        			<p>Description</p>
-	                    <div class="btn-group">
-	                        <button data-ng-click="scrollTo('#upload')" type="button" class="btn btn-warning">
-	                            Upload
-	                        </button>
-	                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-	                        	<span class="caret"></span><span class="sr-only">Social</span>
-	                        </button>
-	                        <ul class="dropdown-menu" role="menu">
-	                            <li><a href="#">Twitter</a></li>
-	                            <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-	                            <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-	                            <li class="divider"></li>
-	                            <li><a href="#">Github</a></li>
-	                        </ul><br>
-	                        <a ng-if="userInfo.roles[0].roleId == '4c05d228-9442-4df9-9bcb-11ee9c1da16e'" href="#/admin" type="button" class="btn btn-warning">
-	                            Admin Panel
-	                        </a>
-	                    </div>
+	        			<p>Description</p>	                  
+	                    <button type="button" class="btn-green-flat-trigger" >
+	                        Upload
+	                    </button>
+	                    <br>
+	                    <br>
+	                    <a ng-if="isAdmin" href="#/admin" type="button" class="btn btn-warning">
+	                        Admin Panel
+	                    </a>                  
 	        		</div>
 	        	</div>
 	        </div>
@@ -34,23 +24,36 @@
 	        <div class="row">
 	    		<div class="col-md-12">
 			    	<form role="form">
-						<h2>Edit your profile.<small>It's always easy</small></h2>
-						<hr class="colorgraph">
+						<h2>Edit your profile.<small>It's always easy</small></h2>						
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group">
-			                        <input type="text" data-ng-model="userInfo.firstName" name="first_name" id="first_name"  class="form-control input-lg" placeholder="First Name" tabindex="1">
+			                        <input type="text" maxlength="15" data-ng-model="userInfo.firstName" name="first_name" id="first_name"  class="form-control input-lg" placeholder="First Name" tabindex="1">
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group">
-									<input type="text" data-ng-model="userInfo.lastName" name="last_name" id="last_name" class="form-control input-lg" placeholder="Last Name" tabindex="2">
+									<input type="text"  maxlength="15"  data-ng-model="userInfo.lastName" name="last_name" id="last_name" class="form-control input-lg" placeholder="Last Name" tabindex="2">
 								</div>
 							</div>
 						</div>
-						<div class="form-group">
-							<input type="email" data-ng-model="userInfo.email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group">
+									<input type="email" maxlength="25"  data-ng-model="userInfo.email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-6">
+								<div class="form-group">
+									<input type="tel" maxlength="15" data-ng-model="userInfo.phoneNumber" name="phoneNumber" id="phoneNumber" class="form-control input-lg" placeholder="PhoneNumber" tabindex="2">
+								</div>
+							</div>
 						</div>
+						<div class="row">
+							<div class="col-xs-12 col-md-3"></div>
+							<div class="col-xs-12 col-md-6"><a data-ng-click="saveUserInfo()" class="btn btn-success btn-block btn-lg">Save</a></div>
+						</div>
+						<hr class="colorgraph">
 						<div class="row">
 							<div class="col-xs-12 col-sm-4 col-md-4">
 								<div class="form-group">
@@ -68,47 +71,17 @@
 								</div>
 							</div>
 						</div>
-						<hr class="colorgraph">
 						<div class="row">
-							<div class="col-xs-12 col-md-6"></div>
-							<div class="col-xs-12 col-md-6"><a data-ng-click="saveUserInfo()" class="btn btn-success btn-block btn-lg">Save</a></div>
-						</div>
+							<div class="col-xs-12 col-md-3"></div>
+							<div class="col-xs-12 col-md-6">
+								<a data-ng-click="changePassword()" class="btn btn-success btn-block btn-lg">Change password</a>
+							</div>
+						</div>	
 					</form>
 				</div>
 			</div>
 		</div>
-	    <div id="upload" data-ng-if="showUpload == 'show'" class="row" >
-		    <div class="col-md-2">&nbsp;</div>
-		    	<div class="col-md-7">
-					<div class="panel panel-default">
-						<div class="panel-heading"><strong>Upload files</strong> <small> </small></div>
-						<div class="panel-body">
 
-						   	<div style="margin-left: 40%;width: 20%" class="btn btn-primary" accept="image/*" ngf-pattern="'image/*'" ngf-select ng-model="$parent.file" ngf-multiple="false">
-						   	Select File
-						   	</div>	
-						  	<div ngf-drop ngf-select ng-model="$parent.file" class="drop-box upload-drop-zone" ngf-drag-over-class="'dragover'" ngf-multiple="false" 	 ngf-allow-dir="true" accept="image/*" ngf-pattern="'image/*'">
-						  		 Or drag and drop files here 
-						  	</div>				
-						<div class="js-upload-finished" data-ng-if="file.name" >
-							Files:
-						    <ul>
-						        <li style="font:smaller">{{file.name}} {{file.$error}} {{file.$errorParam}}</li>
-						    </ul>
-	    					<div class="progress">
-								<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : progressPercentage*10}">
-									<span class="sr-only">60% Complete</span>
-							 	</div>
-							</div>
-	    					Upload Log:
-	    					<pre>{{log}}</pre>
-	    					<a data-ng-click="updateAvatar()" class="btn btn-success btn-block btn-lg">Upload</a>
-						</div>
-						
-					</div>
-				</div>
-			</div>	
-		</div>
 		<div class="container">
 		<div class="row">
 			<div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
@@ -135,9 +108,69 @@
 				</ul>
 			</div>
 		</div>
+<script type="text/javascript">
+     var globalModal = $('.global-modal');
+    $( ".btn-green-flat-trigger" ).on( "click", function(e) {
+      e.preventDefault();
+      $( globalModal ).toggleClass('global-modal-show');
+    });
+    $( ".overlay" ).on( "click", function() {
+      $( globalModal ).toggleClass('global-modal-show');
+    });
+    $( ".global-modal_close" ).on( "click", function() {
+      $( globalModal ).toggleClass('global-modal-show');
+    });
+    $(".mobile-close").on("click", function(){
+      $( globalModal ).toggleClass('global-modal-show');
+    });
+</script>
+<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+  <div class="global-modal">
+        <div class="overlay"></div>
+        <div class="global-modal-profile_contents modal-transition">
+        <div class="global-modal-header">
+                    <span class="mobile-close"> X </span>
+                   <h3><b> 
+                   	<i class="fa fa-2x fa-upload"></i><div style="width: 40%; position: relative;" class="btn-green-flat" accept="image/*" ngf-pattern="'image/*'" ngf-select ng-model="$parent.file" ngf-multiple="false">
+						   Upload File 
+						   	</div>	</b></h3>
+                </div>
+                <div class="global-modal-body">
+           <div id="upload"  class="row" >
+		 
+		    	<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading text-center"><strong>Upload files</strong> <small> </small></div>
+						<div class="panel-body">
+
+						   	
+						  	<div ngf-drop ngf-select ng-model="$parent.file" class="drop-box upload-drop-zone" ngf-drag-over-class="'dragover'" ngf-multiple="false" 	 ngf-allow-dir="true" accept="image/*" ngf-pattern="'image/*'">
+						  		 Or drag and drop files here 
+						  	</div>				
+						<div class="js-upload-finished text-center" data-ng-if="file.name" >
+							<h3>File: {{file.name}} {{file.$error}} {{file.$errorParam}}	</h3>					  
+	    					<div class="progress">
+								<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : progressPercentage*10}">
+									<span class="sr-only">60% Complete</span>
+							 	</div>
+							</div>
+	    					
+	    					<a data-ng-click="updateAvatar()" class="btn btn-success btn-block btn-lg">Upload</a>
+						</div>
+						
+					</div>
+				</div>
+			</div>	
+		</div>
+          
+                </div>
+            </div>
+        </div>
+      
+    </div>
 	</div>
 	</div>
 
-</div>
+
 
 

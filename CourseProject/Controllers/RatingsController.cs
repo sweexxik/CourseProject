@@ -1,46 +1,40 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
-using CourseProject.Repositories;
 
 namespace CourseProject.Controllers
 {
     [Authorize]
     public class RatingsController : ApiController
     {
-        private readonly IUnitOfWork db;
+        private readonly IRatingService service;
 
-        public RatingsController()
+        public RatingsController(IRatingService serv)
         {
-            db = new EfUnitOfWork();
+            service = serv;
         }
        
         [HttpPost]
         [Route("api/rating")]
         public async Task<IHttpActionResult> AddRating(NewRatingModel model)
         {
-            var user = await db.FindUser(model.UserName);
-
-            if (db.Ratings.GetAll().ToList().Any(x => x.User == user && x.CreativeId == model.CreativeId))
+            if (!ModelState.IsValid)
             {
-                return BadRequest("Duplicate rating assignment");
+                return BadRequest();
             }
 
-            var rating = new Rating
+            var result = await service.AddRating(model);
+
+            if (result == null)
             {
-                CreativeId = model.CreativeId,
-                Value = model.Value,
-                User = await db.FindUser(model.UserName)
-            };
+                return BadRequest("Bad request");
+            }
 
-            db.Ratings.Add(rating);
+            return Ok(result);
 
-            db.Save();
-            
-            return Ok(db.Ratings.Find(x=>x.CreativeId == model.CreativeId));
+
         }
     }
 }

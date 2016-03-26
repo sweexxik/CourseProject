@@ -1,57 +1,50 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Domain.Entities;
 using CourseProject.Interfaces;
-using CourseProject.Repositories;
-using CourseProject.Services;
 
 namespace CourseProject.Controllers
 {
 
     public class TagsController : ApiController
     {
-        private readonly IUnitOfWork db;
         private readonly ITagsService tagService;
 
-        public TagsController()
+        public TagsController(ITagsService tagServ)
         {
-            db = new EfUnitOfWork();
-
-            tagService = new TagsService();
+            tagService = tagServ;
         }
 
         [HttpGet]
         [Route("api/tags")]
         public IHttpActionResult GetAllTags()
         {
-            var tags = tagService.GetTags();
-
-            return Ok(tags);
+            return Ok(tagService.GetAllTags());
         }
 
         [HttpGet]
-        [Route("api/tags/{id}")]
-        public async Task<IHttpActionResult> GetTags(int id)
+        [Route("api/tags/{creativeId}")]
+        public async Task<IHttpActionResult> GetCreativeTags(int creativeId)
         {
-            var creative = await db.Creatives.Get(id);
+            if (creativeId == 0)
+            {
+                return BadRequest("Creative Id is 0");
+            }
 
-            var result = tagService.GetTags(creative.Tags.ToList());
-
-            return Ok(result);
+            return Ok(await tagService.GetCreativeTags(creativeId));
         }
 
         [HttpPost]
         [Route("api/tags/{creativeId}")]
-        public IHttpActionResult SaveTags(int creativeId, List<Tag> model)
+        public IHttpActionResult SaveTags(int creativeId, IEnumerable<Tag> model)
         {
-            db.Tags.RemoveRange(db.Tags.GetAll());
-            db.Tags.AddRange(model);  
+            if (!ModelState.IsValid || creativeId == 0)
+            {
+                return BadRequest(ModelState);
+            }
 
-            db.Save();
-
-            return Ok(db.Tags.Find(x=>x.CreativeId == creativeId));
+            return Ok(tagService.SaveTags(creativeId, model));
         }
     }
 }

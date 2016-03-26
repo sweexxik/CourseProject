@@ -4,6 +4,8 @@ using CourseProject.Providers;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using Ninject.Web.Common.OwinHost;
+using Ninject.Web.WebApi.OwinHost;
 
 [assembly: OwinStartup(typeof(CourseProject.Startup))]
 namespace CourseProject
@@ -20,10 +22,11 @@ namespace CourseProject
             WebApiConfig.Register(config);
 
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-
-            app.UseWebApi(config);
-
           
+            app.UseNinjectMiddleware(() => NinjectConfig.CreateKernel.Value);
+
+            app.UseNinjectWebApi(config);
+
         }
 
         public void ConfigureOAuth(IAppBuilder app)
@@ -41,6 +44,7 @@ namespace CourseProject
             };
 
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
+
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
     }

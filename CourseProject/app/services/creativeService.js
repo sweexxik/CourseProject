@@ -97,6 +97,11 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             .then(function (results) { return results; });
     };
 
+    var _deleteChapter = function (id) {   
+        return $http.post(serviceBase + 'api/chapters/delete/' + id)
+            .then(function (results) { return results; });
+    };
+
     var _sortChapters = function(creatives) {
             var sorted = {},
             a = [];     
@@ -128,6 +133,8 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
 
     creativesServiceFactory.deleteCreative = _deleteCreative;
     creativesServiceFactory.deleteComment = _deleteComment;
+    creativesServiceFactory.deleteChapter = _deleteChapter;
+
         
     creativesServiceFactory.sortChapters = _sortChapters;
 

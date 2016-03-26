@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
-using CourseProject.Interfaces;
-using CourseProject.Repositories;
+using CourseProject.Domain.Interfaces;
+using CourseProject.Domain.Repositories;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security.OAuth;
 
@@ -21,9 +21,9 @@ namespace CourseProject.Providers
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] {"*"});
 
-            using (IUnitOfWork _repo = new EfUnitOfWork())
+            using (IUnitOfWork repo = new EfUnitOfWork())
             {
-                IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
+                IdentityUser user = await repo.FindUser(context.UserName, context.Password);
 
                 if (user == null)
                 {

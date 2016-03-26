@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
+using CourseProject.Domain.Interfaces;
+using CourseProject.Domain.Repositories;
 using CourseProject.Interfaces;
-using CourseProject.Repositories;
 
 namespace CourseProject.Services
 {
@@ -20,9 +21,11 @@ namespace CourseProject.Services
         {
             var user = await db.FindUser(userName);
 
+            if (user == null) return;
+
             var userMedals = user.Medals ?? new List<Medal>();
 
-            await CheckUserMedals(user,userMedals);
+            await CheckUserMedals(user, userMedals);
 
             user.Medals = userMedals;
 

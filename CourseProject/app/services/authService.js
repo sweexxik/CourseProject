@@ -92,7 +92,13 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         return $http.post(serviceBase + '/api/account/saveInfo', JSON.stringify(data), {
             headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
             .then(function (results) { return results; });
-    }
+    };
+
+    var _changePassword = function(data){
+        return $http.post(serviceBase + '/api/account/changePassword', JSON.stringify(data),{
+            headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } 
+        }).then(function(results) { return results});
+    };
 
  
 
@@ -103,6 +109,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     authServiceFactory.authentication = _authentication;
     authServiceFactory.getProfileInfo = _getProfileInfo;
     authServiceFactory.saveUserInfo = _saveUserInfo;
+     authServiceFactory.changePassword = _changePassword;
 
 
     return authServiceFactory;

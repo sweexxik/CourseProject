@@ -7,9 +7,9 @@ using System.Web;
 using System.Web.Http;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
-using CourseProject.Interfaces;
+using CourseProject.Domain.Interfaces;
+using CourseProject.Domain.Repositories;
 using CourseProject.Providers;
-using CourseProject.Repositories;
 
 namespace CourseProject.Controllers
 {

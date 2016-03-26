@@ -1,18 +1,18 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Interfaces;
 using CourseProject.Models;
-using CourseProject.Services;
 
 namespace CourseProject.Controllers
 {
-    public class CreativesController : ApiController
+    public class CreativesController : BaseApiController
     {
-        private readonly ICreativeService creativeService;
+        private readonly ICreativeService service;
 
-        public CreativesController()
+        public CreativesController(ICreativeService service)
         {
-            creativeService = new CreativeService();
+            this.service = service;
         }
 
         [AllowAnonymous]
@@ -25,7 +25,7 @@ namespace CourseProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            return Ok(await creativeService.SearchCreatives(model.Pattern));
+            return Ok(await service.SearchCreatives(model.Pattern));
         }
 
         [AllowAnonymous]
@@ -33,7 +33,7 @@ namespace CourseProject.Controllers
         [Route("api/creatives/getall")]
         public IHttpActionResult GetAllCreatives()
         {
-           return Ok(creativeService.GetAllCreatives());
+           return Ok(service.GetAllCreatives());
         }
 
         [HttpGet]
@@ -41,15 +41,24 @@ namespace CourseProject.Controllers
         [Route("api/creatives/getall/{username}")]
         public async Task<IHttpActionResult> GetCreatives(string userName)
         {
-            return Ok(await creativeService.GetUsersCreatives(userName));
+            if (userName == null) return BadRequest("User name is null");
+
+            var result = await service.GetUsersCreatives(userName);
+
+            return result != null ? Ok(result) : GetErrorResult(false);
         }
 
 
         [HttpGet]
         [Route("api/creatives/{id}")]
         public async Task<IHttpActionResult> GetCreative(int id)
-        { 
-            return Ok(await creativeService.GetCreativeById(id));
+        {
+            if (id == 0) return BadRequest("Creative Id is 0");
+
+            var result = await service.GetCreativeById(id);
+
+            return result != null ? Ok(result) : GetErrorResult(false);
+
         }
 
         [HttpPost]
@@ -57,7 +66,9 @@ namespace CourseProject.Controllers
         [Route("api/creatives/delete/{id}")]
         public async Task<IHttpActionResult> DeleteCreative(int id)
         {
-            return Ok(await creativeService.DeleteCreative(id));
+            var result = await service.DeleteCreative(id);
+
+            return result != null ? Ok(result) : GetErrorResult(false);
         }
 
         [HttpPost]
@@ -70,7 +81,7 @@ namespace CourseProject.Controllers
                 return BadRequest(ModelState);
             }
             
-            return Ok(await creativeService.CreateCreative(model));
+            return Ok(await service.CreateCreative(model));
         }
 
         [HttpPost]
@@ -82,18 +93,14 @@ namespace CourseProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            return Ok(await creativeService.UpdateCreative(model));
+            return Ok(await service.UpdateCreative(model));
         }
 
         protected override void Dispose(bool disposing)
         {
-            creativeService.Dispose(disposing);
+            service.Dispose(disposing);
 
             base.Dispose(disposing);
         }
-
-        
-
-        
     }
 }

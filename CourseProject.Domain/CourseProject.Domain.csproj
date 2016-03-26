@@ -37,6 +37,9 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
@@ -78,6 +81,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbContext\AzureDbConfiguration.cs" />
+    <Compile Include="DbContext\DatabaseContext.cs" />
+    <Compile Include="DbContext\FtsInterseptor.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Chapter.cs" />
     <Compile Include="Entities\Creative.cs" />
@@ -87,6 +93,8 @@
     <Compile Include="Entities\Medal.cs" />
     <Compile Include="Entities\Rating.cs" />
     <Compile Include="Entities\Tag.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="LuceneEngine\ADocument.cs" />
     <Compile Include="LuceneEngine\BaseSearch.cs" />
     <Compile Include="LuceneEngine\BaseSearcher.cs" />
@@ -96,9 +104,18 @@
     <Compile Include="LuceneEngine\SearchResult.cs" />
     <Compile Include="LuceneEntities\CreativeDocument.cs" />
     <Compile Include="LuceneEntities\CreativeWriter.cs" />
-    <Compile Include="LuceneEntities\ExtensionMethods.cs" />
     <Compile Include="LuceneEntities\CreativeSearcher.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ChaptersRepository.cs" />
+    <Compile Include="Repositories\CommentsRepository.cs" />
+    <Compile Include="Repositories\CreativeCategoryRepository.cs" />
+    <Compile Include="Repositories\CreativesRepository.cs" />
+    <Compile Include="Repositories\EFUnitOfWork.cs" />
+    <Compile Include="Repositories\LikesRepository.cs" />
+    <Compile Include="Repositories\MedalsRepository.cs" />
+    <Compile Include="Repositories\RatingsRepository.cs" />
+    <Compile Include="Repositories\TagsRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

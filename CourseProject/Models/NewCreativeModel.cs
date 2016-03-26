@@ -16,12 +16,13 @@ namespace CourseProject.Models
         [MaxLength(50)]
         public string Description { get; set; }
 
+        [Required]
         public int CategoryId { get; set; }
 
         [Required]
         public string UserName { get; set; }
 
-        [Required]
+     
         public CreativeCategory Category { get; set; }
 
         public ICollection<Chapter> Chapters { get; set; }
