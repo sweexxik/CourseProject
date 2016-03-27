@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
 using CourseProject.Domain.Interfaces;
+using CourseProject.Domain.LuceneEngine;
 using CourseProject.Domain.LuceneEntities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
@@ -73,7 +74,7 @@ namespace CourseProject.Services
             return InitCreativesModel(db.Creatives.Find(x=>x.User.Id == userId)) ;
         }
 
-        public async Task<IEnumerable<NewCreativeModel>> SearchCreatives(string pattern)
+        public async Task<IEnumerable<NewCreativeModel>> SearchCreatives(SearchViewModel model)
         {
             var results = new List<Creative>();
 
@@ -85,19 +86,21 @@ namespace CourseProject.Services
 
                 writer.AddUpdateCreativesToIndex(db.Creatives.GetAll().ToList());
 
-                var res = searcher.SearchCreative(pattern, string.Empty);
+                var searchResults = GetSearchResults(model, searcher);
 
-               
-
-                foreach (var item in res.SearchResultItems)
+                foreach (var searchResult in searchResults)
                 {
-                    var creative = await db.Creatives.Get(item.Id);
-
-                    if (creative != null)
+                    foreach (var item in searchResult.SearchResultItems)
                     {
-                        results.Add(creative);
+                        var creative = await db.Creatives.Get(item.Id);
+
+                        if (creative != null && !results.Contains(creative))
+                        {
+                            results.Add(creative);
+                        }
                     }
                 }
+                
             }
             catch (Exception e)
             {
@@ -189,6 +192,62 @@ namespace CourseProject.Services
                 Tags = creative.Tags
             }).ToList();
         }
+
+        private IEnumerable<SearchResult> GetSearchResults(SearchViewModel model, CreativeSearcher searcher)
+        {
+            var searchResults = new List<SearchResult>();
+
+            if (!model.ChapterText && !model.CommentAuthor && !model.CommentText && !model.CreativeAuthor
+               && !model.CreativeDescription && !model.CreativeName && !model.TagName && !model.ChapterName)
+            {
+               searchResults.Add(searcher.SearchCreative(model.Pattern, string.Empty));
+
+                return searchResults;
+            }
+
+            if (model.ChapterName)
+            {
+                searchResults.Add(searcher.SearchCreative(model.Pattern, "ChapterNames"));
+            }
+
+            if (model.ChapterText)
+            {
+                searchResults.Add(searcher.SearchCreative(model.Pattern, "ChapterBodies"));
+            }
+
+            if (model.CommentAuthor)
+            {
+                searchResults.Add(searcher.SearchCreative(model.Pattern, "CommentsUserName"));
+            }
+
+            if (model.CommentText)
+            {
+                searchResults.Add(searcher.SearchCreative(model.Pattern, "Comments"));
+            }
+
+            if (model.CreativeAuthor)
+            {
+                searchResults.Add(searcher.SearchCreative(model.Pattern, "UserName"));
+            }
+
+            if (model.CreativeDescription)
+            {
+                searchResults.Add(searcher.SearchCreative(model.Pattern, "Description"));
+            }
+
+            if (model.CreativeName)
+            {
+                searchResults.Add(searcher.SearchCreative(model.Pattern, "Name"));
+            }
+
+            if (model.TagName)
+            {
+                searchResults.Add(searcher.SearchCreative(model.Pattern, "Tags"));
+            }
+
+            return searchResults;
+            
+        } 
 
 
     }

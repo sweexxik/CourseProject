@@ -329,6 +329,7 @@
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Filters\RequireHttpsAttribute.cs" />
+    <Compile Include="Filters\ValidateViewModelAttribute.cs" />
     <Compile Include="Interfaces\IChaptersService.cs" />
     <Compile Include="Interfaces\IAccountService.cs" />
     <Compile Include="Interfaces\ICommentsService.cs" />

@@ -2,91 +2,68 @@
     <div class="container">
         <div class="page-header text-center">
             <h1>Search everywhere</h1>
-        </div>
-        <p>Creative name, Chapter name, Chapter text, Author name, Comment text, Comment author</p>  
+        </div> 
    	    <div class="col-md-12">
         <div class="col-md-3">&nbsp;</div>
-        <div class="col-md-6">
-          <div class="input-group" id="adv-search">
-                <input type="text" class="form-control" placeholder="Search for documents" />
-                <div class="input-group-btn">
-                    <div class="btn-group" role="group">
-                    
-                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+            <div class="col-md-6">
+                <div class="input-group" id="adv-search">
+                    <input type="text" class="form-control" data-ng-model="pattern" placeholder="Search for documents" />
+                        <div class="input-group-btn">
+                            <div class="btn-group" role="group">                    
+                                <button type="button" class="btn btn-primary" data-ng-click="search()"> 
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            </div>
         </div>
+    </div>
+<div class="container">
+        <div class="col-md-12"> 
+        <div class="col-md-4">&nbsp;</div>
+            <div class="col-md-3">           
+            <ul class="list-group"> 
+            <li ng-repeat="item in conditionList" class="list-group-item">
+                {{item.name}}
+                <div class="material-switch pull-right">                    
+                    <input id="{{item.name}}" type="checkbox" name="selectedFruits[]" ng-model="item.selected">
+                    <label for="{{item.name}}" class="label-primary"></label>
+                </div>
+            </li>
+            </ul>
+            </div>       
+        </div>
+       
         <div class="col-md-12">
+         <hr>
         <div class="col-md-3">&nbsp;</div>
-        <div class="col-md-6">    
-         <ul class="list-group">                  
-                    <li class="list-group-item">
-                        Creative name
-                        <div class="material-switch pull-right">
-                            <input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
-                            <label for="someSwitchOptionSuccess" class="label-success"></label>
+        <div class="col-md-8 text-center">
+            <h1 data-ng-if="results.length == 0"> No results</h1>
+            <hr>
+            <div data-ng-if="results.length > 0" class="col-md-12" data-ng-repeat="creative in results">        
+                <div class="col-md-12 margin-bottom-30"> 
+                    <div class="portlet portlet-bordered">
+                        <div class="portlet-title">
+                            <div class="caption caption-red">
+                                <i class="glyphicon glyphicon-cog"></i>
+                                <span class="caption-subject text-uppercase">{{creative.name}}</span>
+                                <span class="caption-helper">weekly stats...</span>
+                            </div>
+                            <div class="actions">  
+                                <a ng-href="#/show/{{creative.id}}" class="btn"><i class="glyphicon glyphicon-pencil"></i>Show</a>  
+                            </div>
                         </div>
-                    </li>
-                    <li class="list-group-item">
-                        Chapter name
-                        <div class="material-switch pull-right">
-                            <input id="someSwitchOptionInfo" name="someSwitchOption001" type="checkbox"/>
-                            <label for="someSwitchOptionInfo" class="label-info"></label>
+                        <div class="portlet-body">
+                            <h4>{{creative.description}}</h4>
+                            <p data-ng-repeat="chapter in creative.chapters">
+                             {{$index + 1}}. {{chapter.name}}
+                            </p>
                         </div>
-                    </li>
-                    <li class="list-group-item">
-                        Chapter text
-                        <div class="material-switch pull-right">
-                            <input id="someSwitchOptionWarning" name="someSwitchOption001" type="checkbox"/>
-                            <label for="someSwitchOptionWarning" class="label-warning"></label>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        Author name
-                        <div class="material-switch pull-right">
-                            <input id="someSwitchOptionDanger" name="someSwitchOption001" type="checkbox"/>
-                            <label for="someSwitchOptionDanger" class="label-danger"></label>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        Comment text
-                        <div class="material-switch pull-right">
-                            <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox"/>
-                            <label for="someSwitchOptionPrimary" class="label-danger"></label>
-                        </div>
-                    </li>
-                </ul>
-        </div>
-        </div>
-        </div>
-
-        <div data-ng-if="results.length == 0"> No results</div>
-        <div data-ng-if="results.length > 0" class="col-md-12" data-ng-repeat="creative in results">
-        
-            <div class="col-md-12 margin-bottom-30">            
-                <!-- BEGIN Portlet PORTLET-->
-                <div class="portlet portlet-bordered">
-                    <div class="portlet-title">
-                        <div class="caption caption-red">
-                            <i class="glyphicon glyphicon-cog"></i>
-                               <span class="caption-subject text-uppercase">{{creative.name}}</span>
-                            <span class="caption-helper">weekly stats...</span>
-                        </div>
-                        <div class="actions">  
-                         <a ng-href="#/show/{{creative.id}}" class="btn"><i class="glyphicon glyphicon-pencil"></i>Show</a>  
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                         <h4>{{creative.description}}</h4>
-                        <p data-ng-repeat="chapter in creative.chapters">
-                         {{$index + 1}}. {{chapter.name}}
-                        </p>
-                    </div>
+                    </div>               
                 </div>
-                <!-- END Portlet PORTLET-->
             </div>
-            </div>
-    </div>  
-</div>
+        </div>            
+    </div>
+</div>  

@@ -1,66 +1,62 @@
 ﻿<!DOCTYPE html>
 <html data-ng-app="AngularAuthApp" data-ng-controller="indexController">
-<head>
+    <head>
+        <meta name="keywords" content="angularjs,SPA,Single Page Application,refresh tokens,authentication,bearer token authentication,OWIN,bootstrap,bootstrap ui,tutorial,JS framework,ASP.NET WEB API 2,Taiseer Joudeh" />
+        <meta name="description" content="SPA built using angularjs,authentication is done using bearer token,back end built using Asp.net web api 2 and OWIN Framework,creatd by Taiseer Joudeh" />
+        <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
 
-    <meta name="keywords" content="angularjs,SPA,Single Page Application,refresh tokens,authentication,bearer token authentication,OWIN,bootstrap,bootstrap ui,tutorial,JS framework,ASP.NET WEB API 2,Taiseer Joudeh" />
-    <meta name="description" content="SPA built using angularjs,authentication is done using bearer token,back end built using Asp.net web api 2 and OWIN Framework,creatd by Taiseer Joudeh" />
-    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
+        <title>Cource Project iTransition</title>    
 
-    <title>Cource Project iTransition</title>    
-
-    <link href="content/css/site.css" rel="stylesheet" />  
-    <!--  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
-    <link rel="stylesheet" ng-href="https://bootswatch.com/lumen/bootstrap.min.css"> 
-    <link rel="stylesheet" href="content/css/ng-tags-input.min.css" />
-    <link rel="stylesheet" href="content/css/ng-tags-input.bootstrap.min.css" />
-    <link href="content/css/loading-bar.css" rel="stylesheet" />
-    <link href="content/css/markdown.css" rel="stylesheet" />   
-    <link href="content/css/tags-view.css" rel="stylesheet" />
-    <link href="content/css/modal.css" rel="stylesheet" />
-    <link href="content/css/panelWithTabNavs.css" rel="stylesheet" />
-    <link href="content/css/navtabs.css" rel="stylesheet" />
-    <link href="content/css/medal-view.css" rel="stylesheet" />
-    <link href="content/css/comment_box.css" rel="stylesheet" /> 
-    <link href="content/css/font-awesome.min.css" rel="stylesheet" /> 
-    <link href="content/css/social-buttons.css" rel="stylesheet" />
-    <link href="content/css/upload-form.css" rel="stylesheet" />
-    <link href="content/css/ng-sortable.css" rel="stylesheet" />
-    <link href="content/css/ul-chapters-drag.css" rel="stylesheet" />
-      <link href="content/css/navbar.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#/main">CreativeHub</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#/home">My Creatives</a></li>          
-            <li><a href="#/profile">Profile</a></li>    
-                                <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>                  
-                    <li data-ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
-                    <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>       
-          </ul>
-          <form data-ng-submit="search()"  class="navbar-form navbar-right">
-            <input type="text" data-ng-model="pattern" class="form-control" placeholder="Search...">
-          </form>
-        </div>
-      </div>
-    </nav>
-
-    
-
-        </div>
+        <link href="content/css/site.css" rel="stylesheet" />  
+        <!--  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+        <link rel="stylesheet" ng-href="https://bootswatch.com/lumen/bootstrap.min.css"> 
+        <link rel="stylesheet" href="content/css/ng-tags-input.min.css" />
+        <link rel="stylesheet" href="content/css/ng-tags-input.bootstrap.min.css" />
+        <link href="content/css/loading-bar.css" rel="stylesheet" />
+        <link href="content/css/markdown.css" rel="stylesheet" />   
+        <link href="content/css/tags-view.css" rel="stylesheet" />
+        <link href="content/css/modal.css" rel="stylesheet" />
+        <link href="content/css/panelWithTabNavs.css" rel="stylesheet" />
+        <link href="content/css/navtabs.css" rel="stylesheet" />
+        <link href="content/css/medal-view.css" rel="stylesheet" />
+        <link href="content/css/comment_box.css" rel="stylesheet" /> 
+        <link href="content/css/font-awesome.min.css" rel="stylesheet" /> 
+        <link href="content/css/social-buttons.css" rel="stylesheet" />
+        <link href="content/css/upload-form.css" rel="stylesheet" />
+        <link href="content/css/ng-sortable.css" rel="stylesheet" />
+        <link href="content/css/ul-chapters-drag.css" rel="stylesheet" />
+          <link href="content/css/navbar.css" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    </head>
+    <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#/main">CreativeHub</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#/home">My Creatives</a></li>          
+                <li><a href="#/profile">Profile</a></li>    
+                <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>                  
+                <li data-ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
+                <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>       
+              </ul>
+            <form data-ng-submit="search()"  class="navbar-form navbar-right">
+                <input type="text" data-ng-model="pattern" class="form-control" placeholder="Search...">
+            </form>
+            </div>
+          </div>
+        </nav>
+    </div>
     </div>  
     <div data-ng-view=""></div>  
     <hr />
@@ -73,12 +69,13 @@
                         <a target="_blank" href="https://www.facebook.com/sweexxik">Facebook</a>
                     </p>
                 </div>
-                <div class="col-md-6">
-                    <p class="text-muted">Email: <a target="_blank" >rubleuski.a@gmail.com</a></p>
-                </div>
+            <div class="col-md-6">
+                <p class="text-muted">Email: <a target="_blank" >rubleuski.a@gmail.com</a></p>
             </div>
         </div>
     </div>
+</div>
+
     <!-- 3rd party libraries -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script> -->
     <script src="https://code.angularjs.org/1.5.2/angular.min.js"></script>

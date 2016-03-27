@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseProject.Filters;
 using CourseProject.Interfaces;
 using CourseProject.Models;
 
@@ -17,6 +18,7 @@ namespace CourseProject.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [ValidateViewModel]
         [Route("api/creatives/search")]
         public async Task<IHttpActionResult> Search(SearchViewModel model)
         {
@@ -25,7 +27,7 @@ namespace CourseProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            return Ok(await service.SearchCreatives(model.Pattern));
+            return Ok(await service.SearchCreatives(model));
         }
 
         [AllowAnonymous]

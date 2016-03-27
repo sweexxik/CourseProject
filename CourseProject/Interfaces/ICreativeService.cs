@@ -13,7 +13,7 @@ namespace CourseProject.Interfaces
 
         Task<IEnumerable<NewCreativeModel>> DeleteCreative(int id);
 
-        Task<IEnumerable<NewCreativeModel>> SearchCreatives(string pattern);
+        Task<IEnumerable<NewCreativeModel>> SearchCreatives(SearchViewModel model);
 
         Task<Creative> GetCreativeById(int id);
 

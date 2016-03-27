@@ -26,9 +26,9 @@ namespace CourseProject.Domain.LuceneEntities
             {
                 commentsUserName = value;
 
-                foreach (var userName in commentsUserName)
+                foreach (var _name in commentsUserName)
                 {
-                    AddParameterToDocumentNoStoreParameter("CommentsUserName", userName);
+                    AddParameterToDocumentNoStoreParameter("CommentsUserName", _name);
                 }
             }
         }
