@@ -91,7 +91,7 @@ namespace CourseProject.Services
             }
         }
 
-        private UserViewModel InitUserViewModel(ApplicationUser user)
+        public UserViewModel InitUserViewModel(ApplicationUser user)
         {
             return new UserViewModel
             {
@@ -102,7 +102,7 @@ namespace CourseProject.Services
                 PhoneNumber = user.PhoneNumber,
                 Medals = user.Medals,
                 AvatarUri = user.AvatarUri,
-                Roles = user.Roles.Select(x=>x.UserId)
+                Roles = user.Roles.Select(x=>x.RoleId)
             };
         }
 

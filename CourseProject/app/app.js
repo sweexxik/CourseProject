@@ -1,5 +1,7 @@
 ﻿
-var app = angular.module('AngularAuthApp', ['ui.bootstrap','ng-showdown','ngSanitize','ui.sortable','ngRoute','angular-markdown-editable', 'ngTagsInput', 'LocalStorageModule', 'angular-loading-bar', 'dndLists','ngFileUpload']);
+var app = angular.module('AngularAuthApp',
+    ['ui.bootstrap','ng-showdown','ngSanitize','ui.sortable','ngRoute','angular-markdown-editable',
+     'ngTagsInput', 'LocalStorageModule', 'angular-loading-bar', 'dndLists','ngFileUpload']);
 
 app.config(function ($routeProvider) {
 

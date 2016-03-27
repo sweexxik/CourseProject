@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
 using CourseProject.Domain.Models;
@@ -16,6 +17,8 @@ namespace CourseProject.Domain.Interfaces
         IRepository<Rating> Ratings { get; }
         IRepository<Medal> Medals { get; }
         IRepository<Tag> Tags { get; }
+
+        IEnumerable<ApplicationUser> GetAllUsers();
 
         Task<ApplicationUser> FindUser(string userName);
         Task<ApplicationUser> FindUser(string userName, string password);

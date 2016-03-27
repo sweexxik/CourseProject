@@ -105,7 +105,7 @@ namespace CourseProject.Services
             catch (Exception e)
             {
                 
-                throw new AccessViolationException(e.Message);
+                throw new Exception(e.Message);
             }
            
 
@@ -197,11 +197,10 @@ namespace CourseProject.Services
         {
             var searchResults = new List<SearchResult>();
 
-            if (!model.ChapterText && !model.CommentAuthor && !model.CommentText && !model.CreativeAuthor
-               && !model.CreativeDescription && !model.CreativeName && !model.TagName && !model.ChapterName)
+            if (model.ChapterText && model.CommentAuthor && model.CommentText && model.CreativeAuthor
+               && model.CreativeDescription && model.CreativeName && model.TagName && model.ChapterName)
             {
-               searchResults.Add(searcher.SearchCreative(model.Pattern, string.Empty));
-
+                searchResults.Add(searcher.SearchCreative(model.Pattern, string.Empty));
                 return searchResults;
             }
 

@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseProject.Filters;
 using CourseProject.Interfaces;
 using CourseProject.Models;
 
@@ -25,27 +26,20 @@ namespace CourseProject.Controllers
         }
 
         [HttpPost]
+        [ValidateViewModel]
         [Route("api/chapters")]
         public IHttpActionResult AddOrUpdateChapter(NewChapterModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             service.AddOrUpdateChapter(model);
 
             return Ok(model);
         }
-
+        
+        [HttpPost]
+        [ValidateViewModel]
         [Route("api/chapters/all")]
         public async Task<IHttpActionResult> PostAllChapters([FromBody] List<NewChapterModel> model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             //todo test it
 
             await service.SetChaptersPositions(model);

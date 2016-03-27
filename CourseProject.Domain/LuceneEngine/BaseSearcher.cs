@@ -91,7 +91,7 @@ namespace CourseProject.Domain.LuceneEngine
                 {
                     if (!fields.Contains(field))
                     {
-                        throw new SearchException(string.Format("Field {0} is not a search field for type {1}", field, typeof(T)));
+                        throw new SearchException($"Field {field} is not a search field for type {typeof (T)}");
                     }
                     QueryParser parser = fieldsToSearchOn.Count == 1 ?
                         new QueryParser(Version.LUCENE_30, fieldsToSearchOn.First(), analyzer) :
@@ -156,7 +156,7 @@ namespace CourseProject.Domain.LuceneEngine
                 q = null;
             }
 
-            if (q == null || string.IsNullOrEmpty(q.ToString()))
+            if (string.IsNullOrEmpty(q?.ToString()))
             {
                 string cooked = Regex.Replace(searchQuery, @"[^\w\.@-]", " ");
                 q = parser.Parse(cooked);

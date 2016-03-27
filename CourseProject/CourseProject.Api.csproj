@@ -319,6 +319,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ChaptersController.cs" />
@@ -330,6 +331,8 @@
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Filters\RequireHttpsAttribute.cs" />
     <Compile Include="Filters\ValidateViewModelAttribute.cs" />
+    <Compile Include="Interfaces\IAdminService.cs" />
+    <Compile Include="Interfaces\ICategoriesService.cs" />
     <Compile Include="Interfaces\IChaptersService.cs" />
     <Compile Include="Interfaces\IAccountService.cs" />
     <Compile Include="Interfaces\ICommentsService.cs" />
@@ -451,6 +454,8 @@
     <Compile Include="Providers\CustomMultipartFormDataStreamProvider.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\AdminService.cs" />
+    <Compile Include="Services\CategoriesService.cs" />
     <Compile Include="Services\ChapterService.cs" />
     <Compile Include="Services\CommentsService.cs" />
     <Compile Include="Services\CreativeService.cs" />

@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Domain.Models;
+using CourseProject.Filters;
 using CourseProject.Interfaces;
 using CourseProject.Models;
 
@@ -17,14 +18,10 @@ namespace CourseProject.Controllers
         }
 
         [AllowAnonymous]
+        [ValidateViewModel]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(UserModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var errorResult = GetErrorResult(await service.CreateUser(model));
 
             return errorResult ?? Ok();
@@ -45,14 +42,10 @@ namespace CourseProject.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateViewModel]
         [Route("saveInfo")]
         public async Task<IHttpActionResult> SaveUserInfo(UserViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var errorResult = GetErrorResult(await service.SaveUserData(model)); 
 
             return errorResult ?? Ok(await service.GetUserInfo(model.UserName));
@@ -60,14 +53,10 @@ namespace CourseProject.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateViewModel]
         [Route("changePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var errorResult = GetErrorResult(await service.ChangePassword(model));
 
             return errorResult ?? Ok(await service.GetUserInfo(model.UserName));

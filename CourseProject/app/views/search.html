@@ -1,18 +1,101 @@
  <div class="jumbotron">
     <div class="container">
-        <div class="page-header text-center">
-            <h1>Search everywhere</h1>
+        <div class="text-center">
+            <h2>Search everywhere</h2>
         </div> 
    	    <div class="col-md-12">
         <div class="col-md-3">&nbsp;</div>
             <div class="col-md-6">
                 <div class="input-group" id="adv-search">
-                    <input type="text" class="form-control" data-ng-model="pattern" placeholder="Search for documents" />
-                        <div class="input-group-btn">
-                            <div class="btn-group" role="group">                    
-                                <button type="button" class="btn btn-primary" data-ng-click="search()"> 
-                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                </button>
+                    <form data-ng-submit="search()">
+                        <input type="text" class="form-control" data-ng-model="pattern" placeholder="Search for documents" />
+                    </form> 
+                    <div class="input-group-btn">
+                        <div class="btn-group" role="group">                    
+                            <button type="button" class="btn btn-primary" data-ng-click="search()"> 
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <hr>
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-6">           
+                <div class="panel panel-primary">
+                    <div class="panel-heading text-center clickable">
+                        <h3 class="panel-title ">Filter Settings</h3>
+                        <span id="up" class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                    </div>
+                    <div class="panel-body"> 
+                        <div class="col-md-12"> 
+                            <div class="col-md-6">
+                                <ul class="list-group"> 
+                                    <li class="list-group-item">
+                                        {{conditionList[0].name}}               
+                                        <div class="material-switch pull-right">                    
+                                            <input id="{{conditionList[0].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[0].selected">
+                                            <label for="{{conditionList[0].name}}" class="label-primary"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        {{conditionList[1].name}}               
+                                        <div class="material-switch pull-right">                    
+                                            <input id="{{conditionList[1].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[1].selected">
+                                            <label for="{{conditionList[1].name}}" class="label-primary"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        {{conditionList[2].name}}               
+                                        <div class="material-switch pull-right">                    
+                                            <input id="{{conditionList[2].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[2].selected">
+                                            <label for="{{conditionList[2].name}}" class="label-primary"></label>
+                                      
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        {{conditionList[3].name}}               
+                                        <div class="material-switch pull-right">                    
+                                            <input id="{{conditionList[3].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[3].selected">
+                                            <label for="{{conditionList[3].name}}" class="label-primary"></label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-group"> 
+                                    <li class="list-group-item">
+                                        {{conditionList[4].name}}               
+                                        <div class="material-switch pull-right">                    
+                                            <input id="{{conditionList[4].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[4].selected">
+                                            <label for="{{conditionList[4].name}}" class="label-primary"></label>
+                                      
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        {{conditionList[5].name}}               
+                                        <div class="material-switch pull-right">                    
+                                            <input id="{{conditionList[5].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[5].selected">
+                                            <label for="{{conditionList[5].name}}" class="label-primary"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        {{conditionList[6].name}}               
+                                        <div class="material-switch pull-right">                    
+                                            <input id="{{conditionList[6].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[6].selected">
+                                            <label for="{{conditionList[6].name}}" class="label-primary"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        {{conditionList[7].name}}               
+                                        <div class="material-switch pull-right">                    
+                                            <input id="{{conditionList[7].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[7].selected">
+                                            <label for="{{conditionList[7].name}}" class="label-primary"></label>s
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -20,28 +103,18 @@
             </div>
         </div>
     </div>
-<div class="container">
-        <div class="col-md-12"> 
-        <div class="col-md-4">&nbsp;</div>
-            <div class="col-md-3">           
-            <ul class="list-group"> 
-            <li ng-repeat="item in conditionList" class="list-group-item">
-                {{item.name}}
-                <div class="material-switch pull-right">                    
-                    <input id="{{item.name}}" type="checkbox" name="selectedFruits[]" ng-model="item.selected">
-                    <label for="{{item.name}}" class="label-primary"></label>
-                </div>
-            </li>
-            </ul>
-            </div>       
-        </div>
-       
-        <div class="col-md-12">
-         <hr>
-        <div class="col-md-3">&nbsp;</div>
+</div>
+
+<div class="container">    
+    <div class="col-md-12">
+        <div class="col-md-2">&nbsp;</div>
         <div class="col-md-8 text-center">
-            <h1 data-ng-if="results.length == 0"> No results</h1>
-            <hr>
+            <i data-ng-if="loading" class="fa fa-spinner fa-2x fa-spin"></i>
+            <div data-ng-if="results.length == 0 && !loading">
+                <h1> No Creatives</h1>
+                <br><br><br><br>
+            </div>           
+            <h1 data-ng-if="results.length > 0 && !loading">Creatives found: {{results.length}}</h1>                    
             <div data-ng-if="results.length > 0" class="col-md-12" data-ng-repeat="creative in results">        
                 <div class="col-md-12 margin-bottom-30"> 
                     <div class="portlet portlet-bordered">
@@ -62,7 +135,7 @@
                             </p>
                         </div>
                     </div>               
-                </div>
+                </div><br><br><br><br>
             </div>
         </div>            
     </div>

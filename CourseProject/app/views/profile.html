@@ -115,72 +115,50 @@
 				</ul>
 			</div>
 		</div>
-<script type="text/javascript">
-     var globalModal = $('.global-modal');
-    $( ".btn-green-flat-trigger" ).on( "click", function(e) {
-      e.preventDefault();
-      $( globalModal ).toggleClass('global-modal-show');
-    });
-    $( ".overlay" ).on( "click", function() {
-      $( globalModal ).toggleClass('global-modal-show');
-    });
-    $( ".global-modal_close" ).on( "click", function() {
-      $( globalModal ).toggleClass('global-modal-show');
-    });
-    $(".mobile-close").on("click", function(){
-      $( globalModal ).toggleClass('global-modal-show');
-    });
-</script>
 
   <div class="global-modal">
-        <div class="overlay"></div>
+    <div class="overlay"></div>
         <div class="global-modal-profile_contents modal-transition">
-        <div class="global-modal-header">
-                    <span class="mobile-close"> X </span>
-                   <h3><b> 
-                   	<i class="fa fa-2x fa-upload"></i><div style="width: 40%; position: relative;" class="btn-green-flat" accept="image/*" ngf-pattern="'image/*'" ngf-select ng-model="$parent.file" ngf-multiple="false">
-						   Upload File 
-						   	</div>	</b></h3>
-                </div>
-                <div class="global-modal-body">
-           <div id="upload"  class="row" >
-		 
+        	<div class="global-modal-header">
+                <span class="mobile-close"> X </span>
+                <h3><b><i class="fa fa-2x fa-upload"></i>
+                <div style="width: 40%; position: relative;" class="btn-green-flat" accept="image/*" ngf-pattern="'image/*'" ngf-select ng-model="$parent.file" ngf-multiple="false">
+						Upload File 
+				</div></b></h3>
+            </div>
+            <div class="global-modal-body">
+            <div id="upload"  class="row">		 
 		    	<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading text-center"><strong>Upload files</strong> <small> </small></div>
-						<div class="panel-body">
-
-						   	
-						  	<div ngf-drop ngf-select ng-model="$parent.file" class="drop-box upload-drop-zone" ngf-drag-over-class="'dragover'" ngf-multiple="false" 	 ngf-allow-dir="true" accept="image/*" ngf-pattern="'image/*'">
-						  		 Or drag and drop files here 
-						  	</div>				
-						<div class="js-upload-finished text-center" data-ng-if="file.name" >
-							<h3>File: {{file.name}} {{file.$error}} {{file.$errorParam}}	</h3>					  
-	    					<div class="progress">
-								<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : progressPercentage*10}">
-									<span class="sr-only">60% Complete</span>
-							 	</div>							 	
+							<div class="panel-body">						   	
+						  		<div ngf-drop ngf-select ng-model="$parent.file" class="drop-box upload-drop-zone" ngf-drag-over-class="'dragover'" ngf-multiple="false" 	 ngf-allow-dir="true" accept="image/*" ngf-pattern="'image/*'">
+						  		 	Or drag and drop files here 
+						  		</div>				
+								<div class="js-upload-finished text-center" data-ng-if="file.name" >
+									<h3>File: {{file.name}} {{file.$error}} {{file.$errorParam}}	</h3>					  
+		    						<div class="progress">
+										<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : progressPercentage*10}">
+											<span class="sr-only">60% Complete</span>
+								 		</div>							 	
+									</div>
+									<div data-ng-if="showLoading" class="loading" >
+										<h3>Wait a second...</h3><br>
+										<i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 48px"></i>
+	    							</div>
+	    								<br>
+	    								<a data-ng-click="updateAvatar()" class="btn-green-flat">Upload</a>
+								</div>						
 							</div>
-							<div data-ng-if="showLoading" class="loading" >
-							<h3>Wait a second...</h3><br>
-						<i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 48px"></i>
-	    					</div>
-	    					<br>
-	    					<a data-ng-click="updateAvatar()" class="btn-green-flat">Upload</a>
 						</div>
-						
-					</div>
-				</div>
-			</div>	
-		</div>
-          
-                </div>
+					</div>	
+				</div>          
             </div>
         </div>
-      
-    </div>
-	</div>
-	</div>
+    </div>      
+</div>
+</div>
+
 
 
 

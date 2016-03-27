@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
+using CourseProject.Filters;
 using CourseProject.Interfaces;
 using CourseProject.Models;
 
@@ -25,14 +26,10 @@ namespace CourseProject.Controllers
         }
 
         [HttpPost]
+        [ValidateViewModel]
         [Route("api/likes")]
         public async Task<IHttpActionResult> AddLike(NewLikeModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             return Ok(await service.AddLike(model));
         }
     }

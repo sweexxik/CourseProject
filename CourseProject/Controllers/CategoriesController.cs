@@ -1,33 +1,32 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 using CourseProject.Domain.Entities;
-using CourseProject.Domain.Interfaces;
-using CourseProject.Domain.Repositories;
+
+using CourseProject.Interfaces;
 
 namespace CourseProject.Controllers
 {
-    [AllowAnonymous]
     public class CategoriesController : ApiController
     {
-        private readonly IUnitOfWork db;
+        private readonly ICategoriesService service;
 
-        public CategoriesController()
+        public CategoriesController(ICategoriesService serv)
         {
-            db = new EfUnitOfWork();
+            service = serv;
         }
 
-        // GET: api/Categories
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("api/categories")]
         public IEnumerable<CreativeCategory> GetCategories()
         {
-            return db.Categories.GetAll();
+            return service.GetCategories();
         }
         
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
+            service.Dispose(disposing);
+
             base.Dispose(disposing);
         }
        

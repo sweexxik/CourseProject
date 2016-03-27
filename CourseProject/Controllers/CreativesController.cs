@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Filters;
 using CourseProject.Interfaces;
@@ -22,11 +21,6 @@ namespace CourseProject.Controllers
         [Route("api/creatives/search")]
         public async Task<IHttpActionResult> Search(SearchViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             return Ok(await service.SearchCreatives(model));
         }
 
@@ -75,27 +69,19 @@ namespace CourseProject.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateViewModel]
         [Route("api/creatives")]
         public async Task<IHttpActionResult> CreateCreative(NewCreativeModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            
             return Ok(await service.CreateCreative(model));
         }
 
         [HttpPost]
+        [ValidateViewModel]
         [Route("api/creatives/update")]
         public async Task<IHttpActionResult> UpdateCreative(NewCreativeModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            return Ok(await service.UpdateCreative(model));
+           return Ok(await service.UpdateCreative(model));
         }
 
         protected override void Dispose(bool disposing)

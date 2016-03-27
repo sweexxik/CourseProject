@@ -4,6 +4,16 @@ app.factory('searchService', ['$http',
 
   var searchServiceFactory = {};
 
+  var searchPattern = '';
+
+  var _setSearchPattern = function(value){
+  	searchPattern = value;
+  };
+
+  var _getSearchPattern = function(){
+  	return searchPattern;
+  };
+
   var _search = function(data) {
       return $http.post(serviceBase + 'api/creatives/search/', JSON.stringify(data), {
             headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
@@ -11,6 +21,8 @@ app.factory('searchService', ['$http',
     };
 
     searchServiceFactory.search = _search;
+    searchServiceFactory.setSearchPattern = _setSearchPattern;
+    searchServiceFactory.getSearchPattern = _getSearchPattern;
 
     return searchServiceFactory;
 }]);

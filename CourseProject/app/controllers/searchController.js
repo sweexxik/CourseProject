@@ -2,41 +2,56 @@
 app.controller('searchController', ['$http','$scope', '$location','searchService',
     function ($http,$scope, $location, searchService) {
   
-  	//todo save theme in coockies
     $scope.results = [];
+    $scope.loading = false;
 
-   
-    $scope.pattern = '';  
+    $scope.pattern = ''; 
 
-    $scope.search = function(){ 
-	    initSearchModel();    
-	    searchService.search($scope.searchModel).then(function(results){
-	        $scope.results = results.data;
-    	}); 
-    };
-
-   $scope.searchModel = {
+    $scope.searchModel = {
         pattern:"",
-        chapterName:false,
-        chapterText:false,
-        creativeName:false,
-        creativeDescription:false,
-        tagName:false,
-        commentText:false,
-        commentAuthor:false,
-        creativeAuthor:false
+        chapterName:true,
+        chapterText:true,
+        creativeName:true,
+        creativeDescription:true,
+        tagName:true,
+        commentText:true,
+        commentAuthor:true,
+        creativeAuthor:true
     }; 
 
     $scope.conditionList = [
-    { name: 'chapterName',    selected: true },
-    { name: 'chapterText',   selected: true },
-    { name: 'creativeName',     selected: true },
-    { name: 'creativeDescription', selected: true },
-    { name: 'tagName',    selected: true },
-    { name: 'commentText',   selected: true },
-    { name: 'commentAuthor',     selected: true },
-    { name: 'creativeAuthor', selected: true }
-  ];
+    { name: 'Chapter Names',    selected: true },
+    { name: 'Chapter Texts',   selected: true },
+    { name: 'Creative Names',     selected: true },
+    { name: 'Creative Descriptions', selected: true },
+    { name: 'Tags',    selected: true },
+    { name: 'Comments',   selected: true },
+    { name: 'Comment Authors',     selected: true },
+    { name: 'Creative Authors', selected: true }
+  ]; 
+
+   	var serachPattern = searchService.getSearchPattern();
+   	if (serachPattern) {
+   		$scope.searchModel.pattern = serachPattern;
+   		$scope.loading = true;
+   		searchService.search($scope.searchModel).then(function(results){
+   			$scope.results = results.data;
+   			$scope.loading = false;
+   		});
+   	}
+
+    $scope.search = function(){    
+    	$scope.loading = true;
+	    initSearchModel();      
+	    searchService.search($scope.searchModel).then(function(results){	    
+	        $scope.results = results.data;
+	        $scope.loading = false;
+    	}, function(error){
+    		$scope.loading = false;
+    	}); 
+    };
+
+   
 
     $scope.$watch('conditionList|filter:{selected:true}', function (nv) {
         console.log($scope.conditionList);       
@@ -52,9 +67,22 @@ app.controller('searchController', ['$http','$scope', '$location','searchService
         $scope.searchModel.commentText = $scope.conditionList[5].selected;
         $scope.searchModel.commentAuthor = $scope.conditionList[6].selected;
         $scope.searchModel.creativeAuthor = $scope.conditionList[7].selected;
-
     };
-    
+
+
+  
+    $(document).on('click', '.panel-heading', function(e){
+    var $this = $(this);
+    if(!$this.hasClass('panel-collapsed')) {
+        $this.parents('.panel').find('.panel-body').slideUp();
+        $this.addClass('panel-collapsed');
+        $this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+    } else {
+        $this.parents('.panel').find('.panel-body').slideDown();
+        $this.removeClass('panel-collapsed');
+        $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+    }
+})
    
 
 }]);

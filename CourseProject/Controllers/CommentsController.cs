@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseProject.Filters;
 using CourseProject.Interfaces;
 using CourseProject.Models;
 
@@ -30,13 +31,9 @@ namespace CourseProject.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateViewModel]
         public async Task<IHttpActionResult> AddComment(NewCommentModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             return Ok(await service.AddComment(model));
         }
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CourseProject.Domain.DbContext;
 using CourseProject.Domain.Entities;
@@ -92,6 +94,11 @@ namespace CourseProject.Domain.Repositories
             var result = await userManager.CreateAsync(user, userModel.Password);
 
             return result;
+        }
+
+        public IEnumerable<ApplicationUser> GetAllUsers()
+        {
+            return userManager.Users.ToList();
         }
 
         public async Task<ApplicationUser> FindUser(string userName)

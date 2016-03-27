@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CourseProject.Filters;
 using CourseProject.Interfaces;
 using CourseProject.Models;
 
@@ -17,14 +18,10 @@ namespace CourseProject.Controllers
         }
        
         [HttpPost]
+        [ValidateViewModel]
         [Route("api/rating")]
         public async Task<IHttpActionResult> AddRating(NewRatingModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
             var result = await service.AddRating(model);
 
             if (result == null)

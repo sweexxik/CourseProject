@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using CourseProject.Domain.Entities;
 using CourseProject.Domain.Models;
 using CourseProject.Models;
 using CourseProject.Providers;
@@ -13,6 +14,7 @@ namespace CourseProject.Interfaces
         Task<IdentityResult> SaveUserData(UserViewModel viewModel);
         Task<IdentityResult> CreateUser(UserModel model);
         Task<IdentityResult> ChangePassword(ChangePasswordModel model);
+        UserViewModel InitUserViewModel(ApplicationUser user);
         string WorkingFolder { get; }
         void Dispose(bool disposing);
     }

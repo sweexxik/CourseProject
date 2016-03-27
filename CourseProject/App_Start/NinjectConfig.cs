@@ -31,7 +31,8 @@ namespace CourseProject
             kernel.Bind<IChaptersService>().To<ChapterService>();
             kernel.Bind<ILikesService>().To<LikesService>();
             kernel.Bind<IRatingService>().To<RatingService>();
-            
+            kernel.Bind<ICategoriesService>().To<CategoriesService>();
+            kernel.Bind<IAdminService>().To<AdminService>();
 
         }
     }
