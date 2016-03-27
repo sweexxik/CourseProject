@@ -131,25 +131,25 @@
 	                     <h3 class="form-login-heading">Phone</h3>
 	                    <input maxlength="20" type="text" class="form-control" data-ng-model="selectedUser.phoneNumber" placeholder="Phone Number" required autofocus>
 	                    <h3 class="form-login-heading">Admin Role</h3> 
-	                     <ul><li class="list-group-item">
-                               Set admin role?     
+	                     <ul class="list-group"><li class="list-group-item">
+                                 Admin Role
 	                    <div class="material-switch pull-right">                    
-                            <input id="admin" type="checkbox" name="selectedFruits[]" ng-model="selectedUser.email">
+                            <input id="admin" type="checkbox" name="selectedFruits[]" ng-model="selectedUser.isAdmin">
                             <label for="admin" class="label-primary"></label>
                             </div>
                         </li></ul>
 	                     <h3 class="form-login-heading">Medals</h3> 
 	                    <ul class="list-group"> 
-                            <li class="list-group-item" data-ng-repeat="medal in selectedUser.medals">
+                            <li class="list-group-item" data-ng-repeat="medal in medals">
                                 {{medal.name}}               
                                     <div class="material-switch pull-right">                    
-                                        <input id="{{medal.name}}" type="checkbox" name="selectedFruits[]" ng-model="medal.name">
+                                        <input id="{{medal.name}}" type="checkbox" name="selectedFruits[]" data-ng-model="selectedUser.medals[$index].selected">
                                         <label for="{{medal.name}}" class="label-primary"></label>
                                     </div>
                             </li>
                         </ul>
                                <div class="block center">      
-            <a class="btn-green-flat-trigger" data-ng-click="createCreative()">Save</a>
+            <a class="btn-green-flat-trigger" data-ng-click="saveUserData()">Save</a>
                 </div><br>
                     </div>
           

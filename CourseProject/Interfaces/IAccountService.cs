@@ -15,6 +15,7 @@ namespace CourseProject.Interfaces
         Task<IdentityResult> CreateUser(UserModel model);
         Task<IdentityResult> ChangePassword(ChangePasswordModel model);
         UserViewModel InitUserViewModel(ApplicationUser user);
+        Task<ApplicationUser> InitApplicatonUser(UserViewModel model, ApplicationUser user);
         string WorkingFolder { get; }
         void Dispose(bool disposing);
     }

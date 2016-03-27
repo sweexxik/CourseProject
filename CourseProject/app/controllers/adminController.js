@@ -3,19 +3,42 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
  function ($http, $scope, $location, authService, adminService) {
 
  	$scope.users = []; 
+ 	$scope.medals = [];
  	$scope.selectedUser = {};
- 	$scope.sortType     = 'name'; 
-  	$scope.sortReverse  = false;  
-  	$scope.searchUsers   = '';    
+ 	$scope.sortType = 'name'; 
+
+  	$scope.sortReverse = false;  
+
+  	$scope.searchUsers = '';   
+
+  
+
+  	$scope.medalsModel = [];
+
+
 
 	adminService.getAllUsers().then(function(results){
-		$scope.users = results.data;
-		console.log(results);
+		$scope.users = results.data;	
+		console.log($scope.users);
+	});
+
+	adminService.getAllMedals().then(function(results){		
+		$scope.medals = results.data;	
+		console.log($scope.medals);
 	});
 
 	$scope.editUser = function(index){
 		$scope.selectedUser = $scope.users[index];
 		  $( globalModal ).toggleClass('global-modal-show');
+	};
+
+	$scope.saveUserData = function(){		
+		adminService.saveUserData($scope.selectedUser).then(function(results){
+			$scope.users = results.data;
+			console.log(results.data);
+		}, function(error){
+			console.log(error);
+		});
 	};
 
 

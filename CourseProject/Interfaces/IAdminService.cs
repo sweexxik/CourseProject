@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Domain.Entities;
 using CourseProject.Models;
@@ -9,6 +10,6 @@ namespace CourseProject.Interfaces
     {
         IEnumerable<UserViewModel> GetUsers();
         IEnumerable<Medal> GetMedals();
-        IEnumerable<UserViewModel> SaveUserData(UserViewModel model);
+        Task<IEnumerable<UserViewModel>> SaveUserData(UserViewModel model);
     }
 }

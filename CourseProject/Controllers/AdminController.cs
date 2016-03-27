@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Threading.Tasks;
+using System.Web.Http;
 using CourseProject.Filters;
 using CourseProject.Interfaces;
 using CourseProject.Models;
@@ -32,9 +33,9 @@ namespace CourseProject.Controllers
         [HttpPost]
         [ValidateViewModel]
         [Route("api/admin/save")]
-        public IHttpActionResult SaveUserData(UserViewModel model)
+        public async Task<IHttpActionResult> SaveUserData(UserViewModel model)
         {
-            return Ok(service.SaveUserData(model));
+            return Ok(await service.SaveUserData(model));
         }
 
     }

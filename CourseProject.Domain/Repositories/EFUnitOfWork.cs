@@ -24,12 +24,14 @@ namespace CourseProject.Domain.Repositories
         private MedalsRepository medalsRepository;
         private TagsRepository tagsRepository;
         private readonly UserManager<ApplicationUser> userManager;
+
         private bool isDisposed;
 
         public EfUnitOfWork()
         {
             db = new DatabaseContext();
             userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+    
         }
 
         public IRepository<Creative> Creatives
@@ -72,6 +74,11 @@ namespace CourseProject.Domain.Repositories
             get { return tagsRepository ?? (tagsRepository = new TagsRepository(db)); }
         }
 
+        public async Task<ApplicationUser> FindUserById(string userId)
+        {
+            return await userManager.FindByIdAsync(userId);
+        }
+
         public async Task<IdentityResult> UpdateUser(ApplicationUser user)
         {
             return await userManager.UpdateAsync(user);
@@ -110,6 +117,7 @@ namespace CourseProject.Domain.Repositories
         {
             return await userManager.FindAsync(userName, password);
         }
+
 
         public void Save()
         {

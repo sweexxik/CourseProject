@@ -13,44 +13,27 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
     $scope.isAdmin = false;
     $scope.showLoading = false;
 
-    var newData = {
-        firstName:"",
-        lastName: "",      
-        userName:"",
-        phoneNumber:"",
-        email:"",
-        OldPassword:"",
-        NewPassword:"",
-        ConfirmPassword:""   
+    $scope.newData = {
+      OldPassword:"",
+      NewPassword:"",
+      ConfirmPassword:"",
+      userName:""
     };
 
-
     authService.getProfileInfo().then(function(results){
-        $scope.userInfo = results.data;
-        if($scope.userInfo.roles[0] == 'fbf6669f-3305-482b-8c08-a25f6ef53bea'){
-          $scope.isAdmin = true;
-          console.log($scope.userInfo);
-        }
+        $scope.userInfo = results.data;       
+        $scope.isAdmin = $scope.userInfo.isAdmin;
+        console.log($scope.userInfo);        
     });
 
    $scope.scrollTo = function (id) {
         $scope.showUpload = "show";    
-        $anchorScroll(id);  
-    
+        $anchorScroll(id);      
     };
 
-    $scope.initNewUserInfo = function () {
-        $scope.newUserInfo = $.extend({}, $scope.userInfo);
-    };
-    
     $scope.saveUserInfo = function () {
-        newData.userName = $scope.userInfo.userName;
-        newData.firstName = $scope.userInfo.firstName;
-        newData.lastName = $scope.userInfo.lastName;
-        newData.email = $scope.userInfo.email;
-        newData.phoneNumber = $scope.userInfo.phoneNumber;       
-
-        authService.saveUserInfo(newData).then(function(results){            
+   
+        authService.saveUserInfo($scope.userInfo).then(function(results){            
           $scope.userInfo = results.data;       
         });
       };

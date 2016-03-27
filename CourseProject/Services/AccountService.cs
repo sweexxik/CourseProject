@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -11,6 +13,7 @@ using CourseProject.Interfaces;
 using CourseProject.Models;
 using CourseProject.Providers;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CourseProject.Services
 {
@@ -39,7 +42,8 @@ namespace CourseProject.Services
 
         public async Task<IdentityResult> SaveUserData(UserViewModel viewModel)
         {
-            return await db.UpdateUser(await InitApplicatonUser(viewModel));
+            var user = await db.FindUserById(viewModel.Id);
+            return await db.UpdateUser(await InitApplicatonUser(viewModel, user));
         }
 
         public async Task<IdentityResult> ChangePassword(ChangePasswordModel model)
@@ -93,27 +97,70 @@ namespace CourseProject.Services
 
         public UserViewModel InitUserViewModel(ApplicationUser user)
         {
+            var isAdmin = user.Roles.Count > 0 && user.Roles.First().RoleId == "4c05d228-9442-4df9-9bcb-11ee9c1da16e";
+
             return new UserViewModel
             {
+                Id = user.Id,
                 UserName = user.UserName,
                 Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
-                Medals = user.Medals,
+                Medals = SetUserMedalsModel(user.Medals, user),
                 AvatarUri = user.AvatarUri,
-                Roles = user.Roles.Select(x=>x.RoleId)
+                IsAdmin = isAdmin
             };
         }
 
-        private async Task<ApplicationUser> InitApplicatonUser(UserViewModel model)
+        private IEnumerable<MedalViewModel> SetUserMedalsModel(IEnumerable<Medal> model, ApplicationUser user)
         {
-            var user = await db.FindUser(model.UserName);
+            return model.Select(x => new MedalViewModel
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                Selected = user.Medals.Contains(x)
+            }).ToList();
+        }
 
+        public async Task<ApplicationUser> InitApplicatonUser(UserViewModel model, ApplicationUser user)
+        {
             user.FirstName = model.FirstName;
+
             user.LastName = model.LastName;
+
             user.Email = model.Email;
+
             user.PhoneNumber = model.PhoneNumber;
+
+            if (model.IsAdmin)
+            {
+                if (user.Roles.Count == 0)
+                {
+                    user.Roles.Add(new IdentityUserRole
+                    {
+                        UserId = user.Id,
+                        RoleId = "4c05d228-9442-4df9-9bcb-11ee9c1da16e"
+                    });
+                }
+            }
+
+            user.Medals = new List<Medal>();
+
+            foreach (var medal in model.Medals)
+            {
+                switch (medal.Id)
+                {
+                    case 1: 
+                        user.Medals.Add(await db.Medals.Get(1));
+                        break;
+                    case 2: user.Medals.Add(await db.Medals.Get(2));
+                        break;
+                    case 3: user.Medals.Add(await db.Medals.Get(3));
+                        break;
+                }
+            }
 
             return user;
         }

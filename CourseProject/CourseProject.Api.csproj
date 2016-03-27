@@ -442,6 +442,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
+    <Compile Include="Models\MedalViewModel.cs" />
     <Compile Include="Models\NewChapterModel.cs" />
     <Compile Include="Models\NewCommentModel.cs" />
     <Compile Include="Models\NewCreativeModel.cs" />

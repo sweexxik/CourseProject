@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using CourseProject.Domain.Entities;
 using CourseProject.Domain.Interfaces;
@@ -30,9 +31,23 @@ namespace CourseProject.Services
             return db.Medals.GetAll().ToList();
         }
 
-        public IEnumerable<UserViewModel> SaveUserData(UserViewModel model)
+        public async Task<IEnumerable<UserViewModel>> SaveUserData(UserViewModel model)
         {
-            return new List<UserViewModel>();
+            var user = await db.FindUserById(model.Id);
+            var result = await service.InitApplicatonUser(model, user);
+
+            try
+            {
+                await db.UpdateUser(result);
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception(e.Message);
+            }
+       
+
+            return db.GetAllUsers().Select(x => service.InitUserViewModel(x)).ToList();
         }
     }
 }

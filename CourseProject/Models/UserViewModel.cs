@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using CourseProject.Domain.Entities;
 
 namespace CourseProject.Models
 {
     public class UserViewModel
     {
-        
+        public string Id { get; set; }
+
         public string UserName { get; set; }
 
         public string FirstName { get; set; }
@@ -19,10 +19,12 @@ namespace CourseProject.Models
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
-        public IEnumerable<Medal> Medals { get; set; }
+        public IEnumerable<MedalViewModel> Medals { get; set; }
 
         public string AvatarUri { get; set; }
 
         public IEnumerable<string> Roles { get; set; }
+
+        public bool IsAdmin { get; set; }
     }
 }

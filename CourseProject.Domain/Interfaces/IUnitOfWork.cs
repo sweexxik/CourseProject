@@ -22,6 +22,7 @@ namespace CourseProject.Domain.Interfaces
 
         Task<ApplicationUser> FindUser(string userName);
         Task<ApplicationUser> FindUser(string userName, string password);
+        Task<ApplicationUser> FindUserById(string userId);
         Task<IdentityResult> UpdateUser(ApplicationUser user);
         Task<IdentityResult> RegisterUser(UserModel userModel);
         Task<IdentityResult> ChangePassword(string userId, string pass, string newPass);
