@@ -16,7 +16,7 @@ namespace CourseProject.Domain.LuceneEntities
         private IEnumerable<string> chapterBodies;
         private IEnumerable<string> comments;
         private IEnumerable<string> commentsUserName;
-      
+
 
         [SearchField]
         public IEnumerable<string> CommentsUserName
@@ -132,23 +132,29 @@ namespace CourseProject.Domain.LuceneEntities
 
         public static explicit operator CreativeDocument(Creative creative)
         {
-            if (creative.Chapters == null)
-                return new CreativeDocument();
+            foreach (var chapter in creative.Chapters)
+            {
+                if (chapter.Body == null)
+                {
+                    chapter.Body = "";
+                }
+               
+            }
 
             return new CreativeDocument
             {
-               Id = creative.Id,
-               Name = creative.Name,
-               Description = creative.Description,
-               Tags = creative.Tags.Select(x=>x.Name),
-               ChapterBodies = creative.Chapters.Select(x=>x.Body),
-               ChapterNames = creative.Chapters.Select(x=>x.Name),
-               Comments = creative.Comments.Select(x=>x.Text),
-               CommentsUserName = creative.Comments.Select(x=>x.User.UserName),
-               UserName = creative.User.UserName
-               
-            };
-        }
+                Id = creative.Id,
+                Name = creative.Name,
+                Description = creative.Description,
+                Tags = creative.Tags.Select(x => x.Name),
+                ChapterBodies = creative.Chapters.Select(x => x.Body),
+                ChapterNames = creative.Chapters.Select(x => x.Name),
+                Comments = creative.Comments.Select(x => x.Text),
+                CommentsUserName = creative.Comments.Select(x => x.User.UserName),
+                UserName = creative.User.UserName
 
+            };
+
+        }
     }
 }

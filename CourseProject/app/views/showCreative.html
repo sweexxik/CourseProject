@@ -2,7 +2,7 @@
     <div class="container">
         <div class="page-header text-center">
             <h1 class="form-login-heading">{{creative.name}}</h1>
-			<p class="form-login-heading">Author : {{creative.userName}}</p>
+			<p class="form-login-heading">{{translation.AUTHOR}} : {{creative.userName}}</p>
             <!-- RATING BEGIN -->
             <div class="container">
                 <div class="col-md-1">&nbsp;</div> 
@@ -17,7 +17,7 @@
                                     </span><span class="glyphicon glyphicon-star-empty"></span>
                                 </div>
                                 <div>
-                                    <span class="glyphicon glyphicon-user"></span>{{ratings.length}} total
+                                    <span class="glyphicon glyphicon-user"></span>{{ratings.length}} {{translation.TOTAL}}
                                 </div>
                                 <button type="button" class="btn btn-default btn-sm" aria-label="Left Align" data-ng-click="setRating(1)">
                                     <span class="glyphicon glyphicon-star" aria-hidden="true"> 1 </span>
@@ -112,7 +112,7 @@
         </div>
 
             <button data-ng-if="chapters.length > 0" data-ng-click="test()" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">
-                Read mode   
+                {{translation.READ_MODE}} 
             </button>
             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -121,7 +121,7 @@
                             <div class="carousel-inner">   
                                 <div class="item fill" data-ng-class="{active:!$index}" data-ng-repeat="chapter in chapters">
                                     <div class="carousel-caption" style="position: relative;">
-                                        <p align="left"> Chapter #{{chapter.number}}&nbsp;{{chapter.name}}</p>
+                                        <p align="left">{{translation.CHAPTER}}  #{{chapter.number}}&nbsp;{{chapter.name}}</p>
                                     </div> 
                                  
                                     <div ng-bind-html="chapter.body">                       
@@ -143,7 +143,7 @@
         </div>
    
         <div ng-repeat="item in chapters">
-			<h2 class="form-login-heading">Chapter #{{item.number}}: {{item.name}}</h2>	
+			<h2 class="form-login-heading">{{translation.CHAPTER}} #{{item.number}}: {{item.name}}</h2>	
 			
             <div ng-bind-html="item.body">                       
             </div>    
@@ -151,7 +151,7 @@
             <br><hr>
 
 		</div>	
-        <h2 class="text-center form-login-heading">Comments: {{comments.length}}</h2><hr><br>       
+        <h2 class="text-center form-login-heading">{{translation.COMMENTS}}: {{comments.length}}</h2><hr><br>       
         <span  data-ng-repeat="comment in comments" >   
         <div class="col-md-12">
             <div class="col-md-2">
@@ -164,7 +164,7 @@
                     <div class="panel-heading">
                         <strong>#{{$index+1}} {{comment.userName}}</strong> 
                             <span class="text-muted">
-                            commented {{comment.postDate.split('T')[0]}} at {{comment.postDate.split('T')[1].slice(0,-4) }}
+                            {{translation.COMMENTED}} {{comment.postDate.split('T')[0]}}  {{comment.postDate.split('T')[1].slice(0,-4) }}
                             </span> 
 
                     </div>
@@ -189,7 +189,7 @@
         </div>
         </span>
         <div  class="text-center">
-            <button type="button" class="btn btn-info" data-ng-click="showNewComment()">New comment</button>
+            <button type="button" class="btn btn-info" data-ng-click="showNewComment()"> {{translation.NEW_COMMENT}} </button>
          </div>
 
 
@@ -199,14 +199,9 @@
              <div class="widget-area no-padding blank">
                  <div class="status-upload">
                     <form>
-                        <textarea data-ng-model="newComment.text" placeholder="What do you think right now?" ></textarea>
-                                        <ul>
-                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio"><i class="fa fa-music"></i></a></li>
-                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Video"><i class="fa fa-video-camera"></i></a></li>
-                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Sound Record"><i class="fa fa-microphone"></i></a></li>
-                                            <li><a title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Picture"><i class="fa fa-picture-o"></i></a></li>
-                                        </ul>
-                                        <button style="margin-top: 10px" type="button" data-ng-click="createComment()" class="btn btn-info"><i class="fa fa-share"></i>Publish</button>
+                        <textarea data-ng-model="newComment.text" ></textarea>
+                                     
+                                        <button style="margin-top: 10px" type="button" data-ng-click="createComment()" class="btn btn-info"><i class="fa fa-share"></i>{{translation.PUBLISH}}</button>
                                     </form>
                                 </div><!-- Status Upload  -->
                             </div><!-- Widget Area -->

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CourseProject.Domain.Entities
 {
@@ -9,6 +10,8 @@ namespace CourseProject.Domain.Entities
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public DateTime Created { get; set; }
 
         public virtual ApplicationUser User { get; set; }
 

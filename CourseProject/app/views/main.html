@@ -1,14 +1,41 @@
 ﻿<div class="container">
     <div class="page-header text-center">
         <h1>{{translation.MAIN_TEXT}}</h1>
-    </div>        
-    <div class="col-md-12 margin-bottom-30" data-ng-repeat="creative in creatives">
+      </div>
+
+<div class="col-md-12 ">
+    
+   <div class="widget--tags text-center">
+            <a data-ng-repeat="tag in tags | orderBy: 'count' : true" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
+        </div>
+</div>
+     <div class="col-md-12">
+        <div class="pull-right">      
+            <div class="btn-group">
+                <button class="btn btn-success btn-filter" data-ng-click="sortType = 'created'; sortReverse = !sortReverse">
+                Date
+                <span ng-show="sortType == 'created' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'created' && !sortReverse" class="fa fa-caret-up"></span></button>
+                <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'avgRating';sortReverse = !sortReverse">    Rating
+                 <span ng-show="sortType == 'avgRating' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'avgRating' && !sortReverse" class="fa fa-caret-up"></span>
+                </button>
+                 <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'popular';sortReverse = !sortReverse"> Popular
+                 <span ng-show="sortType == 'popular' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'popular' && !sortReverse" class="fa fa-caret-up"></span>
+                </button>
+            </div>
+       </div>  
+      </div>
+      <hr style="opacity: 0">
+
+    <div class="col-md-12 margin-bottom-30" data-ng-repeat="creative in creatives | orderBy:sortType:sortReverse ">
         <div class="portlet portlet-bordered">
             <div class="portlet-title">
                 <div class="caption caption-red">
                     <i class="glyphicon glyphicon-cog"></i>
                     <span class="caption-subject text-uppercase">{{creative.name}}</span>
-                    <span class="caption-helper">weekly stats...</span>
+                    <span class="caption-helper">{{creative.created}}</span>
                 </div>
                 <div class="actions">  
                     <a ng-href="#/show/{{creative.id}}" class="btn"><i class="glyphicon glyphicon-align-justify"></i>{{translation.SHOW}}</a>

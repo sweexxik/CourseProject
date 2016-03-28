@@ -25,6 +25,16 @@
   "CREATIVE_NAME": "Creative name",
   "TAGS":"Tags",
   "CATEGORY":"Category",
-  "SAVE":"Save"
+  "SAVE":"Save",
+  "EDIT": "Edit",
+  "DELETE":"Delete",
+  "AUTHOR":"Author",
+  "TOTAL":"Total",
+  "READ_MODE":"Read mode",
+  "CHAPTER":"Chapter",
+  "COMMENTS":"Comments",
+  "COMMENTED":"Commented",
+  "NEW_COMMENT": "Add comment",
+  "PUBLISH":"Publish"
 
 }

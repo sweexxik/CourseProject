@@ -58,8 +58,16 @@ namespace CourseProject.Services
             db.Save();
 
             await medalService.CheckMedals(creative.User.UserName);
+            try
+            {
+                return InitCreativesModel(db.Creatives.Find(c => c.User.UserName == model.UserName));
+            }
+            catch (Exception e)
+            {
 
-            return InitCreativesModel(db.Creatives.Find(c => c.User.UserName == model.UserName));
+                throw new Exception(e.Message);
+            }
+           
         }
      
 
@@ -162,7 +170,10 @@ namespace CourseProject.Services
                 Description = model.Description,
                 Category = await db.Categories.Get(model.CategoryId),
                 Tags = model.Tags,
-                Chapters = model.Chapters
+                Chapters = model.Chapters,
+                Created = DateTime.Now,
+                Rating = new List<Rating>(),
+                Comments = new List<Comment>()
             };
 
             var user = await db.Users.FindUser(model.UserName);
@@ -184,8 +195,10 @@ namespace CourseProject.Services
                 Description = creative.Description,
                 Category = creative.Category,
                 Rating = creative.Rating,
-                Tags = creative.Tags
-            };
+                Tags = creative.Tags,
+                Created = creative.Created.ToShortDateString() + " " + creative.Created.ToShortTimeString(),
+                AvgRating = creative.Rating.Any() ? creative.Rating.Average(x => x.Value) : 0
+          };
         }
 
         private IEnumerable<NewCreativeModel> InitCreativesModel(IEnumerable<Creative> list)
@@ -200,7 +213,9 @@ namespace CourseProject.Services
                 Description = creative.Description,
                 Category = creative.Category,
                 Rating = creative.Rating,
-                Tags = creative.Tags
+                Tags = creative.Tags,
+                Created = creative.Created.ToShortDateString() + " " + creative.Created.ToShortTimeString(),
+                AvgRating = creative.Rating.Any() ? creative.Rating.Average(x=>x.Value) : 0
             }).ToList();
         }
 

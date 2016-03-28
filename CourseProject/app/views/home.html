@@ -82,23 +82,55 @@
     </div>
 
 
+    <div class="col-md-12">
+        <div class="col-md-3">&nbsp;</div>
+        <div class="col-md-6">
+               <form>
+            <div class="form-group">    
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                    <input type="text" class="form-control" placeholder="Search creatives" ng-model="searchCreatives">
+                </div>      
+            </div>
+        </form> 
+        </div>
+    </div>
+     <div class="col-md-12">
+        <div class="pull-right">      
+            <div class="btn-group">
+                <button class="btn btn-success btn-filter" data-ng-click="sortType = 'created'; sortReverse = !sortReverse">
+                Date
+                <span ng-show="sortType == 'created' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'created' && !sortReverse" class="fa fa-caret-up"></span></button>
+                <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'avgRating';sortReverse = !sortReverse">    Rating
+                 <span ng-show="sortType == 'avgRating' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'avgRating' && !sortReverse" class="fa fa-caret-up"></span>
+                </button>
+                 <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'popular';sortReverse = !sortReverse"> Popular
+                 <span ng-show="sortType == 'popular' && sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'popular' && !sortReverse" class="fa fa-caret-up"></span>
+                </button>
+            </div>
+       </div>  
+      </div>
+      <hr style="opacity: 0">
 
-    <div class="col-md-12 margin-bottom-30" data-ng-repeat="creative in creatives">
+    <div class="col-md-12 margin-bottom-30" data-ng-repeat="creative in creatives | filter:searchCreatives | orderBy:sortType:sortReverse ">
         <div class="portlet portlet-bordered">
             <div class="portlet-title">
                 <div class="caption caption-red">
                     <i class="glyphicon glyphicon-cog"></i>
                     <span class="caption-subject text-uppercase">{{creative.name}}</span>
-                    <span class="caption-helper">weekly stats...</span>
+                    <span class="caption-helper">{{creative.created}}</span>
                 </div>
                 <div class="actions">  
-                    <a ng-href="#/show/{{creative.id}}" class="btn"><i class="glyphicon glyphicon-align-justify"></i>Show</a>
+                    <a ng-href="#/show/{{creative.id}}" class="btn"><i class="glyphicon glyphicon-align-justify"></i>{{translation.SHOW}}</a>
                     <a data-ng-href="#edit/{{creative.id}}" class="btn">
                         <i class="glyphicon glyphicon-pencil"></i>
-                        Edit
+                        {{translation.EDIT}}
                     </a> 
-                    <a data-ng-click="deleteCreative(creative.id)" class="btn btn-red btn-circle">
-                        <i class="glyphicon glyphicon-trash"></i>
+                    <a data-ng-click="deleteCreative(creative.id)" class="btn">
+                        <i class="glyphicon glyphicon-trash"></i>    {{translation.DELETE}}
                     </a>                    
                 </div>
             </div>

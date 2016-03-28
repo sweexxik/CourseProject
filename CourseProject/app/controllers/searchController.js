@@ -5,7 +5,7 @@ app.controller('searchController', ['$http','$scope', '$location','searchService
     $scope.results = [];
     $scope.loading = false;
 
-    $scope.pattern = ''; 
+    $scope.pattern = searchService.getSearchPattern();
 
     $scope.searchModel = {
         pattern:"",
@@ -23,7 +23,7 @@ app.controller('searchController', ['$http','$scope', '$location','searchService
     { name: 'Chapter Names',    selected: true },
     { name: 'Chapter Texts',   selected: true },
     { name: 'Creative Names',     selected: true },
-    { name: 'Creative Descriptions', selected: true },
+    { name: 'Creative Desc.', selected: true },
     { name: 'Tags',    selected: true },
     { name: 'Comments',   selected: true },
     { name: 'Comment Authors',     selected: true },

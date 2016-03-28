@@ -31,7 +31,8 @@ app.controller('homeController',
 
     	creativeService.getCreatives().then(function (results) {        
             $scope.creatives = results.data;           
-            for(var i = 0; i< $scope.creatives.length; i++) {             
+            for(var i = 0; i< $scope.creatives.length; i++) {       
+                $scope.creatives[i].popular = $scope.creatives[i].comments.length;           
                 $scope.creatives[i].chapters = creativeService.sortChapters($scope.creatives[i]); 
             }   
         }, function (error) {

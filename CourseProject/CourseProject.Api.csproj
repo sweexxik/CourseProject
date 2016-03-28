@@ -236,6 +236,11 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="app\controllers\adminController.js" />
+    <Content Include="app\controllers\admin\adminChaptersController.js" />
+    <Content Include="app\controllers\admin\adminCommentsController.js" />
+    <Content Include="app\controllers\admin\adminCreativesController.js" />
+    <Content Include="app\controllers\admin\adminRatingsController.js" />
+    <Content Include="app\controllers\admin\adminTagsController.js" />
     <Content Include="app\controllers\chaptersController.js" />
     <Content Include="app\controllers\commentsController.js" />
     <Content Include="app\controllers\editCreativeController.js" />
@@ -247,12 +252,19 @@
     <Content Include="app\controllers\searchController.js" />
     <Content Include="app\controllers\showCreativeController.js" />
     <Content Include="app\controllers\signupController.js" />
+    <Content Include="app\services\adminService.js" />
     <Content Include="app\services\authInterceptorService.js" />
     <Content Include="app\services\authService.js" />
     <Content Include="app\services\creativeService.js" />
     <Content Include="app\services\searchService.js" />
     <Content Include="app\services\tokensManagerService.js" />
-    <Content Include="app\views\admin.html" />
+    <Content Include="app\services\translationService.js" />
+    <Content Include="app\views\admin\admin.html" />
+    <Content Include="app\views\admin\chapters.html" />
+    <Content Include="app\views\admin\comments.html" />
+    <Content Include="app\views\admin\creatives.html" />
+    <Content Include="app\views\admin\ratings.html" />
+    <Content Include="app\views\admin\tags.html" />
     <Content Include="app\views\associate.html" />
     <Content Include="app\views\chapters.html" />
     <Content Include="app\views\comments.html" />
@@ -268,7 +280,10 @@
     <Content Include="App_Data\DataStore_log.ldf">
       <DependentUpon>DataStore.mdf</DependentUpon>
     </Content>
+    <Content Include="content\css\admin-panel.css" />
     <Content Include="content\css\angular-ui-tree.css" />
+    <Content Include="content\css\boostrap-cyborg.css" />
+    <Content Include="content\css\boostrap-lumen.css" />
     <Content Include="content\css\bootstrap.min.css" />
     <Content Include="content\css\comment_box.css" />
     <Content Include="content\css\darkbootstrap.css" />
@@ -287,6 +302,7 @@
     <Content Include="content\css\ng-tags-input.min.css" />
     <Content Include="content\css\panelWithTabNavs.css" />
     <Content Include="content\css\search-view.css" />
+    <Content Include="content\css\searchPage.css" />
     <Content Include="content\css\site.css" />
     <Content Include="content\css\social-buttons.css" />
     <Content Include="content\css\tags-view.css" />
@@ -295,9 +311,19 @@
     <Content Include="content\fonts\fontawesome-webfont.svg" />
     <Content Include="content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="index.html" />
+    <Content Include="Scripts\angular-animate.min.js" />
+    <Content Include="Scripts\angular-animateX.min.js" />
+    <Content Include="Scripts\angular-aria.min.js" />
     <Content Include="Scripts\angular-drag-and-drop-lists.min.js" />
     <Content Include="Scripts\angular-local-storage.min.js" />
+    <Content Include="Scripts\angular-material.min.js" />
+    <Content Include="Scripts\angular-messages.min.js" />
+    <Content Include="Scripts\angular-min.js" />
+    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular-sanitize.js" />
     <Content Include="Scripts\authComplete.js" />
+    <Content Include="Scripts\bootstrap-min.js" />
+    <Content Include="Scripts\jquery-min.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\loading-bar.min.js" />
     <Content Include="Scripts\markdown-editable.js" />
@@ -307,8 +333,10 @@
     <Content Include="Scripts\ng-sortable.js" />
     <Content Include="Scripts\ng-tags-input.min.js" />
     <Content Include="Scripts\showdown.min.js" />
+    <Content Include="Scripts\showdownX.min.js" />
     <Content Include="Scripts\sortable.js" />
     <Content Include="Scripts\UI-angular-jquery-script.js" />
+    <Content Include="Scripts\ui-bootstrap.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -444,6 +472,10 @@
     <Compile Include="Migrations\201603281225591_NullableTagCreativeId.Designer.cs">
       <DependentUpon>201603281225591_NullableTagCreativeId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603281902207_creativeDate.cs" />
+    <Compile Include="Migrations\201603281902207_creativeDate.Designer.cs">
+      <DependentUpon>201603281902207_creativeDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\MedalViewModel.cs" />
@@ -482,6 +514,8 @@
     <Content Include="content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="app\translations\translation_en.json" />
+    <Content Include="app\translations\translation_ru.json" />
     <None Include="Properties\PublishProfiles\CourseProject20160316104631.pubxml" />
     <Content Include="Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CourseProjectApi20160324093711 - Web Deploy.pubxml" />
@@ -501,6 +535,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201603171237585_compose 2 storages.resx">
       <DependentUpon>201603171237585_compose 2 storages.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603171244493_comment creativeId fix.resx">
       <DependentUpon>201603171244493_comment creativeId fix.cs</DependentUpon>
@@ -576,6 +611,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603281225591_NullableTagCreativeId.resx">
       <DependentUpon>201603281225591_NullableTagCreativeId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603281902207_creativeDate.resx">
+      <DependentUpon>201603281902207_creativeDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using CourseProject.Domain.Entities;
 
@@ -22,7 +23,10 @@ namespace CourseProject.Models
         [Required]
         public string UserName { get; set; }
 
-     
+        public string Created { get; set; }
+
+        public double AvgRating { get; set; }
+
         public CreativeCategory Category { get; set; }
 
         public ICollection<Chapter> Chapters { get; set; }
