@@ -153,7 +153,7 @@ namespace CourseProject.Controllers
         [ValidateViewModel]
         [Route("api/admin/deleteComment/{id}")]
         public async Task<IHttpActionResult> DeleteComment(int id)
-        {
+          {
             var result = await service.DeleteComment(id);
 
             return result != null ? Ok(result) : GetErrorResult(false);

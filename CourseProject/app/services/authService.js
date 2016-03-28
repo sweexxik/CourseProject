@@ -6,20 +6,11 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
     var _authentication = {
         isAuth: false,
-        userName: "",
-        useRefreshTokens: false
-    };
-
-    var _externalAuthData = {
-        provider: "",
-        userName: "",
-        externalAccessToken: ""
+        userName: ""       
     };
 
     var _saveRegistration = function (registration) {
-
         _logOut();
-
         return $http.post(serviceBase + 'api/account/register', registration).then(function (response) {
             return response;
         });
@@ -27,28 +18,20 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     };
 
     var _login = function (loginData) {
-
         var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
-
-        if (loginData.useRefreshTokens) {
-            data = data + "&client_id=" + ngAuthSettings.clientId;
-        }
 
         var deferred = $q.defer();
 
         $http.post(serviceBase + 'token', data, {
          headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
-            console.log(response);
-           
+      
                 localStorageService.set('authorizationData',
-                 { token: response.access_token, 
-                    userName: loginData.userName,
-                     refreshToken: "",
-                      useRefreshTokens: false });
+                {
+                    token: response.access_token, 
+                    userName: loginData.userName  });
             
             _authentication.isAuth = true;
-            _authentication.userName = loginData.userName;
-     
+            _authentication.userName = loginData.userName;     
 
             deferred.resolve(response);
 
@@ -64,11 +47,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     var _logOut = function () {
 
         localStorageService.remove('authorizationData');
-
         _authentication.isAuth = false;
-        _authentication.userName = "";
-        _authentication.useRefreshTokens = false;
-
+        _authentication.userName = "";   
     };
 
     var _fillAuthData = function () {
@@ -76,8 +56,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         var authData = localStorageService.get('authorizationData');
         if (authData) {
             _authentication.isAuth = true;
-            _authentication.userName = authData.userName;
-            _authentication.useRefreshTokens = authData.useRefreshTokens;
+            _authentication.userName = authData.userName;      
         }
 
     };
@@ -109,7 +88,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     authServiceFactory.authentication = _authentication;
     authServiceFactory.getProfileInfo = _getProfileInfo;
     authServiceFactory.saveUserInfo = _saveUserInfo;
-     authServiceFactory.changePassword = _changePassword;
+    authServiceFactory.changePassword = _changePassword;
 
 
     return authServiceFactory;

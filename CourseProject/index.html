@@ -11,7 +11,7 @@
         <!--  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
         <script src="scripts/jquery-min.js"></script>
         <script src="scripts/bootstrap-min.js"></script> 
-        <link rel="stylesheet" ng-href="content/css/boostrap-lumen.css"> 
+        <link rel="stylesheet" ng-href="content/css/boostrap-{{currentTheme}}.css"> 
         <link rel="stylesheet" href="content/css/ng-tags-input.min.css" />
         <link rel="stylesheet" href="content/css/ng-tags-input.bootstrap.min.css" />
         <link href="content/css/loading-bar.css" rel="stylesheet" />
@@ -41,25 +41,35 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#/main">CreativeHub</a>
+                <a class="navbar-brand" href="#/main">{{translation.CREATIVE_HUB}}</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="#/home">My Creatives</a></li>          
-                <li><a href="#/profile">Profile</a></li>    
-                <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Logout</a></li>                  
-                <li data-ng-hide="authentication.isAuth"> <a href="#/login">Login</a></li>
-                <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Sign Up</a></li>       
-              </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#/home">{{translation.MY_CREATIVES}}</a></li>
+                    <li><a data-ng-hide="!authentication.isAuth" href="#/profile">{{translation.PROFILE}}</a></li>
+                    <li><a data-ng-click="changeTheme()">{{translation.CHANGE_THEME}}</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">{{translation.LOGOUT}}</a></li>
+                    <li data-ng-hide="authentication.isAuth"> <a href="#/login">{{translation.LOGIN}}</a></li>
+                    <li data-ng-hide="authentication.isAuth"> <a href="#/signup">{{translation.SIGNUP}}</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lang<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a data-ng-click="setRU()" >RU</a></li>
+                            <li><a data-ng-click="setEN()">EN</a></li>
+                        </ul>
+                    </li>
+                </ul>
+               
             <form data-ng-submit="search()"  class="navbar-form navbar-right">
-                <input type="text" data-ng-model="pattern" class="form-control" placeholder="Search...">
+                <input type="text" data-ng-model="pattern" class="form-control" placeholder="{{translation.SEARCH}}">
             </form>
             </div>
           </div>
         </nav>
-    </div>
-    </div>  
-    <div data-ng-view=""></div>  
+
+    <div data-ng-view=""></div>
+       
+      
     <hr />
     <div id="footer">
         <div class="container">
@@ -87,7 +97,7 @@
     <script src="scripts/angular-material.min.js"></script>
     <script src="scripts/ui-bootstrap.min.js"></script>
     <!-- <script src="scripts/angular-animateX.min.js"></script> -->
-    
+        <script data-require="angular-resource@1.2.14" data-semver="1.2.14" src="http://code.angularjs.org/1.2.14/angular-resource.js"></script>
     <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script> -->   
    
     <script src="scripts/showdownX.min.js"></script>
@@ -114,6 +124,7 @@
     <script src="app/services/creativeService.js?v=2"></script>
     <script src="app/services/adminService.js?v=2"></script>
     <script src="app/services/tokensManagerService.js?v=2"></script>
+    <script src="app/services/translationService.js?v=2"></script>
     <!-- Load controllers -->
     <script src="app/controllers/adminController.js?v=2"></script>
     <script src="app/controllers/searchController.js?v=2"></script>

@@ -1,29 +1,47 @@
 ﻿'use strict';
-app.controller('indexController', ['$http','$scope', '$location', 'authService','searchService',
-    function ($http,$scope, $location, authService, searchService) {
+app.controller('indexController', ['$http', '$scope', '$location', 'authService', 'searchService', 'translationService',
+    function ($http, $scope, $location, authService, searchService, translationService) {
 
-    $scope.pattern = '';
-   
-    $scope.logOut = function () {
-        authService.logOut();
-        $location.path('/home');
-    }
+        $scope.currentTheme = 'cyborg';
+        $scope.pattern = '';
 
+        $scope.logOut = function() {
+            authService.logOut();
+            $location.path("/home");
+        };
 
-    $scope.search = function(){
-        console.log($scope.pattern)
-        searchService.setSearchPattern($scope.pattern);
-        $location.path('/search');
-    };
+        $scope.changeTheme = function() {
+            if ($scope.currentTheme == 'cyborg') {
+                $scope.currentTheme = 'lumen';
+            } else {
+                $scope.currentTheme = 'cyborg';
+            }
+        };
 
+        $scope.search = function() {
+            console.log($scope.pattern);
+            searchService.setSearchPattern($scope.pattern);
+            $location.path('/search');
+        };
 
+        $scope.authentication = authService.authentication;
 
-    $scope.changeTheme = function(){
-        if($scope.theme = "darkbootstrap")
+        $scope.translate = function () {
+            translationService.getTranslation($scope, $scope.selectedLanguage);
+        };
 
-        console.log($scope.theme)
-    }
+        //Init
+        $scope.selectedLanguage = 'en';
+        $scope.translate();
 
-    $scope.authentication = authService.authentication;
+        $scope.setEN = function() {
+            $scope.selectedLanguage = 'en';
+            $scope.translate();
+        };
 
-}]);
+        $scope.setRU = function () {
+            $scope.selectedLanguage = 'ru';
+            $scope.translate();
+        };
+
+    }]);

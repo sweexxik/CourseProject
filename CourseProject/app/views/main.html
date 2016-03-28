@@ -1,6 +1,6 @@
 ﻿<div class="container">
     <div class="page-header text-center">
-        <h1>How people express their creative?</h1>
+        <h1>{{translation.MAIN_TEXT}}</h1>
     </div>        
     <div class="col-md-12 margin-bottom-30" data-ng-repeat="creative in creatives">
         <div class="portlet portlet-bordered">
@@ -11,7 +11,7 @@
                     <span class="caption-helper">weekly stats...</span>
                 </div>
                 <div class="actions">  
-                    <a ng-href="#/show/{{creative.id}}" class="btn"><i class="glyphicon glyphicon-align-justify"></i>Show</a>
+                    <a ng-href="#/show/{{creative.id}}" class="btn"><i class="glyphicon glyphicon-align-justify"></i>{{translation.SHOW}}</a>
                 </div>
             </div>
             <div class="portlet-body">
