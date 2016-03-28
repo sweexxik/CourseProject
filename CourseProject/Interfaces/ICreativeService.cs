@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CourseProject.Domain.Entities;
 using CourseProject.Models;
 
 namespace CourseProject.Interfaces
@@ -15,7 +14,7 @@ namespace CourseProject.Interfaces
 
         Task<IEnumerable<NewCreativeModel>> SearchCreatives(SearchViewModel model);
 
-        Task<Creative> GetCreativeById(int id);
+        Task<NewCreativeModel> GetCreativeById(int id);
 
         Task<IEnumerable<NewCreativeModel>> GetUsersCreatives(string userName);
 

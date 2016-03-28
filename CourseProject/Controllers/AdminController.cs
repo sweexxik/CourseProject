@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
+using CourseProject.Domain.Models;
 using CourseProject.Filters;
 using CourseProject.Interfaces;
 using CourseProject.Models;
@@ -11,11 +12,13 @@ namespace CourseProject.Controllers
     {
         private readonly IAdminService service;
         private readonly ICreativeService creativeService;
+        private readonly IAccountService authService;
 
-        public AdminController(IAdminService serv, ICreativeService creativeServ)
+        public AdminController(IAdminService serv, ICreativeService creativeServ, IAccountService authServ)
         {
             service = serv;
             creativeService = creativeServ;
+            authService = authServ;
         }
 
         [HttpGet]
@@ -78,5 +81,32 @@ namespace CourseProject.Controllers
             return Ok(creativeService.GetAllCreatives());
         }
 
+        [HttpPost]
+        [ValidateViewModel]
+        [Route("api/admin/saveTag")]
+        public IHttpActionResult SaveTag(TagsViewModel model)
+        {
+            return Ok(service.SaveTag(model));
+        }
+
+        [HttpPost]
+        [ValidateViewModel]
+        [Route("api/admin/deleteTag/{id}")]
+        public async Task<IHttpActionResult> DeleteTag(int id)
+        {
+            var result = await service.DeleteTag(id);
+
+            return result != null ? Ok(result) : GetErrorResult(false);
+        }
+
+        
+        [ValidateViewModel]
+        [Route("api/admin/register")]
+        public async Task<IHttpActionResult> Register(UserModel model)
+        {
+            var errorResult = GetErrorResult(await authService.CreateUser(model));
+
+            return errorResult ?? Ok(service.GetUsers());
+        }
     }
 }

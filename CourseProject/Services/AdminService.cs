@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
@@ -56,6 +57,27 @@ namespace CourseProject.Services
         public async Task<IdentityResult> ResetPassword(ResetPasswordModel model)
         {
             return await db.Users.ResetPassword(model.UserId, model.NewPassword);
+        }
+
+        public IEnumerable<Tag> SaveTag(TagsViewModel model)
+        {
+            db.Tags.Add(new Tag { Name = model.Name });
+
+            db.Save();
+
+            return db.Tags.GetAll();
+        }
+
+        public async Task<IEnumerable<Tag>> DeleteTag(int id)
+        {
+            if (await db.Tags.Remove(id))
+            {
+                db.Save();
+
+                return db.Tags.GetAll();
+            }
+
+            return null;
         }
     }
 }

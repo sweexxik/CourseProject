@@ -123,11 +123,11 @@ namespace CourseProject.Services
             return InitCreativesModel(results);
         }
 
-        public async Task<Creative> GetCreativeById(int id)
+        public async Task<NewCreativeModel> GetCreativeById(int id)
         {
             var result = await db.Creatives.Get(id);
 
-            return result;
+            return InitCreativeModel(result);
         }
 
         public async Task<IEnumerable<NewCreativeModel>> GetUsersCreatives(string userName)

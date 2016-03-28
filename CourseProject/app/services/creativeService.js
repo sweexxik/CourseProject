@@ -78,6 +78,14 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
         });
     };
 
+    var _setTag = function(data){
+        return $http.post(serviceBase + '/api/admin/saveTag/', JSON.stringify(data),{
+        headers: { contentType: 'application/json; charset=utf-8', dataType: "json" }    
+        }).then(function(results){
+            return results;
+        });
+    };
+
     var _saveChapter = function(data){
         return $http.post(serviceBase + '/api/chapters/', JSON.stringify(data),{
         headers: { contentType: 'application/json; charset=utf-8', dataType: "json" }    
@@ -85,8 +93,7 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             return results;
         });
     };
-
-
+    
     var _deleteCreative = function (id) {   
         return $http.post(serviceBase + 'api/creatives/delete/' + id)
             .then(function (results) { return results; });
@@ -104,6 +111,11 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
 
     var _deleteChapter = function (id) {   
         return $http.post(serviceBase + 'api/chapters/delete/' + id)
+            .then(function (results) { return results; });
+    };
+
+     var _deleteTag = function (id) {   
+        return $http.post(serviceBase + 'api/admin/deleteTag/' + id)
             .then(function (results) { return results; });
     };
 
@@ -137,6 +149,8 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.getCreativeTags = _getCreativeTags
     creativesServiceFactory.getChapter = _getChapter
     creativesServiceFactory.setTags = _setTags;
+     creativesServiceFactory.setTag = _setTag;
+
     creativesServiceFactory.saveChapter = _saveChapter
 
     creativesServiceFactory.createCreative = _createCreative;
@@ -150,8 +164,8 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.deleteCreativeByAdmin = _deleteCreativeByAdmin
     creativesServiceFactory.deleteComment = _deleteComment;
     creativesServiceFactory.deleteChapter = _deleteChapter;
+    creativesServiceFactory.deleteTag = _deleteTag;
 
-        
     creativesServiceFactory.sortChapters = _sortChapters;
 
     return creativesServiceFactory;

@@ -37,12 +37,21 @@ app.factory('adminService', ['$http',
             return results;
         });
     };
+
+    var _registerNewUser = function (registration) {     
+
+        return $http.post(serviceBase + 'api/admin/register', registration).then(function (response) {
+            return response;
+        });
+
+    };
        
     adminServiceFactory.getAllUsers = _getAllUsers;
     adminServiceFactory.getAllMedals = _getAllMedals;
     adminServiceFactory.saveUserData = _saveUserData;
     adminServiceFactory.deleteUser = _deleteUser;
     adminServiceFactory.resetPassword = _resetPasword;
+     adminServiceFactory.registerNewUser  = _registerNewUser
 
     return adminServiceFactory;    
     

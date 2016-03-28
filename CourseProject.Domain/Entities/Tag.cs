@@ -11,6 +11,6 @@
       
         public string Name { get; set; }
 
-        public int CreativeId { get; set; }
+        public int? CreativeId { get; set; }
     }
 }

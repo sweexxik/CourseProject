@@ -122,6 +122,21 @@
     z-index: 1999;
 }
 
+.global-modal-tags_contents {
+  background: #FFF;
+  -webkit-box-shadow: 0 0 8px 2px rgba(182, 182, 182, 0.75);
+  -moz-box-shadow: 0 0 8px 2px rgba(182,182,182, 0.75);
+  -o-box-shadow: 0 0 8px 2px rgba(182,182,182,0.75);
+  box-shadow: 0 0 8px 2px rgba(182, 182, 182, 0.75);
+  width: 40%;
+  position: absolute;
+  left: 50%;
+  margin-left: -16%;
+  top: 12%;
+  min-height: 250px;
+    z-index: 1999;
+}
+
 
 .global-modal-admin_contents {
   background: #FFF;

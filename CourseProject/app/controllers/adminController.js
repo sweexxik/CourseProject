@@ -7,7 +7,18 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
   	$scope.savedSuccessfully = true;
   	$scope.showLoading = false;
 
+  	$scope.newUserName = '';
+  	$scope.newUserPassword = '';
+
+  	$scope.registration = {
+        userName: "",
+        password: "",
+        confirmPassword: ""
+    };
+
  	$scope.message = '';
+ 	$scope.message1 = '';
+
  	$scope.searchUsers = '';   
   	$scope.searchCreatives = ''; 
   	$scope.newPassword = '';
@@ -37,6 +48,7 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
 
 	$scope.editUser = function(id){
 		$scope.message = '';
+		$scope.message1 = '';
 		$scope.newPassword = '';
 		for (var i = 0; i < $scope.users.length; i++) {
 			if($scope.users[i].id === id){
@@ -86,6 +98,23 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
 			$scope.savedSuccessfully = true;
 			$scope.showLoading = false;	
 			$scope.message = "Password reset succcessfull"
+		},function(error){
+			$scope.savedSuccessfully = false;
+			$scope.message = error.data.message;
+			$scope.showLoading = false;	
+		});
+	};
+
+	$scope.createNewUser = function(){
+		$scope.registration.userName = $scope.newUserName;
+		$scope.registration.password = $scope.newUserPassword;
+		$scope.registration.confirmPassword = $scope.newUserPassword;
+		
+		adminService.registerNewUser($scope.registration).then(function(results){			
+			$scope.users = results.data;
+			$scope.savedSuccessfully = true;
+			$scope.showLoading = false;	
+			$scope.message1 = "User created succcessfull"
 		},function(error){
 			$scope.savedSuccessfully = false;
 			$scope.message = error.data.message;

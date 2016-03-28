@@ -60,6 +60,26 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/admin/creatives.html"
     });
 
+    $routeProvider.when("/admin/chapters", {
+        controller: "adminChaptersController",
+        templateUrl: "/app/views/admin/chapters.html"
+    });
+
+    $routeProvider.when("/admin/tags", {
+        controller: "adminTagsController",
+        templateUrl: "/app/views/admin/tags.html"
+    });
+
+    $routeProvider.when("/admin/comments", {
+        controller: "adminCommentsController",
+        templateUrl: "/app/views/admin/comments.html"
+    });
+
+     $routeProvider.when("/admin/ratings", {
+        controller: "adminRatingsController",
+        templateUrl: "/app/views/admin/ratings.html"
+    });
+
     $routeProvider.when("/chapters/:creativeId/:chapterId", {
         controller: "chaptersController",
         templateUrl: "/app/views/chapters.html"
