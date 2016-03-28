@@ -26,40 +26,14 @@ app.controller('adminTagsController',  ['$http','$scope', '$location', 'authServ
 		$( globalModal).toggleClass('global-modal-show');
 	};
 
-	$scope.saveTags = function(){
-		// $scope.selectedCreative.category = $scope.selectedCategory;
-		// var result = $window.confirm('Are you sure ?');
-  //       if (result) {
-  //       $scope.showLoading = true;	
-  //           creativeService.updateCreativeByAdmin($scope.selectedCreative).then(function(results){
-  //           $scope.creatives = results.data;
-		// 	$scope.savedSuccessfully = true;
-		// 	$scope.showLoading = false;	
-		// 	$scope.message = "Saved successfully"
-		// 	}, function(error){
-		// 		$scope.savedSuccessfully = false;
-		// 		$scope.message = error.data.message;
-		// 		$scope.showLoading = false;	
-		// 	});
-  //       }        
-	};
-
-	$scope.deleteTag = function(id){
-		// for (var i = 0; i < $scope.selectedCreative.chapters.length; i++) {
-		// 	if ($scope.selectedCreative.chapters[i].id == id){
-		// 		$scope.selectedCreative.chapters.splice(i,1);
-
-		// 	}
-		// }
-		// console.log($scope.selectedCreative);
-	}
-
 	$scope.addTag = function(){
 		if($scope.newTag.length > 3){
 			$scope.selectedTag.name = $scope.newTag;
 			$scope.selectedTag.id = 0;
 			$scope.message = '';
-			creativeService.setTag($scope.selectedTag).then(function(results){
+			
+			creativeService.saveTag($scope.selectedTag).then(function(results){
+          
             $scope.tags = results.data;
 			$scope.savedSuccessfully = true;
 			$scope.showLoading = false;	
@@ -74,6 +48,23 @@ app.controller('adminTagsController',  ['$http','$scope', '$location', 'authServ
 			 $scope.savedSuccessfully = false;
 			 $scope.message = "Name must be more than 3 characters!"
 		}
+	};
+
+	$scope.saveTag = function(){
+		var result = $window.confirm('Are you sure ?');
+        if (result) {
+        	$scope.showLoading = true;	
+            creativeService.saveTag($scope.selectedTag).then(function(results){
+            $scope.tags = results.data;
+			$scope.savedSuccessfully = true;
+			$scope.showLoading = false;	
+			$scope.message = "Saved successfully"
+			}, function(error){
+				$scope.savedSuccessfully = false;
+				$scope.message = error.data.message;
+				$scope.showLoading = false;	
+			});
+        }        
 	};
 
 	$scope.deleteTag = function(id){		

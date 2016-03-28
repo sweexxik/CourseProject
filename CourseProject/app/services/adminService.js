@@ -39,19 +39,33 @@ app.factory('adminService', ['$http',
     };
 
     var _registerNewUser = function (registration) {     
-
         return $http.post(serviceBase + 'api/admin/register', registration).then(function (response) {
             return response;
         });
-
     };
+
+    var _getAllRatings = function () {    
+        return $http.get(serviceBase + 'api/admin/ratings')
+            .then(function (results) { return results; });
+    };
+
+      var _deleteRating = function (id) {   
+        return $http.post(serviceBase + 'api/admin/deleteRating/' + id)
+            .then(function (results) { return results; });
+    };
+
+    
+
+   
        
     adminServiceFactory.getAllUsers = _getAllUsers;
     adminServiceFactory.getAllMedals = _getAllMedals;
+    adminServiceFactory.getAllRatings = _getAllRatings
     adminServiceFactory.saveUserData = _saveUserData;
     adminServiceFactory.deleteUser = _deleteUser;
+    adminServiceFactory.deleteRating = _deleteRating;
     adminServiceFactory.resetPassword = _resetPasword;
-     adminServiceFactory.registerNewUser  = _registerNewUser
+    adminServiceFactory.registerNewUser  = _registerNewUser
 
     return adminServiceFactory;    
     

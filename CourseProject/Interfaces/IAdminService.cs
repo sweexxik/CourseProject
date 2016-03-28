@@ -10,10 +10,16 @@ namespace CourseProject.Interfaces
     {
         IEnumerable<UserViewModel> GetUsers();
         IEnumerable<Medal> GetMedals();
+        IEnumerable<NewRatingModel> GetRatings();
+
         Task<IEnumerable<UserViewModel>> SaveUserData(UserViewModel model);
         Task<IdentityResult> DeleteUser (UserViewModel model);
         Task<IdentityResult> ResetPassword(ResetPasswordModel model);
-        IEnumerable<Tag> SaveTag(TagsViewModel model);
+
+        Task<IEnumerable<Tag>> SaveTag(TagsViewModel model);
         Task<IEnumerable<Tag>> DeleteTag(int id);
+
+        Task<IEnumerable<Rating>> DeleteRating(int id);
+        Task<IEnumerable<NewRatingModel>> SaveRating(NewRatingModel model);
     }
 }

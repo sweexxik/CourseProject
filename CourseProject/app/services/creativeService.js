@@ -78,8 +78,16 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
         });
     };
 
-    var _setTag = function(data){
+    var _saveTag = function(data){
         return $http.post(serviceBase + '/api/admin/saveTag/', JSON.stringify(data),{
+        headers: { contentType: 'application/json; charset=utf-8', dataType: "json" }    
+        }).then(function(results){
+            return results;
+        });
+    };
+
+    var _saveRating = function(data){
+        return $http.post(serviceBase + '/api/admin/saveRating/', JSON.stringify(data),{
         headers: { contentType: 'application/json; charset=utf-8', dataType: "json" }    
         }).then(function(results){
             return results;
@@ -149,9 +157,10 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.getCreativeTags = _getCreativeTags
     creativesServiceFactory.getChapter = _getChapter
     creativesServiceFactory.setTags = _setTags;
-     creativesServiceFactory.setTag = _setTag;
 
-    creativesServiceFactory.saveChapter = _saveChapter
+    creativesServiceFactory.saveTag = _saveTag;
+    creativesServiceFactory.saveChapter = _saveChapter;
+    creativesServiceFactory.saveRating = _saveRating;
 
     creativesServiceFactory.createCreative = _createCreative;
     creativesServiceFactory.createComment = _createComment;

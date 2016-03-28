@@ -68,7 +68,5 @@ namespace CourseProject.Controllers
 
             base.Dispose(disposing);
         }
-
-       
     }
 }

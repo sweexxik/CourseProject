@@ -4,6 +4,7 @@ namespace CourseProject.Models
 {
     public class TagsViewModel
     {
+        [Required]
         public int Id { get; set; }
 
         [Required]

@@ -35,6 +35,13 @@ namespace CourseProject.Controllers
             return Ok(service.GetMedals());
         }
 
+        [HttpGet]
+        [Route("api/admin/ratings")]
+        public IHttpActionResult GetAllRatings()
+        {
+            return Ok(service.GetRatings());
+        }
+
         [HttpPost]
         [ValidateViewModel]
         [Route("api/admin/save")]
@@ -84,9 +91,9 @@ namespace CourseProject.Controllers
         [HttpPost]
         [ValidateViewModel]
         [Route("api/admin/saveTag")]
-        public IHttpActionResult SaveTag(TagsViewModel model)
+        public async Task<IHttpActionResult> SaveTag(TagsViewModel model)
         {
-            return Ok(service.SaveTag(model));
+            return Ok(await service.SaveTag(model));
         }
 
         [HttpPost]
@@ -107,6 +114,23 @@ namespace CourseProject.Controllers
             var errorResult = GetErrorResult(await authService.CreateUser(model));
 
             return errorResult ?? Ok(service.GetUsers());
+        }
+
+       
+        [HttpPost]
+        [Route("api/admin/deleteRating/{id}")]
+        public async Task<IHttpActionResult> DeleteRating(int id)
+        {
+            var result = await service.DeleteRating(id);
+
+            return result != null ? Ok(result) : GetErrorResult(false);
+        }
+
+        [HttpPost]
+        [Route("api/admin/saveRating")]
+        public async Task<IHttpActionResult> SaveRating(NewRatingModel model)
+        {
+            return Ok(await service.SaveRating(model));
         }
     }
 }

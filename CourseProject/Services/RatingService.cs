@@ -45,7 +45,7 @@ namespace CourseProject.Services
             };
         }
 
-        private IEnumerable<NewRatingModel> InitRatingModel(IEnumerable<Rating> ratings)
+        public IEnumerable<NewRatingModel> InitRatingModel(IEnumerable<Rating> ratings)
         {
             return ratings.Select(rating => new NewRatingModel
             {

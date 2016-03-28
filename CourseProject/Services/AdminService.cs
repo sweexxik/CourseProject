@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
@@ -14,11 +13,13 @@ namespace CourseProject.Services
     {
         private readonly IUnitOfWork db;
         private readonly IAccountService service;
+        private readonly IRatingService ratingService;
 
-        public AdminService(IUnitOfWork repo, IAccountService serv)
+        public AdminService(IUnitOfWork repo, IAccountService serv, IRatingService ratingServ)
         {
             db = repo;
             service = serv;
+            ratingService = ratingServ;
         }
 
         public IEnumerable<UserViewModel> GetUsers()
@@ -29,6 +30,13 @@ namespace CourseProject.Services
         public IEnumerable<Medal> GetMedals()
         {
             return db.Medals.GetAll().ToList();
+        }
+
+        public IEnumerable<NewRatingModel> GetRatings()
+        {
+            var result = db.Ratings.GetAll();
+
+            return ratingService.InitRatingModel(result);
         }
 
         public async Task<IEnumerable<UserViewModel>> SaveUserData(UserViewModel model)
@@ -59,13 +67,34 @@ namespace CourseProject.Services
             return await db.Users.ResetPassword(model.UserId, model.NewPassword);
         }
 
-        public IEnumerable<Tag> SaveTag(TagsViewModel model)
+        public async Task<IEnumerable<Tag>> SaveTag(TagsViewModel model)
         {
-            db.Tags.Add(new Tag { Name = model.Name });
+            if (model.Id == 0)
+            {
+                db.Tags.Add(new Tag { Name = model.Name });
+            }
+            else
+            {
+                var editTag = await db.Tags.Get(model.Id);
+
+                editTag.Name = model.Name;
+            }
 
             db.Save();
 
             return db.Tags.GetAll();
+        }
+
+        public async Task<IEnumerable<NewRatingModel>> SaveRating(NewRatingModel model)
+        {
+
+            var editRating = await db.Ratings.Get(model.Id);
+
+            editRating.Value = model.Value;
+
+            db.Save();
+
+            return ratingService.InitRatingModel(db.Ratings.GetAll());
         }
 
         public async Task<IEnumerable<Tag>> DeleteTag(int id)
@@ -75,6 +104,18 @@ namespace CourseProject.Services
                 db.Save();
 
                 return db.Tags.GetAll();
+            }
+
+            return null;
+        }
+
+        public async Task<IEnumerable<Rating>> DeleteRating(int id)
+        {
+            if (await db.Ratings.Remove(id))
+            {
+                db.Save();
+
+                return db.Ratings.GetAll();
             }
 
             return null;
