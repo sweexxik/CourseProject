@@ -1,21 +1,29 @@
 'use strict';
-app.controller('adminController', ['$http','$scope', '$location', 'authService','adminService',
- function ($http, $scope, $location, authService, adminService) {
+app.controller('adminController', ['$http','$scope', '$location', 'authService','adminService', 'creativeService', '$window',
+ function ($http, $scope, $location, authService, adminService,creativeService, $window) {
+
+ 	
+	$scope.sortReverse = false; 
+  	$scope.savedSuccessfully = true;
+  	$scope.showLoading = false;
+
+ 	$scope.message = '';
+ 	$scope.searchUsers = '';   
+  	$scope.searchCreatives = ''; 
+  	$scope.newPassword = '';
+  	$scope.sortType = 'name'; 
 
  	$scope.users = []; 
  	$scope.medals = [];
+ 	$scope.medalsModel = [];
+
  	$scope.selectedUser = {};
- 	$scope.sortType = 'name'; 
+ 
 
-  	$scope.sortReverse = false;  
-
-  	$scope.searchUsers = '';   
-
-  
-
-  	$scope.medalsModel = [];
-
-
+  	$scope.resetPasswrodModel = {
+  		userId:"",
+  		newPassword:""
+  	};
 
 	adminService.getAllUsers().then(function(results){
 		$scope.users = results.data;	
@@ -27,20 +35,63 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
 		console.log($scope.medals);
 	});
 
-	$scope.editUser = function(index){
-		$scope.selectedUser = $scope.users[index];
-		  $( globalModal ).toggleClass('global-modal-show');
-	};
+	$scope.editUser = function(id){
+		$scope.message = '';
+		$scope.newPassword = '';
+		for (var i = 0; i < $scope.users.length; i++) {
+			if($scope.users[i].id === id){
+				$scope.selectedUser = $scope.users[i];
+				break;
+			}
+		}
+		$( globalModal ).toggleClass('global-modal-show');
+	};	
 
-	$scope.saveUserData = function(){		
+	$scope.saveUserData = function(){	
+		$scope.showLoading = true;	
 		adminService.saveUserData($scope.selectedUser).then(function(results){
 			$scope.users = results.data;
-			console.log(results.data);
+			$scope.savedSuccessfully = true;
+			$scope.showLoading = false;	
+			$scope.message = "Saved successfully"
 		}, function(error){
-			console.log(error);
+			$scope.savedSuccessfully = false;
+			$scope.showLoading = false;	
+			$scope.message = error.data.message;
 		});
 	};
 
+	$scope.deleteUser = function(id){
+		var result = $window.confirm('Are you absolutely sure you want to delete?');
+        if (result) {
+        	$scope.showLoading = true;	
+            adminService.deleteUser($scope.selectedUser).then(function(results){
+            $scope.users = results.data;
+			$scope.savedSuccessfully = true;
+			$scope.showLoading = false;	
+			$scope.message = "Deleted successfully"
+		}, function(error){
+			$scope.savedSuccessfully = false;
+			$scope.message = error.data.message;
+			$scope.showLoading = false;	
+		});
+        }        
+	};
+
+	$scope.resetPassword = function(){
+		$scope.showLoading = true;
+		$scope.resetPasswrodModel.userId = $scope.selectedUser.id;
+		$scope.resetPasswrodModel.newPassword = $scope.newPassword;
+		adminService.resetPassword($scope.resetPasswrodModel).then(function(results){
+			$scope.savedSuccessfully = true;
+			$scope.showLoading = false;	
+			$scope.message = "Password reset succcessfull"
+		},function(error){
+			$scope.savedSuccessfully = false;
+			$scope.message = error.data.message;
+			$scope.showLoading = false;	
+		});
+	};
 
 
    var globalModal = $('.global-modal');
@@ -51,95 +102,6 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
     $( ".overlay" ).on( "click", function() {
       $( globalModal ).toggleClass('global-modal-show');
     });
-    $( ".global-modal_close" ).on( "click", function() {
-      $( globalModal ).toggleClass('global-modal-show');
-    });
-    $(".mobile-close").on("click", function(){
-      $( globalModal ).toggleClass('global-modal-show');
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	$scope.show1 = true;
-	$scope.show2 = true;
-	$scope.show3 = true;
-	$scope.show4 = true;
-	$scope.show5 = true;
-	$scope.show = function(id){
-		switch(id)
-		{
-			case 1: {
-				console.log(id);
-				$scope.show1 = false;	
-				$scope.show2 = true;
-				$scope.show3 = true;
-				$scope.show4 = true;
-				$scope.show5 = true;			
-			};
-			break;
-			case 2: {
-				$scope.show1 = true;	
-				$scope.show2 = false;
-				$scope.show3 = true;
-				$scope.show4 = true;
-				$scope.show5 = true;	
-			};
-			break;
-			case 3 : {
-				$scope.show1 = true;	
-				$scope.show2 = true;
-				$scope.show3 = false;
-				$scope.show4 = true;
-				$scope.show5 = true;	
-				
-			};
-			break;
-			case 4 : {
-				$scope.show1 = true;	
-				$scope.show2 = true;
-				$scope.show3 = true;
-				$scope.show4 = false;
-				$scope.show5 = true;				
-			};
-			break;
-			case 5 : {
-				$scope.show1 = true;	
-				$scope.show2 = true;
-				$scope.show3 = true;
-				$scope.show4 = true;
-				$scope.show5 = false;
-				
-			};
-			break;
-			default:
-				break;
-		};
-		
-	};
 
 
 

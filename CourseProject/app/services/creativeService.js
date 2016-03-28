@@ -92,6 +92,11 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             .then(function (results) { return results; });
     };
 
+    var _deleteCreativeByAdmin = function (id) {   
+        return $http.post(serviceBase + 'api/admin/deleteCreative/' + id)
+            .then(function (results) { return results; });
+    };
+
     var _deleteComment = function (id) {   
         return $http.post(serviceBase + 'api/comments/delete/' + id)
             .then(function (results) { return results; });
@@ -100,6 +105,14 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     var _deleteChapter = function (id) {   
         return $http.post(serviceBase + 'api/chapters/delete/' + id)
             .then(function (results) { return results; });
+    };
+
+    var _updateCreativeByAdmin = function (data) {   
+         return $http.post(serviceBase + '/api/admin/updateCreative', JSON.stringify(data),{
+        headers: { contentType: 'application/json; charset=utf-8', dataType: "json" }    
+        }).then(function(results){
+            return results;
+        });
     };
 
     var _sortChapters = function(creatives) {
@@ -131,7 +144,10 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.createLike = _createLike;
     creativesServiceFactory.createRating = _createRating;
 
+    creativesServiceFactory.updateCreativeByAdmin = _updateCreativeByAdmin;
+
     creativesServiceFactory.deleteCreative = _deleteCreative;
+    creativesServiceFactory.deleteCreativeByAdmin = _deleteCreativeByAdmin
     creativesServiceFactory.deleteComment = _deleteComment;
     creativesServiceFactory.deleteChapter = _deleteChapter;
 

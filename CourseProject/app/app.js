@@ -52,7 +52,12 @@ app.config(function ($routeProvider) {
 
     $routeProvider.when("/admin", {
         controller: "adminController",
-        templateUrl: "/app/views/admin.html"
+        templateUrl: "/app/views/admin/admin.html"
+    });
+
+    $routeProvider.when("/admin/creatives", {
+        controller: "adminCreativesController",
+        templateUrl: "/app/views/admin/creatives.html"
     });
 
     $routeProvider.when("/chapters/:creativeId/:chapterId", {

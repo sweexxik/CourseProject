@@ -19,7 +19,7 @@ namespace CourseProject.Services
 
         public async Task<IEnumerable<NewRatingModel>> AddRating(NewRatingModel model)
         {
-            var user = await db.FindUser(model.UserName);
+            var user = await db.Users.FindUser(model.UserName);
 
             if (user == null) return null;
 
@@ -41,7 +41,7 @@ namespace CourseProject.Services
             {
                 CreativeId = model.CreativeId,
                 Value = model.Value,
-                User = await db.FindUser(model.UserName)
+                User = await db.Users.FindUser(model.UserName)
             };
         }
 

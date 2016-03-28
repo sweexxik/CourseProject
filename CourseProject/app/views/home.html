@@ -72,16 +72,16 @@
                       <h2 class="form-login-heading">Name</h2>
                     <input maxlength="20" type="text" class="form-control" data-ng-model="creativeName" placeholder="Creative Name" required autofocus> 
                     <h2 class="form-login-heading">Description</h2>
-                    <textarea type="text" class="form-control" maxlength="40" data-ng-model="creativeDescription" placeholder="Creative Description" required autofocus>{{creativeDescription}} </textarea> 
+                    <textarea type="text" class="form-control" maxlength="100" data-ng-model="creativeDescription" placeholder="Creative Description" required autofocus>{{creativeDescription}} </textarea> 
                    
-                        <h2 class="form-login-heading">Tags</h2>
+                    <h2 class="form-login-heading">Tags</h2>
                     <tags-input ng-model="tags" display-property="name" placeholder="Add tags" debounce-delay="0" add-on-paste="true">
                     <auto-complete max-results-to-show="5" source="loadTags($query)"></auto-complete>
                     </tags-input>   
     
                     <h2 class="form-login-heading">Category</h2>  
-                    <select class="form-control" data-ng-model="currentCategory" data-ng-options="act.name for act in categories">
-                    </select>
+                    <select class="form-control" ng-init="currentCategory = categories[0]"  data-ng-model="currentCategory" data-ng-options="act.name for act in categories">
+                    </select>    
                                <div class="block center">      
             <a class="btn-green-flat-trigger" data-ng-click="createCreative()">Save</a>
                 </div><br>

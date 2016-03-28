@@ -69,7 +69,7 @@ namespace CourseProject.Services
             {
                 CreativeId = model.CreativeId,
                 Text = model.Text,
-                User = await db.FindUser(model.UserName),
+                User = await db.Users.FindUser(model.UserName),
                 PostDate = DateTime.Now
             };
         }

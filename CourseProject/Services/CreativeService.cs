@@ -31,12 +31,23 @@ namespace CourseProject.Services
 
             creative.Description = model.Description;
 
+            foreach (var chapter in model.Chapters)
+            {
+                chapter.Created = DateTime.Now;
+            }
+
+            db.Chapters.RemoveRange(db.Chapters.Find(x=>x.CreativeId == model.Id));
+
+            creative.Chapters = model.Chapters;
+         
             db.Creatives.Update(creative);
 
             db.Save();
 
             return InitCreativesModel(db.Creatives.Find(c => c.User.UserName == model.UserName));
         }
+
+       
 
         public async Task<IEnumerable<NewCreativeModel>> CreateCreative(NewCreativeModel model)
         {
@@ -121,7 +132,7 @@ namespace CourseProject.Services
 
         public async Task<IEnumerable<NewCreativeModel>> GetUsersCreatives(string userName)
         {
-            var user = await db.FindUser(userName);
+            var user = await db.Users.FindUser(userName);
 
             if (user == null) return null;
 
@@ -143,7 +154,6 @@ namespace CourseProject.Services
             }
         }
 
-
         private async Task<Creative> InitNewCreative(NewCreativeModel model)
         {
             var creative = new Creative
@@ -151,10 +161,11 @@ namespace CourseProject.Services
                 Name = model.Name,
                 Description = model.Description,
                 Category = await db.Categories.Get(model.CategoryId),
-                Tags = model.Tags
+                Tags = model.Tags,
+                Chapters = model.Chapters
             };
 
-            var user = await db.FindUser(model.UserName);
+            var user = await db.Users.FindUser(model.UserName);
 
             creative.User = user;
 

@@ -28,7 +28,7 @@ namespace CourseProject.Services
 
         public async Task<NewCommentModel> AddLike(NewLikeModel model)
         {
-            var user = await db.FindUser(model.UserName);
+            var user = await db.Users.FindUser(model.UserName);
 
             if (db.Likes.GetAll().ToList().Any(like => like.CommentId == model.CommentId && like.User == user))
             {

@@ -31,37 +31,37 @@ namespace CourseProject.Services
          
         public async Task<UserViewModel> GetUserInfo(string userName)
         {
-            var user = await db.FindUser(userName);
+            var user = await db.Users.FindUser(userName);
             return InitUserViewModel(user);
         }
 
         public async Task<IdentityResult> CreateUser(UserModel model)
         {
-            return await db.RegisterUser(model);
+            return await db.Users.RegisterUser(model);
         }
 
         public async Task<IdentityResult> SaveUserData(UserViewModel viewModel)
         {
-            var user = await db.FindUserById(viewModel.Id);
-            return await db.UpdateUser(await InitApplicatonUser(viewModel, user));
+            var user = await db.Users.FindUserById(viewModel.Id);
+            return await db.Users.UpdateUser(await InitApplicatonUser(viewModel, user));
         }
 
         public async Task<IdentityResult> ChangePassword(ChangePasswordModel model)
         {
-            var user = await db.FindUser(model.UserName);
+            var user = await db.Users.FindUser(model.UserName);
 
-            return await db.ChangePassword(user.Id, model.OldPassword, model.NewPassword);
+            return await db.Users.ChangePassword(user.Id, model.OldPassword, model.NewPassword);
         }
 
         public async Task<UserViewModel> UploadFile(CustomMultipartFormDataStreamProvider provider)
         {
-            var user = await db.FindUser(provider.FormData.Get("username"));
+            var user = await db.Users.FindUser(provider.FormData.Get("username"));
 
             var result = CloudinaryUpload(provider);
 
             user.AvatarUri = result.Uri.AbsoluteUri;
 
-            await db.UpdateUser(user);
+            await db.Users.UpdateUser(user);
 
             return InitUserViewModel(user);
         }
@@ -120,7 +120,8 @@ namespace CourseProject.Services
                 Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
-                Selected = user.Medals.Contains(x)
+                Selected = user.Medals.Contains(x),
+                ImageUri = x.ImageUri
             }).ToList();
         }
 
@@ -131,6 +132,8 @@ namespace CourseProject.Services
             user.LastName = model.LastName;
 
             user.Email = model.Email;
+
+            user.UserName = model.UserName;
 
             user.PhoneNumber = model.PhoneNumber;
 

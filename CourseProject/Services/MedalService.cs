@@ -19,7 +19,7 @@ namespace CourseProject.Services
 
         public async Task CheckMedals(string userName)
         {
-            var user = await db.FindUser(userName);
+            var user = await db.Users.FindUser(userName);
 
             if (user == null) return;
 
@@ -29,7 +29,7 @@ namespace CourseProject.Services
 
             user.Medals = userMedals;
 
-            await db.UpdateUser(user);
+            await db.Users.UpdateUser(user);
           
         }
 

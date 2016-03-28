@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
-using CourseProject.Domain.Models;
-using Microsoft.AspNet.Identity;
 
 namespace CourseProject.Domain.Interfaces
 {
@@ -17,16 +13,8 @@ namespace CourseProject.Domain.Interfaces
         IRepository<Rating> Ratings { get; }
         IRepository<Medal> Medals { get; }
         IRepository<Tag> Tags { get; }
-
-        IEnumerable<ApplicationUser> GetAllUsers();
-
-        Task<ApplicationUser> FindUser(string userName);
-        Task<ApplicationUser> FindUser(string userName, string password);
-        Task<ApplicationUser> FindUserById(string userId);
-        Task<IdentityResult> UpdateUser(ApplicationUser user);
-        Task<IdentityResult> RegisterUser(UserModel userModel);
-        Task<IdentityResult> ChangePassword(string userId, string pass, string newPass);
-        Task<bool> CheckUserRole(string userId);
+        IUsersRepository Users { get; }
+       
         void Save();
     }
 }

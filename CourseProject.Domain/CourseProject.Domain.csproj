@@ -95,6 +95,7 @@
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IUsersRepository.cs" />
     <Compile Include="LuceneEngine\ADocument.cs" />
     <Compile Include="LuceneEngine\BaseSearch.cs" />
     <Compile Include="LuceneEngine\BaseSearcher.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Repositories\MedalsRepository.cs" />
     <Compile Include="Repositories\RatingsRepository.cs" />
     <Compile Include="Repositories\TagsRepository.cs" />
+    <Compile Include="Repositories\UsersRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -23,7 +23,7 @@ namespace CourseProject.Providers
 
             using (IUnitOfWork repo = new EfUnitOfWork())
             {
-                IdentityUser user = await repo.FindUser(context.UserName, context.Password);
+                var user = await repo.Users.FindUser(context.UserName, context.Password);
 
                 if (user == null)
                 {

@@ -1,12 +1,10 @@
-
 <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Users</a></li>
-            <li><a href="#">Creatives</a></li>
-            <li><a href="#">Chapters</a></li>
+            <li class="active"><a>Users</a></li>          
+            <li><a data-ng-href="#/admin/creatives">Creatives</a></li>
+            <li><a data-ng-click="show(3)">Chapters</a></li>
           </ul>
           <ul class="nav nav-sidebar">
             <li><a href="">Nav item</a></li>
@@ -22,9 +20,8 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        	<h1 class="page-header text-center">Admin Dashboard</h1>		
-			
-          		<h2 class="sub-header">Section title</h2>
+        	<h1 class="page-header text-center">Admin Dashboard</h1>
+          		<h2 class="sub-header">Users manager</h2>
           		 
           		<form>
 				    <div class="form-group">
@@ -63,10 +60,10 @@
 				        <th>Avatar</th>
 				       	<th>PhoneNumber</th>
 				       	<th>Medals</th>
-				       	<th>Roles</th>
-  					</thead>
-  					<tbody >	
-	    				<tr  data-ng-repeat="user in users | orderBy:sortType:sortReverse  | filter:searchUsers" data-ng-click="editUser($index)">
+				       	<th>IsAdmin</th>
+					</thead>
+  					<tbody>	
+	    				<tr  data-ng-repeat="user in users | orderBy:sortType:sortReverse  | filter:searchUsers" data-ng-click="editUser(user.id)">
 					        <td >{{$index+1}}</td>
 					        <td>{{user.userName}}</td>
 					        <td>{{user.firstName}}</td>
@@ -78,49 +75,28 @@
 					        </td>
 					        <td>{{user.phoneNumber}}</td>      
 					        <td><p data-ng-repeat="medal in user.medals">{{medal.name}}</p></td>
-					        <td><p data-ng-repeat="role in user.roles">{{role}}</p></td>
+					        <td>{{user.isAdmin}}</td>					        
 	    				</tr>
                     </tbody>
-                </table>
-           
-            </div>  
+                </table>           
+            </div>   
+	</div>
+</div>
+</div>
+
+
+
+<div class="global-modal">
+    <div class="overlay"></div>
+    <div class="global-modal-admin_contents modal-transition">
+        <div class="global-modal-header">
+            <span class="mobile-close"> X </span>
+            <h3><b> <i class="fa fa-2x fa-edit"></i> Edit User </b></h3>
         </div>
-    </div>
-</div>
-
-  
-	
-   
-
-  
-    <div data-ng-hide="show2"  >
-    	content2
-    </div>
-    <div data-ng-hide="show3"  >
-    	content3
-    </div>
-    <div data-ng-hide="show4" >
-    	content4
-    </div>
-      <div data-ng-hide="show5" >
-    	content5
-    </div>
-
-	 
-
-
-</div>
-   <div class="global-modal">
-            <div class="overlay"></div>
-            <div class="global-modal_contents modal-transition">
-                <div class="global-modal-header">
-                    <span class="mobile-close"> X </span>
-                   <h3><b> <i class="fa fa-2x fa-edit"></i> Edit User </b></h3>
-                </div>
-                <div class="global-modal-body">
-                <div class="col-md-1">&nbsp;</div>
-                    <div class="col-md-10">
-	                    <h3 class="form-login-heading">Username</h3>
+        <div class="global-modal-body">
+            <div class="col-md-12">                	
+                <div class="col-md-6">
+                		<h3 class="form-login-heading">Username</h3>
 	                    <input maxlength="20" type="text" class="form-control" data-ng-model="selectedUser.userName" placeholder="Username" required autofocus>
 	                    <h3 class="form-login-heading">First Name</h3>
 	                    <input maxlength="20" type="text" class="form-control" data-ng-model="selectedUser.firstName" placeholder="First Name" required autofocus>
@@ -130,31 +106,52 @@
 	                    <input maxlength="20" type="text" class="form-control" data-ng-model="selectedUser.email" placeholder="Email" required autofocus>
 	                     <h3 class="form-login-heading">Phone</h3>
 	                    <input maxlength="20" type="text" class="form-control" data-ng-model="selectedUser.phoneNumber" placeholder="Phone Number" required autofocus>
-	                    <h3 class="form-login-heading">Admin Role</h3> 
-	                     <ul class="list-group"><li class="list-group-item">
-                                 Admin Role
-	                    <div class="material-switch pull-right">                    
-                            <input id="admin" type="checkbox" name="selectedFruits[]" ng-model="selectedUser.isAdmin">
-                            <label for="admin" class="label-primary"></label>
+                </div>
+                <div class="col-md-6">
+                	<h3 class="form-login-heading">Admin Role</h3> 
+	                <ul class="list-group">
+		                <li class="list-group-item">
+	                        Admin Role
+			                <div class="material-switch pull-right">                    
+		                        <input id="admin" type="checkbox" name="selectedFruits[]" ng-model="selectedUser.isAdmin">
+		                        <label for="admin" class="label-primary"></label>
+		                    </div>
+	                    </li>
+                    </ul>
+	                <h3 class="form-login-heading">Medals</h3> 
+	                <ul class="list-group"> 
+                        <li class="list-group-item" data-ng-repeat="medal in medals">
+                            {{medal.name}}               
+                            <div class="material-switch pull-right">                    
+                                <input id="{{medal.name}}" type="checkbox" name="selectedFruits[]" data-ng-model="selectedUser.medals[$index].selected">
+                                <label for="{{medal.name}}" class="label-primary"></label>
                             </div>
-                        </li></ul>
-	                     <h3 class="form-login-heading">Medals</h3> 
-	                    <ul class="list-group"> 
-                            <li class="list-group-item" data-ng-repeat="medal in medals">
-                                {{medal.name}}               
-                                    <div class="material-switch pull-right">                    
-                                        <input id="{{medal.name}}" type="checkbox" name="selectedFruits[]" data-ng-model="selectedUser.medals[$index].selected">
-                                        <label for="{{medal.name}}" class="label-primary"></label>
-                                    </div>
-                            </li>
-                        </ul>
-                               <div class="block center">      
-            <a class="btn-green-flat-trigger" data-ng-click="saveUserData()">Save</a>
-                </div><br>
-                    </div>
-          
+                        </li>
+                    </ul>
+                    <h3 class="form-login-heading text-center">Reset password</h3>
+	                <div class="text-center">							 
+						<input type="text" class="form-control" placeholder="New Password" data-ng-model="newPassword" aria-describedby="sizing-addon1">							
+						<a class="btn-green-flat-trigger" data-ng-click="resetPassword()">Reset password</a>
+					</div>				
                 </div>
             </div>
-        </div>
-      
+            <div class="col-md-12 text-center">
+	            <div data-ng-if="showLoading" class="loading"><br><br>
+					<i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 48px"></i>
+	    		</div>
+	            <a class="btn-green-flat-trigger" data-ng-click="saveUserData()">Save changes</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	            <a class="btn-green-flat-trigger" data-ng-click="deleteUser(selectedUser.id)">Delete user</a><br><br><br>          		
+	        </div>
+	        <div class="col-md-12" data-ng-if="message != ''">
+	            <div class="col-md-3">&nbsp;</div>
+	            <div class="col-md-6">
+	            	<div data-ng-class="(savedSuccessfully) ? 'alert alert-success text-center' : 'alert alert-danger text-center'" role="alert">
+						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+						<span class="sr-only">Result:</span>
+						{{message}}
+					</div>
+	            </div>
+	        </div><br>
+        </div>          
     </div>
+</div>

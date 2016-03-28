@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Http;
 using CourseProject.Domain.Entities;
 using CourseProject.Models;
+using Microsoft.AspNet.Identity;
 
 namespace CourseProject.Interfaces
 {
@@ -11,5 +11,7 @@ namespace CourseProject.Interfaces
         IEnumerable<UserViewModel> GetUsers();
         IEnumerable<Medal> GetMedals();
         Task<IEnumerable<UserViewModel>> SaveUserData(UserViewModel model);
+        Task<IdentityResult> DeleteUser (UserViewModel model);
+        Task<IdentityResult> ResetPassword(ResetPasswordModel model);
     }
 }

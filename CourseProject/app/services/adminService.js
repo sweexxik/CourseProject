@@ -17,13 +17,33 @@ app.factory('adminService', ['$http',
     var _saveUserData = function(data){
         return $http.post(serviceBase + 'api/admin/save', JSON.stringify(data), {
             headers:{contentType:'application/json; charset=utf-8', dataType:"json"}
-        }).then(function(results){return results;})
+        }).then(function(results){
+            return results;
+        });
     };   
+
+    var _deleteUser = function(data){
+        return $http.post(serviceBase + 'api/admin/delete', JSON.stringify(data), {
+            headers:{contentType:'application/json; charset=utf-8', dataType:"json"}
+        }).then(function(results){
+            return results;
+        });
+    };
+
+    var _resetPasword = function(data){
+        return $http.post(serviceBase + 'api/admin/reset', JSON.stringify(data), {
+            headers:{contentType:'application/json; charset=utf-8', dataType:"json"}
+        }).then(function(results){
+            return results;
+        });
+    };
        
     adminServiceFactory.getAllUsers = _getAllUsers;
     adminServiceFactory.getAllMedals = _getAllMedals;
     adminServiceFactory.saveUserData = _saveUserData;
+    adminServiceFactory.deleteUser = _deleteUser;
+    adminServiceFactory.resetPassword = _resetPasword;
 
-    return adminServiceFactory;
+    return adminServiceFactory;    
     
 }]);

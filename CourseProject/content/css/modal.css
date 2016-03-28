@@ -73,6 +73,7 @@
 
 .global-modal {
   visibility: hidden;
+   z-index: 1999;
 }
 
 .global-modal_contents {
@@ -87,7 +88,8 @@
   margin-left: -16%;
   top: 8%;
   min-height: 450px;
-    z-index: 999;
+  z-index: 1999;
+  padding-top: 50px;
 }
 
 .global-modal-profile_contents {
@@ -102,7 +104,38 @@
   margin-left: -16%;
   top: 8%;
   min-height: 450px;
-    z-index: 999;
+    z-index: 1999;
+}
+
+.global-modal-creative_contents {
+  background: #FFF;
+  -webkit-box-shadow: 0 0 8px 2px rgba(182, 182, 182, 0.75);
+  -moz-box-shadow: 0 0 8px 2px rgba(182,182,182, 0.75);
+  -o-box-shadow: 0 0 8px 2px rgba(182,182,182,0.75);
+  box-shadow: 0 0 8px 2px rgba(182, 182, 182, 0.75);
+  width: 70%;
+  position: absolute;
+  left: 30%;
+  margin-left: -16%;
+  top: 8%;
+  min-height: 450px;
+    z-index: 1999;
+}
+
+
+.global-modal-admin_contents {
+  background: #FFF;
+  -webkit-box-shadow: 0 0 8px 2px rgba(182, 182, 182, 0.75);
+  -moz-box-shadow: 0 0 8px 2px rgba(182,182,182, 0.75);
+  -o-box-shadow: 0 0 8px 2px rgba(182,182,182,0.75);
+  box-shadow: 0 0 8px 2px rgba(182, 182, 182, 0.75);
+  width: 70%;
+  position: absolute;
+  left: 40%;
+  margin-left: -16%;
+  top: 8%;
+  min-height: 450px;
+    z-index: 1999;
 }
 
 .global-modal-header{
@@ -177,8 +210,6 @@
 
 .global-modal-show {
   visibility: visible;
-
-
 }
 
 .global-modal-transition {

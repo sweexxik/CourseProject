@@ -448,6 +448,7 @@
     <Compile Include="Models\NewCreativeModel.cs" />
     <Compile Include="Models\NewLikeModel.cs" />
     <Compile Include="Models\NewRatingModel.cs" />
+    <Compile Include="Models\ResetPasswordModel.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\TagsViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />

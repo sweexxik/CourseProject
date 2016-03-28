@@ -44,7 +44,6 @@ app.controller('homeController',
     }
 
     $scope.deleteCreative = function (id) {     
-        console.log(id);
         var result = $window.confirm('are you absolutely sure you want to delete?');
         if (result) {
             creativeService.deleteCreative(id).then(function(results){
