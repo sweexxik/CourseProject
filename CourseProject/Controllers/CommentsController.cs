@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Filters;
 using CourseProject.Interfaces;
@@ -42,7 +41,9 @@ namespace CourseProject.Controllers
         [Route("api/comments/delete/{id}")]
         public async Task<IHttpActionResult> DeleteComment(int id)
         {
-            return await service.DeleteComment(id) ?  Ok(HttpStatusCode.OK) : GetErrorResult(false);
+            var result = await service.DeleteComment(id);
+
+            return result != null ?  Ok(result) : GetErrorResult(false);
         }
     }
 }

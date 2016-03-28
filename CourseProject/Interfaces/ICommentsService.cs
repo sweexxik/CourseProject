@@ -11,7 +11,7 @@ namespace CourseProject.Interfaces
 
         Task<IEnumerable<NewCommentModel>> AddComment(NewCommentModel model);
 
-        Task<bool> DeleteComment(int id);
+        Task<IEnumerable<NewCommentModel>> DeleteComment(int id);
 
         IEnumerable<NewCommentModel> InitCommentsModel(IEnumerable<Comment> commentsList);
     }

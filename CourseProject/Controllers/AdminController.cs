@@ -42,6 +42,13 @@ namespace CourseProject.Controllers
             return Ok(service.GetRatings());
         }
 
+        [HttpGet]
+        [Route("api/admin/comments")]
+        public IHttpActionResult GetAllComments()
+        {
+            return Ok(service.GetComments());
+        }
+
         [HttpPost]
         [ValidateViewModel]
         [Route("api/admin/save")]
@@ -106,7 +113,7 @@ namespace CourseProject.Controllers
             return result != null ? Ok(result) : GetErrorResult(false);
         }
 
-        
+        [HttpPost]
         [ValidateViewModel]
         [Route("api/admin/register")]
         public async Task<IHttpActionResult> Register(UserModel model)
@@ -127,10 +134,29 @@ namespace CourseProject.Controllers
         }
 
         [HttpPost]
+        [ValidateViewModel]
         [Route("api/admin/saveRating")]
         public async Task<IHttpActionResult> SaveRating(NewRatingModel model)
         {
             return Ok(await service.SaveRating(model));
+        }
+
+        [HttpPost]
+        [ValidateViewModel]
+        [Route("api/admin/saveComment")]
+        public async Task<IHttpActionResult> SaveComment(NewCommentModel model)
+        {
+            return Ok(await service.SaveComment(model));
+        }
+
+        [HttpPost]
+        [ValidateViewModel]
+        [Route("api/admin/deleteComment/{id}")]
+        public async Task<IHttpActionResult> DeleteComment(int id)
+        {
+            var result = await service.DeleteComment(id);
+
+            return result != null ? Ok(result) : GetErrorResult(false);
         }
     }
 }

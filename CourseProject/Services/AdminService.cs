@@ -14,12 +14,14 @@ namespace CourseProject.Services
         private readonly IUnitOfWork db;
         private readonly IAccountService service;
         private readonly IRatingService ratingService;
+        private readonly ICommentsService commentService;
 
-        public AdminService(IUnitOfWork repo, IAccountService serv, IRatingService ratingServ)
+        public AdminService(IUnitOfWork repo, IAccountService serv, IRatingService ratingServ, ICommentsService commentServ)
         {
             db = repo;
             service = serv;
             ratingService = ratingServ;
+            commentService = commentServ;
         }
 
         public IEnumerable<UserViewModel> GetUsers()
@@ -37,6 +39,13 @@ namespace CourseProject.Services
             var result = db.Ratings.GetAll();
 
             return ratingService.InitRatingModel(result);
+        }
+
+        public IEnumerable<NewCommentModel> GetComments()
+        {
+            var result = db.Comments.GetAll();
+
+            return commentService.InitCommentsModel(result);
         }
 
         public async Task<IEnumerable<UserViewModel>> SaveUserData(UserViewModel model)
@@ -87,7 +96,6 @@ namespace CourseProject.Services
 
         public async Task<IEnumerable<NewRatingModel>> SaveRating(NewRatingModel model)
         {
-
             var editRating = await db.Ratings.Get(model.Id);
 
             editRating.Value = model.Value;
@@ -95,6 +103,29 @@ namespace CourseProject.Services
             db.Save();
 
             return ratingService.InitRatingModel(db.Ratings.GetAll());
+        }
+
+        public async Task<IEnumerable<NewCommentModel>> SaveComment(NewCommentModel model)
+        {
+            var editRating = await db.Comments.Get(model.Id);
+
+            editRating.Text = model.Text;
+
+            db.Save();
+
+            return commentService.InitCommentsModel(db.Comments.GetAll());
+        }
+
+        public async Task<IEnumerable<NewCommentModel>> DeleteComment(int id)
+        {
+            if (await db.Comments.Remove(id))
+            {
+                db.Save();
+
+                return commentService.InitCommentsModel(db.Comments.GetAll());
+            }
+
+            return null;
         }
 
         public async Task<IEnumerable<Tag>> DeleteTag(int id)

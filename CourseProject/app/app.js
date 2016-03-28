@@ -40,10 +40,10 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/showCreative.html"
     });
 
-    $routeProvider.when("/comments/:creativeId", {
-        controller: "commentsController",
-        templateUrl: "/app/views/comments.html"
-    });
+    // $routeProvider.when("/comments/:creativeId", {
+    //     controller: "commentsController",
+    //     templateUrl: "/app/views/comments.html"
+    // });
     
     $routeProvider.when("/profile/", {
         controller: "profileController",

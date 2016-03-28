@@ -21,11 +21,11 @@ namespace CourseProject.Services
             medalService = service;
         }
 
-        public async Task<bool> DeleteComment(int id)
+        public async Task<IEnumerable<NewCommentModel>> DeleteComment(int id)
         {
             var comm = await db.Comments.Get(id);
 
-            if (comm == null) return false;
+            if (comm == null) return null;
 
             var userName = comm.User.UserName;
 
@@ -37,10 +37,11 @@ namespace CourseProject.Services
 
                 await medalService.CheckMedals(userName);
 
-                return true;
+                return InitCommentsModel(db.Comments.Find(x=>x.User.UserName == userName));
             }
 
-            return false;
+            return null;
+
         }
 
         public async Task<IEnumerable<NewCommentModel>> AddComment(NewCommentModel model)

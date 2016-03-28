@@ -94,6 +94,14 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
         });
     };
 
+    var _saveComment = function(data){
+        return $http.post(serviceBase + '/api/admin/saveComment/', JSON.stringify(data),{
+        headers: { contentType: 'application/json; charset=utf-8', dataType: "json" }    
+        }).then(function(results){
+            return results;
+        });
+    };
+
     var _saveChapter = function(data){
         return $http.post(serviceBase + '/api/chapters/', JSON.stringify(data),{
         headers: { contentType: 'application/json; charset=utf-8', dataType: "json" }    
@@ -161,6 +169,7 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.saveTag = _saveTag;
     creativesServiceFactory.saveChapter = _saveChapter;
     creativesServiceFactory.saveRating = _saveRating;
+     creativesServiceFactory.saveComment = _saveComment
 
     creativesServiceFactory.createCreative = _createCreative;
     creativesServiceFactory.createComment = _createComment;

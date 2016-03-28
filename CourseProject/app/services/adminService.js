@@ -14,6 +14,12 @@ app.factory('adminService', ['$http',
             .then(function (results) { return results; });
     };
 
+    var _getAllComments = function () {    
+        return $http.get(serviceBase + 'api/admin/comments')
+            .then(function (results) { return results; });
+    };
+    
+
     var _saveUserData = function(data){
         return $http.post(serviceBase + 'api/admin/save', JSON.stringify(data), {
             headers:{contentType:'application/json; charset=utf-8', dataType:"json"}
@@ -54,6 +60,11 @@ app.factory('adminService', ['$http',
             .then(function (results) { return results; });
     };
 
+     var _deleteComment= function (id) {   
+        return $http.post(serviceBase + 'api/admin/deleteComment/' + id)
+            .then(function (results) { return results; });
+    };
+
     
 
    
@@ -61,9 +72,11 @@ app.factory('adminService', ['$http',
     adminServiceFactory.getAllUsers = _getAllUsers;
     adminServiceFactory.getAllMedals = _getAllMedals;
     adminServiceFactory.getAllRatings = _getAllRatings
+    adminServiceFactory.getAllComments = _getAllComments
     adminServiceFactory.saveUserData = _saveUserData;
     adminServiceFactory.deleteUser = _deleteUser;
     adminServiceFactory.deleteRating = _deleteRating;
+     adminServiceFactory.deleteComment = _deleteComment
     adminServiceFactory.resetPassword = _resetPasword;
     adminServiceFactory.registerNewUser  = _registerNewUser
 
