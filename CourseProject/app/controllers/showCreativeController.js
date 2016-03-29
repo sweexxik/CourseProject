@@ -190,6 +190,21 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         $scope.percentage3 =  ($scope.percentage3/len).toPrecision(3);
         $scope.percentage4 =  ($scope.percentage4/len).toPrecision(3);
         $scope.percentage5 =  ($scope.percentage5/len).toPrecision(3);
-   }  
+   };
+
+
+   $scope.targetClass = 'readerStyle3';
+  
+  $scope.colorInspirationClasses = [
+    'readerStyle1', 'readerStyle2', 'readerStyle3', 'readerFont1', 'readerFont2','readerFont3'
+  ];
+  
+  $scope.highlight = function(a) {
+     console.log(a);
+    $scope.targetClass = $scope.colorInspirationClasses[a];
+  }; 
+
+
+
 
 }]);

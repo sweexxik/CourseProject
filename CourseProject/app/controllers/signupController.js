@@ -39,24 +39,7 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
     };
 
 
-   function fontSelected(e){
-    var select = e.target;
-    if (select.selectedIndex > 0) { // web font
-        var fontID = select.options[select.selectedIndex].value;
-        if (!document.getElementById(fontID)) {
-            var head = document.getElementsByTagName('head')[0];
-            var link = document.createElement('link');
-            link.id = fontID;
-            link.rel = 'stylesheet';
-            link.type = 'text/css';
-            link.href = 'http://fonts.googleapis.com/css?family='+fontID;
-            link.media = 'all';
-            head.appendChild(link);
-        }
-        document.getElementById("theText").style.fontFamily = select.options[select.selectedIndex].innerHTML;
-    }else{ // default browser font
-        document.getElementById("theText").style.fontFamily = null;
-    }
-}
+
+
 
 }]);

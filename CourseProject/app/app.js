@@ -1,6 +1,6 @@
 ﻿
 var app = angular.module('AngularAuthApp',
-    ['ui.bootstrap','ng-showdown','ngSanitize','ui.sortable','ngRoute','angular-markdown-editable','froala',
+    ['ui.bootstrap','ng-showdown','ngSanitize','ui.sortable','ngRoute','angular-markdown-editable',
      'ngTagsInput', 'LocalStorageModule', 'angular-loading-bar', 'dndLists', 'ngFileUpload', 'ngResource','infinite-scroll']);
 
 app.config(function ($routeProvider) {
@@ -100,6 +100,22 @@ app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'ngAuthApp'
 });
+
+app.directive("colorInspiration", function() {
+  return {
+    restrict: 'EA',
+    scope: {val: '=ngModel'},
+    link: function(scope, element, attrs, ngModel) {      
+      scope.$watch('val', function(newValue, oldValue) {
+        console.log("watched it", scope.val);
+        if (element.hasClass(oldValue)) {
+          element.removeClass(oldValue);
+        }
+        element.addClass(newValue);
+      });
+    }
+  }
+  });  
 
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');

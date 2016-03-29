@@ -105,46 +105,93 @@
             <!-- RATING END -->
         </div>
         
-        <div class="container text-center">
+        <div class="container">
       
         <div class="widget--tags">
             <a data-ng-repeat="tag in tags" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
         </div>
-
-            <button data-ng-if="chapters.length > 0" data-ng-click="test()" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">
+        <div class="text-center">
+            <button  data-ng-if="chapters.length > 0" class="btn btn-default" data-toggle="modal" data-target=".bs-example">
                 {{translation.READ_MODE}} 
             </button>
-            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div id="Carousel" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">   
-                                <div class="item fill" data-ng-class="{active:!$index}" data-ng-repeat="chapter in chapters">
-                                    <div class="carousel-caption" style="position: relative;">
-                                        <p align="left">{{translation.CHAPTER}}  #{{chapter.number}}&nbsp;{{chapter.name}}</p>
-                                    </div> 
-                                 
-                                    <div ng-bind-html="chapter.body">                       
-                                    </div>   
-                                  
-                            
-                            <span class="left carousel-control" data-target="#Carousel" data-slide="prev" data-ng-click="storeChapterId(chapter.id)">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </span>
-                            <span class="right carousel-control" data-target="#Carousel" data-slide="next" data-ng-click="storeChapterId(chapter.id)">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </span>
-                                </div>  
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+             <div class="highlights palette">
+              <p>
+                <span class="btn btn-primary" ng-click="highlight(0)">80</span>
+                <span class="btn btn-primary" ng-click="highlight(1)">90</span>
+                <span class="btn btn-primary" ng-click="highlight(2)">100</span>
+
+              </p>  
+        <div class="btn-group" data-toggle="buttons">   
+          <label ng-click="highlight(0)" class="btn btn-success ">
+                <input type="radio" name="options" id="option2" autocomplete="off">
+              80%  <span class="glyphicon glyphicon-ok"></span>
+            </label>
+
+          <label ng-click="highlight(1)" class="btn btn-primary">
+                <input type="radio" name="options" id="option3" autocomplete="off">
+               90% <span class="glyphicon glyphicon-ok"></span>
+            </label>      
+
+            <label ng-click="highlight(2)" class="btn btn-info active">
+                <input type="radio" name="options" id="option4" autocomplete="off" >
+                100%<span class="glyphicon glyphicon-ok"></span>
+            </label>  
         </div>
+        
+        <div class="btn-group" data-toggle="buttons">   
+         <label ng-click="highlight(3)" class="btn btn-default">
+                <input type="radio" name="options2" id="option5" autocomplete="off" checked>
+                14px<span class="glyphicon glyphicon-ok"></span>
+            </label>
+
+            <label ng-click="highlight(4)" class="btn btn-warning">
+                <input type="radio" name="options2" id="option6" autocomplete="off">
+                28px<span class="glyphicon glyphicon-ok"></span>
+            </label>
+
+            <label ng-click="highlight(5)" class="btn btn-danger">
+                <input type="radio" name="options2" id="option7" autocomplete="off">
+                42px<span class="glyphicon glyphicon-ok"></span>
+            </label>
+  </div>
+            </div> 
+            </div> 
+
+            <div color-inspiration ng-model="targetClass" class="modal fade bs-example" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">          
+                  
+                <div id="myCarousel" class="carousel slide" data-interval="6500" data-ride="carousel">      
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>        
+               <div style="background-color: #fff" class="carousel-inner">   
+                <div class="item fill" data-ng-class="{active:!$index}" data-ng-repeat="chapter in chapters">
+                <div class="carousel-caption" style="position: relative;">  <button class="btn btn-primary-outline pull-right" style="margin-right: 20%; position: static;" data-dismiss="modal" data-target="#myCarousel">X</button>
+                <p align="center">{{translation.CHAPTER}}  #{{chapter.number}}&nbsp;{{chapter.name}}</p>
+                 </div>
+                
+                 <div  color-inspiration ng-model="targetClass" ng-bind-html="chapter.body">                       
+                 </div>   
+                                
+
+       
+    <span class="left carousel-control" data-target="#myCarousel" data-slide="prev" data-ng-click="storeChapterId(chapter.id)">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </span>
+    <span class="right carousel-control" data-target="#myCarousel" data-slide="next" data-ng-click="storeChapterId(chapter.id)">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </span>       
+    </div>  
+</div>
+</div>  
+</div>    
+       
+   
    
         <div ng-repeat="item in chapters">
-			<h2 class="form-login-heading">{{translation.CHAPTER}} #{{item.number}}: {{item.name}}</h2>	
-			
+			<h1  align="center" class="form-login-heading">{{translation.CHAPTER}} #{{item.number}}: {{item.name}}</h1>	
+			<hr>
             <div ng-bind-html="item.body">                       
             </div>    
 			
@@ -203,8 +250,8 @@
                                      
                                         <button style="margin-top: 10px" type="button" data-ng-click="createComment()" class="btn btn-info"><i class="fa fa-share"></i>{{translation.PUBLISH}}</button>
                                     </form>
-                                </div><!-- Status Upload  -->
-                            </div><!-- Widget Area -->
+                                </div>
+                            </div>
                         </div>        
     </div>
 </div>
