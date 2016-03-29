@@ -35,6 +35,13 @@
   "COMMENTS":"Comments",
   "COMMENTED":"Commented",
   "NEW_COMMENT": "Add comment",
-  "PUBLISH":"Publish"
-
+  "PUBLISH":"Publish",
+  "DATE":"Date",
+  "RATING":"Rating",
+  "POPULAR":"Popular",
+  "EDIT_PROFILE":"Edit your profile",
+  "UPLOAD":"Upload",
+  "CHANGE_PASSWORD":"Change password",
+  "OLD_PASS":"Old password",
+  "NEW_PASS":"New password"
 }

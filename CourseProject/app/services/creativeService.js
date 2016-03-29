@@ -16,6 +16,11 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             .then(function (results) { return results; });
     };
 
+     var _getPartialCreatives = function (id) {      
+        return $http.get(serviceBase + 'api/creatives/getPartial/' + id)
+            .then(function (results) { return results; });
+    };
+
     var _getCreative = function (id) {        
         return $http.get(serviceBase + 'api/creatives/' +id)
             .then(function (results) { return results; });
@@ -165,6 +170,8 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.getCreativeTags = _getCreativeTags
     creativesServiceFactory.getChapter = _getChapter
     creativesServiceFactory.setTags = _setTags;
+
+    creativesServiceFactory.getPartialCreatives = _getPartialCreatives;
 
     creativesServiceFactory.saveTag = _saveTag;
     creativesServiceFactory.saveChapter = _saveChapter;

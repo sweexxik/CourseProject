@@ -15,7 +15,7 @@
             <div class="col-md-6 text-center">
                 <h2>{{translation.SIGNUP}}</h2>                        
                 <p class="text-primary">    
-           {{translation.SIGNUP_TEXT}}
+                {{translation.SIGNUP_TEXT}}
                 </p>
                 <p>
                     <a class="btn btn-info" href="#/signup" role="button">{{translation.SIGNUP}} &raquo;</a>
@@ -89,7 +89,7 @@
             <div class="form-group">    
                 <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                    <input type="text" class="form-control" placeholder="Search creatives" ng-model="searchCreatives">
+                    <input type="text" class="form-control" placeholder="{{translation.SEARCH}}" ng-model="searchCreatives">
                 </div>      
             </div>
         </form> 
@@ -99,14 +99,14 @@
         <div class="pull-right">      
             <div class="btn-group">
                 <button class="btn btn-success btn-filter" data-ng-click="sortType = 'created'; sortReverse = !sortReverse">
-                Date
+                {{translation.DATE}}
                 <span ng-show="sortType == 'created' && sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'created' && !sortReverse" class="fa fa-caret-up"></span></button>
-                <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'avgRating';sortReverse = !sortReverse">    Rating
+                <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'avgRating';sortReverse = !sortReverse"> {{translation.RATING}}
                  <span ng-show="sortType == 'avgRating' && sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'avgRating' && !sortReverse" class="fa fa-caret-up"></span>
                 </button>
-                 <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'popular';sortReverse = !sortReverse"> Popular
+                 <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'popular';sortReverse = !sortReverse"> {{translation.POPULAR}}
                  <span ng-show="sortType == 'popular' && sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'popular' && !sortReverse" class="fa fa-caret-up"></span>
                 </button>

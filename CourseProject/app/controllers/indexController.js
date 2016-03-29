@@ -2,8 +2,16 @@
 app.controller('indexController', ['$http', '$scope', '$location', 'authService', 'searchService', 'translationService',
     function ($http, $scope, $location, authService, searchService, translationService) {
 
-        $scope.currentTheme = 'cyborg';
+        $scope.currentTheme = 'lumen';
         $scope.pattern = '';
+        $scope.selectedLanguage = 'en';
+        $scope.authentication = authService.authentication;
+
+        $scope.translate = function () {
+            translationService.getTranslation($scope, $scope.selectedLanguage);
+        };
+        
+        $scope.translate();
 
         $scope.logOut = function() {
             authService.logOut();
@@ -22,18 +30,8 @@ app.controller('indexController', ['$http', '$scope', '$location', 'authService'
             console.log($scope.pattern);
             searchService.setSearchPattern($scope.pattern);
             $location.path('/search');
-        };
-
-        $scope.authentication = authService.authentication;
-
-        $scope.translate = function () {
-            translationService.getTranslation($scope, $scope.selectedLanguage);
-        };
-
-        //Init
-        $scope.selectedLanguage = 'en';
-        $scope.translate();
-
+        };  
+        
         $scope.setEN = function() {
             $scope.selectedLanguage = 'en';
             $scope.translate();

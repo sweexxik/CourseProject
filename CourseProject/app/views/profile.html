@@ -1,7 +1,7 @@
 <div  class="container">
  <div class="page-header text-center">
  <br>
-            <h1>Edit your profile.</h1>
+            <h1>{{translation.EDIT_PROFILE}}</h1>
         </div>
         <p></p>  
 	<div class="row" id="main">
@@ -14,7 +14,7 @@
 	        			<h2>{{userInfo.firstName}} {{userInfo.lastName}}</h2>
 	        			<p>Description</p>	                  
 	                    <button type="button" class="btn-green-flat-trigger" >
-	                        Upload
+	                        {{translation.UPLOAD}}
 	                    </button>
 	                    <br>
 	                    <br>
@@ -55,29 +55,30 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-12 col-md-3"></div>
-							<div class="col-xs-12 col-md-6"><a data-ng-click="saveUserInfo()" style="width: 30%" class="btn-green-flat">Save</a></div>
+							<div class="col-xs-12 col-md-6">
+							<a data-ng-click="saveUserInfo()" class="btn-green-flat">{{translation.SAVE}}</a></div>
 						</div>
 						<hr class="colorgraph">
 						<div class="row">
 							<div class="col-xs-12 col-sm-4 col-md-4">
 								<div class="form-group">
-									<input type="password" data-ng-model="newUserInfo.oldPassword" name="oldPassword" id="password" class="form-control input-lg" placeholder="Old Password" tabindex="5">
+									<input type="password" data-ng-model="newUserInfo.oldPassword" name="{{translation.OLD_PASS}}" id="password" class="form-control input-lg" placeholder="{{translation.OLD_PASS}}" tabindex="5">
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-4 col-md-4">
 								<div class="form-group">
-									<input type="password" data-ng-model="newUserInfo.newPassword" name="newPassword" id="new_password" class="form-control input-lg" placeholder="New Password" tabindex="6">
+									<input type="password" data-ng-model="newUserInfo.newPassword" name="" id="new_password" class="form-control input-lg" placeholder="{{translation.NEW_PASS}}" tabindex="6">
 								</div>
 							</div>
 								<div class="col-xs-12 col-sm-4 col-md-4">
 								<div class="form-group">
-									<input type="password" data-ng-model="newUserInfo.passConfirm" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6">
+									<input type="password" data-ng-model="newUserInfo.passConfirm" name="" id="password_confirmation" class="form-control input-lg" placeholder="{{translation.PASS_CONFIRM}}" tabindex="6">
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							
-								<a data-ng-click="changePassword()" style="width: 30%" class="btn-green-flat">Change password</a>
+								<a data-ng-click="changePassword()" class="btn-green-flat">	{{translation.CHANGE_PASSWORD}} </a>
 							
 						</div>	
 					</form>
@@ -123,14 +124,14 @@
                 <span class="mobile-close"> X </span>
                 <h3><b><i class="fa fa-2x fa-upload"></i>
                 <div style="width: 40%; position: relative;" class="btn-green-flat" accept="image/*" ngf-pattern="'image/*'" ngf-select ng-model="$parent.file" ngf-multiple="false">
-						Upload File 
+						{{translation.UPLOAD}} 
 				</div></b></h3>
             </div>
             <div class="global-modal-body">
             <div id="upload"  class="row">		 
 		    	<div class="col-md-12">
 					<div class="panel panel-default">
-						<div class="panel-heading text-center"><strong>Upload files</strong> <small> </small></div>
+						<div class="panel-heading text-center"><strong>{{translation.UPLOAD}} </strong> <small> </small></div>
 							<div class="panel-body">						   	
 						  		<div ngf-drop ngf-select ng-model="$parent.file" class="drop-box upload-drop-zone" ngf-drag-over-class="'dragover'" ngf-multiple="false" 	 ngf-allow-dir="true" accept="image/*" ngf-pattern="'image/*'">
 						  		 	Or drag and drop files here 
@@ -147,7 +148,7 @@
 										<i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 48px"></i>
 	    							</div>
 	    								<br>
-	    								<a data-ng-click="updateAvatar()" class="btn-green-flat">Upload</a>
+	    								<a data-ng-click="updateAvatar()" class="btn-green-flat">	{{translation.UPLOAD}} </a>
 								</div>						
 							</div>
 						</div>

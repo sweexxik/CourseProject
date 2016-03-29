@@ -84,6 +84,13 @@ namespace CourseProject.Controllers
            return Ok(await service.UpdateCreative(model));
         }
 
+        [HttpGet]
+        [Route("api/creatives/getPartial/{delimiter}")]
+        public IHttpActionResult GetPartialCreatives(int delimiter)
+        {
+            return Ok(service.GetPartialCreatives(delimiter));
+        }
+
         protected override void Dispose(bool disposing)
         {
             service.Dispose(disposing);

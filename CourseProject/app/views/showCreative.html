@@ -108,7 +108,7 @@
         <div class="container text-center">
       
         <div class="widget--tags">
-            <a data-ng-repeat="tag in tags" class="tag" data-count="{{tag.count}}" href="#tag">{{tag.name}}</a>
+            <a data-ng-repeat="tag in tags" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
         </div>
 
             <button data-ng-if="chapters.length > 0" data-ng-click="test()" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">

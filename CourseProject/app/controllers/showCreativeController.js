@@ -1,6 +1,8 @@
 ﻿'use strict';
-app.controller('showCreativeController', ['$showdown','$sce','$window','$route','$scope', '$location','$timeout','$routeParams','authService','creativeService','localStorageService',
-    function ($showdown,$sce, $window, $route, $scope, $location, $timeout, $routeParams, authService, creativeService, localStorageService) {
+app.controller('showCreativeController', ['$showdown','$sce','$window','$route','$scope', '$location','$timeout','$routeParams',
+    'authService','creativeService','localStorageService', 'searchService',
+    function ($showdown,$sce, $window, $route, $scope, $location, $timeout, $routeParams,
+     authService, creativeService, localStorageService,searchService) {
     
     $scope.authentication = authService.authentication;
     $scope.creative = [];   
@@ -116,6 +118,11 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         });     
    };
 
+   $scope.search = function(pattern){
+         searchService.setSearchPattern(pattern);
+        $location.path('/search');
+    };
+
     var calcAvg = function (){        
         var sum = 0;
         var defaultResult = 0;
@@ -142,17 +149,14 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
                 var md = $showdown.makeHtml($scope.chapters[i].body);
                 $scope.chapters[i].body = $sce.trustAsHtml(md);
             }      
-        }
-        
+        }        
    }
 
    var initComment = function(){
         newCommentModel.userName = localStorageService.get('authorizationData').userName;   
         newCommentModel.text = $scope.newComment.text;
         newCommentModel.creativeId = creativeId;
-   };
-
-   
+   };   
 
     var setPercentage = function () {
 

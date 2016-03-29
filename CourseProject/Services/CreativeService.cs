@@ -162,6 +162,18 @@ namespace CourseProject.Services
             }
         }
 
+        public IEnumerable<NewCreativeModel> GetPartialCreatives(int delimiter)
+        {
+            var all = db.Creatives.GetAll().ToList();
+
+            var countPerPart = all.Count/5;
+
+            var res = InitCreativesModel(all.Skip(countPerPart*delimiter).Take(countPerPart));
+
+            return res;
+
+        }
+
         private async Task<Creative> InitNewCreative(NewCreativeModel model)
         {
             var creative = new Creative

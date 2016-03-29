@@ -13,14 +13,14 @@
         <div class="pull-right">      
             <div class="btn-group">
                 <button class="btn btn-success btn-filter" data-ng-click="sortType = 'created'; sortReverse = !sortReverse">
-                Date
+                   {{translation.DATE}}
                 <span ng-show="sortType == 'created' && sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'created' && !sortReverse" class="fa fa-caret-up"></span></button>
-                <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'avgRating';sortReverse = !sortReverse">    Rating
+                <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'avgRating';sortReverse = !sortReverse"> {{translation.RATING}}
                  <span ng-show="sortType == 'avgRating' && sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'avgRating' && !sortReverse" class="fa fa-caret-up"></span>
                 </button>
-                 <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'popular';sortReverse = !sortReverse"> Popular
+                 <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'popular';sortReverse = !sortReverse"> {{translation.POPULAR}}
                  <span ng-show="sortType == 'popular' && sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'popular' && !sortReverse" class="fa fa-caret-up"></span>
                 </button>
@@ -28,7 +28,8 @@
        </div>  
       </div>
       <hr style="opacity: 0">
-
+   <div infinite-scroll='loadMore()' infinite-scroll-distance='0'>
+   
     <div class="col-md-12 margin-bottom-30" data-ng-repeat="creative in creatives | orderBy:sortType:sortReverse ">
         <div class="portlet portlet-bordered">
             <div class="portlet-title">
@@ -46,5 +47,6 @@
                 <p data-ng-repeat="chapter in creative.chapters">{{$index + 1}}. {{chapter.name}}</p>
             </div>
         </div>
+    </div>
     </div>
 </div>

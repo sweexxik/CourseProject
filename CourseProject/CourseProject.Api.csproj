@@ -515,7 +515,6 @@
     <Content Include="content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="app\translations\translation_en.json" />
-    <Content Include="app\translations\translation_ru.json" />
     <None Include="Properties\PublishProfiles\CourseProject20160316104631.pubxml" />
     <Content Include="Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CourseProjectApi20160324093711 - Web Deploy.pubxml" />
