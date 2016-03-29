@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 app.controller('mainController', ['$scope','creativeService','searchService','$location',
     function ($scope,creativeService,searchService,$location) {
 

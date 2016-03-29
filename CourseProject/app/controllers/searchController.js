@@ -4,6 +4,8 @@ app.controller('searchController', ['$http','$scope', '$location','searchService
   
     $scope.results = [];
     $scope.loading = false;
+    $scope.message = '';
+    $scope.savedSuccessfully = false;         
 
     $scope.pattern = searchService.getSearchPattern();
 
@@ -31,23 +33,36 @@ app.controller('searchController', ['$http','$scope', '$location','searchService
   ]; 
 
    	var serachPattern = searchService.getSearchPattern();
+   
    	if (serachPattern) {
    		$scope.searchModel.pattern = serachPattern;
    		$scope.loading = true;
    		searchService.search($scope.searchModel).then(function(results){
    			$scope.results = results.data;
    			$scope.loading = false;
-   		});
+            $scope.savedSuccessfully = true;          
+            $scope.message = "Creatives found: " + results.data.length;
+   		}, function(error){
+            console.log(error);
+            $scope.savedSuccessfully = false;      
+            $scope.loading = false;    
+            $scope.message = error.data.message;
+        });
    	}
 
     $scope.search = function(){    
     	$scope.loading = true;
 	    initSearchModel();      
 	    searchService.search($scope.searchModel).then(function(results){	    
-	        $scope.results = results.data;
-	        $scope.loading = false;
+	      $scope.results = results.data;
+            $scope.loading = false;
+            $scope.savedSuccessfully = true;          
+            $scope.message = "Creatives found: " + results.data.length;
     	}, function(error){
-    		$scope.loading = false;
+    		 console.log(error);
+            $scope.savedSuccessfully = false;  
+            $scope.loading = false;        
+            $scope.message = error.data.message;
     	}); 
     };
 

@@ -1,11 +1,30 @@
 ﻿'use strict';
-app.controller('indexController', ['$http', '$scope', '$location', 'authService', 'searchService', 'translationService',
-    function ($http, $scope, $location, authService, searchService, translationService) {
+app.controller('indexController', ['$http', '$scope', '$location', 'authService', 'searchService', 'translationService','localStorageService',
+    function ($http, $scope, $location, authService, searchService, translationService, localStorageService) {
 
-        $scope.currentTheme = 'lumen';
+        var currentTheme = localStorageService.get('theme');//'lumen';
+        var currentLanguade = localStorageService.get('lang');
+       
+        if(currentTheme != undefined){
+            $scope.currentTheme = currentTheme;
+        }
+        else {
+            $scope.currentTheme = 'lumen';
+        }
+
+        if(currentLanguade != undefined){
+            $scope.selectedLanguage = currentLanguade;
+        }
+        else {
+            $scope.selectedLanguage = 'en';
+        }
+
+        
         $scope.pattern = '';
-        $scope.selectedLanguage = 'en';
+      //  $scope.selectedLanguage = localStorageService.get('lang');//'en';
         $scope.authentication = authService.authentication;
+
+
 
         $scope.translate = function () {
             translationService.getTranslation($scope, $scope.selectedLanguage);
@@ -21,8 +40,10 @@ app.controller('indexController', ['$http', '$scope', '$location', 'authService'
         $scope.changeTheme = function() {
             if ($scope.currentTheme == 'cyborg') {
                 $scope.currentTheme = 'lumen';
+                localStorageService.set('theme', 'lumen');
             } else {
                 $scope.currentTheme = 'cyborg';
+                localStorageService.set('theme', 'cyborg');
             }
         };
 
@@ -34,10 +55,12 @@ app.controller('indexController', ['$http', '$scope', '$location', 'authService'
         
         $scope.setEN = function() {
             $scope.selectedLanguage = 'en';
+            localStorageService.set('lang', 'en');
             $scope.translate();
         };
 
         $scope.setRU = function () {
+            localStorageService.set('lang','ru');
             $scope.selectedLanguage = 'ru';
             $scope.translate();
         };

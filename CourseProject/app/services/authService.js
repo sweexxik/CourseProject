@@ -25,8 +25,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
         $http.post(serviceBase + 'token', data, {
          headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).success(function (response) {
       
-                localStorageService.set('authorizationData',
-                {
+                localStorageService.set('authorizationData', {
                     token: response.access_token, 
                     userName: loginData.userName  });
             
@@ -47,6 +46,8 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     var _logOut = function () {
 
         localStorageService.remove('authorizationData');
+        localStorageService.remove('lang');
+        localStorageService.remove('theme');
         _authentication.isAuth = false;
         _authentication.userName = "";   
     };
