@@ -48,5 +48,7 @@
   "MOST_POPULAR":"Самые популярные",
   "CATEGORIES": "Категории",
   "READ_MORE":"Подробнее",
-  "CREATED":"Создано "
+  "CREATED":"Создано ",
+  "CATEGORY":"Категория",
+  "NO_COMMENTS":"Комментариев пока нет"
 }

@@ -34,18 +34,6 @@ namespace CourseProject.Controllers
 
             return Ok(model);
         }
-        
-        [HttpPost]
-        [ValidateViewModel]
-        [Route("api/chapters/all")]
-        public async Task<IHttpActionResult> PostAllChapters([FromBody] List<NewChapterModel> model)
-        {
-            //todo test it
-
-            await service.SetChaptersPositions(model);
-
-            return Ok(HttpStatusCode.OK);
-        }
 
         [HttpPost]
         [Route("api/chapters/delete/{chapterId}")]

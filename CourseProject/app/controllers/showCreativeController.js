@@ -19,6 +19,8 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
 
     $scope.newComment = undefined;
 
+    $scope.ratingError = '';
+
     var creativeId = $routeParams.Id; 
 
     var savedChapter = 0;
@@ -77,6 +79,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         initComment();
         creativeService.createComment(newCommentModel).then(function(results){
             $scope.comments = results.data;
+            $scope.newComment = {};
             console.log(results.data);
          });     
     };
@@ -106,7 +109,6 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
    };
 
    $scope.setRating = function(id) {
-
         newRatingModel.creativeId = creativeId;
         newRatingModel.value = id;
         newRatingModel.userName = localStorageService.get('authorizationData').userName;
@@ -115,6 +117,8 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
             $scope.ratings = results.data;
             $scope.ratingsAvg = calcAvg();
             setPercentage();
+        }, function(error){
+            $scope.ratingError = "Error! You can't rate creative more than once!"
         });     
    };
 

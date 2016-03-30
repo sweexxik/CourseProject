@@ -3,6 +3,7 @@
         <div class="page-header text-center">
             <h1 class="form-login-heading">{{creative.name}}</h1>
 			<p class="form-login-heading">{{translation.AUTHOR}} : {{creative.userName}}</p>
+            <p class="form-login-heading">{{translation.CATEGORY}} : {{creative.category.name}}</p>
             <!-- RATING BEGIN -->
             <div class="container">
                 <div class="col-md-1">&nbsp;</div> 
@@ -102,144 +103,109 @@
                                     <!-- end 1 -->
                                 </div>
                                 <!-- end row -->
-                            </div>
+                            </div><span style="color: red">{{ratingError}}</span>
                         </div>
                     </div>
                 </div></div>
             <!-- RATING END -->
         </div>
         
-        <div class="container">
-      
-        <div class="widget--tags">
-            <a data-ng-repeat="tag in tags" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
-        </div>
-        <div class="text-center">
-            <button  data-ng-if="chapters.length > 0" class="btn btn-default" data-toggle="modal" data-target=".bs-example">
-                {{translation.READ_MODE}} 
-            </button><br>
-           
-        <div class="btn-group" data-toggle="buttons">   
-          <label ng-click="highlight(0)" class="btn btn-success ">
-                <input type="radio" name="options" id="option2" autocomplete="off">
-              80%  <span class="glyphicon glyphicon-ok"></span>
-            </label>
-
-          <label ng-click="highlight(1)" class="btn btn-primary">
-                <input type="radio" name="options" id="option3" autocomplete="off">
-               90% <span class="glyphicon glyphicon-ok"></span>
-            </label>      
-
-            <label ng-click="highlight(2)" class="btn btn-info active">
-                <input type="radio" name="options" id="option4" autocomplete="off" >
-                100%<span class="glyphicon glyphicon-ok"></span>
-            </label>  
-        </div>
-        
- 
-       
+        <div class="container">      
+            <div class="widget--tags">
+                <a data-ng-repeat="tag in tags" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
+            </div>
+            <div class="text-center">
+                <button  data-ng-if="chapters.length > 0" class="btn btn-default" data-toggle="modal" data-target=".bs-example">
+                    {{translation.READ_MODE}} 
+                </button><br>           
+                <div data-ng-if="chapters.length > 0" class="btn-group" data-toggle="buttons">   
+                    <label ng-click="highlight(0)" class="btn btn-success ">
+                        <input type="radio" name="options" id="option2" autocomplete="off">
+                      80%  <span class="glyphicon glyphicon-ok"></span>
+                    </label>
+                    <label ng-click="highlight(1)" class="btn btn-primary">
+                        <input type="radio" name="options" id="option3" autocomplete="off">
+                        90% <span class="glyphicon glyphicon-ok"></span>
+                    </label>      
+                    <label ng-click="highlight(2)" class="btn btn-info active">
+                        <input type="radio" name="options" id="option4" autocomplete="off" >
+                        100%<span class="glyphicon glyphicon-ok"></span>
+                    </label>  
+                </div>       
             </div> 
 
-            <div color-inspiration ng-model="targetClass" class="modal fade bs-example" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">          
-                  
+            <div color-inspiration ng-model="targetClass" class="modal fade bs-example" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">  
                 <div id="myCarousel" class="carousel slide" data-interval="6500" data-ride="carousel">      
                     <ol class="carousel-indicators">
                         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                         <li data-target="#myCarousel" data-slide-to="1"></li>
                         <li data-target="#myCarousel" data-slide-to="2"></li>
                     </ol>        
-               <div style="background-color: #fff" class="carousel-inner">   
-                <div class="item fill" data-ng-class="{active:!$index}" data-ng-repeat="chapter in chapters">
-                <div class="carousel-caption" style="position: relative;">  <button class="btn btn-primary-outline pull-right" style="margin-right: 20%; position: static;" data-dismiss="modal" data-target="#myCarousel">X</button>
-                <p align="center">{{translation.CHAPTER}}  #{{chapter.number}}&nbsp;{{chapter.name}}</p>
-                 </div>
-                
-                 <div  color-inspiration ng-model="targetClass" ng-bind-html="chapter.body">                       
-                 </div>   
-                                
-
-       
-    <span class="left carousel-control" data-target="#myCarousel" data-slide="prev" data-ng-click="storeChapterId(chapter.id)">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-    </span>
-    <span class="right carousel-control" data-target="#myCarousel" data-slide="next" data-ng-click="storeChapterId(chapter.id)">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-    </span>       
-    </div>  
-</div>
-</div>  
-</div>    
-       
-   
-   
-        <div ng-repeat="item in chapters">
-			<h1  align="center" class="form-login-heading">{{translation.CHAPTER}} #{{item.number}}: {{item.name}}</h1>	
-			<hr>
-            <div ng-bind-html="item.body">                       
-            </div>    
-			
-            <br><hr>
-
-		</div>	
-        <h2 class="text-center form-login-heading">{{translation.COMMENTS}}: {{comments.length}}</h2><hr><br>       
-        <span  data-ng-repeat="comment in comments" >   
-        <div class="col-md-12">
-            <div class="col-md-2">
-                <div class="thumbnail">
-                    <img class="img-responsive" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <strong>#{{$index+1}} {{comment.userName}}</strong> 
-                            <span class="text-muted">
-                            {{translation.COMMENTED}} {{comment.postDate.split('T')[0]}}  {{comment.postDate.split('T')[1].slice(0,-4) }}
-                            </span> 
-
+                    <div style="background-color: #fff;" class="carousel-inner">   
+                        <div style="min-height: 900px" class="item fill" data-ng-class="{active:!$index}" data-ng-repeat="chapter in chapters">
+                            <div class="carousel-caption" style="position: relative;">  <button class="btn btn-primary-outline pull-right" style="margin-right: 20%; position: static;" data-dismiss="modal" data-target="#myCarousel">X</button>
+                             
+                            </div>
+                               <p>{{translation.CHAPTER}}  #{{chapter.number}}&nbsp;{{chapter.name}}</p>
+                            <div  color-inspiration ng-model="targetClass" ng-bind-html="chapter.body">                       
+                            </div> 
+                            <span class="left carousel-control" data-target="#myCarousel" data-slide="prev" data-ng-click="storeChapterId(chapter.id)">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </span>
+                            <span class="right carousel-control" data-target="#myCarousel" data-slide="next" data-ng-click="storeChapterId(chapter.id)">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </span>       
+                        </div>  
                     </div>
-                    <div class="panel-body status-upload">
-                        {{comment.text}}                 
-                        <div data-ng-if="authentication.isAuth" class="status-upload"> 
-                             <ul class="pull-right">
-                             <button class="btn btn-primary-outline" style="position:absolute;top:0;right:0;margin-right: 2%" data-ng-if="comment.userName == authentication.userName " data-ng-click="deleteComment(comment.id)"> <i class="fa fa-times fa-2x"></i> </button>
-                                <li>
-                                   <a data-ng-click="setLike(comment.id)" title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Audio">
-                                        <i class="fa fa-2x fa-thumbs-o-up ">{{comment.likes.length}}</i>
-                                    </a>
-
-                                </li>
-                                                                                               
-                            </ul>
-
+                </div>  
+            </div>  
+            <div ng-repeat="item in chapters">
+    			<h1  align="center" class="form-login-heading">{{translation.CHAPTER}} #{{item.number}}: {{item.name}}</h1>	
+    			<hr>
+                <div ng-bind-html="item.body"></div>  
+                <br><hr>
+		    </div>	
+        <div class="comments-container">
+            <h2 data-ng-if="comments.length == 0" align="center">{{translation.NO_COMMENTS}}</h2>
+            <h2 data-ng-if="comments.length > 0" align="center">{{translation.COMMENTS}}: {{comments.length}}</h2>
+            <ul id="comments-list" class="comments-list">
+                <li data-ng-repeat="comment in comments">
+                    <div class="comment-main-level">
+                        <!-- Avatar -->
+                        <div class="comment-avatar"><img src="{{comment.avatarUri}}" alt=""></div>
+                        <!-- Contenedor del Comentario -->
+                        <div class="comment-box">
+                            <div class="comment-head">
+                                <h6 class="comment-name by-author"><a href="http://creaticode.com/blog">{{comment.userName}}</a></h6>
+                                <span> {{translation.COMMENTED}} {{comment.postDate.split('T')[0]}}  {{comment.postDate.split('T')[1].slice(0,-4) }}</span>
+                                <i data-ng-if="comment.userName == authentication.userName" data-ng-click="deleteComment(comment.id)" class="fa fa-2x fa-times"></i>
+                                <i data-ng-click="setLike(comment.id)" class="fa fa-2x fa-heart"> {{comment.likes.length}}</i>
+                            </div>
+                            <div class="comment-content">
+                                {{comment.text}}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </li>
+            </ul>
         </div>
-        </span>
         <div  class="text-center">
             <button type="button" class="btn btn-info" data-ng-click="showNewComment()"> {{translation.NEW_COMMENT}} </button>
-         </div>
-
-
-         <div class="row" data-ng-if="newComment != undefined">
-         <div class="col-md-3">&nbsp;</div>
-             <div class="col-md-6">
-             <div class="widget-area no-padding blank">
-                 <div class="status-upload">
-                    <form>
-                        <textarea data-ng-model="newComment.text" ></textarea>
-                                     
-                                        <button style="margin-top: 10px" type="button" data-ng-click="createComment()" class="btn btn-info"><i class="fa fa-share"></i>{{translation.PUBLISH}}</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>        
+        </div>
+        <div class="row" data-ng-if="newComment != undefined">
+                <div class="col-md-3">&nbsp;</div>
+                <div class="col-md-6">
+                    <div class="widget-area no-padding blank">
+                        <div class="status-upload">
+                            <form>
+                                <textarea data-ng-model="newComment.text" ></textarea>                                     
+                                <button style="margin-top: 10px" type="button" data-ng-click="createComment()" class="btn btn-info"><i class="fa fa-share"></i>{{translation.PUBLISH}}</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>        
+        </div>
     </div>
-</div>
-
-
  </div>
 
 

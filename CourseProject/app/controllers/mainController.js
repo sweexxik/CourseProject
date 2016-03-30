@@ -5,16 +5,16 @@ app.controller('mainController', ['$scope','creativeService','searchService','$l
     $scope.creatives = [];
     $scope.tags = [];
     $scope.allCreatives = [];
+    $scope.categories = [];
 
     $scope.mostPopularCreatives = [];
     $scope.mostRatedCreatives = [];
-
-    var delimiter = 0;
-    var init = true;
-
-
+ 
     $scope.sortType = 'id';
     $scope.sortReverse = false;
+
+   var delimiter = 0;
+    var init = true;
 
     creativeService.getMostPopularCreatives().then(function (results) {
         $scope.mostPopularCreatives = results.data;
@@ -23,11 +23,22 @@ app.controller('mainController', ['$scope','creativeService','searchService','$l
             console.log(error);
         });
 
-     // creativeService.getMostRatedCreatives().then(function (results) {
-     //    $scope.mostRatedCreatives = results.data;
-     //    }, function (error) {
-     //        console.log(error);
-     //    });
+    creativeService.getMostRatedCreatives().then(function (results) {
+        $scope.mostRatedCreatives = results.data;
+        }, function (error) {
+            console.log(error);
+        });
+
+    creativeService.getCategories().then(function (results) {
+        $scope.categories = results.data;
+        }, function (error) {
+            console.log(error);
+        });
+
+       $scope.search = function(pattern) {          
+            searchService.setSearchPattern(pattern);
+            $location.path('/search');
+        };  
 
     var getInitialCreatives = function (){      
         creativeService.getPartialCreatives(0).then(function (results) {  

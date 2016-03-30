@@ -85,7 +85,7 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/chapters.html"
     });
 
-     $routeProvider.when("/search/", {
+     $routeProvider.when("/search/:categoryId", {
         controller: "searchController",
         templateUrl: "/app/views/search.html"
     });   

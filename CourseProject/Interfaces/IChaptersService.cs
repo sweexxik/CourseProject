@@ -9,9 +9,7 @@ namespace CourseProject.Interfaces
         Task<NewChapterModel> GetChapter(int chapterId);
 
         Task<IEnumerable<NewChapterModel>> DeleteChapter(int chapterId);
-
-        Task SetChaptersPositions(IEnumerable<NewChapterModel> chapters);
-
+        
         bool AddOrUpdateChapter(NewChapterModel model);
     }
 }

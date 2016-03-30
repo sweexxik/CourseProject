@@ -18,8 +18,7 @@ namespace CourseProject.Models
 
         [Required]
         public int CreativeId { get; set; }
-
-        [Required]
+   
         public string CreatedOn { get; set; }
 
         [Required]

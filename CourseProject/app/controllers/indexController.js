@@ -50,7 +50,7 @@ app.controller('indexController', ['$http', '$scope', '$location', 'authService'
         $scope.search = function() {
             console.log($scope.pattern);
             searchService.setSearchPattern($scope.pattern);
-            $location.path('/search');
+            $location.path('/search/0');
         };  
         
         $scope.setEN = function() {

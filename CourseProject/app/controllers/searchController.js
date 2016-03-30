@@ -1,11 +1,27 @@
 'use strict';
-app.controller('searchController', ['$http','$scope', '$location','searchService',
-    function ($http,$scope, $location, searchService) {
+app.controller('searchController', ['$routeParams','$scope', '$location','searchService',
+    function ($routeParams,$scope, $location, searchService) {
   
     $scope.results = [];
     $scope.loading = false;
     $scope.message = '';
-    $scope.savedSuccessfully = false;         
+    $scope.savedSuccessfully = false;  
+
+    var categoryId = $routeParams.categoryId;
+    
+    if(categoryId != 0){
+        searchService.searchByCategory(categoryId).then(function(results){
+            $scope.results = results.data;
+            $scope.loading = false;
+            $scope.savedSuccessfully = true;          
+            $scope.message = "Creatives found: " + results.data.length;
+        }, function(error){
+            console.log(error);
+            $scope.savedSuccessfully = false;      
+            $scope.loading = false;    
+            $scope.message = error.data.message;
+        });
+    }
 
     $scope.pattern = searchService.getSearchPattern();
 

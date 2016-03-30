@@ -27,5 +27,7 @@ namespace CourseProject.Interfaces
         IEnumerable<NewCreativeModel> GetMostPopularCreatives();
 
         IEnumerable<NewCreativeModel> GetMostRatedCreatives();
+
+        IEnumerable<NewCreativeModel> SearchCreativesByCategory(int categoryId);
     }
 }

@@ -27,6 +27,8 @@ namespace CourseProject.Models
 
         public double AvgRating { get; set; }
 
+        public string AvatarUri { get; set; }
+
         public CreativeCategory Category { get; set; }
 
         public ICollection<Chapter> Chapters { get; set; }

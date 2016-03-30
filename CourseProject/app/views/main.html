@@ -1,20 +1,25 @@
 ﻿<!-- <div class="container"> -->
+  <div class="banner">
+        <div class="container">
+      <div class="logo">
+        <a href="index.html"><img src="images/logo.png" class="img-responsive" alt="" /></a>
+      </div>   
+    </div>  
+  </div>
 <div class="col-md-12 ">
     <div class="col-md-9">
    <div class="widget--tags text-center">
             <a data-ng-repeat="tag in tags | orderBy: 'count' : true" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
   </div>
 
-
-      <hr style="opacity: 0">
+  <hr style="opacity: 0">
     
-   <div style="height: 400x; overflow: auto;" infinite-scroll='loadMore()'>
-  
-  <div class='container' >
+  <div style="height: 400x; overflow: auto;" infinite-scroll='loadMore()'>
 
-  <div class="col-md-12 text-center margin-bottom-30"  data-ng-repeat="creative in creatives | orderBy:sortType:sortReverse ">
+  <div class='container'>
+  <div class="col-md-12 text-center margin-bottom-30"  data-ng-repeat="creative in creatives">
+   <!-- | orderBy:sortType:sortReverse "> -->
   <div class="travelling">
-
       <div class="col-md-10 travelling1 text-center">
         <h1><a data-ng-href="#/show/{{creative.id}}">{{creative.name}}</a></h1>
         <h5 align="center">{{translation.CREATED}}<a href="#">{{creative.userName}}</a>{{creative.created}}</h5>
@@ -45,34 +50,41 @@
     <h3>{{translation.MOST_POPULAR}}</h3>
     <div data-ng-repeat="popular in mostPopularCreatives" class="blo-top">
       <div class="blog-grids">
+         <p align="center"> #{{$index+1}}</p>
         <div class="blog-grid-left">
-          <a href="single.html"><img src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1459020733/dngdz6hybjvkiqrgue3n.jpg" class="img-responsive" alt=""></a>
+          <a data-ng-href="#/show/{{popular.id}}"><img src="{{popular.avatarUri}}" class="img-responsive" alt=""></a>
+          <p align="center">Author: {{popular.userName}}</p>
         </div>
         <div class="blog-grid-right">
-          <h4><a href="single.html">{{popular.name}}</a></h4>
-          <p>pellentesque dui, non felis. Maecenas male </p>
+          <h4 align="center"><a data-ng-href="#/show/{{popular.id}}">{{popular.name}}</a></h4>
+          <p align="center">{{popular.description}}</p>
         </div>
         <div class="clearfix"> </div>
       </div> 
       </div>  
      
     <h3>{{translation.MOST_RATED}}</h3>
-    <div class="blo-top">
-      <li><a href="#">||   Lorem Ipsum passage</a></li>
-      <li><a href="#">||   Finibus Bonorum et</a></li>
-      <li><a href="#">||   Treatise on the theory</a></li>
-      <li><a href="#">||   Characteristic words</a></li>
-      <li><a href="#">||   combined with a handful</a></li>
-      <li><a href="#">||   which looks reasonable</a></li>
-    </div>
+   <div data-ng-repeat="rated in mostRatedCreatives" class="blo-top">
+    <p align="center"> #{{$index+1}}</p>
+      <div class="blog-grids">
+        <div class="blog-grid-left">
+          <p align="center">Author: {{rated.userName}}</p>
+          <a data-ng-href="#/show/{{rated.id}}"><img data-ng-src="{{rated.avatarUri}}" class="img-responsive" alt=""></a>         
+        </div>
+        <div class="blog-grid-right">
+
+          <h4 align="center"><a data-ng-href="#/show/{{rated.id}}">{{rated.name}}</a></h4>
+          <p align="center">{{rated.description}}</p>
+        </div>
+        <div class="clearfix"> </div>
+      </div> 
+      </div>  
+   
+
     <h3>{{translation.CATEGORIES}}</h3>
     <div class="blo-top">
-      <li><a href="#">||   Lorem Ipsum passage</a></li>
-      <li><a href="#">||   Finibus Bonorum et</a></li>
-      <li><a href="#">||   Treatise on the theory</a></li>
-      <li><a href="#">||   Characteristic words</a></li>
-      <li><a href="#">||   combined with a handful</a></li>
-      <li><a href="#">||   which looks reasonable</a></li>
+      <li data-ng-repeat="category in categories"><a data-ng-href="#/search/{{category.id}}">{{category.name}}</a></li>
+      
     </div>
     <h3>Newsletter</h3>
     

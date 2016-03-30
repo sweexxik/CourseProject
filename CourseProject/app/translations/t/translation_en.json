@@ -48,5 +48,7 @@
   "MOST_POPULAR":"Most popular",
   "CATEGORIES": "Categories",
   "READ_MORE":"Read more",
-  "CREATED":"Created by "
+  "CREATED":"Created by ",
+    "CATEGORY":"Category",
+    "NO_COMMENTS":"No comments"
 }

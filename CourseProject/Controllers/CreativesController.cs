@@ -26,6 +26,15 @@ namespace CourseProject.Controllers
 
         [AllowAnonymous]
         [HttpGet]
+        [ValidateViewModel]
+        [Route("api/creatives/searchByCategory/{categoryId}")]
+        public IHttpActionResult SearchByCategory(int categoryId)
+        {
+            return Ok(service.SearchCreativesByCategory(categoryId));
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
         [Route("api/creatives/getall")]
         public IHttpActionResult GetAllCreatives()
         {
@@ -54,7 +63,6 @@ namespace CourseProject.Controllers
             var result = await service.GetCreativeById(id);
 
             return result != null ? Ok(result) : GetErrorResult(false);
-
         }
 
         [HttpPost]

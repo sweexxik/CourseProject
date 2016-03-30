@@ -15,6 +15,8 @@ namespace CourseProject.Models
 
         public DateTime PostDate { get; set; }
 
+        public string AvatarUri { get; set; }
+
         public ICollection<NewLikeModel> Likes { get; set; }
 
     }

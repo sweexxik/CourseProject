@@ -37,21 +37,6 @@ namespace CourseProject.Services
 
         }
 
-        public async Task SetChaptersPositions(IEnumerable<NewChapterModel> chapters)
-        {
-            //todo check if one of chapters has null field
-
-            foreach (var chapter in chapters)
-            {
-                var ch = await db.Chapters.Get(chapter.Id);
-                ch.Number = chapter.Number;
-            }
-
-            db.Save();
-
-
-        }
-
         public bool AddOrUpdateChapter(NewChapterModel model)
         {
             var chapter = InitChapter(model);

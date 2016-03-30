@@ -114,6 +114,15 @@ namespace CourseProject.Services
             return InitCreativesModel(results);
         }
 
+        public IEnumerable<NewCreativeModel> SearchCreativesByCategory(int categoryId)
+        {
+            var results = db.Creatives.Find(x => x.Category.Id == categoryId);
+
+            return InitCreativesModel(results);
+        }
+
+        
+
         public async Task<NewCreativeModel> GetCreativeById(int id)
         {
             var result = await db.Creatives.Get(id);
@@ -134,7 +143,7 @@ namespace CourseProject.Services
 
         public IEnumerable<NewCreativeModel> GetAllCreatives()
         {
-            return InitCreativesModel(db.Creatives.GetAll().ToList());
+            return InitCreativesModel(db.Creatives.GetAll().OrderBy(x=>x.Created).ToList());
         }
 
         public void Dispose(bool disposing)
@@ -147,7 +156,7 @@ namespace CourseProject.Services
 
         public IEnumerable<NewCreativeModel> GetPartialCreatives(int delimiter)
         {
-            var all = db.Creatives.GetAll().ToList();
+            var all = db.Creatives.GetAll().Reverse().ToList();
 
             var countPerPart = all.Count/5;
 
@@ -160,14 +169,16 @@ namespace CourseProject.Services
         {
             var all = db.Creatives.GetAll().OrderBy(x => x.Comments.Count);
 
-            return InitCreativesModel(all.Skip(all.Count() - 5));
+            return InitCreativesModel(all.Skip(all.Count() - 5)).Reverse();
         }
 
         public IEnumerable<NewCreativeModel> GetMostRatedCreatives()
         {
-            var all = db.Creatives.GetAll().OrderBy(x => x.Rating.Select(y => y.Value));
+            var all = InitCreativesModel(db.Creatives.GetAll()).ToList();
 
-            return InitCreativesModel(all);
+            var res = all.OrderBy(x => x.AvgRating).Skip(all.Count - 5).Reverse();
+
+            return res;
         }
 
 
@@ -207,7 +218,8 @@ namespace CourseProject.Services
                 Rating = creative.Rating,
                 Tags = creative.Tags,
                 Created = creative.Created.ToShortDateString() + " " + creative.Created.ToShortTimeString(),
-                AvgRating = creative.Rating.Any() ? creative.Rating.Average(x => x.Value) : 0
+                AvgRating = creative.Rating.Any() ? creative.Rating.Average(x => x.Value) : 0,
+                AvatarUri = creative.User.AvatarUri
           };
         }
 
@@ -225,7 +237,9 @@ namespace CourseProject.Services
                 Rating = creative.Rating,
                 Tags = creative.Tags,
                 Created = creative.Created.ToShortDateString() + " " + creative.Created.ToShortTimeString(),
-                AvgRating = creative.Rating.Any() ? creative.Rating.Average(x=>x.Value) : 0
+                AvgRating = creative.Rating.Any() ? creative.Rating.Average(x=>x.Value) : 0,
+                AvatarUri = creative.User.AvatarUri
+
             }).ToList();
         }
 
@@ -281,6 +295,19 @@ namespace CourseProject.Services
             }
 
             return searchResults;
+        }
+
+        public class CompareRatings : IComparer<Rating>
+        {
+            // Because the class implements IComparer, it must define a 
+            // Compare method. The method returns a signed integer that indicates 
+            // whether s1 > s2 (return is greater than 0), s1 < s2 (return is negative),
+            // or s1 equals s2 (return value is 0). This Compare method compares strings. 
+            
+            public int Compare(Rating x, Rating y)
+            {
+                return x.Value - y.Value;
+            }
         }
     }
 }
