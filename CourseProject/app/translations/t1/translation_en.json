@@ -44,9 +44,5 @@
   "CHANGE_PASSWORD":"Change password",
   "OLD_PASS":"Old password",
   "NEW_PASS":"New password",
-  "MOST_RATED":"Most rated",
-  "MOST_POPULAR":"Most popular",
-  "CATEGORIES": "Categories",
-  "READ_MORE":"Read more",
-  "CREATED":"Created by "
+  "MOST_POPULAR":"Most popular"
 }

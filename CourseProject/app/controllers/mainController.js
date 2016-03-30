@@ -5,12 +5,29 @@ app.controller('mainController', ['$scope','creativeService','searchService','$l
     $scope.creatives = [];
     $scope.tags = [];
     $scope.allCreatives = [];
+
+    $scope.mostPopularCreatives = [];
+    $scope.mostRatedCreatives = [];
+
     var delimiter = 0;
     var init = true;
 
 
     $scope.sortType = 'id';
     $scope.sortReverse = false;
+
+    creativeService.getMostPopularCreatives().then(function (results) {
+        $scope.mostPopularCreatives = results.data;
+        console.log(results.data);
+        }, function (error) {
+            console.log(error);
+        });
+
+     // creativeService.getMostRatedCreatives().then(function (results) {
+     //    $scope.mostRatedCreatives = results.data;
+     //    }, function (error) {
+     //        console.log(error);
+     //    });
 
     var getInitialCreatives = function (){      
         creativeService.getPartialCreatives(0).then(function (results) {  

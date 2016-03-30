@@ -156,6 +156,22 @@ namespace CourseProject.Services
             return res;
         }
 
+        public IEnumerable<NewCreativeModel> GetMostPopularCreatives()
+        {
+            var all = db.Creatives.GetAll().OrderBy(x => x.Comments.Count);
+
+            return InitCreativesModel(all.Skip(all.Count() - 5));
+        }
+
+        public IEnumerable<NewCreativeModel> GetMostRatedCreatives()
+        {
+            var all = db.Creatives.GetAll().OrderBy(x => x.Rating.Select(y => y.Value));
+
+            return InitCreativesModel(all);
+        }
+
+
+
         private async Task<Creative> InitNewCreative(NewCreativeModel model)
         {
             var creative = new Creative

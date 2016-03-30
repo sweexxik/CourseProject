@@ -1,58 +1,96 @@
-﻿<div class="container">
-    <div class="page-header text-center">
-        <h1>{{translation.MAIN_TEXT}}</h1>
-      </div>
-
+﻿<!-- <div class="container"> -->
 <div class="col-md-12 ">
-    
+    <div class="col-md-9">
    <div class="widget--tags text-center">
             <a data-ng-repeat="tag in tags | orderBy: 'count' : true" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
-        </div>
-</div>
-     <div class="col-md-12">
-        <div class="pull-right">      
-            <div class="btn-group">
-                <button class="btn btn-success btn-filter" data-ng-click="sortType = 'created'; sortReverse = !sortReverse">
-                   {{translation.DATE}}
-                <span ng-show="sortType == 'created' && sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'created' && !sortReverse" class="fa fa-caret-up"></span></button>
-                <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'avgRating';sortReverse = !sortReverse"> {{translation.RATING}}
-                 <span ng-show="sortType == 'avgRating' && sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'avgRating' && !sortReverse" class="fa fa-caret-up"></span>
-                </button>
-                 <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'popular';sortReverse = !sortReverse"> {{translation.POPULAR}}
-                 <span ng-show="sortType == 'popular' && sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'popular' && !sortReverse" class="fa fa-caret-up"></span>
-                </button>
-            </div>
-       </div>  
-      </div>
-      </div>
+  </div>
+
+
       <hr style="opacity: 0">
     
    <div style="height: 400x; overflow: auto;" infinite-scroll='loadMore()'>
-  <div >
+  
+  <div class='container' >
 
-    <div class="col-md-12 text-center margin-bottom-30"  data-ng-repeat="creative in creatives | orderBy:sortType:sortReverse ">
-        <div >
-        <div class="col-md-2">&nbsp;</div>
-        <div class="col-md-8" class="portlet portlet-bordered">
-            <div class="portlet-title">
-                <div class="caption caption-red">
-                    <i class="glyphicon glyphicon-cog"></i>
-                    <span class="caption-subject text-uppercase">{{creative.name}}</span>
-                    <span class="caption-helper">{{creative.created}}</span>
-                </div>
-                <div class="actions">  
-                    <a ng-href="#/show/{{creative.id}}" class="btn"><i class="glyphicon glyphicon-align-justify"></i>{{translation.SHOW}}</a>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <h4>{{creative.description}}</h4>
-                <p data-ng-repeat="chapter in creative.chapters">{{$index + 1}}. {{chapter.name}}</p>
-            </div>
+  <div class="col-md-12 text-center margin-bottom-30"  data-ng-repeat="creative in creatives | orderBy:sortType:sortReverse ">
+  <div class="travelling">
+
+      <div class="col-md-10 travelling1 text-center">
+        <h1><a data-ng-href="#/show/{{creative.id}}">{{creative.name}}</a></h1>
+        <h5 align="center">{{translation.CREATED}}<a href="#">{{creative.userName}}</a>{{creative.created}}</h5>
+        <p>{{creative.description}}</p>
+        <p data-ng-repeat="chapter in creative.chapters">{{$index + 1}}. {{chapter.name}}</p>
+          <div class="col-md-12">
+        <p><a class="more" data-ng-href="#/show/{{creative.id}}">{{translation.READ_MORE}}</a></p>
+      </div>
+      </div>
+      <div class="col-md-2 travelling2">
+        <h3>{{creative.comments.length}}</h3>
+        <a href="#">Comments</a>
+      </div>
+      <div class="col-md-2 travelling2">
+        <h3>{{creative.avgRating}}</h3>
+        <a>Rating</a>
+      </div>
+      <div class="clearfix"> </div>
+  </div>
+  </div>
+  </div>
+  </div>  
+  </div> 
+
+  <div class="col-md-3 bann-left">
+    <div class="b-search">     
+    </div>
+    <h3>{{translation.MOST_POPULAR}}</h3>
+    <div data-ng-repeat="popular in mostPopularCreatives" class="blo-top">
+      <div class="blog-grids">
+        <div class="blog-grid-left">
+          <a href="single.html"><img src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1459020733/dngdz6hybjvkiqrgue3n.jpg" class="img-responsive" alt=""></a>
         </div>
+        <div class="blog-grid-right">
+          <h4><a href="single.html">{{popular.name}}</a></h4>
+          <p>pellentesque dui, non felis. Maecenas male </p>
+        </div>
+        <div class="clearfix"> </div>
+      </div> 
+      </div>  
+     
+    <h3>{{translation.MOST_RATED}}</h3>
+    <div class="blo-top">
+      <li><a href="#">||   Lorem Ipsum passage</a></li>
+      <li><a href="#">||   Finibus Bonorum et</a></li>
+      <li><a href="#">||   Treatise on the theory</a></li>
+      <li><a href="#">||   Characteristic words</a></li>
+      <li><a href="#">||   combined with a handful</a></li>
+      <li><a href="#">||   which looks reasonable</a></li>
     </div>
+    <h3>{{translation.CATEGORIES}}</h3>
+    <div class="blo-top">
+      <li><a href="#">||   Lorem Ipsum passage</a></li>
+      <li><a href="#">||   Finibus Bonorum et</a></li>
+      <li><a href="#">||   Treatise on the theory</a></li>
+      <li><a href="#">||   Characteristic words</a></li>
+      <li><a href="#">||   combined with a handful</a></li>
+      <li><a href="#">||   which looks reasonable</a></li>
     </div>
+    <h3>Newsletter</h3>
+    
+    <div class="blo-top">
+      <div class="name">
+        <form>
+          <input type="text" placeholder="email" required="">
+        </form>
+      </div>  
+      <div class="button">
+        <form>
+          <input type="submit" value="Subscribe">
+        </form>
+      </div>
+        <div class="clearfix"> </div>
     </div>
-</div>
+  </div>
+  <!-- </div> -->
+  
+  <div class="col-md-12">DOWNTOWN</div>
+  </div>

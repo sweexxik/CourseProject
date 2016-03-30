@@ -21,6 +21,16 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             .then(function (results) { return results; });
     };
 
+    var _getMostPopularCreatives = function () {       
+        return $http.get(serviceBase + 'api/creatives/popular/')
+            .then(function (results) { return results; });
+    };
+
+    var _getMostRatedCreatives = function () {       
+        return $http.get(serviceBase + 'api/creatives/rated/')
+            .then(function (results) { return results; });
+    };
+
     var _getCreative = function (id) {        
         return $http.get(serviceBase + 'api/creatives/' +id)
             .then(function (results) { return results; });
@@ -202,6 +212,9 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
 
     creativesServiceFactory.sortChapters = _sortChapters;
 
-    return creativesServiceFactory;
+    creativesServiceFactory.getMostPopularCreatives = _getMostPopularCreatives
+    creativesServiceFactory.getMostRatedCreatives = _getMostRatedCreatives;
+
+    return creativesServiceFactory; 
 
 }]);

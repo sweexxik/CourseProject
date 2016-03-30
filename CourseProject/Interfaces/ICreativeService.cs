@@ -23,5 +23,9 @@ namespace CourseProject.Interfaces
         void Dispose(bool disposing);
 
         IEnumerable<NewCreativeModel> GetPartialCreatives(int delimiter);
+
+        IEnumerable<NewCreativeModel> GetMostPopularCreatives();
+
+        IEnumerable<NewCreativeModel> GetMostRatedCreatives();
     }
 }

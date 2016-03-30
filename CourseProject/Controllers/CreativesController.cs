@@ -91,6 +91,20 @@ namespace CourseProject.Controllers
             return Ok(service.GetPartialCreatives(delimiter));
         }
 
+        [HttpGet]
+        [Route("api/creatives/popular")]
+        public IHttpActionResult GetMostPopularCreatives()
+        {
+            return Ok(service.GetMostPopularCreatives());
+        }
+
+        [HttpGet]
+        [Route("api/creatives/rated")]
+        public IHttpActionResult GetMostRatedCreatives()
+        {
+            return Ok(service.GetMostRatedCreatives());
+        }
+
         protected override void Dispose(bool disposing)
         {
             service.Dispose(disposing);
