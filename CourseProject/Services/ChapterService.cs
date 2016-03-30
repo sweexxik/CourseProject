@@ -31,10 +31,7 @@ namespace CourseProject.Services
 
                 return InitChaptersViewModel(db.Chapters.Find(x => x.CreativeId == chapter.CreativeId));
             }
-
             return null;
-
-
         }
 
         public bool AddOrUpdateChapter(NewChapterModel model)
@@ -46,7 +43,44 @@ namespace CourseProject.Services
             db.Save();
 
             return true;
+        }
 
+        public async Task SetRememberedChapter(RememberChapterModel model)
+        {
+            var user = await db.Users.FindUser(model.UserName);
+
+            var userStoredChapters = db.ChapterStore.Find(x => x.ApplicationUserId == user.Id).ToList();
+
+            var isAlreadyExist = userStoredChapters.Any(x => x.CreativeId == model.CreativeId);
+
+            if (!isAlreadyExist)
+            {
+                db.ChapterStore.Add(new ChapterStore
+                {
+                    ChapterId = model.ChapterId,
+                    CreativeId = model.CreativeId,
+                    ApplicationUserId = user.Id
+                });
+            }
+            else
+            {
+                var chapter = userStoredChapters.First(x => x.CreativeId == model.CreativeId);
+
+                chapter.ChapterId = model.ChapterId;
+            }
+
+            db.Save();
+        }
+
+        public async Task<ChapterStore> GetRememberedChapter(RememberChapterModel model)
+        {
+            var user = await db.Users.FindUser(model.UserName);
+
+            var userStoredChapters = db.ChapterStore.Find(x => x.ApplicationUserId == user.Id).ToList();
+
+            var isAlreadyExist = userStoredChapters.Any(x => x.CreativeId == model.CreativeId);
+
+            return isAlreadyExist ? userStoredChapters.First(x => x.CreativeId == model.CreativeId) : null;
         }
 
         public async Task<NewChapterModel> GetChapter(int id)
@@ -64,14 +98,12 @@ namespace CourseProject.Services
             {
                 db.Chapters.Update(chapter);
             }
-
             db.Save();
         }
 
 
         private static Chapter InitChapter(NewChapterModel model)
         {
-
             return new Chapter
             {
                 Id = model.Id,
@@ -83,7 +115,7 @@ namespace CourseProject.Services
             };
         }
 
-        private static NewChapterModel InitChapterViewModel(Chapter chapter)
+        public NewChapterModel InitChapterViewModel(Chapter chapter)
         {
             if (chapter != null)
             {
@@ -98,7 +130,6 @@ namespace CourseProject.Services
                     Edit = false
                 };
             }
-
             return new NewChapterModel();
         }
 
@@ -114,9 +145,6 @@ namespace CourseProject.Services
                 CreatedOn = c.Created.ToString(CultureInfo.CurrentCulture),
                 Edit = false
             });
-               
-
-          
         }
     }
 }

@@ -16,11 +16,13 @@ namespace CourseProject.Services
 
         private readonly IUnitOfWork db;
         private readonly IMedalService medalService;
+        private readonly IChaptersService chapterService;
 
-        public CreativeService(IUnitOfWork repo, IMedalService medal)
+        public CreativeService(IUnitOfWork repo, IMedalService medal, IChaptersService chapterServ)
         {
             db = repo;
             medalService = medal;
+            chapterService = chapterServ;
         }
 
         public async Task<NewCreativeModel> UpdateCreative(NewCreativeModel model)
@@ -31,10 +33,10 @@ namespace CourseProject.Services
 
             creative.Description = model.Description;
 
-            db.Chapters.RemoveRange(db.Chapters.Find(x=>x.CreativeId == model.Id));
-
-            creative.Chapters = model.Chapters;
-         
+            foreach (var chapter in model.Chapters)
+            {
+                chapterService.AddOrUpdateChapter(chapterService.InitChapterViewModel(chapter));
+            }
 
             foreach (var newTag in model.Tags.Where(newTag => newTag.Id == 0))
             {

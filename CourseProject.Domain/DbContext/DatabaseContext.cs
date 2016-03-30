@@ -20,5 +20,6 @@ namespace CourseProject.Domain.DbContext
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Medal> Medals { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<ChapterStore> ChapterStore { get; set; }
     }
 }

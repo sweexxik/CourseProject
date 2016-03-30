@@ -112,7 +112,9 @@ i.aeroplane{
 }
 .travelling{
 	margin:2em 0em 0em;
-	border-bottom:1px solid #E4E3E3;
+
+	border-bottom:5px solid #E4E3E3;
+
 }
 .travelling1 h1 a{
 	font-size:1em;

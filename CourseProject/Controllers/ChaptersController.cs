@@ -43,5 +43,25 @@ namespace CourseProject.Controllers
 
             return result != null ? Ok(result) : GetErrorResult(false);
         }
+
+        [HttpPost]
+        [ValidateViewModel]
+        [Route("api/chapters/remember")]
+        public async Task<IHttpActionResult> RememberChapter(RememberChapterModel model)
+        {
+            await service.SetRememberedChapter(model);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [ValidateViewModel]
+        [Route("api/chapters/getRememberedChapter")]
+        public async Task<IHttpActionResult> GetRememberedChapter(RememberChapterModel model)
+        {
+            var result =  await service.GetRememberedChapter(model);
+
+            return result != null ? Ok(result) : GetErrorResult(false);
+        }
     }
 }

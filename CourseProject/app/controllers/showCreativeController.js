@@ -10,6 +10,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
     $scope.comments = [];
     $scope.tags = [];
     $scope.ratings = [];
+    $scope.storedChapterId = 0;
     
     $scope.percentage1 = 0;
     $scope.percentage2 = 0;
@@ -24,6 +25,8 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
     var creativeId = $routeParams.Id; 
 
     var savedChapter = 0;
+
+    var currentUserName = localStorageService.get('authorizationData').userName;
 
     var newCommentModel = {
         Id:0,
@@ -44,26 +47,41 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         userName:""
     };
 
+    var rememberChapterModel = {
+        chapterId:0,
+        creativeId: creativeId,
+        userName: currentUserName
+    }
+
     $scope.storeChapterId = function(id){
-        savedChapter++;       
-    }  
+        rememberChapterModel.chapterId = id;
+        rememberChapterModel.creativeId = creativeId;
+        rememberChapterModel.userName = currentUserName;// localStorageService.get('authorizationData').userName;  
+        creativeService.rememberChapter(rememberChapterModel).then(function(results){
+            console.log(results);
+        });    
+    };    
     
     creativeService.getCreative(creativeId).then(function (results) {
         initCreative(results.data);       
-        }, function (error) {
+    }, function (error) {
             console.log(error);
-        });
+    });
 
     creativeService.getComments(creativeId).then(function(result){
         $scope.comments = result.data;
-       }, function(error){
+    }, function(error){
         console.log(error);
-        });
+    });
 
     creativeService.getCreativeTags(creativeId).then(function(result){
         $scope.tags = result.data;      
     }, function(error){
         console.log(error);
+    });
+
+    creativeService.getRememberedChapter(rememberChapterModel).then(function(results){
+         $scope.storedChapterId = results.data.chapterId;         
     });
 
      $scope.showNewComment = function(){
@@ -95,7 +113,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
 
     $scope.setLike = function(id){
         var commentId = id;
-        newLikeModel.userName = localStorageService.get('authorizationData').userName;
+        newLikeModel.userName = currentUserName; // localStorageService.get('authorizationData').userName;
         newLikeModel.commentId = commentId;
 
         creativeService.createLike(newLikeModel).then(function(result){
@@ -111,7 +129,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
    $scope.setRating = function(id) {
         newRatingModel.creativeId = creativeId;
         newRatingModel.value = id;
-        newRatingModel.userName = localStorageService.get('authorizationData').userName;
+        newRatingModel.userName = currentUserName;//localStorageService.get('authorizationData').userName;
 
         creativeService.createRating(newRatingModel).then(function(results){          
             $scope.ratings = results.data;
@@ -125,6 +143,36 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
    $scope.search = function(pattern){
          searchService.setSearchPattern(pattern);
         $location.path('/search');
+    };
+
+    $scope.setInitChapter = function(){
+        var tempNumber = 0;
+        var tempArray = [];
+        console.log("setInitChapter");
+        console.log($scope.storedChapterId);
+        for (var i = 0; i < $scope.chapters.length; i++) {
+            if ($scope.chapters[i].id == $scope.storedChapterId){
+                tempNumber = $scope.chapters[i].number;
+                tempArray.push($scope.chapters[i]);  
+                delete $scope.chapters[i]; 
+                
+                for (var i = 0; i < $scope.chapters.length; i++) {
+                    if ( $scope.chapters[i] != undefined && $scope.chapters[i].number > tempNumber ){
+                        console.log($scope.chapters[i].number)
+                        tempArray.push($scope.chapters[i]);
+                        delete $scope.chapters[i];  
+                        }
+                    }              
+                }             
+        }   
+        var res = tempArray.concat($scope.chapters);
+        var temp = [];
+        for (var i = 0; i < res.length; i++) {
+               if ( res[i] !== undefined ) {
+                    temp.push(res[i]);
+            }
+        }
+        $scope.chapters = temp;      
     };
 
     var calcAvg = function (){        
@@ -157,7 +205,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
    }
 
    var initComment = function(){
-        newCommentModel.userName = localStorageService.get('authorizationData').userName;   
+        newCommentModel.userName = currentUserName// localStorageService.get('authorizationData').userName;   
         newCommentModel.text = $scope.newComment.text;
         newCommentModel.creativeId = creativeId;
    };   

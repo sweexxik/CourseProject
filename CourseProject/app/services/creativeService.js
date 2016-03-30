@@ -166,6 +166,22 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
         });
     };
 
+    var _rememberChapter = function (data) {   
+         return $http.post(serviceBase + '/api/chapters/remember', JSON.stringify(data),{
+        headers: { contentType: 'application/json; charset=utf-8', dataType: "json" }    
+        }).then(function(results){
+            return results;
+        });
+    };
+
+    var _getRememberedChapter = function (data) {   
+         return $http.post(serviceBase + '/api/chapters/getRememberedChapter', JSON.stringify(data),{
+        headers: { contentType: 'application/json; charset=utf-8', dataType: "json" }    
+        }).then(function(results){
+            return results;
+        });
+    };
+
     var _sortChapters = function(creatives) {
             var sorted = {},
             a = [];     
@@ -194,7 +210,7 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.saveTag = _saveTag;
     creativesServiceFactory.saveChapter = _saveChapter;
     creativesServiceFactory.saveRating = _saveRating;
-     creativesServiceFactory.saveComment = _saveComment
+    creativesServiceFactory.saveComment = _saveComment
 
     creativesServiceFactory.createCreative = _createCreative;
     creativesServiceFactory.createComment = _createComment;
@@ -214,6 +230,9 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
 
     creativesServiceFactory.getMostPopularCreatives = _getMostPopularCreatives
     creativesServiceFactory.getMostRatedCreatives = _getMostRatedCreatives;
+
+    creativesServiceFactory.rememberChapter = _rememberChapter;
+    creativesServiceFactory.getRememberedChapter = _getRememberedChapter
 
     return creativesServiceFactory; 
 

@@ -35,10 +35,7 @@ app.controller('mainController', ['$scope','creativeService','searchService','$l
             console.log(error);
         });
 
-       $scope.search = function(pattern) {          
-            searchService.setSearchPattern(pattern);
-            $location.path('/search');
-        };  
+     
 
     var getInitialCreatives = function (){      
         creativeService.getPartialCreatives(0).then(function (results) {  
@@ -102,7 +99,7 @@ app.controller('mainController', ['$scope','creativeService','searchService','$l
 
     $scope.search = function(pattern){
          searchService.setSearchPattern(pattern);
-        $location.path('/search');
+        $location.path('/search/0');
     };
 
 }]);

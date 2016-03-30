@@ -86,6 +86,7 @@
     <Compile Include="DbContext\FtsInterseptor.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Chapter.cs" />
+    <Compile Include="Entities\ChapterStore.cs" />
     <Compile Include="Entities\Creative.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\CreativeCategory.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ChaptersRepository.cs" />
+    <Compile Include="Repositories\ChapterStoreRepository.cs" />
     <Compile Include="Repositories\CommentsRepository.cs" />
     <Compile Include="Repositories\CreativeCategoryRepository.cs" />
     <Compile Include="Repositories\CreativesRepository.cs" />

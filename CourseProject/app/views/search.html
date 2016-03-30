@@ -116,7 +116,7 @@
                     </div>        
             </div>
                 </div>
-    <div class="col-md-12">
+ <!--    <div class="col-md-12">
         <div class="col-md-2">&nbsp;</div>
         <div class="col-md-8 text-center">
             <i data-ng-if="loading" class="fa fa-spinner fa-2x fa-spin"></i>
@@ -145,5 +145,32 @@
                 </div><br><br><br><br>
             </div>
         </div>            
-    </div>
-</div>  
+    </div> -->
+
+  <div class="col-md-12 text-center margin-bottom-30"  data-ng-repeat="creative in results">
+   <!-- | orderBy:sortType:sortReverse "> -->
+  <div class="travelling portlet-bordered">
+      <div class="col-md-10 travelling1 text-center">
+        <h1><a data-ng-href="#/show/{{creative.id}}">{{creative.name}}</a></h1>      
+        <h2>{{creative.description}}</h2>
+        <p data-ng-repeat="chapter in creative.chapters">{{$index + 1}}. {{chapter.name}}</p>
+         <div class="widget--tags text-center">
+            <a data-ng-repeat="tag in creative.tags" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
+        </div>
+          <h5>{{translation.CREATED}}<a href="#">{{creative.userName}}</a>{{creative.created}}</h5>
+          <div class="col-md-12">
+        <p><a class="more" data-ng-href="#/show/{{creative.id}}">{{translation.READ_MORE}}</a></p>
+      </div>
+      </div>
+      <div class="col-md-2 travelling2">
+        <h3><i class="fa fa-comments" style="font-size:36px"></i> {{creative.comments.length}}</h3>
+      </div>
+      <div class="col-md-2 travelling2">
+          <h3 data-ng-if="creative.avgRating > 4"><i class="fa fa-star" style="font-size:36px"></i>{{creative.avgRating}}</h3>    
+          <h3 data-ng-if="creative.avgRating >= 2 && creative.avgRating <= 4 "><i class="fa fa-star-half-o" style="font-size:36px"></i>{{creative.avgRating}}</h3>     
+          <h3 data-ng-if="creative.avgRating < 2"><i class="fa fa-star-o" style="font-size:36px"></i>{{creative.avgRating}}</h3>    
+      </div>
+      <div class="clearfix"> </div>
+  </div>
+  </div>
+  </div>

@@ -21,21 +21,25 @@
    <!-- | orderBy:sortType:sortReverse "> -->
   <div class="travelling">
       <div class="col-md-10 travelling1 text-center">
-        <h1><a data-ng-href="#/show/{{creative.id}}">{{creative.name}}</a></h1>
-        <h5 align="center">{{translation.CREATED}}<a href="#">{{creative.userName}}</a>{{creative.created}}</h5>
-        <p>{{creative.description}}</p>
+        <h1><a data-ng-href="#/show/{{creative.id}}">{{creative.name}}</a></h1>      
+        <h2>{{creative.description}}</h2>
         <p data-ng-repeat="chapter in creative.chapters">{{$index + 1}}. {{chapter.name}}</p>
+         <div class="widget--tags text-center">
+            <a data-ng-repeat="tag in creative.tags" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
+        </div>
+        
           <div class="col-md-12">
         <p><a class="more" data-ng-href="#/show/{{creative.id}}">{{translation.READ_MORE}}</a></p>
       </div>
+        <h5 class="pull-right">{{translation.CREATED}}<a href="#">{{creative.userName}}</a>{{creative.created}}</h5>
       </div>
       <div class="col-md-2 travelling2">
-        <h3>{{creative.comments.length}}</h3>
-        <a href="#">Comments</a>
+        <h3><i class="fa fa-comments" style="font-size:36px"></i> {{creative.comments.length}}</h3>
       </div>
       <div class="col-md-2 travelling2">
-        <h3>{{creative.avgRating}}</h3>
-        <a>Rating</a>
+          <h3 data-ng-if="creative.avgRating > 4"><i class="fa fa-star" style="font-size:36px"></i>{{creative.avgRating}}</h3>    
+          <h3 data-ng-if="creative.avgRating >= 2 && creative.avgRating <= 4 "><i class="fa fa-star-half-o" style="font-size:36px"></i>{{creative.avgRating}}</h3>     
+          <h3 data-ng-if="creative.avgRating < 2"><i class="fa fa-star-o" style="font-size:36px"></i>{{creative.avgRating}}</h3>    
       </div>
       <div class="clearfix"> </div>
   </div>
@@ -72,7 +76,6 @@
           <a data-ng-href="#/show/{{rated.id}}"><img data-ng-src="{{rated.avatarUri}}" class="img-responsive" alt=""></a>         
         </div>
         <div class="blog-grid-right">
-
           <h4 align="center"><a data-ng-href="#/show/{{rated.id}}">{{rated.name}}</a></h4>
           <p align="center">{{rated.description}}</p>
         </div>
@@ -86,23 +89,10 @@
       <li data-ng-repeat="category in categories"><a data-ng-href="#/search/{{category.id}}">{{category.name}}</a></li>
       
     </div>
-    <h3>Newsletter</h3>
+  
     
-    <div class="blo-top">
-      <div class="name">
-        <form>
-          <input type="text" placeholder="email" required="">
-        </form>
-      </div>  
-      <div class="button">
-        <form>
-          <input type="submit" value="Subscribe">
-        </form>
-      </div>
-        <div class="clearfix"> </div>
-    </div>
   </div>
   <!-- </div> -->
   
-  <div class="col-md-12">DOWNTOWN</div>
+  <div class="col-md-12" style="opacity: 0">DOWNTOWN</div>
   </div>

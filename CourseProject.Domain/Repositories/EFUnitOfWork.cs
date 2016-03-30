@@ -18,6 +18,7 @@ namespace CourseProject.Domain.Repositories
         private MedalsRepository medalsRepository;
         private TagsRepository tagsRepository;
         private UsersRepository usersRepository;
+        private ChapterStoreRepository chapterStoreRepository;
         
 
         private bool isDisposed;
@@ -30,6 +31,11 @@ namespace CourseProject.Domain.Repositories
         public IUsersRepository Users
         {
             get { return usersRepository ?? (usersRepository = new UsersRepository(db)); }
+        }
+
+        public IRepository<ChapterStore> ChapterStore
+        {
+            get { return chapterStoreRepository ?? (chapterStoreRepository = new ChapterStoreRepository(db)); }
         }
 
         public IRepository<Creative> Creatives

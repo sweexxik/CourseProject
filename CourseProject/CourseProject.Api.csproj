@@ -476,6 +476,18 @@
     <Compile Include="Migrations\201603281902207_creativeDate.Designer.cs">
       <DependentUpon>201603281902207_creativeDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603301852524_ChapterStore.cs" />
+    <Compile Include="Migrations\201603301852524_ChapterStore.Designer.cs">
+      <DependentUpon>201603301852524_ChapterStore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603301914427_fixChapterStore.cs" />
+    <Compile Include="Migrations\201603301914427_fixChapterStore.Designer.cs">
+      <DependentUpon>201603301914427_fixChapterStore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603301917596_fixChapterStore1.cs" />
+    <Compile Include="Migrations\201603301917596_fixChapterStore1.Designer.cs">
+      <DependentUpon>201603301917596_fixChapterStore1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\MedalViewModel.cs" />
@@ -484,6 +496,7 @@
     <Compile Include="Models\NewCreativeModel.cs" />
     <Compile Include="Models\NewLikeModel.cs" />
     <Compile Include="Models\NewRatingModel.cs" />
+    <Compile Include="Models\RememberChapterModel.cs" />
     <Compile Include="Models\ResetPasswordModel.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\TagsViewModel.cs" />
@@ -613,6 +626,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603281902207_creativeDate.resx">
       <DependentUpon>201603281902207_creativeDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603301852524_ChapterStore.resx">
+      <DependentUpon>201603301852524_ChapterStore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603301914427_fixChapterStore.resx">
+      <DependentUpon>201603301914427_fixChapterStore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603301917596_fixChapterStore1.resx">
+      <DependentUpon>201603301917596_fixChapterStore1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

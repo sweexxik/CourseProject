@@ -115,7 +115,7 @@
                 <a data-ng-repeat="tag in tags" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
             </div>
             <div class="text-center">
-                <button  data-ng-if="chapters.length > 0" class="btn btn-default" data-toggle="modal" data-target=".bs-example">
+                <button data-ng-if="chapters.length > 0" data-ng-click="setInitChapter()" class="btn btn-default" data-toggle="modal" data-target=".bs-example">
                     {{translation.READ_MODE}} 
                 </button><br>           
                 <div data-ng-if="chapters.length > 0" class="btn-group" data-toggle="buttons">   
@@ -134,7 +134,7 @@
                 </div>       
             </div> 
 
-            <div color-inspiration ng-model="targetClass" class="modal fade bs-example" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">  
+            <div color-inspiration ng-model="targetClass" class="modal fade bs-example" tabindex="-1" role="dialog">  
                 <div id="myCarousel" class="carousel slide" data-interval="6500" data-ride="carousel">      
                     <ol class="carousel-indicators">
                         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -143,16 +143,16 @@
                     </ol>        
                     <div style="background-color: #fff;" class="carousel-inner">   
                         <div style="min-height: 900px" class="item fill" data-ng-class="{active:!$index}" data-ng-repeat="chapter in chapters">
-                            <div class="carousel-caption" style="position: relative;">  <button class="btn btn-primary-outline pull-right" style="margin-right: 20%; position: static;" data-dismiss="modal" data-target="#myCarousel">X</button>
+                            <div class="carousel-caption" style="position: relative;">  <button class="btn btn-primary-outline pull-right" style="margin-right: 20%; position: static;" data-ng-click="storeChapterId(chapter.id)" data-dismiss="modal" data-target="#myCarousel">X</button>
                              
                             </div>
                                <p>{{translation.CHAPTER}}  #{{chapter.number}}&nbsp;{{chapter.name}}</p>
                             <div  color-inspiration ng-model="targetClass" ng-bind-html="chapter.body">                       
                             </div> 
-                            <span class="left carousel-control" data-target="#myCarousel" data-slide="prev" data-ng-click="storeChapterId(chapter.id)">
+                            <span class="left carousel-control" data-target="#myCarousel" data-slide="prev">
                                 <span class="glyphicon glyphicon-chevron-left"></span>
                             </span>
-                            <span class="right carousel-control" data-target="#myCarousel" data-slide="next" data-ng-click="storeChapterId(chapter.id)">
+                            <span class="right carousel-control" data-target="#myCarousel" data-slide="next">
                                 <span class="glyphicon glyphicon-chevron-right"></span>
                             </span>       
                         </div>  
@@ -172,7 +172,7 @@
                 <li data-ng-repeat="comment in comments">
                     <div class="comment-main-level">
                         <!-- Avatar -->
-                        <div class="comment-avatar"><img src="{{comment.avatarUri}}" alt=""></div>
+                        <div class="comment-avatar"><img data-ng-src="{{comment.avatarUri}}" alt=""></div>
                         <!-- Contenedor del Comentario -->
                         <div class="comment-box">
                             <div class="comment-head">

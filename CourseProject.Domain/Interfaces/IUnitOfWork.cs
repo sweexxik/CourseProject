@@ -13,6 +13,7 @@ namespace CourseProject.Domain.Interfaces
         IRepository<Rating> Ratings { get; }
         IRepository<Medal> Medals { get; }
         IRepository<Tag> Tags { get; }
+        IRepository<ChapterStore> ChapterStore { get;}
         IUsersRepository Users { get; }
        
         void Save();
