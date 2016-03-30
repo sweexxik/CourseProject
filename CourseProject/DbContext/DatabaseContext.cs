@@ -2,12 +2,12 @@
 using CourseProject.Domain.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace CourseProject.Domain.DbContext
+namespace CourseProject.DbContext
 {
     public class DatabaseContext : IdentityDbContext<ApplicationUser>
     {
         public DatabaseContext()
-            : base("AuthContext")
+            : base("AuthContext",throwIfV1Schema: false)
         {
            // DbInterception.Add(new FtsInterceptor());
         }

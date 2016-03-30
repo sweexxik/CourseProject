@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
 using CourseProject.Domain.Interfaces;
-using CourseProject.Domain.Repositories;
 using CourseProject.Interfaces;
+using CourseProject.Repositories;
 
 namespace CourseProject.Services
 {

@@ -1,4 +1,4 @@
-using CourseProject.Domain.DbContext;
+using CourseProject.DbContext;
 
 namespace CourseProject.Migrations
 {

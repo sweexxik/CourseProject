@@ -137,10 +137,18 @@ namespace CourseProject.Services
             var user = await db.Users.FindUser(userName);
 
             if (user == null) return null;
+            try
+            {
+                var list = db.Creatives.Find(x => x.User == user).ToList();
 
-            var list = db.Creatives.Find(x => x.User == user).ToList();
-
-            return InitCreativesModel(list);
+                return InitCreativesModel(list);
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception(e.Message);
+            }
+           
         }
 
         public IEnumerable<NewCreativeModel> GetAllCreatives()

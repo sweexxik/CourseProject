@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CourseProject.Domain.DbContext;
+using CourseProject.DbContext;
 using CourseProject.Domain.Entities;
 using CourseProject.Domain.Interfaces;
 using CourseProject.Domain.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace CourseProject.Domain.Repositories
+namespace CourseProject.Repositories
 {
     class UsersRepository : IUsersRepository
     {

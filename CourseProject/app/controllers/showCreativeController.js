@@ -142,7 +142,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
 
    $scope.search = function(pattern){
          searchService.setSearchPattern(pattern);
-        $location.path('/search');
+        $location.path('/search/0');
     };
 
     $scope.setInitChapter = function(){

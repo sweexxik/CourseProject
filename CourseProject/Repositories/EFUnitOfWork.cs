@@ -1,9 +1,9 @@
 ﻿using System;
-using CourseProject.Domain.DbContext;
+using CourseProject.DbContext;
 using CourseProject.Domain.Entities;
 using CourseProject.Domain.Interfaces;
 
-namespace CourseProject.Domain.Repositories
+namespace CourseProject.Repositories
 {
     public class EfUnitOfWork : IUnitOfWork
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
 using CourseProject.Domain.Interfaces;
-using CourseProject.Domain.Repositories;
 using CourseProject.Interfaces;
+using CourseProject.Repositories;
 using CourseProject.Services;
 using Ninject;
 

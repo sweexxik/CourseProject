@@ -5,7 +5,7 @@ using System.Data.Common;
 using System.Data.Entity.Infrastructure.Interception;
 using System.Text.RegularExpressions;
 
-namespace CourseProject.Domain.DbContext
+namespace CourseProject.DbContext
 {
     public class FtsInterceptor : IDbCommandInterceptor
     {

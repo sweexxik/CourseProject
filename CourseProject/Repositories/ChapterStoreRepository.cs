@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using CourseProject.Domain.DbContext;
+using CourseProject.DbContext;
 using CourseProject.Domain.Entities;
 using CourseProject.Domain.Interfaces;
 
-namespace CourseProject.Domain.Repositories
+namespace CourseProject.Repositories
 {
     class ChapterStoreRepository : IRepository<ChapterStore>
     {

@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.SqlServer;
 
-namespace CourseProject.Domain.DbContext
+namespace CourseProject.DbContext
 {
     public class AzureDbConfiguration : DbConfiguration
     {
