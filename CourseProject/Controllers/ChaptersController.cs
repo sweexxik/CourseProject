@@ -51,7 +51,9 @@ namespace CourseProject.Controllers
         [Route("api/chapters/delete/{chapterId}")]
         public async Task<IHttpActionResult> DeleteChapter(int chapterId)
         {
-            return await service.DeleteChapter(chapterId) ? Ok(HttpStatusCode.OK) : GetErrorResult(false);
+            var result = await service.DeleteChapter(chapterId);
+
+            return result != null ? Ok(result) : GetErrorResult(false);
         }
     }
 }

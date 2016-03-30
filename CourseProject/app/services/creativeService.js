@@ -148,6 +148,14 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
         });
     };
 
+    var _updateCreative = function (data) {   
+         return $http.post(serviceBase + '/api/creatives/update', JSON.stringify(data),{
+        headers: { contentType: 'application/json; charset=utf-8', dataType: "json" }    
+        }).then(function(results){
+            return results;
+        });
+    };
+
     var _sortChapters = function(creatives) {
             var sorted = {},
             a = [];     
@@ -183,6 +191,7 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.createLike = _createLike;
     creativesServiceFactory.createRating = _createRating;
 
+    creativesServiceFactory.updateCreative = _updateCreative
     creativesServiceFactory.updateCreativeByAdmin = _updateCreativeByAdmin;
 
     creativesServiceFactory.deleteCreative = _deleteCreative;

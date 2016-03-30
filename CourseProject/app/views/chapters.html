@@ -1,23 +1,19 @@
 <div class="container">
     <div class="page-header text-center">
-        <h1>How people express their creative?</h1>
-    </div>
-    <h1 class="header">Edit chapter</h1>   
+        <h1>Edit chapter: "{{chapter.name}}"</h1>
+    </div>   
       <div class="col-md-3"></div>
-
-
-
-    <div class="chapter">
-        <span class="date">{{chapter.createdOn | date:"EEEE dd MMMM, yyyy 'at' h:mma"}}</span>
+    <div class="note">
+        <span class="date">{{chapter.createdOn}}</span>
         <span class="icons">
-            <i ng-click="addChapter()" class="fa fa-check fa-lg" ng-if="chapter.edit == false"></i>
-            <i class="fa fa-pencil fa-lg" ng-if="chapter.edit == true"></i>
-            <i class="fa fa-trash-o fa-lg" ng-click="deleteChapter()"></i>
-          </span>
-     <div class="form-group">
-                  <input type="text" maxlength="50"  data-ng-model="chapter.name" name="email" id="email" class="form-control input-lg" placeholder="Chapter Name" tabindex="4">
-                </div>
-          <div class="markdown-body" ng-model="chapter.text" ng-change="update(chapter.text)" ng-focus="chapter.edit = true" ng-blur="chapter.edit = false" markdown-editable contenteditable="true">
+            <i class="fa fa-2x fa-check fa-lg" ng-if="chapter.edit == false"></i>
+            <i class="fa fa-2x fa-pencil fa-lg" ng-if="chapter.edit == true"></i>
+            <i data-ng-click="saveChapter()" style="cursor: pointer;" class="fa fa-2x fa-floppy-o pull-right"></i>
+        </span>
+     <div class="form-group" >
+        <input style="width: 33%; margin-left: 33%"  type="text" maxlength="50" data-ng-model="chapter.name" class="form-control" placeholder="Chapter Name">
+      </div>
+      <div class="markdown-body" ng-model="chapter.text" ng-change="update(chapter.text)" ng-focus="chapter.edit = true" ng-blur="chapter.edit = false" markdown-editable contenteditable="true">
 
               {{ chapter.text }}
           </div>

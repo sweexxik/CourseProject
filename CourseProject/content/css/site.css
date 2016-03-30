@@ -124,15 +124,3 @@ img{
 .btn.active span.glyphicon {        
   opacity: 1;       
 }
-
-.readerFont1{
-  font-size: 14px;
-}
-
-.readerFont2{
-  font-size: 28px;
-}
-
-.readerFont3{  
-   font-size: 42px;
-}

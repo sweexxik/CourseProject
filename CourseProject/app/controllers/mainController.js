@@ -6,6 +6,7 @@ app.controller('mainController', ['$scope','creativeService','searchService','$l
     $scope.tags = [];
     $scope.allCreatives = [];
     var delimiter = 0;
+    var init = true;
 
 
     $scope.sortType = 'id';
@@ -14,7 +15,7 @@ app.controller('mainController', ['$scope','creativeService','searchService','$l
     var getInitialCreatives = function (){      
         creativeService.getPartialCreatives(0).then(function (results) {  
             $scope.allCreatives = results.data; 
-          
+            counter = 1;
         for(var i = 0; i< $scope.allCreatives.length; i++) {   
             $scope.allCreatives[i].popular = $scope.allCreatives[i].comments.length;      
             $scope.allCreatives[i].chapters = creativeService.sortChapters($scope.allCreatives[i]); 
@@ -28,7 +29,8 @@ app.controller('mainController', ['$scope','creativeService','searchService','$l
         });
     };
 
-    var getAdditionalCreatives = function (del){      
+    var getAdditionalCreatives = function (del){   
+    console.log(del);   
         creativeService.getPartialCreatives(del).then(function (results) {          
             $scope.allCreatives = $scope.allCreatives.concat(results.data);  
             console.log($scope.allCreatives);         
@@ -45,34 +47,22 @@ app.controller('mainController', ['$scope','creativeService','searchService','$l
     var counter = 0;
     getInitialCreatives();
 
-    $scope.loadMore = function() {   
-
-     
+    $scope.loadMore = function() { 
+    console.log("counter in load more = " + counter);     
         if($scope.creatives.length < $scope.allCreatives.length){
             $scope.creatives.push($scope.allCreatives[$scope.creatives.length]);      
             console.log($scope.creatives.length);
        }   
 
-
-       if( $scope.creatives.length > $scope.allCreatives.length - 2){
-            if(counter == 0 ){ counter = 1;}
-             if(counter < 5 && counter != 0) {           
-                 getAdditionalCreatives(counter);
-            counter++;
+       if($scope.creatives.length > $scope.allCreatives.length - 2){            
+            if(counter < 6 && counter != 0) {
+                getAdditionalCreatives(counter);
+                counter++;
+                console.log("GET ADDITIONAL CREATIVES")
+                    }   
+                }
             }
-           
-       }
 
-    }
-       
-       
-
-   
-
-    
-
-   
-   
     var x,i;
     creativeService.getAllTags().then(function (results) {
             var tags = results.data;  

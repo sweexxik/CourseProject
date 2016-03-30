@@ -159,7 +159,6 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
    };   
 
     var setPercentage = function () {
-
         $scope.percentage1 = 0;    
         $scope.percentage2 = 0;
         $scope.percentage3 = 0;    
@@ -181,7 +180,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
                 break;
             }
         }
-
+        
         //magic value
         var len =  $scope.ratings.length /255;
 

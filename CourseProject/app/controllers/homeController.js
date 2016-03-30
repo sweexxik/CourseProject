@@ -8,6 +8,9 @@ app.controller('homeController',
     $scope.creatives = [];
     $scope.chapters = [];
 
+    $scope.sortType = 'created';
+    $scope.sortReverse = true;
+
     $scope.categories = [];
     $scope.currentCategory = "";
     $scope.creativeName = "";

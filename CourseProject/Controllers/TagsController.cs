@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Domain.Entities;
+using CourseProject.Filters;
 using CourseProject.Interfaces;
 
 namespace CourseProject.Controllers
@@ -36,14 +37,10 @@ namespace CourseProject.Controllers
         }
 
         [HttpPost]
+        [ValidateViewModel]
         [Route("api/tags/{creativeId}")]
         public IHttpActionResult SaveTags(int creativeId, IEnumerable<Tag> model)
         {
-            if (!ModelState.IsValid || creativeId == 0)
-            {
-                return BadRequest(ModelState);
-            }
-
             return Ok(tagService.SaveTags(creativeId, model));
         }
     }

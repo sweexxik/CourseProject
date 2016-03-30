@@ -23,7 +23,7 @@ namespace CourseProject.Services
             medalService = medal;
         }
 
-        public async Task<IEnumerable<NewCreativeModel>> UpdateCreative(NewCreativeModel model)
+        public async Task<NewCreativeModel> UpdateCreative(NewCreativeModel model)
         {
             var creative = await db.Creatives.Get(model.Id);
 
@@ -31,23 +31,24 @@ namespace CourseProject.Services
 
             creative.Description = model.Description;
 
-            foreach (var chapter in model.Chapters)
-            {
-                chapter.Created = DateTime.Now;
-            }
-
             db.Chapters.RemoveRange(db.Chapters.Find(x=>x.CreativeId == model.Id));
 
             creative.Chapters = model.Chapters;
+         
+
+            foreach (var newTag in model.Tags.Where(newTag => newTag.Id == 0))
+            {
+                newTag.CreativeId = creative.Id;
+
+                db.Tags.Add(newTag);
+            }
          
             db.Creatives.Update(creative);
 
             db.Save();
 
-            return InitCreativesModel(db.Creatives.Find(c => c.User.UserName == model.UserName));
+            return InitCreativeModel(creative);
         }
-
-       
 
         public async Task<IEnumerable<NewCreativeModel>> CreateCreative(NewCreativeModel model)
         {
@@ -58,16 +59,8 @@ namespace CourseProject.Services
             db.Save();
 
             await medalService.CheckMedals(creative.User.UserName);
-            try
-            {
-                return InitCreativesModel(db.Creatives.Find(c => c.User.UserName == model.UserName));
-            }
-            catch (Exception e)
-            {
-
-                throw new Exception(e.Message);
-            }
            
+            return InitCreativesModel(db.Creatives.Find(c => c.User.UserName == model.UserName));
         }
      
 
@@ -97,36 +90,26 @@ namespace CourseProject.Services
         {
             var results = new List<Creative>();
 
-            try
+            var writer = new CreativeWriter(dataFolder);
+
+            var searcher = new CreativeSearcher(dataFolder);
+
+            writer.AddUpdateCreativesToIndex(db.Creatives.GetAll().ToList());
+
+            var searchResults = GetSearchResults(model, searcher);
+
+            foreach (var searchResult in searchResults)
             {
-                var writer = new CreativeWriter(dataFolder);
-
-                var searcher = new CreativeSearcher(dataFolder);
-
-                writer.AddUpdateCreativesToIndex(db.Creatives.GetAll().ToList());
-
-                var searchResults = GetSearchResults(model, searcher);
-
-                foreach (var searchResult in searchResults)
+                foreach (var item in searchResult.SearchResultItems)
                 {
-                    foreach (var item in searchResult.SearchResultItems)
-                    {
-                        var creative = await db.Creatives.Get(item.Id);
+                    var creative = await db.Creatives.Get(item.Id);
 
-                        if (creative != null && !results.Contains(creative))
-                        {
-                            results.Add(creative);
-                        }
+                    if (creative != null && !results.Contains(creative))
+                    {
+                        results.Add(creative);
                     }
                 }
-                
             }
-            catch (Exception e)
-            {
-                
-                throw new Exception(e.Message);
-            }
-           
 
             return InitCreativesModel(results);
         }
@@ -171,7 +154,6 @@ namespace CourseProject.Services
             var res = InitCreativesModel(all.Skip(countPerPart*delimiter).Take(countPerPart));
 
             return res;
-
         }
 
         private async Task<Creative> InitNewCreative(NewCreativeModel model)
@@ -283,9 +265,6 @@ namespace CourseProject.Services
             }
 
             return searchResults;
-            
-        } 
-
-
+        }
     }
 }

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Net.Http;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Results;
 using CourseProject.Domain.Entities;
 using CourseProject.Domain.Interfaces;
 using CourseProject.Interfaces;
@@ -21,17 +19,20 @@ namespace CourseProject.Services
             db = repo;
         }
 
-        public async Task<bool> DeleteChapter(int chapterId)
+        public async Task<IEnumerable<NewChapterModel>> DeleteChapter(int chapterId)
         {
+            var chapter = await db.Chapters.Get(chapterId);
+
             var result = await db.Chapters.Remove(chapterId);
 
             if (result)
             {
                 db.Save();
-                return true;
+
+                return InitChaptersViewModel(db.Chapters.Find(x => x.CreativeId == chapter.CreativeId));
             }
 
-            return false;
+            return null;
 
 
         }
@@ -65,7 +66,7 @@ namespace CourseProject.Services
 
         public async Task<NewChapterModel> GetChapter(int id)
         {
-            return InitViewModel(await db.Chapters.Get(id));
+            return InitChapterViewModel(await db.Chapters.Get(id));
         }
 
         private void AddOrUpdateChapter(NewChapterModel model, Chapter chapter)
@@ -97,7 +98,7 @@ namespace CourseProject.Services
             };
         }
 
-        private static NewChapterModel InitViewModel(Chapter chapter)
+        private static NewChapterModel InitChapterViewModel(Chapter chapter)
         {
             if (chapter != null)
             {
@@ -114,7 +115,23 @@ namespace CourseProject.Services
             }
 
             return new NewChapterModel();
-            
+        }
+
+        private static IEnumerable<NewChapterModel> InitChaptersViewModel(IEnumerable<Chapter> list)
+        {
+            return list.Select(c => new NewChapterModel
+            {
+                Id = c.Id,
+                CreativeId = c.CreativeId,
+                Name = c.Name,
+                Number = c.Number,
+                Text = c.Body,
+                CreatedOn = c.Created.ToString(CultureInfo.CurrentCulture),
+                Edit = false
+            });
+               
+
+          
         }
     }
 }
