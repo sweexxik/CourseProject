@@ -4,6 +4,7 @@ app.controller('userPageController',
   function ($http, $scope, creativeService, localStorageService, $location, authService, $window,$uibModal, $route, $routeParams) {
 
     var userName = $routeParams.username; 
+    var currentUser = localStorageService.get('authorizationData').userName;
 
  	$scope.authentication = authService.authentication;
     $scope.userInfo = [];
@@ -20,7 +21,13 @@ app.controller('userPageController',
     
     if (authService.authentication.isAuth){
         authService.getProfile(userName).then(function(results){
-            $scope.userInfo = results.data;              
+            $scope.userInfo = results.data;
+            console.log()              
+        });
+
+        authService.getProfile(currentUser).then(function(results){
+            $scope.currentUserInfo = results.data;
+            console.log()              
         });
 
     	creativeService.getCreativesByName(userName).then(function (results) {        

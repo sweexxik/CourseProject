@@ -7,12 +7,14 @@
 
         <title>Cource Project iTransition</title>   
         <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
-         <link href="content/css/site.css" rel="stylesheet" />     
+        
         <link href="content/main_css/style.css" rel="stylesheet" type="text/css" media="all" />     
         <link rel="stylesheet" type="text/css" href="content/css/font-awesome.min.css">
         <link href="content/css/box-edit-creative.css" rel="stylesheet" />  
                 
+        <link ng-href="content/css/site-{{currentTheme}}.css" rel="stylesheet" />     
         <link rel="stylesheet" ng-href="content/css/boostrap-{{currentTheme}}.css"> 
+
         <link rel="stylesheet" href="content/css/ng-tags-input.min.css" />
         <link rel="stylesheet" href="content/css/ng-tags-input.bootstrap.min.css" />
         <link href="content/css/loading-bar.css" rel="stylesheet" />
@@ -56,10 +58,12 @@
                     <li data-ng-hide="authentication.isAuth"> <a href="#/login">{{translation.LOGIN}}</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/signup">{{translation.SIGNUP}}</a></li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lang<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a data-ng-click="setRU()" >RU</a></li>
-                            <li><a data-ng-click="setEN()">EN</a></li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img data-ng-if="selectedLanguage == 'ru'" width="30px" height="20px" src="content/images/rus.png">
+                        <img  data-ng-if="selectedLanguage == 'en'" width="30px" height="20px" src="content/images/usa.png">Language<span class="caret"></span></a>
+                        <ul class="dropdown-menu ">
+                            <li class="text-center"><a data-ng-click="setRU()" ><img width="30px" height="20px" src="content/images/rus.png">RU</a></li>
+                            <li class="text-center"><a data-ng-click="setEN()"> <img width="30px" height="20px" src="content/images/usa.png">EN</a></li>
                         </ul>
                     </li>
                 </ul>               
@@ -141,6 +145,10 @@
     <script src="app/controllers/admin/adminRatingsController.js"></script>
     <script src="app/controllers/admin/adminCategoriesController.js"></script>
     <script src="app/controllers/userPageController.js"></script>
- 
+    <script src="scripts/ng-ckEditor.js"></script>
+     <script src="content/ckeditor/ckeditor.js"></script>
+    <script src="https://s3-ap-southeast-1.amazonaws.com/naveensingh/posts_data/ckeditor_example/ng-ckeditor.min.js"></script>
+    <!-- <script src="content/ckeditor/ckeditor.js"></script> -->
+
     </body>
 </html>

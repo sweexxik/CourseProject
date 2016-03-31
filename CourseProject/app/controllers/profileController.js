@@ -12,8 +12,10 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
     $scope.showUpload = "";
     $scope.isAdmin = false;
     $scope.showLoading = false;
+    $scope.savedSuccessfully = false;
+    $scope.message = '';
 
-    $scope.newData = {
+   var newData = {
       OldPassword:"",
       NewPassword:"",
       ConfirmPassword:"",
@@ -32,21 +34,36 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
     };
 
     $scope.saveUserInfo = function () {
-   
-        authService.saveUserInfo($scope.userInfo).then(function(results){            
-          $scope.userInfo = results.data;       
-        });
+        $scope.showLoading = true;  
+        authService.saveUserInfo($scope.userInfo).then(function(results){  
+            $scope.savedSuccessfully = true;
+            $scope.showLoading = false; 
+            $scope.message = "Saved successfully."         
+            $scope.userInfo = results.data;       
+        }, function(error){
+              $scope.savedSuccessfully = false;
+              $scope.showLoading = false; 
+              $scope.message = error.data.message;
+            });
       };
 
       $scope.changePassword = function(){
+        $scope.showLoading = true;  
         newData.OldPassword = $scope.newUserInfo.oldPassword;
         newData.NewPassword = $scope.newUserInfo.newPassword;
         newData.ConfirmPassword = $scope.newUserInfo.passConfirm;
         newData.userName = $scope.userInfo.userName;
 
         authService.changePassword(newData).then(function(results){
-            console.log(results.data);
-        });
+            $scope.savedSuccessfully = true;
+            $scope.showLoading = false; 
+            $scope.message = "Password changed successfully."         
+            $scope.userInfo = results.data;       
+        }, function(error){
+              $scope.savedSuccessfully = false;
+              $scope.showLoading = false; 
+              $scope.message = error.data.message;
+            });
       };
 
 
@@ -94,12 +111,7 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
     $( ".overlay" ).on( "click", function() {
       $( globalModal ).toggleClass('global-modal-show');
     });
-    $( ".global-modal_close" ).on( "click", function() {
-      $( globalModal ).toggleClass('global-modal-show');
-    });
-    $(".mobile-close").on("click", function(){
-      $( globalModal ).toggleClass('global-modal-show');
-    });
+
 
 
 }]);

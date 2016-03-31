@@ -21,9 +21,9 @@
 									<i class="fa fa-exclamation"></i>
 									<span class="sr-only">Result:</span>
 									{{message}}
-								</div>
-				            </div>
-				        </div><br>
+								</div><br>
+				            </div><br>
+				        </div><br><br>
 			        </div>          
 						<div class="row">
 								<div class="col-md-2">&nbsp;</div>
@@ -45,9 +45,29 @@
 						<div class="row">
 							<div class="col-md-2">&nbsp;</div>
 							<div class="col-md-8">
-								<tags-input ng-model="tags" display-property="name" placeholder="{{translation.ADD_TAGS}}" debounce-delay="0" add-on-paste="true">
-	                    		<auto-complete max-results-to-show="5" source="loadTags($query)"></auto-complete>
+								<tags-input 
+								ng-model="tags"
+								selectFirstMatch="true"
+								display-property="name"
+								placeholder="{{translation.ADD_TAGS}}"
+								debounce-delay="0"
+								add-on-space="true"
+    							add-on-blur="true"
+    							replace-spaces-with-dashes="false"
+                				add-from-autocomplete-only="false"
+								add-on-paste="true">
+		                    		<auto-complete 
+		                    		selectFirstMatch="false"
+		                    		load-on-focus="true"
+	                      			load-on-empty="true"
+	                      			max-results-to-show="5"
+	                      			source="loadTags($query)">
+                      			</auto-complete>
 	                    		</tags-input>
+
+
+
+
                     		</div>
                     		<br>
 						</div>

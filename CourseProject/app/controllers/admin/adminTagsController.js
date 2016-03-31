@@ -13,6 +13,7 @@ app.controller('adminTagsController',  ['$http','$scope', '$location', 'authServ
  $scope.savedSuccessfully = true;
 
  $scope.message = '';	
+  $scope.message1 = '';	
 
    	if (!authService.authentication.isAuth){
   		$location.path('/home');
@@ -39,6 +40,7 @@ app.controller('adminTagsController',  ['$http','$scope', '$location', 'authServ
 	$scope.editTag = function(id){
 		console.log(id);
 		$scope.message = '';
+		$scope.message1 = '';
 		for (var i = 0; i < $scope.tags.length; i++) {
 			if($scope.tags[i].id === id){
 				$scope.selectedTag = $scope.tags[i];
@@ -52,23 +54,23 @@ app.controller('adminTagsController',  ['$http','$scope', '$location', 'authServ
 		if($scope.newTag.length > 3){
 			$scope.selectedTag.name = $scope.newTag;
 			$scope.selectedTag.id = 0;
-			$scope.message = '';
+			$scope.message1 = '';
 			
 			creativeService.saveTag($scope.selectedTag).then(function(results){
 
             $scope.tags = results.data;
 			$scope.savedSuccessfully = true;
 			$scope.showLoading = false;	
-			$scope.message = "Saved successfully"
+			$scope.message1 = "Saved successfully"
 			}, function(error){
 				$scope.savedSuccessfully = false;
-				$scope.message = error.data.message;
+				$scope.message1 = error.data.message;
 				$scope.showLoading = false;	
 			});		
 		}	
 		else{
 			 $scope.savedSuccessfully = false;
-			 $scope.message = "Name must be more than 3 characters!"
+			 $scope.message1 = "Name must be more than 3 characters!"
 		}
 	};
 

@@ -13,7 +13,8 @@
       
         </div>
          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<h2 class="sub-header">Tags manager</h2> 
+	                 	<h1 class="page-header text-center">Admin Dashboard</h1>
+	<h2 class="sub-header text-center">Tags manager</h2>        
 			<div class="col-md-12">
 				<div class="col-md-4">&nbsp;</div>
 				<div class="col-md-4">
@@ -24,12 +25,12 @@
 	     
 					</div>
 					  	<hr>	   
-					  	<div class="col-md-12" data-ng-if="message != ''">	           
-	            	<div data-ng-class="(savedSuccessfully) ? 'alert alert-success text-center' : 'alert alert-danger text-center'" role="alert">
+					  	<div class="col-md-12" data-ng-if="message1 != ''">	           
+	            <div data-ng-class="(savedSuccessfully) ? 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success' : 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger'" role="alert">
 						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 						<span class="sr-only">Result:</span>
-						{{message}}
-					</div>	       
+						{{message1}}
+					</div>	  <br><br>     
 	        </div>
 				</div>
 				</div>
@@ -115,11 +116,13 @@
 	        <div class="col-md-12" data-ng-if="message != ''">
 	            <div class="col-md-3">&nbsp;</div>
 	            <div class="col-md-6">
-	            	<div data-ng-class="(savedSuccessfully) ? 'alert alert-success text-center' : 'alert alert-danger text-center'" role="alert">
+	          	<div class="col-md-12" data-ng-if="message != ''">	           
+	            <div data-ng-class="(savedSuccessfully) ? 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success' : 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger'" role="alert">
 						<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
 						<span class="sr-only">Result:</span>
 						{{message}}
-					</div>
+					</div>	  <br><br>     
+	        		</div>
 
 	            </div>
 	        </div><br>

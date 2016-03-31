@@ -99,89 +99,13 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
        		return $scope.recievedTags.filter(function(tag) {
 	        	return tag.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
 	      		});
-    	};
-
-    	// var saveTags = function(){    		
-    	// 	for (var i = 0; i < $scope.tags.length; i++) {
-    	// 		$scope.tags[i].creativeId = creativeId;
-    	// 	}
-    	// 	creativeService.setTags(creativeId,$scope.tags).then(function(results){
-    	// 		$scope.creative = results.data;
-    	// 		console.log(results.data);
-    	// 	});
-    	// }
+    	};    	
 
 		var setChpatersPositions = function(){
 			for (var i = 0; i < $scope.chapters.length; i++) {
 				$scope.chapters[i].number = i + 1;
 			}
-		}
-
-   		// $scope.saveChapter = function(){    
-	    //     initChapterModel();
-	    //     postData(chapterModel,'chapters');	 	      
-	    // };
-
-	    // $scope.changeCreativeName = function(){
-	    // 	updateCreative.name = $scope.creative.name;
-	    // 	updateCreative.description = $scope.creative.description;
-	    // 	updateCreative.Id = creativeId;
-	    // 	postData(updateCreative,'creatives/update');	 	 
-	    // };
-
-	    // var postData = function(data, link){
-	    // 	 $http.post(serviceBase + 'api/' + link, JSON.stringify(data), {
-	    //          headers: { contentType: 'application/json; charset=utf-8', dataType: "json" } })
-	    // 	 .success(function (response) {
-	    //             console.log(response);
-	               	            
-	    //         })
-	    // 	 .error(function (err, status) {
-	    //         console.log(err);
-	    //         console.log(status);
-	    //         });
-	    // };
-
-	    //  $scope.dropCallback = function(event, index, item, external, type, allowedType) {  
-     //    	$scope.selectedchapter = undefined; 
-	    //    	console.log(index);	 
-	    //    	var startNumber;
-	    //     for (var chapter in $scope.chapters){
-	    //     	if ($scope.chapters[chapter].id === item.id){
-	    //     		startNumber = $scope.chapters[chapter].number;	        		
-	    //     		if ( startNumber > index ) {
-	    //     			$scope.chapters[chapter].number = index + 1;		        	
-	    //     			item.number = index + 1;
-	    //     			for (var i = index; i < startNumber; i++) {	   		
-		   //      			$scope.chapters[i].number++;
-		   //      		}
-	    //     		}	
-	    //     		else if (startNumber < index)
-	    //     		{
-	    //     			console.log("startNumber = " + startNumber + ", index = " + index);
-					// 	$scope.chapters[chapter].number = index;		        	
-					// 	item.number = index;
-					
-					// 	for (var i = index - 1; i > startNumber-1; i--) {							        	
-			  //       		$scope.chapters[i].number--;
-	    //     			}
-	    //     		}
-	    //     	}
-	    //     }       
-	    //     return item;     
-   		// };
-
-   		
-
-	    // var initChapterModel = function(){
-	    // 	chapterModel.body = $scope.selectedchapter.body;
-	    //     chapterModel.number = $scope.selectedchapter.number;
-	    //     chapterModel.id = $scope.selectedchapter.id;
-	    //     chapterModel.creativeId = $scope.selectedchapter.creativeId;
-	    //     chapterModel.name = $scope.selectedchapter.name;
-	    // };   
-
-
+		};
   
 	 $scope.sortableOptions = {
 	  	update: function(e, ui) {

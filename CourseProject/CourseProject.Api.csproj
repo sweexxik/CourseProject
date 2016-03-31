@@ -236,6 +236,7 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="app\controllers\adminController.js" />
+    <Content Include="app\controllers\admin\adminCategoriesController.js" />
     <Content Include="app\controllers\admin\adminChaptersController.js" />
     <Content Include="app\controllers\admin\adminCommentsController.js" />
     <Content Include="app\controllers\admin\adminCreativesController.js" />
@@ -251,6 +252,7 @@
     <Content Include="app\controllers\searchController.js" />
     <Content Include="app\controllers\showCreativeController.js" />
     <Content Include="app\controllers\signupController.js" />
+    <Content Include="app\controllers\userPageController.js" />
     <Content Include="app\services\adminService.js" />
     <Content Include="app\services\authInterceptorService.js" />
     <Content Include="app\services\authService.js" />

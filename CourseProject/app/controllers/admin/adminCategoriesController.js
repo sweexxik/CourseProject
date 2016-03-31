@@ -14,6 +14,8 @@ app.controller('adminCategoriesController',  ['$http','$scope', '$location', 'au
 
  $scope.message = '';	
 
+ $scope.message1 = '';	
+
    	if (!authService.authentication.isAuth){
   		$location.path('/home');
   	}
@@ -58,13 +60,14 @@ app.controller('adminCategoriesController',  ['$http','$scope', '$location', 'au
 			$scope.selectedCategory.name = $scope.newCategory;
 			$scope.selectedCategory.id = 0;
 			$scope.message = '';
+			$scope.message1 = '';
+			$scope.showLoading = true;
 			
 			adminService.saveCategory($scope.selectedCategory).then(function(results){
-
             $scope.categories = results.data;
 			$scope.savedSuccessfully = true;
 			$scope.showLoading = false;	
-			$scope.message = "Saved successfully"
+			$scope.message1 = "Added successfully"
 			}, function(error){
 				$scope.savedSuccessfully = false;
 				$scope.message = error.data.message;
@@ -73,7 +76,7 @@ app.controller('adminCategoriesController',  ['$http','$scope', '$location', 'au
 		}	
 		else{
 			 $scope.savedSuccessfully = false;
-			 $scope.message = "Name must be more than 3 characters!"
+			 $scope.message1 = "Name must be more than 3 characters!"
 		}
 	};
 

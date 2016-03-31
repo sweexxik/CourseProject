@@ -5,6 +5,19 @@
         </div>
         <p></p>  
 	<div class="row" id="main">
+	  <div data-ng-if="showLoading" class="loading"><br><br>
+					<i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 48px"></i>
+	    		</div>
+	 <div class="col-md-12" data-ng-if="message != ''">
+				            <div class="col-md-3">&nbsp;</div>
+				            <div class="col-md-6">
+				            	<div data-ng-class="(savedSuccessfully) ? 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success' : 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger'" role="alert">
+									<i class="fa fa-exclamation"></i>
+									<span class="sr-only">Result:</span>
+									{{message}}
+								</div><br>
+				            </div><br>
+				        </div><br><br>
 	    <div class="col-md-4 " >
 			<div class="row">
 	            <div class="col-md-12 text-center">
@@ -89,7 +102,7 @@
 
 		<div data-ng-if="userInfo.medals.length > 0" class="container">
 		<div class="page-header text-center">
-            <h1>Rewards</h1>
+            <h1>{{translation.ACHIEV}}</h1>
         </div>
 	    <div class="row">
             <div class="[ col-xs-12 col-sm-offset-3 col-sm-6 ]">
@@ -110,7 +123,7 @@
         
                 </ul>
             </div>
-        </div>
+        </div></div>
 
   <div class="global-modal">
     <div class="overlay"></div>

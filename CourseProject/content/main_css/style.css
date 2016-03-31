@@ -1,21 +1,5 @@
-/*
-h4, h5, h6,
-h1, h2, h3 {margin-top: 0;}
-ul, ol {margin: 0;}
-p {margin: 0;}*/
-html,body{
-	background: url(../images/cream.jpg);
-	font-family: 'Open Sans', sans-serif;
-}/*
-body a{
-    transition:0.5s all;
-	-webkit-transition:0.5s all;
-	-moz-transition:0.5s all;
-	-o-transition:0.5s all;
-	-ms-transition:0.5s all;
-}*/
 .banner{
-	background: url(../images/banner.jpg) no-repeat center top;
+	background: url(../images/banner_new.jpg) no-repeat center top;
 	background-size: cover;
 	-webkit-background-size:cover; 
 	-moz-background-size:cover;

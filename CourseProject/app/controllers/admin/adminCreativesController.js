@@ -55,6 +55,7 @@ app.controller('adminCreativesController',  ['$http','$scope', '$location', 'aut
 			if($scope.creatives[i].id === id){
 				$scope.selectedCreative = $scope.creatives[i];
 				$scope.currentCategory = $scope.selectedCreative.category;
+				
 				for (var i = 0; i < $scope.categories.length; i++) {
 					if($scope.categories[i].id == $scope.selectedCreative.category.id){
 						$scope.selectedOption = $scope.categories[i];
