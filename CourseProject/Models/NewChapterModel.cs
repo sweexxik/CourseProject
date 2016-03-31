@@ -21,7 +21,6 @@ namespace CourseProject.Models
    
         public string CreatedOn { get; set; }
 
-        [Required]
         public bool Edit { get; set; }
     }
 }

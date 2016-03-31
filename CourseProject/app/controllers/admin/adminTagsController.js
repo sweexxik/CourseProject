@@ -13,6 +13,33 @@ app.controller('adminTagsController',  ['$http','$scope', '$location', 'authServ
  $scope.savedSuccessfully = true;
 
  $scope.message = '';	
+
+   	if (!authService.authentication.isAuth){
+  		$location.path('/home');
+  	}
+  	else {
+  		authService.getProfileInfo().then(function(results){
+	        $scope.userInfo = results.data;       
+	        $scope.isAdmin = $scope.userInfo.isAdmin;
+	        
+	        if(!$scope.isAdmin){
+	        	$location.path('/home');
+	        }   
+	        else{
+	        	adminService.getAllTags().then(function(results){
+				$scope.tags = results.data;
+				console.log(results.data);
+				});	
+			}	    
+			
+	        
+    	}, function(error){
+    	console.log(error);
+    	});	        
+  	
+
+    	    
+  	}
  
 	$scope.editTag = function(id){
 		console.log(id);
@@ -33,7 +60,7 @@ app.controller('adminTagsController',  ['$http','$scope', '$location', 'authServ
 			$scope.message = '';
 			
 			creativeService.saveTag($scope.selectedTag).then(function(results){
-          
+
             $scope.tags = results.data;
 			$scope.savedSuccessfully = true;
 			$scope.showLoading = false;	
@@ -85,10 +112,7 @@ app.controller('adminTagsController',  ['$http','$scope', '$location', 'authServ
         }        
 	};
 
-	creativeService.getAllTags().then(function(results){
-		$scope.tags = results.data;
-		console.log(results.data);
-	});
+	
 	
 
 	$scope.close = function(){

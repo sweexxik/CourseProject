@@ -15,6 +15,7 @@ namespace CourseProject.Services
         private readonly IAccountService service;
         private readonly IRatingService ratingService;
         private readonly ICommentsService commentService;
+      
 
         public AdminService(IUnitOfWork repo, IAccountService serv, IRatingService ratingServ, ICommentsService commentServ)
         {
@@ -46,6 +47,17 @@ namespace CourseProject.Services
             var result = db.Comments.GetAll();
 
             return commentService.InitCommentsModel(result);
+        }
+
+        public IEnumerable<Tag> GetTags()
+        {
+            return db.Tags.GetAll();
+          
+        }
+
+        public IEnumerable<Chapter> GetChapters()
+        {
+           return db.Chapters.GetAll();
         }
 
         public async Task<IEnumerable<UserViewModel>> SaveUserData(UserViewModel model)
@@ -125,6 +137,19 @@ namespace CourseProject.Services
                 return commentService.InitCommentsModel(db.Comments.GetAll());
             }
 
+            return null;
+        }
+
+        public async Task<IEnumerable<Chapter>> DeleteChapter(int chapterId)
+        {
+           var result = await db.Chapters.Remove(chapterId);
+
+            if (result)
+            {
+                db.Save();
+
+                return db.Chapters.GetAll();
+            }
             return null;
         }
 

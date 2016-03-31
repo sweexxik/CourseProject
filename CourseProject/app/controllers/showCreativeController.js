@@ -23,10 +23,24 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
     $scope.ratingError = '';
 
     var creativeId = $routeParams.Id; 
+    var currentUserName = ''
 
     var savedChapter = 0;
 
-    var currentUserName = localStorageService.get('authorizationData').userName;
+     var rememberChapterModel = {
+        chapterId:0,
+        creativeId: creativeId,
+        userName: ''
+    }
+
+    if($scope.authentication.isAuth){
+        currentUserName = localStorageService.get('authorizationData').userName;
+        rememberChapterModel.userName = currentUserName;
+        creativeService.getRememberedChapter(rememberChapterModel).then(function(results){
+            $scope.storedChapterId = results.data.chapterId;         
+        });
+    }
+   
 
     var newCommentModel = {
         Id:0,
@@ -47,13 +61,10 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         userName:""
     };
 
-    var rememberChapterModel = {
-        chapterId:0,
-        creativeId: creativeId,
-        userName: currentUserName
-    }
+   
 
     $scope.storeChapterId = function(id){
+
         rememberChapterModel.chapterId = id;
         rememberChapterModel.creativeId = creativeId;
         rememberChapterModel.userName = currentUserName;// localStorageService.get('authorizationData').userName;  
@@ -80,9 +91,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         console.log(error);
     });
 
-    creativeService.getRememberedChapter(rememberChapterModel).then(function(results){
-         $scope.storedChapterId = results.data.chapterId;         
-    });
+    
 
      $scope.showNewComment = function(){
         if(authService.authentication.isAuth) {

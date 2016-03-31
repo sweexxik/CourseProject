@@ -1,19 +1,19 @@
  <div class="jumbotron">
     <div class="container">
         <div class="text-center">
-            <h2>Search everywhere</h2>
+            <h2>{{translation.SEARCH_EVERY}}</h2>
         </div> 
    	    <div class="col-md-12">
         <div class="col-md-3">&nbsp;</div>
             <div class="col-md-6">
                 <div class="input-group" id="adv-search">
                     <form data-ng-submit="search()">
-                        <input type="text" class="form-control" data-ng-model="pattern" placeholder="Search for documents" />
+                        <input type="text" class="form-control" data-ng-model="pattern" placeholder="{{translation.SEARCH}}" />
                     </form> 
                     <div class="input-group-btn">
                         <div class="btn-group" role="group">                    
                             <button type="button" class="btn btn-primary" data-ng-click="search()"> 
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                             <i class="fa fa-2x fa-search-plus"></i>
                             </button>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
             <div class="col-md-8">           
                 <div class="panel panel-primary">
                     <div class="panel-heading text-center clickable">
-                        <h3 class="panel-title ">Filter Settings</h3>
+                        <h3 class="panel-title ">{{translation.FILTER_SETT}}</h3>
                         <span id="up" class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
                     </div>
                     <div class="panel-body"> 
@@ -34,29 +34,28 @@
                             <div class="col-md-6">
                                 <ul class="list-group"> 
                                     <li class="list-group-item">
-                                        {{conditionList[0].name}}               
+                                      {{translation.CHAPTER_NAME}}      
                                         <div class="material-switch pull-right">                    
                                             <input id="{{conditionList[0].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[0].selected">
                                             <label for="{{conditionList[0].name}}" class="label-primary"></label>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
-                                        {{conditionList[1].name}}               
+                                       {{translation.CHAPTER_TEXT}}           
                                         <div class="material-switch pull-right">                    
                                             <input id="{{conditionList[1].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[1].selected">
                                             <label for="{{conditionList[1].name}}" class="label-primary"></label>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
-                                        {{conditionList[2].name}}               
+                                      {{translation.CREATIVE_NAME}}            
                                         <div class="material-switch pull-right">                    
                                             <input id="{{conditionList[2].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[2].selected">
                                             <label for="{{conditionList[2].name}}" class="label-primary"></label>
-                                      
                                         </div>
                                     </li>
                                     <li class="list-group-item">
-                                        {{conditionList[3].name}}               
+                                       {{translation.CREATIVE_DESC}}          
                                         <div class="material-switch pull-right">                    
                                             <input id="{{conditionList[3].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[3].selected">
                                             <label for="{{conditionList[3].name}}" class="label-primary"></label>
@@ -67,7 +66,7 @@
                             <div class="col-md-6">
                                 <ul class="list-group"> 
                                     <li class="list-group-item">
-                                        {{conditionList[4].name}}               
+                                         {{translation.TAGS}}                  
                                         <div class="material-switch pull-right">                    
                                             <input id="{{conditionList[4].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[4].selected">
                                             <label for="{{conditionList[4].name}}" class="label-primary"></label>
@@ -75,21 +74,21 @@
                                         </div>
                                     </li>
                                     <li class="list-group-item">
-                                        {{conditionList[5].name}}               
+                                        {{translation.COMMENTS}}   
                                         <div class="material-switch pull-right">                    
                                             <input id="{{conditionList[5].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[5].selected">
                                             <label for="{{conditionList[5].name}}" class="label-primary"></label>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
-                                        {{conditionList[6].name}}               
+                                     {{translation.COMM_AUTH}}              
                                         <div class="material-switch pull-right">                    
                                             <input id="{{conditionList[6].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[6].selected">
                                             <label for="{{conditionList[6].name}}" class="label-primary"></label>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
-                                        {{conditionList[7].name}}               
+                                      {{translation.CREATIVE_AUTH}}             
                                         <div class="material-switch pull-right">                    
                                             <input id="{{conditionList[7].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[7].selected">
                                             <label for="{{conditionList[7].name}}" class="label-primary"></label>
@@ -116,61 +115,51 @@
                     </div>        
             </div>
                 </div>
- <!--    <div class="col-md-12">
-        <div class="col-md-2">&nbsp;</div>
-        <div class="col-md-8 text-center">
-            <i data-ng-if="loading" class="fa fa-spinner fa-2x fa-spin"></i>
-                    
-                  
-            <div data-ng-if="results.length > 0" class="col-md-12" data-ng-repeat="creative in results">        
-                <div class="col-md-12 margin-bottom-30"> 
-                    <div class="portlet portlet-bordered">
-                        <div class="portlet-title">
-                            <div class="caption caption-red">
-                                <i class="glyphicon glyphicon-cog"></i>
-                                <span class="caption-subject text-uppercase">{{creative.name}}</span>
-                                <span class="caption-helper">weekly stats...</span>
-                            </div>
-                            <div class="actions">  
-                                <a ng-href="#/show/{{creative.id}}" class="btn"><i class="glyphicon glyphicon-pencil"></i>Show</a>  
-                            </div>
-                        </div>
-                        <div class="portlet-body">
-                            <h4>{{creative.description}}</h4>
-                            <p data-ng-repeat="chapter in creative.chapters">
-                             {{$index + 1}}. {{chapter.name}}
-                            </p>
-                        </div>
-                    </div>               
-                </div><br><br><br><br>
-            </div>
-        </div>            
-    </div> -->
+ 
 
-  <div class="col-md-12 text-center margin-bottom-30"  data-ng-repeat="creative in results">
-   <!-- | orderBy:sortType:sortReverse "> -->
-  <div class="travelling portlet-bordered">
-      <div class="col-md-10 travelling1 text-center">
-        <h1><a data-ng-href="#/show/{{creative.id}}">{{creative.name}}</a></h1>      
-        <h2>{{creative.description}}</h2>
-        <p data-ng-repeat="chapter in creative.chapters">{{$index + 1}}. {{chapter.name}}</p>
-         <div class="widget--tags text-center">
-            <a data-ng-repeat="tag in creative.tags" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
-        </div>
-          <h5>{{translation.CREATED}}<a href="#">{{creative.userName}}</a>{{creative.created}}</h5>
-          <div class="col-md-12">
-        <p><a class="more" data-ng-href="#/show/{{creative.id}}">{{translation.READ_MORE}}</a></p>
-      </div>
-      </div>
-      <div class="col-md-2 travelling2">
-        <h3><i class="fa fa-comments" style="font-size:36px"></i> {{creative.comments.length}}</h3>
-      </div>
-      <div class="col-md-2 travelling2">
-          <h3 data-ng-if="creative.avgRating > 4"><i class="fa fa-star" style="font-size:36px"></i>{{creative.avgRating}}</h3>    
-          <h3 data-ng-if="creative.avgRating >= 2 && creative.avgRating <= 4 "><i class="fa fa-star-half-o" style="font-size:36px"></i>{{creative.avgRating}}</h3>     
-          <h3 data-ng-if="creative.avgRating < 2"><i class="fa fa-star-o" style="font-size:36px"></i>{{creative.avgRating}}</h3>    
-      </div>
-      <div class="clearfix"> </div>
-  </div>
-  </div>
+      <div class="col-md-12 margin-bottom-30"  data-ng-repeat="creative in results">
+              <div class="blog-post">
+                  <div class="col-md-12">
+                      <div class="col-md-2">
+                          <a data-ng-href="#/show/{{creative.id}}">
+                              <img data-ng-if="creative.avatarUri" align="center" data-ng-src="{{creative.avatarUri}}" alt="Texto Alternativo" class="img-responsive">
+                              <img data-ng-if="creative.avatarUri == undefined"  align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-responsive">
+                            </a>
+                      </div>
+                      <div class="col-md-8">    
+                          <h2 class="blog-post-title"><a data-ng-href="#/show/{{creative.id}}">{{creative.name}}</a></h2>
+                          <p class="blog-post-meta"> {{translation.CREATED}} {{creative.created}} 
+                              <a href="#"> {{creative.userName}}</a>
+                          </p>              
+                            <div class="widget--tags">
+                                <a data-ng-repeat="tag in creative.tags" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
+                            </div>        
+                        </div>
+                        <div class="col-md-2">
+                            <h3><i class="fa fa-comments" style="font-size:36px"></i> {{creative.comments.length}}</h3>
+                            <h3 data-ng-if="creative.avgRating > 4">
+                                <i class="fa fa-star" style="font-size:36px"></i>{{creative.avgRating}}
+                            </h3> 
+                            <h3 data-ng-if="creative.avgRating >= 2 && creative.avgRating <= 4 ">
+                                <i class="fa fa-star-half-o" style="font-size:36px"></i>
+                                {{creative.avgRating}}
+                            </h3>     
+                            <h3 data-ng-if="creative.avgRating < 2">
+                                <i class="fa fa-star-o" style="font-size:36px"></i>{
+                                {{creative.avgRating}}
+                            </h3>    
+                        </div>              
+                    </div>
+                    <div class="col-md-12 text-center">
+                    <div class="col-md-1">&nbsp;</div>
+                    <div class="col-md-8">
+                      <h2 align="center">{{creative.description}}</h2>
+                      <hr>
+                       <h3 data-ng-repeat="chapter in creative.chapters">{{$index + 1}}. {{chapter.name}}</h3>
+                      <hr>
+                      <a data-ng-href="#/show/{{creative.id}}" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning"><i class="fa fa-book"></i> {{translation.READ_MORE}}</a>
+                   </div>
+                   </div>
+               </div>       
+             </div>
   </div>

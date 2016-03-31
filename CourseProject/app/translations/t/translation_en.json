@@ -50,5 +50,15 @@
   "READ_MORE":"Read more",
   "CREATED":"Created by ",
     "CATEGORY":"Category",
-    "NO_COMMENTS":"No comments"
+    "NO_COMMENTS":"No comments",
+    "SEARCH_EVERY":"Search everywhere",
+    "FILTER_SETT":"Filter settings",
+    "CHAPTER_NAME":"Chapter Names",
+  "CHAPTER_TEXT":"Chapter Texts",
+  "CREATIVE_NAME":"Creative Names",
+  "CREATIVE_DESC":"Creative Desc",
+  "TAGS":"Tags",
+  "COMMENTS":"Comments",
+  "COMM_AUTH":"Comment Authors",
+  "CREATIVE_AUTH":"Creative Authors"    
 }

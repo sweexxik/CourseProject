@@ -8,19 +8,8 @@
             <li><a data-ng-href="#/admin/tags">Tags</a></li>          
             <li><a data-ng-href="#/admin/ratings">Ratings</a></li>
             <li><a data-ng-href="#/admin/comments">Comments</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item</a></li>
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-            <li><a href="">More navigation</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-          </ul>
+          </ul>        
+      
         </div>
          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 	<h2 class="sub-header">Chapters manager</h2>          		 
@@ -48,92 +37,77 @@
 				            </a>
 				        </th>
 				        <th>
-				        	<a ng-click="sortType = 'userName'; sortReverse = !sortReverse">
-					            Author
-					            <span ng-show="sortType == 'userName' && !sortReverse" class="fa fa-caret-down"></span>
-					            <span ng-show="sortType == 'userName' && sortReverse" class="fa fa-caret-up"></span>
+				        	<a ng-click="sortType = 'body'; sortReverse = !sortReverse">
+					            Body
+					            <span ng-show="sortType == 'body' && !sortReverse" class="fa fa-caret-down"></span>
+					            <span ng-show="sortType == 'body' && sortReverse" class="fa fa-caret-up"></span>
 				            </a>
 				        </th>
 				        <th>
-				        	<a ng-click="sortType = 'category.name'; sortReverse = !sortReverse">
-					            Category
-					            <span ng-show="sortType == 'category.name' && !sortReverse" class="fa fa-caret-down"></span>
-					            <span ng-show="sortType == 'category.name' && sortReverse" class="fa fa-caret-up"></span>
+				        	<a ng-click="sortType = 'creativeId'; sortReverse = !sortReverse">
+					            CreativeId
+					            <span ng-show="sortType == 'creativeId' && !sortReverse" class="fa fa-caret-down"></span>
+					            <span ng-show="sortType == 'creativeId' && sortReverse" class="fa fa-caret-up"></span>
 				            </a>
-				            </th>
-				        <th>Description</th>
-				        <th>Chapters</th>
-				        <th>Comments</th>
-				       	<th>Tags</th>
-				       	<th>Ratings</th>
+				        </th>
+				        <th>
+				        	<a ng-click="sortType = 'created'; sortReverse = !sortReverse">
+					            Created
+					            <span ng-show="sortType == 'created' && !sortReverse" class="fa fa-caret-down"></span>
+					            <span ng-show="sortType == 'created' && sortReverse" class="fa fa-caret-up"></span>
+				            </a>
+				        </th>
+				        <th>Number</th>
+				         <th>Id</th>
+				       
 					</thead>
   					<tbody>	
-	    				<tr  data-ng-repeat="creative in creatives | orderBy:sortType:sortReverse  | filter:searchUsers" data-ng-click="editCreative(creative.id)">
+	    				<tr  data-ng-repeat="chapter in chapters | orderBy:sortType:sortReverse  | filter:searchUsers" data-ng-click="editChapter(chapter.id)">
 					        <td >{{$index+1}}</td>
-					        <td>{{creative.name}}</td>
-					        <td>{{creative.userName}}</td>
-					        <td>{{creative.category.name}}</td>
-					        <td>{{creative.description}}</td>		         
-					        <td><p data-ng-repeat="chapter in creative.chapters">{{chapter.name}}</p></td>
-					        <td><a data-ng-click="show(1)">{{creative.comments.length}}</a></td>
-					        <td><a data-ng-click="show(1)">{{creative.tags.length}}</a></td>
-					        <td><a data-ng-click="show(1)">{{creative.ratings.length}}</a></td>
+					        <td>{{chapter.name}}</td>
+					        <td>{{chapter.body}}</td>
+					        <td>{{chapter.creativeId}}</td>
+					        <td>{{chapter.created}}</td>	
+					         <td>{{chapter.number}}</td>
+					           <td>{{chapter.id}}</td>			         
+					        
 	    				</tr>
                     </tbody>
                 </table>
-                </div>
-           
+                </div>          
             </div>  
-      
-
-
-
 <div class="global-modal">
     <div class="overlay"></div>
-    <div class="global-modal-creative_contents modal-transition">
+    <div class="global-modal-chapters_contents modal-transition">
         <div class="global-modal-header">
        	<i class="fa fa-2x fa-times" data-ng-click="close()"></i>
-            <h3><b> <i class="fa fa-2x fa-edit"></i> Edit Creative </b></h3>
+            <h3><b> <i class="fa fa-2x fa-edit"></i> Edit Chapter </b></h3>
         </div>
         <div class="global-modal-body">
             <div class="col-md-12">                	
-                <div class="col-md-6">
-                		<h3 class="form-login-heading">Name</h3>
-	                    <input maxlength="20" type="text" class="form-control" data-ng-model="selectedCreative.name" placeholder="Username" required autofocus>
+             <div class="note">
+		        <span class="date">{{selectedChapter.createdOn}}</span>
+		        <span class="icons">
+		            <i class="fa fa-2x fa-check fa-lg" ng-if="chapter.edit == false"></i>
+		            <i class="fa fa-2x fa-pencil fa-lg" ng-if="chapter.edit == true"></i>
+		            <i data-ng-click="saveChapter()" style="cursor: pointer;" class="fa fa-2x fa-floppy-o pull-right"></i>
+		        </span>
+		     <div class="form-group" >
+		        <input style="width: 33%; margin-left: 33%"  type="text" maxlength="50" data-ng-model="selectedChapter.name" class="form-control" placeholder="Chapter Name">
+		      </div>
+		      <div class="markdown-body" ng-model="selectedChapter.body" ng-change="update(selectedChapter.body)" ng-focus="selectedChapter.edit = true" ng-blur="selectedChapter.edit = false" markdown-editable contenteditable="true">
 
-	                    <h3 class="form-login-heading">Description</h3>
-
-	                    <textarea type="text" cols="80" rows="5" class="form-control" maxlength="140" data-ng-model="selectedCreative.description" placeholder="Creative Description" required autofocus>{{selectedCreative.description}} </textarea> 
-	               
-	                    <h2 class="form-login-heading">Category</h2>  
-		                <select class="form-control"data-ng-model="selectedCategory" data-ng-options="act.name for act in categories">
-                    </select>                 
-                </div>
-                <div class="col-md-6">
-                	  <h2 class="form-login-heading">Chapters</h2>  
-                	 <div class="input-group">
-						 <input type="text" class="form-control" data-ng-model="newChapter" placeholder="Add new chapter" aria-describedby="basic-addon2">
-						  <span data-ng-click="addChapter()" class="input-group-addon btn btn-success">Add</span>
-
-					</div>               	   
-				
-        			 <hr>
-                    <div class="list-group" data-ng-repeat="chapter in selectedCreative.chapters">
-					    {{chapter.name}}
-			                <div class="pull-right">                    
-		                        <button data-ng-click="deleteChapter(chapter.id)" class="btn btn-danger">Delete</button>
-		                    </div>
-					</div>
-                </div>
+		              {{ selectedChapter.text }}
+		          </div>
+		    </div>
             </div>
             <div class="col-md-12 text-center">
 	            <div data-ng-if="showLoading" class="loading"><br><br>
 					<i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 48px"></i>
 	    		</div>
-	            <a class="btn-green-flat-trigger" data-ng-click="saveCreative()">Save changes</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	            <a class="btn-green-flat-trigger" data-ng-click="deleteCreative()">Delete creative</a><br><br><br>          		
+	        	            <a class="btn-green-flat-trigger" data-ng-click="deleteChapter()">Delete chapter</a><br><br><br>          		
 	        </div>
-	        	<button data-ng-click="close()">Close</button>
+
 	        <div class="col-md-12" data-ng-if="message != ''">
 	            <div class="col-md-3">&nbsp;</div>
 	            <div class="col-md-6">

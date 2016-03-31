@@ -18,6 +18,16 @@ app.factory('adminService', ['$http',
         return $http.get(serviceBase + 'api/admin/comments')
             .then(function (results) { return results; });
     };
+
+    var _getAllTags = function () {    
+        return $http.get(serviceBase + 'api/admin/tags')
+            .then(function (results) { return results; });
+    };
+
+     var _getAllChapters = function () {    
+        return $http.get(serviceBase + 'api/admin/chapters')
+            .then(function (results) { return results; });
+    };
     
 
     var _saveUserData = function(data){
@@ -60,10 +70,17 @@ app.factory('adminService', ['$http',
             .then(function (results) { return results; });
     };
 
-     var _deleteComment= function (id) {   
+     var _deleteComment = function (id) {   
         return $http.post(serviceBase + 'api/admin/deleteComment/' + id)
             .then(function (results) { return results; });
     };
+
+     var _deleteChapter = function (id) {   
+        return $http.post(serviceBase + 'api/admin/chapters/delete/' + id)
+            .then(function (results) { return results; });
+    };
+
+
 
     
 
@@ -73,10 +90,15 @@ app.factory('adminService', ['$http',
     adminServiceFactory.getAllMedals = _getAllMedals;
     adminServiceFactory.getAllRatings = _getAllRatings
     adminServiceFactory.getAllComments = _getAllComments
-    adminServiceFactory.saveUserData = _saveUserData;
+    adminServiceFactory.getAllTags = _getAllTags;
+    adminServiceFactory.getAllChapters = _getAllChapters   
+
     adminServiceFactory.deleteUser = _deleteUser;
     adminServiceFactory.deleteRating = _deleteRating;
-     adminServiceFactory.deleteComment = _deleteComment
+    adminServiceFactory.deleteComment = _deleteComment;
+    adminServiceFactory.deleteChapter = _deleteChapter;
+
+    adminServiceFactory.saveUserData = _saveUserData;
     adminServiceFactory.resetPassword = _resetPasword;
     adminServiceFactory.registerNewUser  = _registerNewUser
 

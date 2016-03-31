@@ -1,6 +1,6 @@
 'use strict';
-app.controller('mainController', ['$scope','creativeService','searchService','$location',
-    function ($scope,creativeService,searchService,$location) {
+app.controller('mainController', ['$showdown','$sce','$scope','creativeService','searchService','$location',
+    function ($showdown,$sce,$scope,creativeService,searchService,$location) {
 
     $scope.creatives = [];
     $scope.tags = [];
@@ -42,6 +42,9 @@ app.controller('mainController', ['$scope','creativeService','searchService','$l
             $scope.allCreatives = results.data; 
             counter = 1;
         for(var i = 0; i< $scope.allCreatives.length; i++) {   
+
+          
+
             $scope.allCreatives[i].popular = $scope.allCreatives[i].comments.length;      
             $scope.allCreatives[i].chapters = creativeService.sortChapters($scope.allCreatives[i]); 
         }   
@@ -59,7 +62,8 @@ app.controller('mainController', ['$scope','creativeService','searchService','$l
         creativeService.getPartialCreatives(del).then(function (results) {          
             $scope.allCreatives = $scope.allCreatives.concat(results.data);  
             console.log($scope.allCreatives);         
-        for(var i = 0; i< $scope.creatives.length; i++) {   
+        for(var i = 0; i< $scope.creatives.length; i++) {  
+        
             $scope.creatives[i].popular = $scope.allCreatives[i].comments.length;      
             $scope.creatives[i].chapters = creativeService.sortChapters($scope.allCreatives[i]); 
         }   

@@ -12,6 +12,8 @@ namespace CourseProject.Interfaces
         IEnumerable<Medal> GetMedals();
         IEnumerable<NewRatingModel> GetRatings();
         IEnumerable<NewCommentModel> GetComments();
+        IEnumerable<Tag> GetTags();
+        IEnumerable<Chapter> GetChapters();
 
         Task<IEnumerable<UserViewModel>> SaveUserData(UserViewModel model);
         Task<IdentityResult> DeleteUser (UserViewModel model);
@@ -25,5 +27,7 @@ namespace CourseProject.Interfaces
 
         Task<IEnumerable<NewCommentModel>> SaveComment(NewCommentModel model);
         Task<IEnumerable<NewCommentModel>> DeleteComment(int id);
+
+        Task<IEnumerable<Chapter>> DeleteChapter(int chapterId);
     }
 }

@@ -2,73 +2,78 @@
 app.controller('adminChaptersController',  ['$http','$scope', '$location', 'authService','adminService', 'creativeService', '$window',
  function ($http, $scope, $location, authService, adminService,creativeService, $window) {
 
- $scope.creatives = [];
- $scope.categories = [];
- $scope.selectedCategory = {};
- $scope.newChapter = '';
- $scope.showLoading = false;
- $scope.savedSuccessfully = true;
- $scope.message = '';	
+	$scope.chapters = [];
+
+ 	$scope.selectedChapter = {};
+
+	$scope.showLoading = false;
+
+ 	$scope.savedSuccessfully = true;
+
+ 	$scope.message = '';	
+
+   	if (!authService.authentication.isAuth){
+  		$location.path('/home');
+  	}
+  	else {
+  		authService.getProfileInfo().then(function(results){
+	        $scope.userInfo = results.data;       
+	        $scope.isAdmin = $scope.userInfo.isAdmin;
+	        
+	        if(!$scope.isAdmin){
+	        	$location.path('/home');
+	        }   
+	        else{
+	        	adminService.getAllChapters().then(function(results){
+				$scope.chapters = results.data;
+				console.log(results.data);
+				});	
+			}	    
+			
+	        
+    	}, function(error){
+    	console.log(error);
+    	});	        
+  	
+
+    	    
+  	}
  
-$scope.editCreative = function(id){
+	$scope.editChapter = function(id){
 		console.log(id);
 		$scope.message = '';
-		for (var i = 0; i < $scope.creatives.length; i++) {
-			if($scope.creatives[i].id === id){
-				$scope.selectedCreative = $scope.creatives[i];
-
+		for (var i = 0; i < $scope.chapters.length; i++) {
+			if($scope.chapters[i].id === id){
+				$scope.selectedChapter = $scope.chapters[i];
 				break;
 			}
 		}
 		$( globalModal).toggleClass('global-modal-show');
 	};
-
-	$scope.saveCreative = function(){
-		$scope.selectedCreative.category = $scope.selectedCategory;
+	
+	$scope.saveChapter = function(){
 		var result = $window.confirm('Are you sure ?');
         if (result) {
         	$scope.showLoading = true;	
-            creativeService.updateCreativeByAdmin($scope.selectedCreative).then(function(results){
-            $scope.creatives = results.data;
-			$scope.savedSuccessfully = true;
-			$scope.showLoading = false;	
-			$scope.message = "Saved successfully"
-			}, function(error){
-				$scope.savedSuccessfully = false;
-				$scope.message = error.data.message;
+        	$scope.selectedChapter.text = $scope.selectedChapter.body;
+            creativeService.saveChapter($scope.selectedChapter).then(function(results){	          
+				$scope.savedSuccessfully = true;
 				$scope.showLoading = false;	
-			});
-        }        
+				$scope.message = "Saved successfully"
+				}, function(error){
+					$scope.savedSuccessfully = false;
+					$scope.message = error.data.message;
+					$scope.showLoading = false;	
+				});
+        	}        
 	};
 
-	$scope.deleteChapter = function(id){
-		for (var i = 0; i < $scope.selectedCreative.chapters.length; i++) {
-			if ($scope.selectedCreative.chapters[i].id == id){
-				$scope.selectedCreative.chapters.splice(i,1);
-
-			}
-		}
-		console.log($scope.selectedCreative);
-	}
-
-	$scope.addChapter = function(){
-		if($scope.newChapter.length > 3){
-			$scope.message = '';
-			$scope.selectedCreative.chapters.push({id:0,name:$scope.newChapter,creativeId:$scope.selectedCreative.id});
-		}	
-		else{
-			 $scope.savedSuccessfully = false;
-			 $scope.message = "Name must be more than 3 characters!"
-		}
-	};
-
-	$scope.deleteCreative = function(){
-		
+	$scope.deleteChapter = function(){		
 		var result = $window.confirm('Are you absolutely sure you want to delete?');
         if (result) {
         	$scope.showLoading = true;	
-            creativeService.deleteCreativeByAdmin($scope.selectedCreative.id).then(function(results){
-            $scope.creatives = results.data;
+            adminService.deleteChapter($scope.selectedChapter.id).then(function(results){
+            $scope.chapters = results.data;
 			$scope.savedSuccessfully = true;
 			$scope.showLoading = false;	
 			$scope.message = "Deleted successfully"
@@ -77,20 +82,13 @@ $scope.editCreative = function(id){
 			$scope.message = error.data.message;
 			$scope.showLoading = false;	
 		});
+	
         }        
 	};
 
-	creativeService.getAllCreatives().then(function(results){
-		$scope.creatives = results.data;
-		console.log(results.data);
-	});
-
-	creativeService.getCategories().then(function(results){
-		$scope.categories = results.data;
-		console.log(results.data);
-	});
-
 	
+	
+
 	$scope.close = function(){
 		$( globalModal ).toggleClass('global-modal-show');
 	}

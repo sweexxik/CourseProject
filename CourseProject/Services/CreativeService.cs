@@ -61,8 +61,10 @@ namespace CourseProject.Services
             db.Save();
 
             await medalService.CheckMedals(creative.User.UserName);
-           
-            return InitCreativesModel(db.Creatives.Find(c => c.User.UserName == model.UserName));
+
+            var res = db.Creatives.Find(c => string.Equals(c.User.UserName, model.UserName, StringComparison.CurrentCultureIgnoreCase));
+
+            return InitCreativesModel(res);
         }
      
 

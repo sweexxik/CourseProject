@@ -4,27 +4,44 @@ app.controller('adminCreativesController',  ['$http','$scope', '$location', 'aut
 
  $scope.creatives = [];
  $scope.categories = [];
- $scope.selectedCategory = {};
+ $scope.currentCategory = "";
  $scope.newChapter = '';
  $scope.showLoading = false;
  $scope.savedSuccessfully = true;
  $scope.message = '';	
  
+ $scope.options = [
+    {
+      name: 'Something Cool',
+      value: 'something-cool-value'
+    }, 
+    {
+      name: 'Something Else',
+      value: 'something-else-value'
+    }
+  ];
+  
+ 
+
 $scope.editCreative = function(id){
-		console.log(id);
 		$scope.message = '';
 		for (var i = 0; i < $scope.creatives.length; i++) {
 			if($scope.creatives[i].id === id){
 				$scope.selectedCreative = $scope.creatives[i];
-
+				$scope.currentCategory = $scope.selectedCreative.category;
+				for (var i = 0; i < $scope.categories.length; i++) {
+					if($scope.categories[i].id == $scope.selectedCreative.category.id){
+						$scope.selectedOption = $scope.categories[i];
+					}
+				}
 				break;
 			}
-		}
+		}	
 		$( globalModal).toggleClass('global-modal-show');
 	};
 
 	$scope.saveCreative = function(){
-		$scope.selectedCreative.category = $scope.selectedCategory;
+		$scope.selectedCreative.category = $scope.selectedOption;
 		var result = $window.confirm('Are you sure ?');
         if (result) {
         	$scope.showLoading = true;	

@@ -16,6 +16,9 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
         confirmPassword: ""
     };
 
+     $scope.userInfo = {};  
+	 $scope.isAdmin = false;
+
  	$scope.message = '';
  	$scope.message1 = '';
 
@@ -28,23 +31,40 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
  	$scope.medals = [];
  	$scope.medalsModel = [];
 
- 	$scope.selectedUser = {};
- 
+ 	$scope.selectedUser = {}; 
 
   	$scope.resetPasswrodModel = {
   		userId:"",
   		newPassword:""
   	};
 
-	adminService.getAllUsers().then(function(results){
-		$scope.users = results.data;	
-		console.log($scope.users);
-	});
+  	if (!authService.authentication.isAuth){
+  		$location.path('/home');
+  	}
+  	else {
+  		authService.getProfileInfo().then(function(results){
+	        $scope.userInfo = results.data;       
+	        $scope.isAdmin = $scope.userInfo.isAdmin;
+	        
+	        if(!$scope.isAdmin){
+	        	$location.path('/home');
+	        }   
+	        else{
+	        	adminService.getAllUsers().then(function(results){
+					$scope.users = results.data;	
+					console.log($scope.users);
+				});
 
-	adminService.getAllMedals().then(function(results){		
-		$scope.medals = results.data;	
-		console.log($scope.medals);
-	});
+				adminService.getAllMedals().then(function(results){		
+					$scope.medals = results.data;	
+					console.log($scope.medals);
+				});
+	        }
+    	}, function(error){
+    	console.log(error);
+    	});	        
+  	}
+	
 
 	$scope.editUser = function(id){
 		$scope.message = '';
@@ -122,6 +142,9 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
 		});
 	};
 
+	$scope.close = function(){
+		$( globalModal ).toggleClass('global-modal-show');
+	}
 
    var globalModal = $('.global-modal');
     $( ".trigger" ).on( "click", function(e) {
@@ -131,8 +154,5 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
     $( ".overlay" ).on( "click", function() {
       $( globalModal ).toggleClass('global-modal-show');
     });
-
-
-
 
 }]);

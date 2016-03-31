@@ -49,6 +49,20 @@ namespace CourseProject.Controllers
             return Ok(service.GetComments());
         }
 
+        [HttpGet]
+        [Route("api/admin/tags")]
+        public IHttpActionResult GetAllTags()
+        {
+            return Ok(service.GetTags());
+        }
+
+        [HttpGet]
+        [Route("api/admin/chapters")]
+        public IHttpActionResult GetAllChapters()
+        {
+            return Ok(service.GetChapters());
+        }
+
         [HttpPost]
         [ValidateViewModel]
         [Route("api/admin/save")]
@@ -79,7 +93,7 @@ namespace CourseProject.Controllers
 
         [HttpPost]
         [Route("api/admin/deleteCreative/{id}")]
-        public async Task<IHttpActionResult> DelteCreative(int id)
+        public async Task<IHttpActionResult> DeleteCreative(int id)
         {
             await creativeService.DeleteCreative(id);
 
@@ -155,6 +169,15 @@ namespace CourseProject.Controllers
         public async Task<IHttpActionResult> DeleteComment(int id)
           {
             var result = await service.DeleteComment(id);
+
+            return result != null ? Ok(result) : GetErrorResult(false);
+        }
+
+        [HttpPost]
+        [Route("api/admin/chapters/delete/{chapterId}")]
+        public async Task<IHttpActionResult> DeleteChapter(int chapterId)
+        {
+            var result = await service.DeleteChapter(chapterId);
 
             return result != null ? Ok(result) : GetErrorResult(false);
         }

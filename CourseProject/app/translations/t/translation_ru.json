@@ -50,5 +50,15 @@
   "READ_MORE":"Подробнее",
   "CREATED":"Создано ",
   "CATEGORY":"Категория",
-  "NO_COMMENTS":"Комментариев пока нет"
+  "NO_COMMENTS":"Комментариев пока нет",
+  "SEARCH_EVERY":"Поиск по сайту",
+  "FILTER_SETT":"Фильтр",
+  "CHAPTER_NAME":"Имена глав",
+  "CHAPTER_TEXT":"Текст глав",
+  "CREATIVE_NAME":"Имена креативов",
+  "CREATIVE_DESC":"Описание креативов",
+  "TAGS":"Тэги",
+  "COMMENTS":"Комментарии",
+  "COMM_AUTH":"Авторы комментариев",
+  "CREATIVE_AUTH":"Авторы кретивов"    
 }

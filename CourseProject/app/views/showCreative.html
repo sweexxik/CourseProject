@@ -171,9 +171,10 @@
             <ul id="comments-list" class="comments-list">
                 <li data-ng-repeat="comment in comments">
                     <div class="comment-main-level">
-                        <!-- Avatar -->
-                        <div class="comment-avatar"><img data-ng-src="{{comment.avatarUri}}" alt=""></div>
-                        <!-- Contenedor del Comentario -->
+   
+                        <div class="comment-avatar">
+                            <img data-ng-if="userInfo.avatarUri == undefined" style="width: 200px; height:200px;" align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-thumbnail">
+                            <img data-ng-if="userInfo.avatarUri != undefined" data-ng-src="{{comment.avatarUri}}" alt=""></div>
                         <div class="comment-box">
                             <div class="comment-head">
                                 <h6 class="comment-name by-author"><a href="http://creaticode.com/blog">{{comment.userName}}</a></h6>

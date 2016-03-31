@@ -11,6 +11,8 @@ app.controller('homeController',
     $scope.sortType = 'created';
     $scope.sortReverse = true;
 
+    $scope.searchCreatives = '';
+
     $scope.categories = [];
     $scope.currentCategory = "";
     $scope.creativeName = "";
@@ -27,7 +29,6 @@ app.controller('homeController',
 
 
     if (authService.authentication.isAuth){
-
         authService.getProfileInfo().then(function(results){
                 $scope.userInfo = results.data;              
         });
@@ -42,10 +43,10 @@ app.controller('homeController',
             console.log(error);            
         });
     }
-
-    $scope.newCreative = function(){
-    	$location.path('/newCreative');
-    }
+    
+    // $scope.newCreative = function(){
+    // 	$location.path('/newCreative');
+    // }
 
     $scope.deleteCreative = function (id) {     
         var result = $window.confirm('are you absolutely sure you want to delete?');
@@ -90,6 +91,7 @@ app.controller('homeController',
         console.log(newCreative);
         creativeService.createCreative(newCreative).then(function(results){
             $scope.creatives = results.data;
+            console.log(results.data);
         });     
    }; 
 
