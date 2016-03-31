@@ -108,14 +108,14 @@
 <div class="col-md-12" data-ng-if="message != ''">   
     <div class="col-md-3">&nbsp;</div>  
         <div class="col-md-6">      
-            <div data-ng-class="(savedSuccessfully) ? 'alert alert-success text-center' : 'alert alert-danger text-center'" role="alert">
+            <div data-ng-class="(savedSuccessfully) ? 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success' : '_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger text-center'" role="alert">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                         <span class="sr-only">Result:</span>
                         {{message}}
                     </div>        
             </div>
                 </div>
- 
+
 
       <div class="col-md-12 margin-bottom-30"  data-ng-repeat="creative in results">
               <div class="blog-post">
@@ -145,7 +145,7 @@
                                 {{creative.avgRating}}
                             </h3>     
                             <h3 data-ng-if="creative.avgRating < 2">
-                                <i class="fa fa-star-o" style="font-size:36px"></i>{
+                                <i class="fa fa-star-o" style="font-size:36px"></i>
                                 {{creative.avgRating}}
                             </h3>    
                         </div>              

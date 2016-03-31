@@ -80,12 +80,19 @@ app.factory('adminService', ['$http',
             .then(function (results) { return results; });
     };
 
+    var _saveCategory = function(data){
+        return $http.post(serviceBase + 'api/admin/category', JSON.stringify(data), {
+            headers:{contentType:'application/json; charset=utf-8', dataType:"json"}
+        }).then(function(results){
+            return results;
+        });
+    };  
 
+    var _deleteCategory = function(id){
+        return $http.post(serviceBase + 'api/admin/category/'+ id)
+            .then(function(results){ return results;});
+    };  
 
-    
-
-   
-       
     adminServiceFactory.getAllUsers = _getAllUsers;
     adminServiceFactory.getAllMedals = _getAllMedals;
     adminServiceFactory.getAllRatings = _getAllRatings
@@ -101,6 +108,9 @@ app.factory('adminService', ['$http',
     adminServiceFactory.saveUserData = _saveUserData;
     adminServiceFactory.resetPassword = _resetPasword;
     adminServiceFactory.registerNewUser  = _registerNewUser
+
+    adminServiceFactory.saveCategory = _saveCategory;
+    adminServiceFactory.deleteCategory = _deleteCategory
 
     return adminServiceFactory;    
     

@@ -37,7 +37,9 @@ namespace CourseProject.Controllers
                 return BadRequest("User name is null");
             }
 
-            return Ok(await service.GetUserInfo(userName));
+            var result = await service.GetUserInfo(userName);
+
+            return result != null ? Ok(result) : GetErrorResult(false);
         }
 
         [Authorize]

@@ -1,6 +1,6 @@
 <div class="container">
     <div class="page-header text-center">
-        <h1>Edit chapter: "{{chapter.name}}"</h1>
+        <h1>{{translation.EDIT_CHAPTER}}</h1>
     </div>   
       <div data-ng-if="showLoading" class="loading text-center"><br><br>
                 <i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 24px"></i>
@@ -8,7 +8,7 @@
              <div class="col-md-12" data-ng-if="message != ''">
                     <div class="col-md-3">&nbsp;</div>
                     <div class="col-md-6">
-                      <div data-ng-class="(savedSuccessfully) ? 'alert alert-success text-center' : 'alert alert-danger text-center'" role="alert">
+                      <div data-ng-class="(savedSuccessfully) ? 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success' : text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger'" role="alert">
                   <i class="fa fa-exclamation"></i>
                   <span class="sr-only">Result:</span>
                   {{message}}
@@ -25,10 +25,9 @@
             <i data-ng-click="saveChapter()" style="cursor: pointer;" class="fa fa-2x fa-floppy-o pull-right"></i>
         </span>
      <div class="form-group" >
-        <input style="width: 33%; margin-left: 33%"  type="text" maxlength="50" data-ng-model="chapter.name" class="form-control" placeholder="Chapter Name">
+        <input style="width: 33%; margin-left: 33%"  type="text" maxlength="50" data-ng-model="chapter.name" class="form-control" placeholder="{{translation.CHAPTER_NAME}}">
       </div>
       <div class="markdown-body" ng-model="chapter.text" ng-change="update(chapter.text)" ng-focus="chapter.edit = true" ng-blur="chapter.edit = false" markdown-editable contenteditable="true">
-
               {{ chapter.text }}
           </div>
     </div>

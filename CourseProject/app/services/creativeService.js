@@ -11,6 +11,11 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             .then(function (results) { return results; });
     };
 
+    var _getCreativesByName = function (username) {     
+        return $http.get(serviceBase + 'api/creatives/getall/' + username)
+            .then(function (results) { return results; });
+    };
+
     var _getAllCreatives = function () {      
         return $http.get(serviceBase + 'api/creatives/getall')
             .then(function (results) { return results; });
@@ -195,14 +200,15 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
             });   
             return a;}
 
-    creativesServiceFactory.getAllCreatives = _getAllCreatives
+    creativesServiceFactory.getAllCreatives = _getAllCreatives;
+    creativesServiceFactory.getCreativesByName = _getCreativesByName;
     creativesServiceFactory.getCreatives = _getCreatives;
     creativesServiceFactory.getCreative = _getCreative;
     creativesServiceFactory.getCategories = _getCategories;
     creativesServiceFactory.getComments = _getComments;
     creativesServiceFactory.getAllTags = _getAllTags;
     creativesServiceFactory.getCreativeTags = _getCreativeTags
-    creativesServiceFactory.getChapter = _getChapter
+    creativesServiceFactory.getChapter = _getChapter;
     creativesServiceFactory.setTags = _setTags;
 
     creativesServiceFactory.getPartialCreatives = _getPartialCreatives;
@@ -217,18 +223,18 @@ app.factory('creativeService', ['$http', 'ngAuthSettings','localStorageService',
     creativesServiceFactory.createLike = _createLike;
     creativesServiceFactory.createRating = _createRating;
 
-    creativesServiceFactory.updateCreative = _updateCreative
+    creativesServiceFactory.updateCreative = _updateCreative;
     creativesServiceFactory.updateCreativeByAdmin = _updateCreativeByAdmin;
 
     creativesServiceFactory.deleteCreative = _deleteCreative;
-    creativesServiceFactory.deleteCreativeByAdmin = _deleteCreativeByAdmin
+    creativesServiceFactory.deleteCreativeByAdmin = _deleteCreativeByAdmin;
     creativesServiceFactory.deleteComment = _deleteComment;
     creativesServiceFactory.deleteChapter = _deleteChapter;
     creativesServiceFactory.deleteTag = _deleteTag;
 
     creativesServiceFactory.sortChapters = _sortChapters;
 
-    creativesServiceFactory.getMostPopularCreatives = _getMostPopularCreatives
+    creativesServiceFactory.getMostPopularCreatives = _getMostPopularCreatives;
     creativesServiceFactory.getMostRatedCreatives = _getMostRatedCreatives;
 
     creativesServiceFactory.rememberChapter = _rememberChapter;

@@ -49,16 +49,24 @@
   "CATEGORIES": "Categories",
   "READ_MORE":"Read more",
   "CREATED":"Created by ",
-    "CATEGORY":"Category",
-    "NO_COMMENTS":"No comments",
-    "SEARCH_EVERY":"Search everywhere",
-    "FILTER_SETT":"Filter settings",
-    "CHAPTER_NAME":"Chapter Names",
+  "CATEGORY":"Category",
+  "NO_COMMENTS":"No comments",
+  "SEARCH_EVERY":"Search everywhere",
+  "FILTER_SETT":"Filter settings",
+  "CHAPTER_NAME":"Chapter Names",
   "CHAPTER_TEXT":"Chapter Texts",
   "CREATIVE_NAME":"Creative Names",
   "CREATIVE_DESC":"Creative Desc",
   "TAGS":"Tags",
   "COMMENTS":"Comments",
   "COMM_AUTH":"Comment Authors",
-  "CREATIVE_AUTH":"Creative Authors"    
+  "CREATIVE_AUTH":"Creative Authors",
+  "EDIT_CREATIVE": "Edit your creative. It's always easy.",
+  "Result":"Result: ",
+  "ADD_TAGS":"Add tags",
+  "EDIT_CHAPTER":"Edit chapter",
+  "CHAPTER_NAME":"Chapter name"
+
+ 
+
 }

@@ -131,7 +131,7 @@ namespace CourseProject.Services
         {
             var result = await db.Creatives.Get(id);
 
-            return InitCreativeModel(result);
+            return result != null ? InitCreativeModel(result) : null;
         }
 
         public async Task<IEnumerable<NewCreativeModel>> GetUsersCreatives(string userName)

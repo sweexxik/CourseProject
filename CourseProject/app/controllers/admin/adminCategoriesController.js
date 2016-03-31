@@ -1,12 +1,12 @@
 'use strict';
-app.controller('adminTagsController',  ['$http','$scope', '$location', 'authService','adminService', 'creativeService', '$window',
+app.controller('adminCategoriesController',  ['$http','$scope', '$location', 'authService','adminService', 'creativeService', '$window',
  function ($http, $scope, $location, authService, adminService,creativeService, $window) {
 
- $scope.tags = [];
+ $scope.categories = [];
 
- $scope.selectedTag = {};
+ $scope.selectedCategory = {};
 
- $scope.newTag = '';
+ $scope.newCategory = '';
 
  $scope.showLoading = false;
 
@@ -26,37 +26,42 @@ app.controller('adminTagsController',  ['$http','$scope', '$location', 'authServ
 	        	$location.path('/home');
 	        }   
 	        else{
-	        	adminService.getAllTags().then(function(results){
-				$scope.tags = results.data;
+	        	creativeService.getCategories().then(function(results){
+				$scope.categories = results.data;
 				console.log(results.data);
 				});	
-			}
+			}	    
+			
+	        
     	}, function(error){
     	console.log(error);
-    	});
+    	});	        
+  	
+
+    	    
   	}
  
-	$scope.editTag = function(id){
+	$scope.editCategory = function(id){
 		console.log(id);
 		$scope.message = '';
-		for (var i = 0; i < $scope.tags.length; i++) {
-			if($scope.tags[i].id === id){
-				$scope.selectedTag = $scope.tags[i];
+		for (var i = 0; i < $scope.categories.length; i++) {
+			if($scope.categories[i].id === id){
+				$scope.selectedCategory = $scope.categories[i];
 				break;
 			}
 		}
 		$( globalModal).toggleClass('global-modal-show');
 	};
 
-	$scope.addTag = function(){
-		if($scope.newTag.length > 3){
-			$scope.selectedTag.name = $scope.newTag;
-			$scope.selectedTag.id = 0;
+	$scope.addCategory = function(){
+		if($scope.newCategory.length > 3){
+			$scope.selectedCategory.name = $scope.newCategory;
+			$scope.selectedCategory.id = 0;
 			$scope.message = '';
 			
-			creativeService.saveTag($scope.selectedTag).then(function(results){
+			adminService.saveCategory($scope.selectedCategory).then(function(results){
 
-            $scope.tags = results.data;
+            $scope.categories = results.data;
 			$scope.savedSuccessfully = true;
 			$scope.showLoading = false;	
 			$scope.message = "Saved successfully"
@@ -72,12 +77,12 @@ app.controller('adminTagsController',  ['$http','$scope', '$location', 'authServ
 		}
 	};
 
-	$scope.saveTag = function(){
+	$scope.saveCategory = function(){
 		var result = $window.confirm('Are you sure ?');
         if (result) {
         	$scope.showLoading = true;	
-            creativeService.saveTag($scope.selectedTag).then(function(results){
-            $scope.tags = results.data;
+            adminService.saveCategory($scope.selectedCategory).then(function(results){
+            $scope.categories = results.data;
 			$scope.savedSuccessfully = true;
 			$scope.showLoading = false;	
 			$scope.message = "Saved successfully"
@@ -89,12 +94,12 @@ app.controller('adminTagsController',  ['$http','$scope', '$location', 'authServ
         }        
 	};
 
-	$scope.deleteTag = function(id){		
+	$scope.deleteCategory = function(id){		
 		var result = $window.confirm('Are you absolutely sure you want to delete?');
         if (result) {
         	$scope.showLoading = true;	
-            creativeService.deleteTag(id).then(function(results){
-            $scope.tags = results.data;
+            adminService.deleteCategory(id).then(function(results){
+            $scope.categories = results.data;
 			$scope.savedSuccessfully = true;
 			$scope.showLoading = false;	
 			$scope.message = "Deleted successfully"

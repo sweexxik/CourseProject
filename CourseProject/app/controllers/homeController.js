@@ -7,9 +7,11 @@ app.controller('homeController',
     $scope.userInfo = [];
     $scope.creatives = [];
     $scope.chapters = [];
+    $scope.message = '';
 
     $scope.sortType = 'created';
     $scope.sortReverse = true;
+    $scope.showLoading = false;
 
     $scope.searchCreatives = '';
 
@@ -72,27 +74,40 @@ app.controller('homeController',
         $scope.currentCategory = results.data[0];
     }, function (error) {
         console.log(error);
+        $scope.savedSuccessfully = false;
+        $scope.showLoading = false; 
+        $scope.message = error.data.message;
     });
 
     creativeService.getAllTags().then(function(results){
         $scope.recievedTags = results.data;
     }, function(error){
         console.log(error);
+        $scope.savedSuccessfully = false;
+        $scope.showLoading = false; 
+        $scope.message = error.data.message;
     });
 
 
     
     $scope.createCreative = function(formData){
+        $scope.showLoading = true;
         newCreative.userName = localStorageService.get('authorizationData').userName;
         newCreative.categoryId = $scope.currentCategory.id;
         newCreative.name = $scope.creativeName;
         newCreative.Description = $scope.creativeDescription;
         newCreative.tags = $scope.tags;
-        console.log(newCreative);
+        console.log(newCreative);      
         creativeService.createCreative(newCreative).then(function(results){
             $scope.creatives = results.data;
-            console.log(results.data);
-        });     
+            $scope.savedSuccessfully = true;
+            $scope.showLoading = false; 
+            $scope.message = "Saved successfully"
+        }, function(error){
+            $scope.savedSuccessfully = false;
+            $scope.showLoading = false; 
+            $scope.message = error.data.message;
+        });
    }; 
 
      var globalModal = $('.global-modal');

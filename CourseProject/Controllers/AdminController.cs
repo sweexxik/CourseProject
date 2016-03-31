@@ -65,6 +65,38 @@ namespace CourseProject.Controllers
 
         [HttpPost]
         [ValidateViewModel]
+        [Route("api/admin/category")]
+        public async Task<IHttpActionResult> SaveCategory(NewCategoryModel model)
+        {
+            return Ok(await service.SaveCategory(model));
+        }
+
+        [HttpPost]
+        [ValidateViewModel]
+        [Route("api/admin/saveComment")]
+        public async Task<IHttpActionResult> SaveComment(NewCommentModel model)
+        {
+            return Ok(await service.SaveComment(model));
+        }
+
+        [HttpPost]
+        [ValidateViewModel]
+        [Route("api/admin/saveRating")]
+        public async Task<IHttpActionResult> SaveRating(NewRatingModel model)
+        {
+            return Ok(await service.SaveRating(model));
+        }
+
+        [HttpPost]
+        [ValidateViewModel]
+        [Route("api/admin/saveTag")]
+        public async Task<IHttpActionResult> SaveTag(TagsViewModel model)
+        {
+            return Ok(await service.SaveTag(model));
+        }
+
+        [HttpPost]
+        [ValidateViewModel]
         [Route("api/admin/save")]
         public async Task<IHttpActionResult> SaveUserData(UserViewModel model)
         {
@@ -111,14 +143,6 @@ namespace CourseProject.Controllers
 
         [HttpPost]
         [ValidateViewModel]
-        [Route("api/admin/saveTag")]
-        public async Task<IHttpActionResult> SaveTag(TagsViewModel model)
-        {
-            return Ok(await service.SaveTag(model));
-        }
-
-        [HttpPost]
-        [ValidateViewModel]
         [Route("api/admin/deleteTag/{id}")]
         public async Task<IHttpActionResult> DeleteTag(int id)
         {
@@ -136,7 +160,6 @@ namespace CourseProject.Controllers
 
             return errorResult ?? Ok(service.GetUsers());
         }
-
        
         [HttpPost]
         [Route("api/admin/deleteRating/{id}")]
@@ -145,22 +168,6 @@ namespace CourseProject.Controllers
             var result = await service.DeleteRating(id);
 
             return result != null ? Ok(result) : GetErrorResult(false);
-        }
-
-        [HttpPost]
-        [ValidateViewModel]
-        [Route("api/admin/saveRating")]
-        public async Task<IHttpActionResult> SaveRating(NewRatingModel model)
-        {
-            return Ok(await service.SaveRating(model));
-        }
-
-        [HttpPost]
-        [ValidateViewModel]
-        [Route("api/admin/saveComment")]
-        public async Task<IHttpActionResult> SaveComment(NewCommentModel model)
-        {
-            return Ok(await service.SaveComment(model));
         }
 
         [HttpPost]
@@ -178,6 +185,15 @@ namespace CourseProject.Controllers
         public async Task<IHttpActionResult> DeleteChapter(int chapterId)
         {
             var result = await service.DeleteChapter(chapterId);
+
+            return result != null ? Ok(result) : GetErrorResult(false);
+        }
+
+        [HttpPost]
+        [Route("api/admin/category/{categoryId}")]
+        public async Task<IHttpActionResult> DeleteCategory(int categoryId)
+        {
+            var result = await service.DeleteCategory(categoryId);
 
             return result != null ? Ok(result) : GetErrorResult(false);
         }

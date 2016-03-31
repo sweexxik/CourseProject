@@ -11,6 +11,28 @@ app.controller('adminCommentsController',  ['$http','$scope', '$location', 'auth
  $scope.savedSuccessfully = true;
 
  $scope.message = '';	
+
+ if (!authService.authentication.isAuth){
+  		$location.path('/home');
+  	}
+  	else {
+  		authService.getProfileInfo().then(function(results){
+	        $scope.userInfo = results.data;       
+	        $scope.isAdmin = $scope.userInfo.isAdmin;
+	        
+	        if(!$scope.isAdmin){
+	        	$location.path('/home');
+	        }   
+	        else {
+	        	adminService.getAllComments().then(function(results){
+				$scope.comments = results.data;
+				console.log(results.data);
+				});
+			}
+    	}, function(error){
+    	console.log(error);
+    	});
+  	}
  
 	$scope.editComment = function(id){
 		$scope.message = '';
@@ -58,10 +80,7 @@ app.controller('adminCommentsController',  ['$http','$scope', '$location', 'auth
         }        
 	};
 
-	adminService.getAllComments().then(function(results){
-		$scope.comments = results.data;
-		console.log(results.data);
-	});
+	
 	
 	$scope.close = function(){
 		$( globalModal ).toggleClass('global-modal-show');

@@ -1,9 +1,7 @@
 'use strict';
-app.controller('editCreativeController', ['$scope','$route','$routeParams','creativeService','$window','$location',
-	function ($scope, $route, $routeParams,creativeService, $window, $location) {
+app.controller('editCreativeController', ['$scope','$route','$routeParams','creativeService','$window','$location','localStorageService',
+	function ($scope, $route, $routeParams,creativeService, $window, $location,localStorageService) {
  		
-
-
 		var creativeId = $routeParams.Id; 	
 		$scope.creativeId = creativeId;
  		$scope.creative = {}; 	
@@ -15,9 +13,48 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 		$scope.showLoading = true;	
 		$scope.message = '';
 
- 	
+		var currentUserName = '';
 
-     	$scope.deleteChapter = function(id){	
+		if($scope.authentication.isAuth){
+        	currentUserName = localStorageService.get('authorizationData').userName;        
+    	}
+
+     	creativeService.getCreative(creativeId).then(function (results) {
+ 			$scope.showLoading = false;	
+            $scope.creative = results.data;
+            $scope.chapters = creativeService.sortChapters(results.data); 
+            $scope.tags = $scope.creative.tags;
+            if($scope.creative.userName !== currentUserName){
+            	$location.path('/home');
+            }
+            console.log($scope.creative);  
+        }, function (error) {
+            	$scope.savedSuccessfully = false;					
+				$scope.message = error.data.message;
+				$location.path('/NotFound')
+        });
+
+        $scope.deleteCreative = function(){
+        	$scope.showLoading = false;	
+	        var result = $window.confirm('Are you absolutely sure you want to delete?');
+	        if (result) {
+	       		creativeService.deleteCreative(creativeId).then(function(results){
+	       			$scope.chapters = results.data;   
+		        	$scope.savedSuccessfully = true;
+					$scope.showLoading = false;	
+					$scope.message = "Deleted successfully" 
+		            console.log(results.data);  
+	       			$location.path("/home");
+	       		}, function(error){
+	       			$scope.savedSuccessfully = false;
+					$scope.showLoading = false;	
+					$scope.message = error.data.message;
+	       		});	       	
+
+       		}        
+    	}       
+
+    	$scope.deleteChapter = function(id){	
         	var result = $window.confirm("Are you absolutely sure you want to delete?");
         	if(result){
 	        	creativeService.deleteChapter(id).then(function (results) {     
@@ -33,27 +70,6 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 		        });
 	        }        	   	
         };
-
- 		creativeService.getCreative(creativeId).then(function (results) {
- 			$scope.showLoading = false;	
-            $scope.creative = results.data;
-            $scope.chapters = creativeService.sortChapters(results.data); 
-            $scope.tags = $scope.creative.tags;
-            console.log($scope.creative);  
-        }, function (error) {
-            	$scope.savedSuccessfully = false;					
-				$scope.message = error.data.message;
-        });
-
-        $scope.deleteCreative = function(id){
-	        // var result = $window.confirm('Are you absolutely sure you want to delete?');
-	        // if (result) {
-	       	// 	creativeService.deleteCreative(id).then(function(results){
-	       	// 		$location.path("/home");
-	       	// 	});	       	
-       		// 	console.log(id);
-       		// }        
-    	}       
 
     	$scope.saveCreative = function () {
     		$scope.showLoading = true;

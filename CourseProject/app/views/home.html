@@ -29,7 +29,6 @@
     </div>
 </div>
 
-
 <div data-ng-hide="!authentication.isAuth" class="container">
     <div class="page-header text-center">
         <div class="row">
@@ -52,6 +51,19 @@
                     <span class="mobile-close"> X </span>
                    <h3><b> <i class="fa fa-2x fa-edit"></i>{{translation.NEW_CREATIVE}}</b></h3>
                 </div>
+                 <div data-ng-if="showLoading" class="loading text-center"><br><br>
+                                <i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 24px"></i>
+                            </div>
+                     <div class="col-md-12" data-ng-if="message != ''">
+                            <div class="col-md-3">&nbsp;</div>
+                            <div class="col-md-6">
+                                <div data-ng-class="(savedSuccessfully) ? 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success' : 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger'" role="alert">
+                                    <i class="fa fa-exclamation"></i>
+                                    <span class="sr-only">Result:</span>
+                                    {{message}}
+                                </div>
+                            </div>
+                        </div>
                 <div class="global-modal-body">
                 <div class="col-md-1">&nbsp;</div>
                     <div class="col-md-10">
@@ -69,7 +81,7 @@
                     <select class="form-control" ng-init="currentCategory = categories[0]"  data-ng-model="currentCategory" data-ng-options="act.name for act in categories">
                     </select>    
                                <div class="block center">      
-            <a class="btn-green-flat-trigger" data-ng-click="createCreative()">{{translation.SAVE}}</a>
+            <a class="btn-green-flat" data-ng-click="createCreative()">{{translation.SAVE}}</a>
                 </div><br>
                     </div>
           
@@ -96,21 +108,22 @@
         </form> 
         </div>
     </div>  
-     <div class="col-md-12">
+     <div style="margin-bottom: 10px" class="col-md-12">
         <div class="pull-right">      
             <div class="btn-group">
-                <button class="btn btn-success btn-filter" data-ng-click="sortType = 'created'; sortReverse = !sortReverse">
+                <button class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-info btn-filter" data-ng-click="sortType = 'created'; sortReverse = !sortReverse">
                 {{translation.DATE}}
                 <span ng-show="sortType == 'created' && sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'created' && !sortReverse" class="fa fa-caret-up"></span></button>
-                <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'avgRating';sortReverse = !sortReverse"> {{translation.RATING}}
+                <button  type="button" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-info btn-filter" data-ng-click="sortType = 'avgRating';sortReverse = !sortReverse"> {{translation.RATING}}
                  <span ng-show="sortType == 'avgRating' && sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'avgRating' && !sortReverse" class="fa fa-caret-up"></span>
                 </button>
-                 <button  type="button" class="btn btn-success btn-filter" data-ng-click="sortType = 'popular';sortReverse = !sortReverse"> {{translation.POPULAR}}
+                 <button  type="button" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-info btn-filter" data-ng-click="sortType = 'popular';sortReverse = !sortReverse"> {{translation.POPULAR}}
                  <span ng-show="sortType == 'popular' && sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'popular' && !sortReverse" class="fa fa-caret-up"></span>
                 </button>
+                <br>
             </div>
        </div>  
       </div>  
@@ -129,14 +142,11 @@
                     <span class="caption-helper">{{creative.created}}</span>
                 </div>
                 <div class="actions">  
-                    <a ng-href="#/show/{{creative.id}}" class="btn"><i class="glyphicon glyphicon-align-justify"></i>{{translation.SHOW}}</a>
-                    <a data-ng-href="#edit/{{creative.id}}" class="btn">
+                    <a ng-href="#/show/{{creative.id}}" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-alert"><i class="glyphicon glyphicon-align-justify"></i>{{translation.SHOW}}</a>
+                    <a data-ng-href="#edit/{{creative.id}}" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-alert">
                         <i class="glyphicon glyphicon-pencil"></i>
                         {{translation.EDIT}}
-                    </a> 
-                    <a data-ng-click="deleteCreative(creative.id)" class="btn">
-                        <i class="glyphicon glyphicon-trash"></i>    {{translation.DELETE}}
-                    </a>                    
+                    </a>                                 
                 </div>
             </div>
             <div class="portlet-body">

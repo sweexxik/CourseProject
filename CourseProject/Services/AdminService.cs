@@ -60,6 +60,18 @@ namespace CourseProject.Services
            return db.Chapters.GetAll();
         }
 
+        public async Task<IEnumerable<CreativeCategory>> DeleteCategory(int categoryId)
+        {
+            if (await db.Categories.Remove(categoryId))
+            {
+                db.Save();
+
+                return db.Categories.GetAll();
+            }
+
+            return null;
+        }
+
         public async Task<IEnumerable<UserViewModel>> SaveUserData(UserViewModel model)
         {
             var user = await db.Users.FindUserById(model.Id);
@@ -151,6 +163,24 @@ namespace CourseProject.Services
                 return db.Chapters.GetAll();
             }
             return null;
+        }
+
+        public async Task<IEnumerable<CreativeCategory>> SaveCategory(NewCategoryModel model)
+        {
+            if (model.Id == 0)
+            {
+                db.Categories.Add(new CreativeCategory { Name = model.Name });
+            }
+            else
+            {
+                var editCategory = await db.Categories.Get(model.Id);
+
+                editCategory.Name = model.Name;
+            }
+
+            db.Save();
+
+            return db.Categories.GetAll();
         }
 
         public async Task<IEnumerable<Tag>> DeleteTag(int id)

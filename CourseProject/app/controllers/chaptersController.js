@@ -6,6 +6,7 @@ app.controller('chaptersController', ['$showdown','$scope','$timeout','creativeS
     $scope.savedSuccessfully = true;
     $scope.showLoading = false; 
     $scope.message = '';
+    
 
     var chapterId = $routeParams.chapterId; 
     var creativeId = $routeParams.creativeId;     

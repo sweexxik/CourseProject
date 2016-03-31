@@ -75,9 +75,14 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/admin/comments.html"
     });
 
-     $routeProvider.when("/admin/ratings", {
+    $routeProvider.when("/admin/ratings", {
         controller: "adminRatingsController",
         templateUrl: "/app/views/admin/ratings.html"
+    });
+
+     $routeProvider.when("/admin/categories", {
+        controller: "adminCategoriesController",
+        templateUrl: "/app/views/admin/categories.html"
     });
 
     $routeProvider.when("/chapters/:creativeId/:chapterId", {
@@ -85,10 +90,21 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/chapters.html"
     });
 
-     $routeProvider.when("/search/:categoryId", {
+    $routeProvider.when("/search/:categoryId", {
         controller: "searchController",
         templateUrl: "/app/views/search.html"
+    });  
+
+    $routeProvider.when("/user/:username", {
+        controller: "userPageController",
+        templateUrl: "/app/views/userPage.html"
+    }); 
+
+    $routeProvider.when("/NotFound", {
+        controller: "indexController",
+        templateUrl: "/app/views/NotFound.html"
     });   
+   
 
     $routeProvider.otherwise({ redirectTo: "/home" });
 

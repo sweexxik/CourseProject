@@ -21,18 +21,24 @@ namespace CourseProject.Services
     {
 
         private readonly IUnitOfWork db;
+        private readonly IMedalService medalService;
+
 
         public string WorkingFolder => HttpRuntime.AppDomainAppPath + @"\Uploads";
 
-        public AccountService(IUnitOfWork repo)
+        public AccountService(IUnitOfWork repo, IMedalService medal)
         {
             db = repo;
+            medalService = medal;
         }
          
         public async Task<UserViewModel> GetUserInfo(string userName)
         {
+            await medalService.CheckMedals(userName);
+
             var user = await db.Users.FindUser(userName);
-            return InitUserViewModel(user);
+
+            return user != null ? InitUserViewModel(user) : null;
         }
 
         public async Task<IdentityResult> CreateUser(UserModel model)

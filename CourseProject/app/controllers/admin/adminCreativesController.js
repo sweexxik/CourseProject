@@ -21,9 +21,35 @@ app.controller('adminCreativesController',  ['$http','$scope', '$location', 'aut
     }
   ];
   
+   if (!authService.authentication.isAuth){
+  		$location.path('/home');
+  	}
+  	else {
+  		authService.getProfileInfo().then(function(results){
+	        $scope.userInfo = results.data;       
+	        $scope.isAdmin = $scope.userInfo.isAdmin;
+	        
+	        if(!$scope.isAdmin){
+	        	$location.path('/home');
+	        }   
+	        else {
+	        	creativeService.getAllCreatives().then(function(results){
+					$scope.creatives = results.data;
+					console.log(results.data);
+				});
+
+				creativeService.getCategories().then(function(results){
+					$scope.categories = results.data;
+					console.log(results.data);
+				});
+			}
+    	}, function(error){
+    	console.log(error);
+    	});
+  	}
  
 
-$scope.editCreative = function(id){
+	$scope.editCreative = function(id){
 		$scope.message = '';
 		for (var i = 0; i < $scope.creatives.length; i++) {
 			if($scope.creatives[i].id === id){
@@ -97,15 +123,7 @@ $scope.editCreative = function(id){
         }        
 	};
 
-	creativeService.getAllCreatives().then(function(results){
-		$scope.creatives = results.data;
-		console.log(results.data);
-	});
-
-	creativeService.getCategories().then(function(results){
-		$scope.categories = results.data;
-		console.log(results.data);
-	});
+	
 
 	$scope.close = function(){
 		$( globalModal ).toggleClass('global-modal-show');

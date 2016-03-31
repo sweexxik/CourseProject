@@ -41,6 +41,9 @@ namespace CourseProject.Services
 
             await CheckCreativesMedal(user, userMedals);
 
+            await CheckSuperStarMedal(user, userMedals);
+
+            await CheckSuperCommentatorMedal(user, userMedals);
         }
 
         private async Task CheckLikesMedal(ApplicationUser user, ICollection<Medal> userMedals)
@@ -88,6 +91,38 @@ namespace CourseProject.Services
             else if (creativeCount < 10 && userMedals.Contains(creativesMedal))
             {
                 userMedals.Remove(creativesMedal);
+            }
+        }
+
+        private async Task CheckSuperStarMedal(ApplicationUser user, ICollection<Medal> userMedals)
+        {
+            var superStarMedal = await db.Medals.Get(4);
+
+            var creatives = db.Creatives.Find(x => x.User.Id == user.Id).ToList();
+
+            if (creatives.Any(x=>x.Comments.Count >= 10) && !userMedals.Contains(superStarMedal))
+            {
+                userMedals.Add(superStarMedal);
+            }
+            else if (creatives.Any(x => x.Comments.Count < 10) && userMedals.Contains(superStarMedal))
+            {
+                userMedals.Remove(superStarMedal);
+            }
+        }
+
+        private async Task CheckSuperCommentatorMedal(ApplicationUser user, ICollection<Medal> userMedals)
+        {
+            var superCommenterMedal = await db.Medals.Get(5);
+
+            var comments = db.Comments.Find(x => x.User.Id == user.Id).ToList();
+
+            if (comments.Any(x=>x.Likes.Count >= 10) && !userMedals.Contains(superCommenterMedal))
+            {
+                userMedals.Add(superCommenterMedal);
+            }
+            else if (comments.Any(x => x.Likes.Count < 10) && userMedals.Contains(superCommenterMedal))
+            {
+                userMedals.Remove(superCommenterMedal);
             }
         }
     }

@@ -76,7 +76,8 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
     creativeService.getCreative(creativeId).then(function (results) {
         initCreative(results.data);       
     }, function (error) {
-            console.log(error);
+        console.log(error);
+        $location.path('/NotFound')
     });
 
     creativeService.getComments(creativeId).then(function(result){

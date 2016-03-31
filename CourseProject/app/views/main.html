@@ -7,7 +7,7 @@
     </div>  
   </div>
 <div class="col-md-12 ">
-    <div class="col-md-10">
+    <div class="col-md-9">
    <div class="widget--tags text-center">
             <a data-ng-repeat="tag in tags | orderBy: 'count' : true" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
   </div>
@@ -28,7 +28,7 @@
                       <div class="col-md-8">    
                           <h2 class="blog-post-title"><a data-ng-href="#/show/{{creative.id}}">{{creative.name}}</a></h2>
                           <p class="blog-post-meta"> {{translation.CREATED}} {{creative.created}} 
-                              <a href="#"> {{creative.userName}}</a>
+                              <a data-ng-href="#/user/{{creative.userName}}"> {{creative.userName}}</a>
                           </p>              
                             <div class="widget--tags">
                                 <a data-ng-repeat="tag in creative.tags" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
@@ -66,52 +66,54 @@
   </div>
  
 
-  <div class="col-md-2 bann-left">
-<!--     <div class="b-search">     
-    </div>
-    <h3 align="center"></h3>
-    <div data-ng-repeat="popular in mostPopularCreatives" class="blo-top">
-      <div class="blog-grids">
-      <div class="col-md-12">
-            <h3 align="center"><a data-ng-href="#/show/{{popular.id}}">{{$index+1}}. {{popular.name}}</a></h3>
+   <div class="col-md-3 bann-left">      
+      <div class="panel panel-default">
+          <div style="margin-top: 20px" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
+              <i class="fa fa-bell fa-fw"></i>   {{translation.MOST_POPULAR}}        
+          </div>
+          <div class="panel-body">
+              <div class="list-group">
+                  <span data-ng-repeat="popular in mostPopularCreatives">
+                      <a class="list-group-item" data-ng-href="#/show/{{popular.id}}">
+                        {{$index+1}}. {{popular.name}}
+                        <i style="font-size: 18px" class="fa fa-comment-o pull-right">{{popular.comments.length}}</i>
+                      </a>
+                  </span>              
+              </div>
+          </div>
       </div>
-       
-       
-        <div class="clearfix"> </div>
-      </div> 
-      </div>  
-     
-    <h3 align="center"></h3>
-   <div data-ng-repeat="rated in mostRatedCreatives" class="blo-top">
-      <div class="blog-grids">
-      <div class="col-md-12">        
-          <h3 align="center"><a data-ng-href="#/show/{{rated.id}}">{{$index+1}}. {{rated.name}}</a></h3>
-      </div>
-       
-       
-        <div class="clearfix"> </div>
-      </div> 
-      </div>  --> 
-     
-   
-    <h3>{{translation.MOST_POPULAR}}</h3>
-    <div class="blo-top ">
-      <li data-ng-repeat="popular in mostPopularCreatives"><a data-ng-href="#/search/{{popular.id}}">{{$index+1}}. {{popular.name}}</a></li>      
+
+    <div class="panel panel-default">
+        <div  class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
+            <i class="fa fa-bell fa-fw"></i>    {{translation.MOST_RATED}}           
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+               <span data-ng-repeat="rated in mostRatedCreatives">
+              <a class="list-group-item" data-ng-href="#/show/{{rated.id}}">
+                {{$index+1}}. {{rated.name}}
+                <i style="font-size: 18px" class="fa fa-star pull-right">{{rated.avgRating}}</i>
+              </a>
+              </span>            
+            </div>
+        </div>
     </div>
 
-     <h3>{{translation.MOST_RATED}}</h3>
-    <div class="blo-top ">
-      <li data-ng-repeat="rated in mostRatedCreatives"><a data-ng-href="#/search/{{rated.id}}">{{$index+1}}. {{rated.name}}</a></li>      
+    <div class="panel panel-default">
+        <div class="list-group">
+            <div class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
+              <i class="fa fa-bell fa-fw"></i>    {{translation.CATEGORIES}}        
+            </div>
+            <div class="blo-top">
+              <li class="text-center" data-ng-repeat="category in categories"><a data-ng-href="#/search/{{category.id}}">{{category.name}}</a></li>      
+            </div>
+        </div>
     </div>
 
-    <h3>{{translation.CATEGORIES}}</h3>
-    <div class="blo-top">
-      <li data-ng-repeat="category in categories"><a data-ng-href="#/search/{{category.id}}">{{category.name}}</a></li>      
-    </div>
+
+  </div>  
+  </div> 
   
-       </div>  
-  </div>
-  <!-- </div> -->
   
   <div class="col-md-12" style="opacity: 0">DOWNTOWN</div>
   </div>
