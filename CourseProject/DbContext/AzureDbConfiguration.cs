@@ -3,11 +3,11 @@ using System.Data.Entity.SqlServer;
 
 namespace CourseProject.DbContext
 {
-    public class AzureDbConfiguration : DbConfiguration
-    {
-        public AzureDbConfiguration()
-        {
-            SetExecutionStrategy("System.Data.SqlClient", () => new SqlAzureExecutionStrategy());
-        }
-    }
+    //public class AzureDbConfiguration : DbConfiguration
+    //{
+    //    public AzureDbConfiguration()
+    //    {
+    //        SetExecutionStrategy("System.Data.SqlClient", () => new SqlAzureExecutionStrategy());
+    //    }
+    //}
 }

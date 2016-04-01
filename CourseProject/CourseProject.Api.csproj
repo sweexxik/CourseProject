@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CourseProject</RootNamespace>
     <AssemblyName>CourseProject</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -25,6 +25,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -161,6 +162,7 @@
       <HintPath>..\packages\SphinxConnector.3.11.0\lib\net40\SphinxConnector.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
@@ -172,8 +174,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
@@ -191,13 +191,13 @@
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.1.0\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
@@ -261,6 +261,7 @@
     <Content Include="app\services\tokensManagerService.js" />
     <Content Include="app\services\translationService.js" />
     <Content Include="app\views\admin\admin.html" />
+    <Content Include="app\views\admin\categories.html" />
     <Content Include="app\views\admin\chapters.html" />
     <Content Include="app\views\admin\comments.html" />
     <Content Include="app\views\admin\creatives.html" />
@@ -272,14 +273,289 @@
     <Content Include="app\views\home.html" />
     <Content Include="app\views\login.html" />
     <Content Include="app\views\main.html" />
+    <Content Include="app\views\NotFound.html" />
     <Content Include="app\views\profile.html" />
     <Content Include="app\views\search.html" />
     <Content Include="app\views\showCreative.html" />
     <Content Include="app\views\signup.html" />
+    <Content Include="app\views\userPage.html" />
     <Content Include="App_Data\DataStore.mdf" />
     <Content Include="App_Data\DataStore_log.ldf">
       <DependentUpon>DataStore.mdf</DependentUpon>
     </Content>
+    <Content Include="content\ckeditor\adapters\jquery.js" />
+    <Content Include="content\ckeditor\build-config.js" />
+    <Content Include="content\ckeditor\ckeditor.js" />
+    <Content Include="content\ckeditor\config.js" />
+    <Content Include="content\ckeditor\contents.css" />
+    <Content Include="content\ckeditor\lang\af.js" />
+    <Content Include="content\ckeditor\lang\ar.js" />
+    <Content Include="content\ckeditor\lang\bg.js" />
+    <Content Include="content\ckeditor\lang\bn.js" />
+    <Content Include="content\ckeditor\lang\bs.js" />
+    <Content Include="content\ckeditor\lang\ca.js" />
+    <Content Include="content\ckeditor\lang\cs.js" />
+    <Content Include="content\ckeditor\lang\cy.js" />
+    <Content Include="content\ckeditor\lang\da.js" />
+    <Content Include="content\ckeditor\lang\de.js" />
+    <Content Include="content\ckeditor\lang\el.js" />
+    <Content Include="content\ckeditor\lang\en-au.js" />
+    <Content Include="content\ckeditor\lang\en-ca.js" />
+    <Content Include="content\ckeditor\lang\en-gb.js" />
+    <Content Include="content\ckeditor\lang\en.js" />
+    <Content Include="content\ckeditor\lang\eo.js" />
+    <Content Include="content\ckeditor\lang\es.js" />
+    <Content Include="content\ckeditor\lang\et.js" />
+    <Content Include="content\ckeditor\lang\eu.js" />
+    <Content Include="content\ckeditor\lang\fa.js" />
+    <Content Include="content\ckeditor\lang\fi.js" />
+    <Content Include="content\ckeditor\lang\fo.js" />
+    <Content Include="content\ckeditor\lang\fr-ca.js" />
+    <Content Include="content\ckeditor\lang\fr.js" />
+    <Content Include="content\ckeditor\lang\gl.js" />
+    <Content Include="content\ckeditor\lang\gu.js" />
+    <Content Include="content\ckeditor\lang\he.js" />
+    <Content Include="content\ckeditor\lang\hi.js" />
+    <Content Include="content\ckeditor\lang\hr.js" />
+    <Content Include="content\ckeditor\lang\hu.js" />
+    <Content Include="content\ckeditor\lang\id.js" />
+    <Content Include="content\ckeditor\lang\is.js" />
+    <Content Include="content\ckeditor\lang\it.js" />
+    <Content Include="content\ckeditor\lang\ja.js" />
+    <Content Include="content\ckeditor\lang\ka.js" />
+    <Content Include="content\ckeditor\lang\km.js" />
+    <Content Include="content\ckeditor\lang\ko.js" />
+    <Content Include="content\ckeditor\lang\ku.js" />
+    <Content Include="content\ckeditor\lang\lt.js" />
+    <Content Include="content\ckeditor\lang\lv.js" />
+    <Content Include="content\ckeditor\lang\mk.js" />
+    <Content Include="content\ckeditor\lang\mn.js" />
+    <Content Include="content\ckeditor\lang\ms.js" />
+    <Content Include="content\ckeditor\lang\nb.js" />
+    <Content Include="content\ckeditor\lang\nl.js" />
+    <Content Include="content\ckeditor\lang\no.js" />
+    <Content Include="content\ckeditor\lang\pl.js" />
+    <Content Include="content\ckeditor\lang\pt-br.js" />
+    <Content Include="content\ckeditor\lang\pt.js" />
+    <Content Include="content\ckeditor\lang\ro.js" />
+    <Content Include="content\ckeditor\lang\ru.js" />
+    <Content Include="content\ckeditor\lang\si.js" />
+    <Content Include="content\ckeditor\lang\sk.js" />
+    <Content Include="content\ckeditor\lang\sl.js" />
+    <Content Include="content\ckeditor\lang\sq.js" />
+    <Content Include="content\ckeditor\lang\sr-latn.js" />
+    <Content Include="content\ckeditor\lang\sr.js" />
+    <Content Include="content\ckeditor\lang\sv.js" />
+    <Content Include="content\ckeditor\lang\th.js" />
+    <Content Include="content\ckeditor\lang\tr.js" />
+    <Content Include="content\ckeditor\lang\tt.js" />
+    <Content Include="content\ckeditor\lang\ug.js" />
+    <Content Include="content\ckeditor\lang\uk.js" />
+    <Content Include="content\ckeditor\lang\vi.js" />
+    <Content Include="content\ckeditor\lang\zh-cn.js" />
+    <Content Include="content\ckeditor\lang\zh.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\af.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\ca.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\cs.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\cy.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\da.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\de.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\el.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\en-gb.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\en.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\eo.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\es.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\et.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\fa.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\fi.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\fr-ca.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\fr.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\gl.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\gu.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\he.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\hi.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\hr.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\hu.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\id.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\it.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\ja.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\km.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\ko.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\ku.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\lt.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\lv.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\mk.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\mn.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\nb.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\nl.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\no.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\pl.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\pt-br.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\pt.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\ro.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\ru.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\si.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\sk.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\sl.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\sq.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\sr-latn.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\sr.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\sv.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\th.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\tr.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\tt.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\ug.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\uk.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\vi.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\zh-cn.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\zh.js" />
+    <Content Include="content\ckeditor\plugins\a11yhelp\dialogs\lang\_translationstatus.txt" />
+    <Content Include="content\ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="content\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
+    <Content Include="content\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="content\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="content\ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="content\ckeditor\plugins\icons.png" />
+    <Content Include="content\ckeditor\plugins\icons_hidpi.png" />
+    <Content Include="content\ckeditor\plugins\image\dialogs\image.js" />
+    <Content Include="content\ckeditor\plugins\image\images\noimage.png" />
+    <Content Include="content\ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="content\ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="content\ckeditor\plugins\link\images\anchor.png" />
+    <Content Include="content\ckeditor\plugins\link\images\hidpi\anchor.png" />
+    <Content Include="content\ckeditor\plugins\magicline\images\hidpi\icon-rtl.png" />
+    <Content Include="content\ckeditor\plugins\magicline\images\hidpi\icon.png" />
+    <Content Include="content\ckeditor\plugins\magicline\images\icon-rtl.png" />
+    <Content Include="content\ckeditor\plugins\magicline\images\icon.png" />
+    <Content Include="content\ckeditor\plugins\markdown\css\codemirror.min.css" />
+    <Content Include="content\ckeditor\plugins\markdown\icons\hidpi\markdown.png" />
+    <Content Include="content\ckeditor\plugins\markdown\icons\markdown.png" />
+    <Content Include="content\ckeditor\plugins\markdown\js\codemirror-gfm-min.js" />
+    <Content Include="content\ckeditor\plugins\markdown\js\marked.js" />
+    <Content Include="content\ckeditor\plugins\markdown\js\to-markdown.js" />
+    <Content Include="content\ckeditor\plugins\markdown\plugin.js" />
+    <Content Include="content\ckeditor\plugins\pastefromword\filter\default.js" />
+    <Content Include="content\ckeditor\plugins\scayt\dialogs\options.js" />
+    <Content Include="content\ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\af.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\bg.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\ca.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\cs.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\cy.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\da.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\de.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\el.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\en-gb.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\en.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\eo.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\es.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\et.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\fa.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\fi.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\fr-ca.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\fr.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\gl.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\he.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\hr.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\hu.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\id.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\it.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\ja.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\km.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\ku.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\lt.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\lv.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\nb.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\nl.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\no.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\pl.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\pt-br.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\pt.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\ru.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\si.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\sk.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\sl.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\sq.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\sv.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\th.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\tr.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\tt.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\ug.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\uk.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\vi.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\zh-cn.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\zh.js" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\lang\_translationstatus.txt" />
+    <Content Include="content\ckeditor\plugins\specialchar\dialogs\specialchar.js" />
+    <Content Include="content\ckeditor\plugins\tabletools\dialogs\tableCell.js" />
+    <Content Include="content\ckeditor\plugins\table\dialogs\table.js" />
+    <Content Include="content\ckeditor\plugins\wsc\dialogs\ciframe.html" />
+    <Content Include="content\ckeditor\plugins\wsc\dialogs\tmpFrameset.html" />
+    <Content Include="content\ckeditor\plugins\wsc\dialogs\wsc.css" />
+    <Content Include="content\ckeditor\plugins\wsc\dialogs\wsc.js" />
+    <Content Include="content\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="content\ckeditor\samples\ajax.html" />
+    <Content Include="content\ckeditor\samples\api.html" />
+    <Content Include="content\ckeditor\samples\appendto.html" />
+    <Content Include="content\ckeditor\samples\assets\inlineall\logo.png" />
+    <Content Include="content\ckeditor\samples\assets\outputxhtml\outputxhtml.css" />
+    <Content Include="content\ckeditor\samples\assets\posteddata.php" />
+    <Content Include="content\ckeditor\samples\assets\sample.jpg" />
+    <Content Include="content\ckeditor\samples\assets\uilanguages\languages.js" />
+    <Content Include="content\ckeditor\samples\datafiltering.html" />
+    <Content Include="content\ckeditor\samples\divreplace.html" />
+    <Content Include="content\ckeditor\samples\index.html" />
+    <Content Include="content\ckeditor\samples\inlineall.html" />
+    <Content Include="content\ckeditor\samples\inlinebycode.html" />
+    <Content Include="content\ckeditor\samples\inlinetextarea.html" />
+    <Content Include="content\ckeditor\samples\jquery.html" />
+    <Content Include="content\ckeditor\samples\plugins\dialog\assets\my_dialog.js" />
+    <Content Include="content\ckeditor\samples\plugins\dialog\dialog.html" />
+    <Content Include="content\ckeditor\samples\plugins\enterkey\enterkey.html" />
+    <Content Include="content\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.swf" />
+    <Content Include="content\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\swfobject.js" />
+    <Content Include="content\ckeditor\samples\plugins\htmlwriter\outputforflash.html" />
+    <Content Include="content\ckeditor\samples\plugins\htmlwriter\outputhtml.html" />
+    <Content Include="content\ckeditor\samples\plugins\magicline\magicline.html" />
+    <Content Include="content\ckeditor\samples\plugins\toolbar\toolbar.html" />
+    <Content Include="content\ckeditor\samples\plugins\wysiwygarea\fullpage.html" />
+    <Content Include="content\ckeditor\samples\readonly.html" />
+    <Content Include="content\ckeditor\samples\replacebyclass.html" />
+    <Content Include="content\ckeditor\samples\replacebycode.html" />
+    <Content Include="content\ckeditor\samples\sample.css" />
+    <Content Include="content\ckeditor\samples\sample.js" />
+    <Content Include="content\ckeditor\samples\sample_posteddata.php" />
+    <Content Include="content\ckeditor\samples\tabindex.html" />
+    <Content Include="content\ckeditor\samples\uicolor.html" />
+    <Content Include="content\ckeditor\samples\uilanguages.html" />
+    <Content Include="content\ckeditor\samples\xhtmlstyle.html" />
+    <Content Include="content\ckeditor\skins\moono\dialog.css" />
+    <Content Include="content\ckeditor\skins\moono\dialog_ie.css" />
+    <Content Include="content\ckeditor\skins\moono\dialog_ie7.css" />
+    <Content Include="content\ckeditor\skins\moono\dialog_ie8.css" />
+    <Content Include="content\ckeditor\skins\moono\dialog_iequirks.css" />
+    <Content Include="content\ckeditor\skins\moono\editor.css" />
+    <Content Include="content\ckeditor\skins\moono\editor_gecko.css" />
+    <Content Include="content\ckeditor\skins\moono\editor_ie.css" />
+    <Content Include="content\ckeditor\skins\moono\editor_ie7.css" />
+    <Content Include="content\ckeditor\skins\moono\editor_ie8.css" />
+    <Content Include="content\ckeditor\skins\moono\editor_iequirks.css" />
+    <Content Include="content\ckeditor\skins\moono\icons.png" />
+    <Content Include="content\ckeditor\skins\moono\icons_hidpi.png" />
+    <Content Include="content\ckeditor\skins\moono\images\arrow.png" />
+    <Content Include="content\ckeditor\skins\moono\images\close.png" />
+    <Content Include="content\ckeditor\skins\moono\images\hidpi\close.png" />
+    <Content Include="content\ckeditor\skins\moono\images\hidpi\lock-open.png" />
+    <Content Include="content\ckeditor\skins\moono\images\hidpi\lock.png" />
+    <Content Include="content\ckeditor\skins\moono\images\hidpi\refresh.png" />
+    <Content Include="content\ckeditor\skins\moono\images\lock-open.png" />
+    <Content Include="content\ckeditor\skins\moono\images\lock.png" />
+    <Content Include="content\ckeditor\skins\moono\images\refresh.png" />
+    <Content Include="content\ckeditor\styles.js" />
     <Content Include="content\css\admin-panel.css" />
     <Content Include="content\css\angular-ui-tree.css" />
     <Content Include="content\css\boostrap-cyborg.css" />
@@ -293,6 +569,7 @@
     <Content Include="content\css\font-awesome.min.css" />
     <Content Include="content\css\jCloud.css" />
     <Content Include="content\css\jquery-ui.css" />
+    <Content Include="content\css\loading-app.css" />
     <Content Include="content\css\loading-bar.css" />
     <Content Include="content\css\loading-bar.min.css" />
     <Content Include="content\css\markdown.css" />
@@ -306,7 +583,8 @@
     <Content Include="content\css\panelWithTabNavs.css" />
     <Content Include="content\css\search-view.css" />
     <Content Include="content\css\searchPage.css" />
-    <Content Include="content\css\site.css" />
+    <Content Include="content\css\site-cyborg.css" />
+    <Content Include="content\css\site-lumen.css" />
     <Content Include="content\css\social-buttons.css" />
     <Content Include="content\css\tags-view.css" />
     <Content Include="content\css\ul-chapters-drag.css" />
@@ -316,8 +594,10 @@
     <Content Include="content\images\01.png" />
     <Content Include="content\images\aeroplane.jpg" />
     <Content Include="content\images\banner.jpg" />
+    <Content Include="content\images\banner_new.jpg" />
     <Content Include="content\images\book.jpg" />
     <Content Include="content\images\cream.jpg" />
+    <Content Include="content\images\dark_bg.jpg" />
     <Content Include="content\images\image3.jpg" />
     <Content Include="content\images\img-sprite.png" />
     <Content Include="content\images\img2.jpg" />
@@ -325,7 +605,9 @@
     <Content Include="content\images\mark1.png" />
     <Content Include="content\images\menu.png" />
     <Content Include="content\images\row2.jpg" />
+    <Content Include="content\images\rus.png" />
     <Content Include="content\images\search.png" />
+    <Content Include="content\images\usa.png" />
     <Content Include="index.html" />
     <Content Include="content\main_css\bootstrap.css" />
     <Content Include="content\main_css\style.css" />
@@ -346,6 +628,7 @@
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\loading-bar.min.js" />
     <Content Include="Scripts\markdown-editable.js" />
+    <Content Include="Scripts\ng-ckEditor.js" />
     <Content Include="Scripts\ng-file-upload-shim.min.js" />
     <Content Include="Scripts\ng-file-upload.js" />
     <Content Include="Scripts\ng-infinity-scroll.js" />
@@ -357,6 +640,113 @@
     <Content Include="Scripts\sortable.js" />
     <Content Include="Scripts\UI-angular-jquery-script.js" />
     <Content Include="Scripts\ui-bootstrap.min.js" />
+    <Content Include="Uploads\04690bf7-a061-4b58-8354-44baf7ee12b9.jpg" />
+    <Content Include="Uploads\089497d5-bd11-4c44-b081-0386ef7f6d64.JPG" />
+    <Content Include="Uploads\0dc442cd-6452-4195-9d9e-38d3369bdfe5.jpg" />
+    <Content Include="Uploads\115eefae-05df-45a2-8313-50ee16c70581.jpg" />
+    <Content Include="Uploads\15298d43-257c-42da-b4a0-d9dd035a9b7c.jpg" />
+    <Content Include="Uploads\188aa734-2f68-4aca-ad61-6d9fb612c4cc.jpg" />
+    <Content Include="Uploads\1ae1891c-ed85-4067-b555-e6ce465089ca.jpg" />
+    <Content Include="Uploads\1cd2b070-e585-44a7-8c26-50ba642227ee.jpg" />
+    <Content Include="Uploads\1dc59c6e-3369-4d5e-a978-43666c70fefe.jpg" />
+    <Content Include="Uploads\21fa278f-74e3-4341-9036-07017f25c178.jpg" />
+    <Content Include="Uploads\231e0c45-7386-49f8-8f1b-81c9a0df5f20.jpg" />
+    <Content Include="Uploads\26f65b14-cfa8-4177-bd95-58394aa476ed.jpg" />
+    <Content Include="Uploads\27a744bc-a676-46a7-bb1e-03770f1a015d.jpg" />
+    <Content Include="Uploads\2926b794-f2a3-46a1-bc9f-f4f55cbd9053.jpg" />
+    <Content Include="Uploads\2a9d62a2-8026-4340-90be-39f963c5e1e5.jpg" />
+    <Content Include="Uploads\2b0642ff-6014-48b3-a126-5a4c2ca5d7e5.jpg" />
+    <Content Include="Uploads\2ba8986d-35c8-43ae-a68e-8f7725b0a5e4.jpg" />
+    <Content Include="Uploads\2bce1781-8700-478c-b451-a323675b9a86.jpg" />
+    <Content Include="Uploads\2c01f439-cdf9-4962-bb5a-e0766e4ddf36.jpg" />
+    <Content Include="Uploads\2c1a7586-5f47-4b31-917c-c6aff6230935.jpg" />
+    <Content Include="Uploads\2cO9CY0Clbo.jpg" />
+    <Content Include="Uploads\2eefdf2d-321e-4f2c-91a0-56b713d4e279.jpg" />
+    <Content Include="Uploads\36c99ab2-a522-4d61-936f-bc4bafcb533c.jpg" />
+    <Content Include="Uploads\3a17cda8-c718-4b61-98f0-6d29ca4eae81.jpg" />
+    <Content Include="Uploads\3cc5ec86-a718-45ad-bb2b-bba5263e5fe1.jpg" />
+    <Content Include="Uploads\3cc8f307-e485-4789-bba8-942ee9de88c2.jpg" />
+    <Content Include="Uploads\439a1b5b-1f9f-42f4-a8fb-d919bd720c88.jpg" />
+    <Content Include="Uploads\485ceff1-30e0-4229-95bb-f1ed0773e5d9.JPG" />
+    <Content Include="Uploads\4aa52da1-b89f-42d7-a79f-bd5545adb413.png" />
+    <Content Include="Uploads\4b0a53a3-eee4-42ea-94af-34013736ba67.JPG" />
+    <Content Include="Uploads\4b4a445f-280a-4c94-8c00-cec233cc42d9.jpg" />
+    <Content Include="Uploads\4b702163-3fed-4220-b4f9-fe6870141acf.jpg" />
+    <Content Include="Uploads\4d27e7cf-81a1-424a-8601-07f2ef2db82a.jpg" />
+    <Content Include="Uploads\4e730f3e-138a-4c82-9894-0e94586fab5d.jpg" />
+    <Content Include="Uploads\526295f8-bc1a-443d-89d4-b4a95e71c56f.jpg" />
+    <Content Include="Uploads\5282b28c-5f30-4572-9d88-f2c1e5495440.jpg" />
+    <Content Include="Uploads\52ad4d3c-60ef-4ff8-8f44-e6de44f7d859.jpg" />
+    <Content Include="Uploads\54ea6c61-0ad3-4dd2-b390-9fa041d205ab.JPG" />
+    <Content Include="Uploads\5502c3e3-d74c-4cde-b605-4b4469e43910.jpg" />
+    <Content Include="Uploads\571adeb2-c4fb-4ded-90d8-a6aa61f28cf0.jpg" />
+    <Content Include="Uploads\5758e0a8-7ba0-4940-8860-916439b938a2.jpg" />
+    <Content Include="Uploads\58b5855f-b5dd-4447-9496-cc03e3d6408d.jpg" />
+    <Content Include="Uploads\58d40bb7-64f2-47bf-a585-a7ae04bca578.jpg" />
+    <Content Include="Uploads\5913a321-0b84-4499-8fe7-77af68989b61.jpg" />
+    <Content Include="Uploads\5e3d2717-dc09-4ff1-88d6-af2ac008299b.jpg" />
+    <Content Include="Uploads\60a171a9-b146-42a6-80c6-d1dc7f01f52a.JPG" />
+    <Content Include="Uploads\63a1a392-d0fd-4fea-abcd-c9eae7164720.jpg" />
+    <Content Include="Uploads\63f495cd-8dc4-43c7-ac3b-06f76bc9c774.jpg" />
+    <Content Include="Uploads\6aabf952-868e-4451-8467-57c023dc3c01.JPG" />
+    <Content Include="Uploads\6d000d49-c708-4b51-9a35-1a84553eb683.jpg" />
+    <Content Include="Uploads\700ef64c-e7f5-43a3-9a6a-0a12528726a3.jpg" />
+    <Content Include="Uploads\7570007e-2abc-4f44-ae09-1a5d0ca4c39e.jpg" />
+    <Content Include="Uploads\7b1cb2ba-e490-4142-a641-0bff1eb64c9d.jpg" />
+    <Content Include="Uploads\7b37e415-f742-44ce-aa18-e439ad0b5e6e.JPG" />
+    <Content Include="Uploads\7d6903b5-d23d-4057-8051-76485224e734.jpg" />
+    <Content Include="Uploads\8042f51c-2d34-429e-8d18-92e58b79eb8d.jpg" />
+    <Content Include="Uploads\82cae9bf-76f7-44e1-ad1b-2831b641dc16.jpg" />
+    <Content Include="Uploads\88a87284-873d-4d79-8b70-f132dba83766.jpg" />
+    <Content Include="Uploads\8abc8236-9a21-436b-8785-cd12be4a864d.JPG" />
+    <Content Include="Uploads\8ba182a7-619b-4826-8ddc-160e66529c23.jpg" />
+    <Content Include="Uploads\8e509fdc-2b58-4a02-9793-ea5e6d5d47c2.jpg" />
+    <Content Include="Uploads\90f5ec0c-8999-49a0-98c6-f7ea63b79f99.jpg" />
+    <Content Include="Uploads\922a53ce-f785-4e58-b9c1-fd8c98a119f4.JPG" />
+    <Content Include="Uploads\9365ad7e-aa4b-48b1-ab2b-39091dd5d8c6.jpg" />
+    <Content Include="Uploads\9436c18b-86c2-4106-a19f-2e9fce6d65d0.JPG" />
+    <Content Include="Uploads\987fa77c-e4b4-446a-96c5-85472624865e.jpg" />
+    <Content Include="Uploads\99214697-6d0e-4087-a152-558a5bb9bf8e.jpg" />
+    <Content Include="Uploads\a2a0fbe2-8223-47ca-aa41-4ef7dc86c765.jpg" />
+    <Content Include="Uploads\a8eca0d9-f0c2-4d9d-98d7-03720aa2a35e.jpg" />
+    <Content Include="Uploads\a928f8c9-fa76-4dea-9c18-169a871d3bd4.jpg" />
+    <Content Include="Uploads\a9df0e37-5e0d-494e-a394-5a255601dfd5.jpg" />
+    <Content Include="Uploads\ad7b1a39-5f21-4c69-a3cb-1ffd729c4ca4.jpg" />
+    <Content Include="Uploads\aee0af4f-8404-49bf-9fd0-a7f08e0470a6.JPG" />
+    <Content Include="Uploads\b3f2aa65-83c9-40b1-8df0-62b1fdb1f13b.JPG" />
+    <Content Include="Uploads\b5b9671c-a758-44cc-abc9-b8ba715819db.jpg" />
+    <Content Include="Uploads\b8d1dca8-96fb-434b-974f-3679db5bba16.jpg" />
+    <Content Include="Uploads\b98eeabf-ef96-46ae-92da-a6c1a5626d76.jpg" />
+    <Content Include="Uploads\be3ad760-7265-4908-ba69-58be5fcb28f0.jpg" />
+    <Content Include="Uploads\bec0a137-75ae-4492-a7dd-a7528f9cdfbd.jpg" />
+    <Content Include="Uploads\bfb87e4a-9582-4de0-a0f8-282f0a469346.jpg" />
+    <Content Include="Uploads\c8e5c8e8-2c7d-4ff0-a6ca-b7c862242926.jpg" />
+    <Content Include="Uploads\cab54471-4041-4aff-8988-516d7e487aae.jpg" />
+    <Content Include="Uploads\d024a533-ae91-456c-92af-496ea3dd94f1.jpg" />
+    <Content Include="Uploads\d253c0ea-a0fb-4e24-97c4-be390477d310.jpg" />
+    <Content Include="Uploads\d2790cae-038c-4646-a0d2-2c7e3be9ee8c.jpg" />
+    <Content Include="Uploads\d540f272-b506-49ce-a82a-24e86c9fe984.jpg" />
+    <Content Include="Uploads\d820eb6b-b338-4cb3-a99f-c9a54e0cad8f.jpg" />
+    <Content Include="Uploads\d930cd0e-049f-4632-ade1-ba214d4c7c3f.jpg" />
+    <Content Include="Uploads\ddea3449-0dcb-49ce-be03-73b6ba8998a6.jpg" />
+    <Content Include="Uploads\de1d76a4-a1c7-4f0c-922e-09db64a8cdcf.png" />
+    <Content Include="Uploads\ded06b1d-ff73-4d38-ae65-5b0236e5f754.JPG" />
+    <Content Include="Uploads\def852ea-263d-439b-ace4-3bd994ee4396.jpg" />
+    <Content Include="Uploads\e1513958-3916-472a-9b97-6eb86f1fb951.JPG" />
+    <Content Include="Uploads\e1b5a034-8319-4958-b5b9-c6d39ee83dee.jpg" />
+    <Content Include="Uploads\e57fc525-651a-45c9-ba45-477adbe88b78.JPG" />
+    <Content Include="Uploads\ea4e4bac-57cf-4852-bd94-ff94cb1fbd96.jpg" />
+    <Content Include="Uploads\ebadfcb6-53ff-4b24-b9c4-2ef3a6613c25.jpg" />
+    <Content Include="Uploads\ecb5f9d3-3ac8-4eea-80a6-1c4256a13dbc.jpg" />
+    <Content Include="Uploads\f199914a-7599-4930-86f9-a0e9def49128.jpg" />
+    <Content Include="Uploads\f4ea4309-cbd0-45a5-a24a-33fea6fdd4c7.JPG" />
+    <Content Include="Uploads\f52d7809-5df1-4cf7-9736-43044db1d4ea.JPG" />
+    <Content Include="Uploads\f5301de1-a52f-4c24-b696-cd3cd05be80c.JPG" />
+    <Content Include="Uploads\f5e66abf-29a3-4e04-8d7a-df4854973a22.jpg" />
+    <Content Include="Uploads\fa43bb12-f710-48d9-9ae5-7510765a8de5.png" />
+    <Content Include="Uploads\fbd23d7e-1d96-4564-9fa3-69edb15d6624.JPG" />
+    <Content Include="Uploads\fe68d711-0921-416d-a0dd-35a1a49779b1.jpg" />
+    <Content Include="Uploads\fe860497-cff4-4068-a309-414bd82347a7.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -391,126 +781,6 @@
     <Compile Include="Interfaces\ILikesService.cs" />
     <Compile Include="Interfaces\IMedalService.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
-    <Compile Include="Migrations\201603171237585_compose 2 storages.cs" />
-    <Compile Include="Migrations\201603171237585_compose 2 storages.Designer.cs">
-      <DependentUpon>201603171237585_compose 2 storages.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603171244493_comment creativeId fix.cs" />
-    <Compile Include="Migrations\201603171244493_comment creativeId fix.Designer.cs">
-      <DependentUpon>201603171244493_comment creativeId fix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603171318043_fix userID.cs" />
-    <Compile Include="Migrations\201603171318043_fix userID.Designer.cs">
-      <DependentUpon>201603171318043_fix userID.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603180803104_creativecategory.cs" />
-    <Compile Include="Migrations\201603180803104_creativecategory.Designer.cs">
-      <DependentUpon>201603180803104_creativecategory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603180824341_categoryVirtual.cs" />
-    <Compile Include="Migrations\201603180824341_categoryVirtual.Designer.cs">
-      <DependentUpon>201603180824341_categoryVirtual.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603200709338_comment with identity user.cs" />
-    <Compile Include="Migrations\201603200709338_comment with identity user.Designer.cs">
-      <DependentUpon>201603200709338_comment with identity user.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603200818265_IdentityUserToLikes.cs" />
-    <Compile Include="Migrations\201603200818265_IdentityUserToLikes.Designer.cs">
-      <DependentUpon>201603200818265_IdentityUserToLikes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603200839397_creativeUserIdToUserIdentity.cs" />
-    <Compile Include="Migrations\201603200839397_creativeUserIdToUserIdentity.Designer.cs">
-      <DependentUpon>201603200839397_creativeUserIdToUserIdentity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603201021275_CreativeDescription.cs" />
-    <Compile Include="Migrations\201603201021275_CreativeDescription.Designer.cs">
-      <DependentUpon>201603201021275_CreativeDescription.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603201704036_IdentityUserToApplicationUser.cs" />
-    <Compile Include="Migrations\201603201704036_IdentityUserToApplicationUser.Designer.cs">
-      <DependentUpon>201603201704036_IdentityUserToApplicationUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603211103281_PostDatetoComment.cs" />
-    <Compile Include="Migrations\201603211103281_PostDatetoComment.Designer.cs">
-      <DependentUpon>201603211103281_PostDatetoComment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603211141514_ratingEntity.cs" />
-    <Compile Include="Migrations\201603211141514_ratingEntity.Designer.cs">
-      <DependentUpon>201603211141514_ratingEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603211157296_fix referencing loop of rating.cs" />
-    <Compile Include="Migrations\201603211157296_fix referencing loop of rating.Designer.cs">
-      <DependentUpon>201603211157296_fix referencing loop of rating.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603211429478_rating+UserId.cs" />
-    <Compile Include="Migrations\201603211429478_rating+UserId.Designer.cs">
-      <DependentUpon>201603211429478_rating+UserId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603221503470_avatar+.cs" />
-    <Compile Include="Migrations\201603221503470_avatar+.Designer.cs">
-      <DependentUpon>201603221503470_avatar+.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603221631049_medalEntity.cs" />
-    <Compile Include="Migrations\201603221631049_medalEntity.Designer.cs">
-      <DependentUpon>201603221631049_medalEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603230935380_medalImage.cs" />
-    <Compile Include="Migrations\201603230935380_medalImage.Designer.cs">
-      <DependentUpon>201603230935380_medalImage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603231028395_TagEntity.cs" />
-    <Compile Include="Migrations\201603231028395_TagEntity.Designer.cs">
-      <DependentUpon>201603231028395_TagEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603231337269_TagsManyToMany.cs" />
-    <Compile Include="Migrations\201603231337269_TagsManyToMany.Designer.cs">
-      <DependentUpon>201603231337269_TagsManyToMany.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603231401182_tagsOneToMany.cs" />
-    <Compile Include="Migrations\201603231401182_tagsOneToMany.Designer.cs">
-      <DependentUpon>201603231401182_tagsOneToMany.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603231416335_tagsManyToManyNew.cs" />
-    <Compile Include="Migrations\201603231416335_tagsManyToManyNew.Designer.cs">
-      <DependentUpon>201603231416335_tagsManyToManyNew.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603231418255_tagsManyToManyNewFix.cs" />
-    <Compile Include="Migrations\201603231418255_tagsManyToManyNewFix.Designer.cs">
-      <DependentUpon>201603231418255_tagsManyToManyNewFix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603231423024_tagsonetomay1.cs" />
-    <Compile Include="Migrations\201603231423024_tagsonetomay1.Designer.cs">
-      <DependentUpon>201603231423024_tagsonetomay1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603231750102_Tag_Creative.cs" />
-    <Compile Include="Migrations\201603231750102_Tag_Creative.Designer.cs">
-      <DependentUpon>201603231750102_Tag_Creative.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603231846160_chapterCreated.cs" />
-    <Compile Include="Migrations\201603231846160_chapterCreated.Designer.cs">
-      <DependentUpon>201603231846160_chapterCreated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603281225591_NullableTagCreativeId.cs" />
-    <Compile Include="Migrations\201603281225591_NullableTagCreativeId.Designer.cs">
-      <DependentUpon>201603281225591_NullableTagCreativeId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603281902207_creativeDate.cs" />
-    <Compile Include="Migrations\201603281902207_creativeDate.Designer.cs">
-      <DependentUpon>201603281902207_creativeDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603301852524_ChapterStore.cs" />
-    <Compile Include="Migrations\201603301852524_ChapterStore.Designer.cs">
-      <DependentUpon>201603301852524_ChapterStore.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603301914427_fixChapterStore.cs" />
-    <Compile Include="Migrations\201603301914427_fixChapterStore.Designer.cs">
-      <DependentUpon>201603301914427_fixChapterStore.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603301917596_fixChapterStore1.cs" />
-    <Compile Include="Migrations\201603301917596_fixChapterStore1.Designer.cs">
-      <DependentUpon>201603301917596_fixChapterStore1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\MedalViewModel.cs" />
@@ -567,9 +837,19 @@
     <Content Include="app\translations\t\translation_en.json" />
     <Content Include="app\translations\t\translation_ru.json" />
     <Content Include="content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="content\ckeditor\CHANGES.md" />
+    <Content Include="content\ckeditor\LICENSE.md" />
+    <Content Include="content\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="content\ckeditor\plugins\scayt\README.md" />
+    <Content Include="content\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="content\ckeditor\plugins\wsc\README.md" />
+    <Content Include="content\ckeditor\README.md" />
+    <Content Include="content\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
+    <Content Include="content\ckeditor\skins\moono\readme.md" />
     <None Include="Properties\PublishProfiles\CourseProject20160316104631.pubxml" />
     <Content Include="Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CourseProjectApi20160324093711 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -582,99 +862,6 @@
       <Project>{c1fc9156-9f53-411a-b84b-977b0809ba53}</Project>
       <Name>CourseProject.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603171237585_compose 2 storages.resx">
-      <DependentUpon>201603171237585_compose 2 storages.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603171244493_comment creativeId fix.resx">
-      <DependentUpon>201603171244493_comment creativeId fix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603171318043_fix userID.resx">
-      <DependentUpon>201603171318043_fix userID.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603180803104_creativecategory.resx">
-      <DependentUpon>201603180803104_creativecategory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603180824341_categoryVirtual.resx">
-      <DependentUpon>201603180824341_categoryVirtual.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603200709338_comment with identity user.resx">
-      <DependentUpon>201603200709338_comment with identity user.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603200818265_IdentityUserToLikes.resx">
-      <DependentUpon>201603200818265_IdentityUserToLikes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603200839397_creativeUserIdToUserIdentity.resx">
-      <DependentUpon>201603200839397_creativeUserIdToUserIdentity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603201021275_CreativeDescription.resx">
-      <DependentUpon>201603201021275_CreativeDescription.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603201704036_IdentityUserToApplicationUser.resx">
-      <DependentUpon>201603201704036_IdentityUserToApplicationUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603211103281_PostDatetoComment.resx">
-      <DependentUpon>201603211103281_PostDatetoComment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603211141514_ratingEntity.resx">
-      <DependentUpon>201603211141514_ratingEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603211157296_fix referencing loop of rating.resx">
-      <DependentUpon>201603211157296_fix referencing loop of rating.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603211429478_rating+UserId.resx">
-      <DependentUpon>201603211429478_rating+UserId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603221503470_avatar+.resx">
-      <DependentUpon>201603221503470_avatar+.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603221631049_medalEntity.resx">
-      <DependentUpon>201603221631049_medalEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603230935380_medalImage.resx">
-      <DependentUpon>201603230935380_medalImage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603231028395_TagEntity.resx">
-      <DependentUpon>201603231028395_TagEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603231337269_TagsManyToMany.resx">
-      <DependentUpon>201603231337269_TagsManyToMany.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603231401182_tagsOneToMany.resx">
-      <DependentUpon>201603231401182_tagsOneToMany.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603231416335_tagsManyToManyNew.resx">
-      <DependentUpon>201603231416335_tagsManyToManyNew.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603231418255_tagsManyToManyNewFix.resx">
-      <DependentUpon>201603231418255_tagsManyToManyNewFix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603231423024_tagsonetomay1.resx">
-      <DependentUpon>201603231423024_tagsonetomay1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603231750102_Tag_Creative.resx">
-      <DependentUpon>201603231750102_Tag_Creative.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603231846160_chapterCreated.resx">
-      <DependentUpon>201603231846160_chapterCreated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603281225591_NullableTagCreativeId.resx">
-      <DependentUpon>201603281225591_NullableTagCreativeId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603281902207_creativeDate.resx">
-      <DependentUpon>201603281902207_creativeDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603301852524_ChapterStore.resx">
-      <DependentUpon>201603301852524_ChapterStore.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603301914427_fixChapterStore.resx">
-      <DependentUpon>201603301914427_fixChapterStore.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603301917596_fixChapterStore1.resx">
-      <DependentUpon>201603301917596_fixChapterStore1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

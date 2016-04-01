@@ -66,16 +66,14 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
             });
       };
 
-
+   var reader = new FileReader();
       $scope.updateAvatar = function(){
-          $scope.upload($scope.file);
-      };
-      
-    //$scope.upload($scope.files);
-
-    $scope.$watch('file', function () {
-       console.log($scope.file);
-
+           $scope.upload($scope.file);
+       
+    };
+    
+    $scope.$watch('file', function () {      
+       // console.log($scope.file);
     });
   
 
@@ -99,7 +97,7 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
                 }, null, function (evt) {
                     $scope.progressPercentage = parseInt(100.0 * evt.loaded / evt.total);    
                 });
-              }
+          }
     };
 
 

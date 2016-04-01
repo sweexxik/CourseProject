@@ -3,6 +3,10 @@ var app = angular.module('AngularAuthApp',
     ['ui.bootstrap','ng-showdown','ngSanitize','ui.sortable','ngRoute','angular-markdown-editable',
      'ngTagsInput', 'LocalStorageModule', 'angular-loading-bar', 'dndLists', 'ngFileUpload', 'ngResource','infinite-scroll']);
 
+var serviceBase = 'http://localhost:57507/';
+//var serviceBase = 'http://courseprojectapi20160324093711.azurewebsites.net/';
+//var serviceBase = 'http://sweexxik-001-site1.anytempurl.com/';
+
 app.config(function ($routeProvider) {
 
     $routeProvider.when("/home", {
@@ -110,8 +114,7 @@ app.config(function ($routeProvider) {
 
 });
 
-var serviceBase = 'http://localhost:57507/';
-// var serviceBase = 'http://courseprojectapi20160324093711.azurewebsites.net/';
+
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'ngAuthApp'
@@ -157,6 +160,25 @@ app.directive('ckEditor', function () {
     }
 };
 });
+
+app.directive(
+            "mAppLoading",
+            function( $animate ) {            
+                return({
+                    link: link,
+                    restrict: "C"
+                });        
+                function link( scope, element, attributes ) {                   
+                    $animate.leave( element.children().eq( 1 ) ).then(
+                        function cleanupAfterAnimation() {                          
+                            element.remove();                          
+                            scope = element = attributes = null;
+                        }
+                    );
+                    
+                }
+            }
+        );  
 
 
 app.config(function ($httpProvider) {

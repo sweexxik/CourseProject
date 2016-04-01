@@ -5,7 +5,7 @@
         </div>
         <p></p>  
 	<div class="row" id="main">
-	  <div data-ng-if="showLoading" class="loading"><br><br>
+	  <div data-ng-if="showLoading" class="loading text-center"><br><br>
 					<i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 48px"></i>
 	    		</div>
 	 <div class="col-md-12" data-ng-if="message != ''">
@@ -25,7 +25,7 @@
 	        			<img data-ng-if="userInfo.avatarUri" style="width: 200px; height:200px;" align="center" data-ng-src="{{userInfo.avatarUri}}" alt="Texto Alternativo" class="img-thumbnail">
 	        			<img data-ng-if="userInfo.avatarUri == undefined" style="width: 200px; height:200px;" align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-thumbnail">
 	        			<h2>{{userInfo.firstName}} {{userInfo.lastName}}</h2>
-	        			<p>Description</p>	                  
+	        			<p>{{userInfo.userName}}</p>	                  
 	                    <button type="button" class="btn-green-flat-trigger" >
 	                        {{translation.UPLOAD}}
 	                    </button>
@@ -140,10 +140,12 @@
 		    	<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading text-center"><strong>{{translation.UPLOAD}} </strong> <small> </small></div>
-							<div class="panel-body">						   	
-						  		<div ngf-drop ngf-select ng-model="$parent.file" class="drop-box upload-drop-zone" ngf-drag-over-class="'dragover'" ngf-multiple="false" 	 ngf-allow-dir="true" accept="image/*" ngf-pattern="'image/*'">
+							<div class="panel-body">	
+
+						  		<div data-ng-if="!file.name" ngf-drop ngf-select ng-model="$parent.file" class="drop-box upload-drop-zone" ngf-drag-over-class="'dragover'" ngf-multiple="false" 	 ngf-allow-dir="true" accept="image/*" ngf-pattern="'image/*'">
 						  		 	Or drag and drop files here 
-						  		</div>				
+						  		</div>	
+						  		<img class="img img-responsive" ngf-src="file" class="thumb">				
 								<div class="js-upload-finished text-center" data-ng-if="file.name" >
 									<h3>File: {{file.name}} {{file.$error}} {{file.$errorParam}}	</h3>					  
 		    						<div class="progress">

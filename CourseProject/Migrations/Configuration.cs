@@ -1,4 +1,6 @@
 using CourseProject.DbContext;
+using CourseProject.Domain.Entities;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CourseProject.Migrations
 {
@@ -11,7 +13,8 @@ namespace CourseProject.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(DatabaseContext context)
@@ -21,13 +24,11 @@ namespace CourseProject.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
             //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.Categories.AddOrUpdate(
+              new CreativeCategory { Id  = 1, Name = "Free Writing"}
+            );
+         
+
         }
     }
 }

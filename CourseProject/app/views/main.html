@@ -22,8 +22,8 @@
                   <div class="col-md-12">
                       <div class="col-md-2">
                           <a data-ng-href="#/show/{{creative.id}}">
-                              <img data-ng-if="creative.avatarUri" align="center" data-ng-src="{{creative.avatarUri}}" alt="Texto Alternativo" class="img-responsive">
-                              <img data-ng-if="creative.avatarUri == undefined"  align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-responsive">
+                              <img style="width: 200px; height:200px;" data-ng-if="creative.avatarUri" align="center" data-ng-src="{{creative.avatarUri}}" alt="Texto Alternativo" class="img-responsive">
+                              <img style="width: 200px; height:200px;" data-ng-if="creative.avatarUri == undefined"  align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-responsive">
                             </a>
                       </div>
                       <div class="col-md-8">    
@@ -60,17 +60,28 @@
                       <a data-ng-href="#/show/{{creative.id}}" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning"><i class="fa fa-book"></i> {{translation.READ_MORE}}</a>
                    </div>
                    </div>
-               </div>       
-             </div>
-          </div>
-      </div>
-  </div>
+               </div>    <br>   <br>
+               <br>   
+               <br>
+               <br>   
+             </div><br>   <br>
+               <br>   
+               <br>
+               <br>   
+          </div><br>   <br>
+               <br>   
+               <br>
+               <br>   
+      </div>   <br>
+               <br>   
+  </div>   <br>
+               <br>   
  
 
    <div class="col-md-3 bann-left">      
       <div class="panel panel-default">
           <div style="margin-top: 20px" class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
-              <i class="fa fa-bell fa-fw"></i>   {{translation.MOST_POPULAR}}        
+              <i class="fa fa-comments"></i>   {{translation.MOST_POPULAR}}        
           </div>
           <div class="panel-body">
               <div class="list-group">
@@ -86,7 +97,7 @@
 
     <div class="panel panel-default">
         <div  class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
-            <i class="fa fa-bell fa-fw"></i>    {{translation.MOST_RATED}}           
+            <i class="fa fa-star"></i>    {{translation.MOST_RATED}}           
         </div>
         <div class="panel-body">
             <div class="list-group">

@@ -17,12 +17,14 @@ namespace CourseProject.Services
         private readonly IUnitOfWork db;
         private readonly IMedalService medalService;
         private readonly IChaptersService chapterService;
+        private readonly ITagsService tagsService;
 
-        public CreativeService(IUnitOfWork repo, IMedalService medal, IChaptersService chapterServ)
+        public CreativeService(IUnitOfWork repo, IMedalService medal, IChaptersService chapterServ, ITagsService tagServ)
         {
             db = repo;
             medalService = medal;
             chapterService = chapterServ;
+            tagsService = tagServ;
         }
 
         public async Task<NewCreativeModel> UpdateCreative(NewCreativeModel model)
@@ -42,7 +44,7 @@ namespace CourseProject.Services
             {
                 newTag.CreativeId = creative.Id;
 
-                db.Tags.Add(newTag);
+                db.Tags.Add(new Tag {CreativeId = newTag.CreativeId, Name = newTag.Name});
             }
          
             db.Creatives.Update(creative);
@@ -59,8 +61,6 @@ namespace CourseProject.Services
             db.Creatives.Add(creative);
 
             db.Save();
-
-            await medalService.CheckMedals(creative.User.UserName);
 
             var res = db.Creatives.Find(c => string.Equals(c.User.UserName, model.UserName, StringComparison.CurrentCultureIgnoreCase));
 
@@ -172,6 +172,11 @@ namespace CourseProject.Services
 
             var countPerPart = all.Count/5;
 
+            if (countPerPart == 0)
+            {
+                return delimiter == 0 ? InitCreativesModel(all) : new List<NewCreativeModel>();
+            }
+
             var res = InitCreativesModel(all.Skip(countPerPart*delimiter).Take(countPerPart));
 
             return res;
@@ -197,13 +202,13 @@ namespace CourseProject.Services
 
         private async Task<Creative> InitNewCreative(NewCreativeModel model)
         {
+
             var creative = new Creative
             {
                 Name = model.Name,
                 Description = model.Description,
                 Category = await db.Categories.Get(model.CategoryId),
-                Tags = model.Tags,
-                Chapters = model.Chapters,
+                Tags = model.Tags.Select(x => new Tag {Name = x.Name}).ToList(),
                 Created = DateTime.Now,
                 Rating = new List<Rating>(),
                 Comments = new List<Comment>()
@@ -228,7 +233,7 @@ namespace CourseProject.Services
                 Description = creative.Description,
                 Category = creative.Category,
                 Rating = creative.Rating,
-                Tags = creative.Tags,
+                Tags = tagsService.InitTagsViewModel(creative.Tags),
                 Created = creative.Created.ToShortDateString() + " " + creative.Created.ToShortTimeString(),
                 AvgRating = creative.Rating.Any() ? creative.Rating.Average(x => x.Value) : 0,
                 AvatarUri = creative.User.AvatarUri
@@ -247,7 +252,7 @@ namespace CourseProject.Services
                 Description = creative.Description,
                 Category = creative.Category,
                 Rating = creative.Rating,
-                Tags = creative.Tags,
+                Tags = tagsService.InitTagsViewModel(creative.Tags),
                 Created = creative.Created.ToShortDateString() + " " + creative.Created.ToShortTimeString(),
                 AvgRating = creative.Rating.Any() ? creative.Rating.Average(x=>x.Value) : 0,
                 AvatarUri = creative.User.AvatarUri

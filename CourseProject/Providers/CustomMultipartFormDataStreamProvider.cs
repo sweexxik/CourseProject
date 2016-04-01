@@ -10,23 +10,19 @@ namespace CourseProject.Providers
         {
         }
 
-        public CustomMultipartFormDataStreamProvider(string rootPath, int bufferSize) : base(rootPath, bufferSize)
-        {
-        }
+        //public override string GetLocalFileName(HttpContentHeaders headers)
+        //{
+        //    //Make the file name URL safe and then use it & is the only disallowed url character allowed in a windows filename
+        //    var fileName = headers.ContentDisposition.FileName;
 
-        public override string GetLocalFileName(HttpContentHeaders headers)
-        {
-            //Make the file name URL safe and then use it & is the only disallowed url character allowed in a windows filename
-            var fileName = headers.ContentDisposition.FileName;
+        //    var lastDot = headers.ContentDisposition.FileName.LastIndexOf('.');
 
-            var lastDot = headers.ContentDisposition.FileName.LastIndexOf('.');
+        //    var extension = fileName.Substring(lastDot);
 
-            var extension = fileName.Substring(lastDot);
+        //    var name = Guid.NewGuid() + extension;
 
-            var name = Guid.NewGuid() + extension;
-
-            return name.Trim('"')
-                        .Replace("&", "and");
-        }
+        //    return name.Trim('"')
+        //                .Replace("&", "and");
+        //}
     }
 }

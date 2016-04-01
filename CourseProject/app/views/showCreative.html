@@ -191,7 +191,7 @@
             </ul>
         </div>
         <div  class="text-center">
-            <button type="button" class="btn btn-info" data-ng-click="showNewComment()"> {{translation.NEW_COMMENT}} </button>
+            <button data-ng-hide="!authentication.isAuth" type="button" class="btn btn-info" data-ng-click="showNewComment()"> {{translation.NEW_COMMENT}} </button>
         </div>
         <div class="row" data-ng-if="newComment != undefined">
                 <div class="col-md-3">&nbsp;</div>

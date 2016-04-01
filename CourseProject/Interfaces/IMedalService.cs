@@ -4,6 +4,6 @@ namespace CourseProject.Interfaces
 {
     public interface IMedalService
     {
-        Task CheckMedals(string userName);
+       // Task CheckMedals(string userName);
     }
 }

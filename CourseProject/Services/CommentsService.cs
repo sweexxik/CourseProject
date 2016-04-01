@@ -28,6 +28,7 @@ namespace CourseProject.Services
             if (comm == null) return null;
 
             var userName = comm.User.UserName;
+
             var creativeId = comm.CreativeId;
 
             var result = await db.Comments.Remove(id);
@@ -35,8 +36,6 @@ namespace CourseProject.Services
             if (result)
             {
                 db.Save();
-
-                await medalService.CheckMedals(userName);
 
                 return InitCommentsModel(db.Comments.Find(x=>x.CreativeId == creativeId));
             }
@@ -53,7 +52,7 @@ namespace CourseProject.Services
 
             db.Save();
 
-            await medalService.CheckMedals(model.UserName);
+            //await medalService.CheckMedals(model.UserName);
 
             return InitCommentsModel(db.Comments.Find(x => x.CreativeId == comment.CreativeId));
         } 

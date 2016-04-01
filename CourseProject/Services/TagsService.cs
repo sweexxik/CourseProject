@@ -42,7 +42,7 @@ namespace CourseProject.Services
             return InitTagsViewModel(db.Tags.Find(x => x.CreativeId == creativeId));
         }
 
-        private IEnumerable<TagsViewModel> InitTagsViewModel(IEnumerable<Tag> inputTags)
+        public IEnumerable<TagsViewModel> InitTagsViewModel(IEnumerable<Tag> inputTags)
         {
             var allTags = db.Tags.GetAll().ToList();
 
@@ -58,7 +58,8 @@ namespace CourseProject.Services
                 {
                     Id = firstTag.Id,
                     Name = firstTag.Name,
-                    Count = allTags.Count(x => x.Name == firstTag.Name)
+                    Count = allTags.Count(x => x.Name == firstTag.Name),
+                    CreativeId = firstTag.CreativeId
                 });
             }
 

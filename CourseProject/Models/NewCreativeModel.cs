@@ -31,12 +31,12 @@ namespace CourseProject.Models
 
         public CreativeCategory Category { get; set; }
 
-        public ICollection<Chapter> Chapters { get; set; }
+        public IEnumerable<Chapter> Chapters { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public IEnumerable<Comment> Comments { get; set; }
 
-        public ICollection<Rating> Rating { get; set; }
+        public IEnumerable<Rating> Rating { get; set; }
 
-        public ICollection<Tag> Tags { get; set; } 
+        public IEnumerable<TagsViewModel> Tags { get; set; } 
     }
 }

@@ -76,7 +76,7 @@ namespace CourseProject.Services
         {
             var user = await db.Users.FindUserById(model.Id);
 
-            var result = await service.InitApplicatonUser(model, user);
+            var result = await service.InitApplicationUser(model, user);
 
             await db.Users.UpdateUser(result);
            

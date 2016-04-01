@@ -123,17 +123,24 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
 
     $scope.setLike = function(id){
         var commentId = id;
-        newLikeModel.userName = currentUserName; // localStorageService.get('authorizationData').userName;
+        newLikeModel.userName = currentUserName; 
         newLikeModel.commentId = commentId;
 
-        creativeService.createLike(newLikeModel).then(function(result){
-            for (var i = 0; i < $scope.comments.length; i++) {
-                if($scope.comments[i].id === commentId){
-                    $scope.comments[i] = result.data;  
-                    console.log(result.data);               
-                }
-            }      
-        })
+        if($scope.authentication.isAuth){
+            creativeService.createLike(newLikeModel).then(function(result){
+                    for (var i = 0; i < $scope.comments.length; i++) {
+                        if($scope.comments[i].id === commentId){
+                            $scope.comments[i] = result.data;  
+                            console.log(result.data);               
+                        }
+                    }      
+                });
+        }
+        else {
+            console.log("Not authorized");
+        }
+
+      
    };
 
    $scope.setRating = function(id) {

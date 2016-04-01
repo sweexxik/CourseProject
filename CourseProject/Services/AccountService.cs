@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using CloudinaryDotNet;
@@ -24,7 +25,7 @@ namespace CourseProject.Services
         private readonly IMedalService medalService;
 
 
-        public string WorkingFolder => HttpRuntime.AppDomainAppPath + @"\Uploads";
+        public string WorkingFolder => HttpContext.Current.Server.MapPath("~/Uploads");
 
         public AccountService(IUnitOfWork repo, IMedalService medal)
         {
@@ -34,7 +35,7 @@ namespace CourseProject.Services
          
         public async Task<UserViewModel> GetUserInfo(string userName)
         {
-            await medalService.CheckMedals(userName);
+            //await medalService.CheckMedals(userName);
 
             var user = await db.Users.FindUser(userName);
 
@@ -49,7 +50,8 @@ namespace CourseProject.Services
         public async Task<IdentityResult> SaveUserData(UserViewModel viewModel)
         {
             var user = await db.Users.FindUserById(viewModel.Id);
-            return await db.Users.UpdateUser(await InitApplicatonUser(viewModel, user));
+
+            return await db.Users.UpdateUser(await InitApplicationUser(viewModel, user));
         }
 
         public async Task<IdentityResult> ChangePassword(ChangePasswordModel model)
@@ -59,7 +61,7 @@ namespace CourseProject.Services
             return await db.Users.ChangePassword(user.Id, model.OldPassword, model.NewPassword);
         }
 
-        public async Task<UserViewModel> UploadFile(CustomMultipartFormDataStreamProvider provider)
+        public async Task<UserViewModel> UploadFile(MultipartFormDataStreamProvider provider)
         {
             var user = await db.Users.FindUser(provider.FormData.Get("username"));
 
@@ -72,7 +74,7 @@ namespace CourseProject.Services
             return InitUserViewModel(user);
         }
 
-        private ImageUploadResult CloudinaryUpload(CustomMultipartFormDataStreamProvider provider)
+        private ImageUploadResult CloudinaryUpload(MultipartFormDataStreamProvider provider)
         {
             var account = new Account("ddttiy9ko", "799681156658259", "_A8bJk28HFotHtOJCMPFKrb1rII");
 
@@ -85,13 +87,6 @@ namespace CourseProject.Services
             return cloudinary.Upload(uploadParams);
         }
 
-        public bool FileExists(string fileName)
-        {
-            var file = Directory.GetFiles(WorkingFolder, fileName)
-              .FirstOrDefault();
-
-            return file != null;
-        }
 
         public void Dispose(bool disposing)
         {
@@ -103,7 +98,7 @@ namespace CourseProject.Services
 
         public UserViewModel InitUserViewModel(ApplicationUser user)
         {
-            var isAdmin = user.Roles.Count > 0 && user.Roles.First().RoleId == "4c05d228-9442-4df9-9bcb-11ee9c1da16e";
+            var isAdmin = user.Roles.Count > 0 && user.Roles.First().RoleId == "1";
 
             return new UserViewModel
             {
@@ -113,9 +108,10 @@ namespace CourseProject.Services
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
-                Medals = SetUserMedalsModel(user.Medals, user),
+                //Medals = SetUserMedalsModel(user.Medals, user),
                 AvatarUri = user.AvatarUri,
-                IsAdmin = isAdmin
+                IsAdmin = isAdmin,
+                UserRoles = user.Roles
             };
         }
 
@@ -131,7 +127,7 @@ namespace CourseProject.Services
             }).ToList();
         }
 
-        public async Task<ApplicationUser> InitApplicatonUser(UserViewModel model, ApplicationUser user)
+        public async Task<ApplicationUser> InitApplicationUser(UserViewModel model, ApplicationUser user)
         {
             user.FirstName = model.FirstName;
 
@@ -150,26 +146,26 @@ namespace CourseProject.Services
                     user.Roles.Add(new IdentityUserRole
                     {
                         UserId = user.Id,
-                        RoleId = "4c05d228-9442-4df9-9bcb-11ee9c1da16e"
+                        RoleId = "1"
                     });
                 }
             }
 
-            user.Medals = new List<Medal>();
+            //user.Medals = new List<Medal>();
 
-            foreach (var medal in model.Medals)
-            {
-                switch (medal.Id)
-                {
-                    case 1: 
-                        user.Medals.Add(await db.Medals.Get(1));
-                        break;
-                    case 2: user.Medals.Add(await db.Medals.Get(2));
-                        break;
-                    case 3: user.Medals.Add(await db.Medals.Get(3));
-                        break;
-                }
-            }
+            //foreach (var medal in model.Medals)
+            //{
+            //    switch (medal.Id)
+            //    {
+            //        case 1: 
+            //            user.Medals.Add(await db.Medals.Get(1));
+            //            break;
+            //        case 2: user.Medals.Add(await db.Medals.Get(2));
+            //            break;
+            //        case 3: user.Medals.Add(await db.Medals.Get(3));
+            //            break;
+            //    }
+            //}
 
             return user;
         }

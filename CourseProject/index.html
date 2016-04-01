@@ -14,7 +14,7 @@
                 
         <link ng-href="content/css/site-{{currentTheme}}.css" rel="stylesheet" />     
         <link rel="stylesheet" ng-href="content/css/boostrap-{{currentTheme}}.css"> 
-
+            <link rel="stylesheet" type="text/css" href="content/css/loading-app.css">
         <link rel="stylesheet" href="content/css/ng-tags-input.min.css" />
         <link rel="stylesheet" href="content/css/ng-tags-input.bootstrap.min.css" />
         <link href="content/css/loading-bar.css" rel="stylesheet" />
@@ -38,6 +38,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     </head>
     <body> 
+
+<div class="m-app-loading" ng-animate-children>
+        <div class="animated-container">
+            <div class="messaging">
+                <h1>
+                    App is Loading
+                </h1>
+
+                <p>
+                    Please wait a while...
+                </p>
+
+            </div>
+
+        </div>
+    
+
+    </div>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -53,7 +71,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#/home">{{translation.MY_CREATIVES}}</a></li>
                     <li><a data-ng-hide="!authentication.isAuth" href="#/profile">{{translation.PROFILE}}</a></li>
-                    <li><a data-ng-click="changeTheme()">{{translation.CHANGE_THEME}}</a></li>
+                    <li><a href="" data-ng-click="changeTheme()">{{translation.CHANGE_THEME}}</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">{{translation.LOGOUT}}</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/login">{{translation.LOGIN}}</a></li>
                     <li data-ng-hide="authentication.isAuth"> <a href="#/signup">{{translation.SIGNUP}}</a></li>
@@ -73,6 +91,7 @@
             </div>
         </div>
       </nav>
+    
 
   <div data-ng-view=""></div>
   <hr />

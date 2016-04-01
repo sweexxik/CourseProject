@@ -11,5 +11,7 @@ namespace CourseProject.Models
         public string Name { get; set; }
 
         public int Count { get; set; }
+
+        public int?  CreativeId { get; set; }
     }
 }

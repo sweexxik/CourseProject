@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CourseProject.Models
 {
@@ -7,10 +8,13 @@ namespace CourseProject.Models
     {
         public int  Id { get; set; }
 
+        [Required]
         public string  Text { get; set; }
 
+        [Required]
         public int  CreativeId { get; set; }
 
+        [Required]
         public string UserName { get; set; }
 
         public DateTime PostDate { get; set; }

@@ -43,8 +43,6 @@ namespace CourseProject.Services
 
             var comment = db.Comments.Find(x => x.Id == model.CommentId);
 
-            await medalService.CheckMedals(user.UserName);
-
             return commentsService.InitCommentsModel(comment).First();
         }
 
