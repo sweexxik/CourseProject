@@ -45,7 +45,7 @@ namespace CourseProject.Repositories
 
         public async Task<bool> Remove(int id)
         {
-            var creative = await db.Creatives.FindAsync(id);
+            var creative = await db.Creatives.Include(x => x.Tags).SingleAsync(x => x.Id == id);
 
             if (creative != null)
             {
@@ -64,7 +64,9 @@ namespace CourseProject.Repositories
 
         public void RemoveRange(IEnumerable<Creative> range)
         {
-            db.Creatives.RemoveRange(range);
+            var creatives = db.Creatives.Include(x => x.Tags);
+
+            db.Creatives.RemoveRange(creatives);
         }
     }
 }

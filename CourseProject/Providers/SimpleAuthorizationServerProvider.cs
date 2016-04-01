@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using CourseProject.Domain.Interfaces;
 using CourseProject.Repositories;
@@ -30,14 +31,18 @@ namespace CourseProject.Providers
                     context.SetError("invalid_grant", "The user name or password is incorrect.");
                     return;
                 }
+
+                var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+
+                if (user.Roles.Any(x => x.RoleId == "1"))
+                {
+                    identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
+                }
+
+                context.Validated(identity);
             }
-
-            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            identity.AddClaim(new Claim("sub", context.UserName));
-            identity.AddClaim(new Claim("role", "user"));
-            
-            context.Validated(identity);
-
+//            identity.AddClaim(new Claim("sub", context.UserName));
+//            identity.AddClaim(new Claim("role", "user"));
         }
     }
 }

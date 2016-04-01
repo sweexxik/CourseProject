@@ -7,7 +7,7 @@ using CourseProject.Models;
 
 namespace CourseProject.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AdminController : BaseApiController
     {
         private readonly IAdminService service;

@@ -138,7 +138,7 @@ namespace CourseProject.Domain.LuceneEntities
                 {
                     chapter.Body = "";
                 }
-               
+
             }
 
             return new CreativeDocument

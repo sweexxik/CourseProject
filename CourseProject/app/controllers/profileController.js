@@ -15,6 +15,10 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
     $scope.savedSuccessfully = false;
     $scope.message = '';
 
+    $scope.email = {
+        text: 'me@example.com'
+      };
+
    var newData = {
       OldPassword:"",
       NewPassword:"",
@@ -22,28 +26,34 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
       userName:""
     };
 
-    authService.getProfileInfo().then(function(results){
-        $scope.userInfo = results.data;       
-        $scope.isAdmin = $scope.userInfo.isAdmin;
-        console.log($scope.userInfo);        
-    });
-
-   $scope.scrollTo = function (id) {
-        $scope.showUpload = "show";    
-        $anchorScroll(id);      
-    };
-
+    if($scope.authentication.isAuth) {
+       authService.getProfileInfo().then(function(results){
+          $scope.userInfo = results.data;       
+            $scope.isAdmin = $scope.userInfo.isAdmin;
+            console.log($scope.userInfo);        
+        });
+    }
+    else {
+      $location.path('/login')
+    }
+   
     $scope.saveUserInfo = function () {
         $scope.showLoading = true;  
         authService.saveUserInfo($scope.userInfo).then(function(results){  
             $scope.savedSuccessfully = true;
             $scope.showLoading = false; 
-            $scope.message = "Saved successfully."         
+            $scope.message = $scope.translation.SAVE_SUCC;   
             $scope.userInfo = results.data;       
-        }, function(error){
+        }, function(response){
               $scope.savedSuccessfully = false;
               $scope.showLoading = false; 
-              $scope.message = error.data.message;
+               var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
             });
       };
 
@@ -57,12 +67,18 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
         authService.changePassword(newData).then(function(results){
             $scope.savedSuccessfully = true;
             $scope.showLoading = false; 
-            $scope.message = "Password changed successfully."         
+            $scope.message = $scope.translation.SAVE_SUCC; 
             $scope.userInfo = results.data;       
-        }, function(error){
+        }, function(response){
               $scope.savedSuccessfully = false;
               $scope.showLoading = false; 
-              $scope.message = error.data.message;
+              var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
             });
       };
 

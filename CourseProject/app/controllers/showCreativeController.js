@@ -1,8 +1,8 @@
 ﻿'use strict';
 app.controller('showCreativeController', ['$showdown','$sce','$window','$route','$scope', '$location','$timeout','$routeParams',
-    'authService','creativeService','localStorageService', 'searchService',
+    'authService','creativeService','localStorageService', 'searchService','$anchorScroll',
     function ($showdown,$sce, $window, $route, $scope, $location, $timeout, $routeParams,
-     authService, creativeService, localStorageService,searchService) {
+     authService, creativeService, localStorageService,searchService,$anchorScroll) {
     
     $scope.authentication = authService.authentication;
     $scope.creative = [];   
@@ -39,8 +39,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         creativeService.getRememberedChapter(rememberChapterModel).then(function(results){
             $scope.storedChapterId = results.data.chapterId;         
         });
-    }
-   
+    }   
 
     var newCommentModel = {
         Id:0,
@@ -61,7 +60,8 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         userName:""
     };
 
-   
+    $scope.htmldata = 'Enter text here'; 
+
 
     $scope.storeChapterId = function(id){
 
@@ -103,11 +103,16 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         }
     };
 
-    $scope.createComment = function(formData){        
+    $scope.createComment = function(formData){    
+
+  
+    // $scope.newComment.text = CKEDITOR.instances.ckEditor.document.getBody().getHtml();
+       
         initComment();
+   
         creativeService.createComment(newCommentModel).then(function(results){
             $scope.comments = results.data;
-            $scope.newComment = {};
+           
             console.log(results.data);
          });     
     };
@@ -138,9 +143,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         }
         else {
             console.log("Not authorized");
-        }
-
-      
+        }      
    };
 
    $scope.setRating = function(id) {
@@ -222,7 +225,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
    }
 
    var initComment = function(){
-        newCommentModel.userName = currentUserName// localStorageService.get('authorizationData').userName;   
+        newCommentModel.userName = currentUserName;  
         newCommentModel.text = $scope.newComment.text;
         newCommentModel.creativeId = creativeId;
    };   

@@ -3,6 +3,7 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 	function ($scope, $route, $routeParams,creativeService, $window, $location,localStorageService) {
  		
 		var creativeId = $routeParams.Id; 	
+		var errors = [];
 		$scope.creativeId = creativeId;
  		$scope.creative = {}; 	
  		$scope.chapters = [];  	
@@ -28,9 +29,15 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
             	$location.path('/home');
             }
             console.log($scope.creative);  
-        }, function (error) {
-            	$scope.savedSuccessfully = false;					
-				$scope.message = error.data.message;
+        }, function (response) {
+            	$scope.savedSuccessfully = false;	
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
+           
 				$location.path('/NotFound')
         });
 
@@ -45,10 +52,16 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 					$scope.message = "Deleted successfully" 
 		            console.log(results.data);  
 	       			$location.path("/home");
-	       		}, function(error){
+	       		}, function(response){
 	       			$scope.savedSuccessfully = false;
 					$scope.showLoading = false;	
-					$scope.message = error.data.message;
+					
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
 	       		});	       	
 
        		}        
@@ -63,10 +76,16 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 					$scope.showLoading = false;	
 					$scope.message = "Deleted successfully" 
 		            console.log(results.data);  
-		        }, function (error) {
+		        }, function (response) {
 		          	$scope.savedSuccessfully = false;
 					$scope.showLoading = false;	
-					$scope.message = error.data.message;
+					
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
 		        });
 	        }        	   	
         };
@@ -80,19 +99,30 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 				$scope.showLoading = false;	
 				$scope.message = "Saved successfully" 
 		        console.log(results);
-			}, function(error){
+			}, function(response){
 			    $scope.savedSuccessfully = false;
 				$scope.showLoading = false;	
-				$scope.message = error.data.message;
+				  for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
 			});
     	}
 
 		creativeService.getAllTags().then(function(results){
 	        $scope.recievedTags = results.data;
-		    }, function(error){
+		    }, function(response){
 		        $scope.savedSuccessfully = false;
 				$scope.showLoading = false;	
-				$scope.message = error.data.message;
+
+				for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
 		  	});
 
 		$scope.loadTags = function($query) {

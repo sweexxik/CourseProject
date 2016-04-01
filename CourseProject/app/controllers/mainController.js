@@ -49,7 +49,7 @@ app.controller('mainController', ['$showdown','$sce','$scope','creativeService',
             $scope.allCreatives[i].chapters = creativeService.sortChapters($scope.allCreatives[i]); 
         }   
 
-          $scope.creatives =  results.data.slice(0,2);  
+          $scope.creatives =  results.data.slice(0,5);  
     
             
         }, function (error) {
@@ -94,8 +94,10 @@ app.controller('mainController', ['$showdown','$sce','$scope','creativeService',
 
     var x,i;
     creativeService.getAllTags().then(function (results) {
-            var tags = results.data;  
-            $scope.tags = tags.splice(1,20);            
+            var tags = results.data; 
+            console.log("tags all")
+            console.log(results.data); 
+             $scope.tags = tags.slice(0,19);            
         }, function (error) {
             console.log(error);
         });

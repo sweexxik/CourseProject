@@ -55,14 +55,14 @@
                                 <i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 24px"></i>
                             </div>
                      <div class="col-md-12" data-ng-if="message != ''">
-                            <div class="col-md-3">&nbsp;</div>
-                            <div class="col-md-6">
+                          
+                      
                                 <div data-ng-class="(savedSuccessfully) ? 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success' : 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger'" role="alert">
                                     <i class="fa fa-exclamation"></i>
                                     <span class="sr-only">Result:</span>
                                     {{message}}
                                 </div>
-                            </div>
+                         
                         </div>
                 <div class="global-modal-body">
                 <div class="col-md-1">&nbsp;</div>
@@ -108,7 +108,7 @@
         </form> 
         </div>
     </div>  
-     <div style="margin-bottom: 10px" class="col-md-12">
+     <div style="margin-bottom: 10px; padding-bottom: 15px" class="col-md-12">
         <div class="pull-right">      
             <div class="btn-group">
                 <button class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success btn-filter" data-ng-click="sortType = 'created'; sortReverse = !sortReverse">
@@ -155,5 +155,5 @@
             </div>
         </div>
 
-    </div>
+    </div>  
     </div>

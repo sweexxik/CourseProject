@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
@@ -86,11 +87,13 @@ namespace CourseProject.Services
         public async Task<IdentityResult> DeleteUser(UserViewModel model)
         {
             var user = await db.Users.FindUserById(model.Id);
+            db.Ratings.RemoveRange(db.Ratings.Find(x => x.User.Id == user.Id));
+            db.Comments.RemoveRange(db.Comments.Find(x => x.User.Id == user.Id));
+            db.Likes.RemoveRange(db.Likes.Find(x => x.User.Id == user.Id));
+            db.Creatives.RemoveRange(db.Creatives.Find(x => x.User.Id == user.Id));
+            db.ChapterStore.RemoveRange(db.ChapterStore.Find(x=>x.ApplicationUserId == user.Id));
 
-            db.Ratings.RemoveRange(db.Ratings.Find(x=>x.User.Id == user.Id));
-            db.Comments.RemoveRange(db.Comments.Find(x=>x.User.Id == user.Id));
-            db.Likes.RemoveRange(db.Likes.Find(x=>x.User.Id == user.Id));
-            db.Creatives.RemoveRange(db.Creatives.Find(x=>x.User.Id == user.Id));
+            db.Save();
 
             return await db.Users.DeleteUser(user);
         }

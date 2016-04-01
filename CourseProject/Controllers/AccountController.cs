@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
 using CourseProject.Domain.Models;
 using CourseProject.Filters;
 using CourseProject.Interfaces;
@@ -26,12 +28,17 @@ namespace CourseProject.Controllers
 
             return errorResult ?? Ok();
         }
-
-        [Authorize]
+        
         [HttpGet]
+        [Authorize]
         [Route("info/{userName}")]
         public async Task<IHttpActionResult> GetUserInfo(string userName)
         {
+            if (HttpContext.Current.User.IsInRole("Customer Account Admin"))
+            {
+                var user = HttpContext.Current.User;
+            }
+
             if (userName == null)
             {
                 return BadRequest("User name is null");

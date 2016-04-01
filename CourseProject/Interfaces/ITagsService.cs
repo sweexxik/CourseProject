@@ -13,7 +13,7 @@ namespace CourseProject.Interfaces
 
         IEnumerable<TagsViewModel> SaveTags(int creativeId, IEnumerable<Tag> tags);
 
-        IEnumerable<TagsViewModel> InitTagsViewModel(IEnumerable<Tag> inputTags);
+        IEnumerable<TagsViewModel> InitTagsViewModel(IEnumerable<Tag> inputTags, List<Tag> allTags);
 
     }
 }

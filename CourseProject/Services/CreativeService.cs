@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using CourseProject.Domain.Entities;
 using CourseProject.Domain.Interfaces;
 using CourseProject.Domain.LuceneEngine;
 using CourseProject.Domain.LuceneEntities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
+
 namespace CourseProject.Services
 {
     public class CreativeService : ICreativeService
     {
-        private string dataFolder = @"C:\Temp\LuceneWrapper";
+        private readonly string dataFolder = HttpContext.Current.Server.MapPath("~/Uploads");
 
         private readonly IUnitOfWork db;
         private readonly IMedalService medalService;
@@ -233,7 +235,7 @@ namespace CourseProject.Services
                 Description = creative.Description,
                 Category = creative.Category,
                 Rating = creative.Rating,
-                Tags = tagsService.InitTagsViewModel(creative.Tags),
+                Tags = tagsService.InitTagsViewModel(creative.Tags, db.Tags.GetAll().ToList()),
                 Created = creative.Created.ToShortDateString() + " " + creative.Created.ToShortTimeString(),
                 AvgRating = creative.Rating.Any() ? creative.Rating.Average(x => x.Value) : 0,
                 AvatarUri = creative.User.AvatarUri
@@ -252,7 +254,7 @@ namespace CourseProject.Services
                 Description = creative.Description,
                 Category = creative.Category,
                 Rating = creative.Rating,
-                Tags = tagsService.InitTagsViewModel(creative.Tags),
+                Tags = tagsService.InitTagsViewModel(creative.Tags, db.Tags.GetAll().ToList()),
                 Created = creative.Created.ToShortDateString() + " " + creative.Created.ToShortTimeString(),
                 AvgRating = creative.Rating.Any() ? creative.Rating.Average(x=>x.Value) : 0,
                 AvatarUri = creative.User.AvatarUri
@@ -316,11 +318,6 @@ namespace CourseProject.Services
 
         public class CompareRatings : IComparer<Rating>
         {
-            // Because the class implements IComparer, it must define a 
-            // Compare method. The method returns a signed integer that indicates 
-            // whether s1 > s2 (return is greater than 0), s1 < s2 (return is negative),
-            // or s1 equals s2 (return value is 0). This Compare method compares strings. 
-            
             public int Compare(Rating x, Rating y)
             {
                 return x.Value - y.Value;

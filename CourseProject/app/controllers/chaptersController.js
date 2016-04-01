@@ -8,20 +8,23 @@ app.controller('chaptersController', ['$showdown','$scope','$timeout','creativeS
     $scope.message = '';
 
     // $scope.html = "4555"
-   
+    
     
 
     var chapterId = $routeParams.chapterId; 
-    var creativeId = $routeParams.creativeId;     
+    var creativeId = $routeParams.creativeId;   
 
-    creativeService.getChapter(chapterId).then(function(results){
-        $scope.chapter = results.data;
-        $scope.html = "99999";
+    if(chapterId == 0){
+        $scope.chapter.text = "# Write your markdown here!\n##It's easy."
+    }
+    else {
+        creativeService.getChapter(chapterId).then(function(results){
+            $scope.chapter = results.data;  
+        });    
 
-      
-       console.log( $scope.chapter.text);
-  
-    });    
+    }
+
+    
 
     $scope.update = function(chapter) {
       $scope.chapter.text = chapter;
@@ -38,10 +41,17 @@ app.controller('chaptersController', ['$showdown','$scope','$timeout','creativeS
             $timeout(function() {
                 $location.path('/edit/' + creativeId);
             }, 5);
-        }, function(error){
+        }, function(response){
             $scope.savedSuccessfully = false;
             $scope.showLoading = false; 
-            $scope.message = error.data.message;
+             var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
+        
            
         });
      };

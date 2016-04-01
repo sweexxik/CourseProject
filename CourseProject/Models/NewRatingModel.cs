@@ -7,6 +7,7 @@ namespace CourseProject.Models
         public int Id { get; set; }
 
         [Required]
+        [Range(1,5)]
         public int Value { get; set; }
 
         [Required]

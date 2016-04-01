@@ -149,4 +149,27 @@ body {
 ._btn-bordered-danger{color:#D9534F;background:#FFFFFF;border:2px solid #D9534F}
 ._btn-bordered-danger:hover{color:#FFFFFF;background:#D9534F;border:2px solid #FFFFFF}
 
+.portlet-bordered {
+  background-color: #2A3336;
+}
 
+.portlet {
+  background: #2A3336;
+  padding: 20px;
+}
+
+.portlet.portlet-gray {
+  background: #f7f7f7;
+}
+
+.portlet.portlet-bordered {
+  border: 1px solid #eee;
+}
+
+/* Portlet Title */
+.portlet-title {
+  padding: 0;
+    min-height: 40px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 18px;
+}

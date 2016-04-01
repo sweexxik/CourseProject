@@ -14,26 +14,6 @@ Licensed under MIT
 }
 
 /* Portlet */
-.portlet {
-	background: #fff;
-	padding: 20px;
-}
-
-.portlet.portlet-gray {
-	background: #f7f7f7;
-}
-
-.portlet.portlet-bordered {
-	border: 1px solid #eee;
-}
-
-/* Portlet Title */
-.portlet-title {
-	padding: 0;
-  	min-height: 40px;
-  	border-bottom: 1px solid #eee;
-  	margin-bottom: 18px;
-}
 
 .caption {
 	float: left;

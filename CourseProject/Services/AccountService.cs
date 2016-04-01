@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -12,7 +10,6 @@ using CourseProject.Domain.Interfaces;
 using CourseProject.Domain.Models;
 using CourseProject.Interfaces;
 using CourseProject.Models;
-using CourseProject.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 

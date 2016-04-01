@@ -1,23 +1,22 @@
 <div  class="container">
- <div class="page-header text-center">
- <br>
-            <h1>{{translation.EDIT_PROFILE}}, {{userInfo.userName}}</h1>
-        </div>
-        <p></p>  
+	<div class="page-header text-center">
+	 	<br>
+	 	<h1>{{translation.EDIT_PROFILE}}, {{userInfo.userName}}</h1>
+	</div>
 	<div class="row" id="main">
-	  <div data-ng-if="showLoading" class="loading text-center"><br><br>
-					<i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 48px"></i>
-	    		</div>
-	 <div class="col-md-12" data-ng-if="message != ''">
-				            <div class="col-md-3">&nbsp;</div>
-				            <div class="col-md-6">
-				            	<div data-ng-class="(savedSuccessfully) ? 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success' : 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger'" role="alert">
-									<i class="fa fa-exclamation"></i>
-									<span class="sr-only">Result:</span>
-									{{message}}
-								</div><br>
-				            </div><br>
-				        </div><br><br>
+	  	<div data-ng-if="showLoading" class="loading text-center"><br><br>
+			<i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 48px"></i>
+	    </div>
+		<div class="col-md-12" data-ng-if="message != ''">
+			<div class="col-md-4">&nbsp;</div>
+	            <div class="col-md-8">
+			     	<div data-ng-class="(savedSuccessfully) ? 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success' : 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger'" role="alert">
+						<i class="fa fa-exclamation"></i>
+						<span class="sr-only">Result:</span>
+							{{message}}
+					</div><br>
+		        </div><br>
+		</div><br><br>
 	    <div class="col-md-4 " >
 			<div class="row">
 	            <div class="col-md-12 text-center">
@@ -32,7 +31,7 @@
 	                    <br>
 	                    <br>
 	                    <a ng-if="isAdmin" href="#/admin" type="button" class="btn btn-warning">
-	                        Admin Panel
+	                        Admin Dashboard
 	                    </a>                  
 	        		</div>
 	        	</div>
@@ -44,25 +43,27 @@
 			    	<form role="form">											
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6">
+
 								<div class="form-group">
-			                        <input type="text" maxlength="15" data-ng-model="userInfo.firstName" name="first_name" id="first_name"  class="form-control input-lg" placeholder="First Name" tabindex="1">
+			                        <input type="text" maxlength="15" data-ng-model="userInfo.firstName" name="first_name" id="first_name"  class="form-control input-lg" placeholder="{{translation.F_NAME}}" tabindex="1">
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group">
-									<input type="text"  maxlength="15"  data-ng-model="userInfo.lastName" name="last_name" id="last_name" class="form-control input-lg" placeholder="Last Name" tabindex="2">
+									<input type="text"  maxlength="15"  data-ng-model="userInfo.lastName" name="last_name" id="last_name" class="form-control input-lg" placeholder="{{translation.L_NAME}}" tabindex="2">
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group">
-									<input type="email" maxlength="25"  data-ng-model="userInfo.email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+									<input type="text" maxlength="25"  data-ng-model="userInfo.email" name="email" id="email" class="form-control input-lg" placeholder="{{translation.EMAIL}}" tabindex="4" required>
+								
 								</div>
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group">
-									<input type="tel" maxlength="15" data-ng-model="userInfo.phoneNumber" name="phoneNumber" id="phoneNumber" class="form-control input-lg" placeholder="PhoneNumber" tabindex="2">
+									<input type="tel" maxlength="15" data-ng-model="userInfo.phoneNumber" name="phoneNumber" id="phoneNumber" class="form-control input-lg" placeholder="{{translation.PHONE}}" tabindex="2">
 								</div>
 							</div>
 						</div>
@@ -132,7 +133,7 @@
                 <span class="mobile-close"> X </span>
                 <h3><b><i class="fa fa-2x fa-upload"></i>
                 <div style="width: 40%; position: relative;" class="btn-green-flat" accept="image/*" ngf-pattern="'image/*'" ngf-select ng-model="$parent.file" ngf-multiple="false">
-						{{translation.UPLOAD}} 
+						{{translation.CHOSE}}
 				</div></b></h3>
             </div>
             <div class="global-modal-body">
@@ -141,13 +142,12 @@
 					<div class="panel panel-default">
 						<div class="panel-heading text-center"><strong>{{translation.UPLOAD}} </strong> <small> </small></div>
 							<div class="panel-body">	
-
 						  		<div data-ng-if="!file.name" ngf-drop ngf-select ng-model="$parent.file" class="drop-box upload-drop-zone" ngf-drag-over-class="'dragover'" ngf-multiple="false" 	 ngf-allow-dir="true" accept="image/*" ngf-pattern="'image/*'">
-						  		 	Or drag and drop files here 
+						  		{{translation.DRAG_MSG}}
 						  		</div>	
 						  		<img class="img img-responsive" ngf-src="file" class="thumb">				
 								<div class="js-upload-finished text-center" data-ng-if="file.name" >
-									<h3>File: {{file.name}} {{file.$error}} {{file.$errorParam}}	</h3>					  
+									<h3>{{translation.FILE}}: {{file.name}} {{file.$error}} {{file.$errorParam}}	</h3>					  
 		    						<div class="progress">
 										<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : progressPercentage*10}">
 											<span class="sr-only">60% Complete</span>

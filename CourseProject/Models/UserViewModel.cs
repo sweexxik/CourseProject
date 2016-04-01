@@ -13,7 +13,8 @@ namespace CourseProject.Models
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-
+     
+        [EmailAddress]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
    

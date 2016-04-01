@@ -55,7 +55,7 @@
   "FILTER_SETT":"Filter settings",
   "CHAPTER_NAME":"Chapter Names",
   "CHAPTER_TEXT":"Chapter Texts",
-  "CREATIVE_NAME":"Creative Names",
+  "CREATIVES_NAME":"Creative Names",
   "CREATIVE_DESC":"Creative Desc",
   "TAGS":"Tags",
   "COMMENTS":"Comments",
@@ -66,7 +66,18 @@
   "ADD_TAGS":"Add tags",
   "EDIT_CHAPTER":"Edit chapter",
   "CHAPTER_NAME":"Chapter name",
-  "ACHIEV":"Achievements"
+  "ACHIEV":"Achievements",
+  "F_NAME":"First name",
+  "L_NAME":"Last name",
+  "EMAIL":"Email",
+  "PHONE":"Phone number",
+  "DRAG_MSG":"  Or drag and drop files here ",
+  "FILE":"File",
+  "CHOSE":"Chose file",
+  "CREATIVES_FOUND":"Сreatives found: ",
+  "SAVE_SUCC":"Saved successfully",
+  "DEL_SUCC":"Deleted successfully",
+    "PASS_RES":"Password reset succcessfull"
 
  
 

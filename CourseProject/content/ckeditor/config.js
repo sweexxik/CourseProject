@@ -25,7 +25,8 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'colors' },
 		{ name: 'about' }
 	];
-	
+
+	config.skin = 'office2013';
 	config.extraPlugins = 'markdown'; 
 	// Remove some buttons provided by the standard plugins, which are
 	// not needed in the Standard(s) toolbar.

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="page-header text-center">
             <h1 class="form-login-heading">{{creative.name}}</h1>
-			<p class="form-login-heading">{{translation.AUTHOR}} : {{creative.userName}}</p>
+			<p class="form-login-heading">{{translation.AUTHOR}} : <a data-ng-href="#/user/{{creative.userName}}">{{creative.userName}}</a> </p>
             <p class="form-login-heading">{{translation.CATEGORY}} : {{creative.category.name}}</p>
             <!-- RATING BEGIN -->
             <div class="container">
@@ -160,12 +160,12 @@
                 </div>  
             </div>  
             <div ng-repeat="item in chapters">
-    			<h1  align="center" class="form-login-heading">{{translation.CHAPTER}} #{{item.number}}: {{item.name}}</h1>	
+    			<h2  align="center" class="form-login-heading">{{translation.CHAPTER}} #{{item.number}}: {{item.name}}</h2>	
     			<hr>
                 <div ng-bind-html="item.body"></div>  
                 <br><hr>
 		    </div>	
-        <div class="comments-container">
+        <div class="comments-container" id='1233'>
             <h2 data-ng-if="comments.length == 0" align="center">{{translation.NO_COMMENTS}}</h2>
             <h2 data-ng-if="comments.length > 0" align="center">{{translation.COMMENTS}}: {{comments.length}}</h2>
             <ul id="comments-list" class="comments-list">
@@ -177,31 +177,37 @@
                             <img data-ng-if="userInfo.avatarUri != undefined" data-ng-src="{{comment.avatarUri}}" alt=""></div>
                         <div class="comment-box">
                             <div class="comment-head">
-                                <h6 class="comment-name by-author"><a href="http://creaticode.com/blog">{{comment.userName}}</a></h6>
+                                <h6 class="comment-name by-author"><a data-ng-href="#/user/{{comment.userName}}">{{comment.userName}}</a></h6>
                                 <span> {{translation.COMMENTED}} {{comment.postDate.split('T')[0]}}  {{comment.postDate.split('T')[1].slice(0,-4) }}</span>
                                 <i data-ng-if="comment.userName == authentication.userName" data-ng-click="deleteComment(comment.id)" class="fa fa-2x fa-times"></i>
                                 <i data-ng-click="setLike(comment.id)" class="fa fa-2x fa-heart"> {{comment.likes.length}}</i>
                             </div>
-                            <div class="comment-content">
-                                {{comment.text}}
+                            <div ng-bind-html="comment.text" class="comment-content">
+                               
                             </div>
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
-        <div  class="text-center">
+        <div id='123' class="text-center">
             <button data-ng-hide="!authentication.isAuth" type="button" class="btn btn-info" data-ng-click="showNewComment()"> {{translation.NEW_COMMENT}} </button>
         </div>
+
+       
+       
+
         <div class="row" data-ng-if="newComment != undefined">
-                <div class="col-md-3">&nbsp;</div>
-                <div class="col-md-6">
+                <div class="col-md-2">&nbsp;</div>
+                <div class="col-md-8">
                     <div class="widget-area no-padding blank">
-                        <div class="status-upload">
+                        <div class="status-upload text-center">
                             <form>
-                                <textarea data-ng-model="newComment.text" ></textarea>                                     
-                                <button style="margin-top: 10px" type="button" data-ng-click="createComment()" class="btn btn-info"><i class="fa fa-share"></i>{{translation.PUBLISH}}</button>
+                             <textarea ng-model="newComment.text" id="ckEditor" data-ck-editor></textarea><br>                          
+                            
                             </form>
+                         
+                                <button type="button" data-ng-click="createComment()" class="btn btn-info"><i class="fa fa-share"></i>{{translation.PUBLISH}}</button>
                         </div>
                     </div>
                 </div>        

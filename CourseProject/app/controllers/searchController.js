@@ -15,11 +15,18 @@ app.controller('searchController', ['$routeParams','$scope', '$location','search
             $scope.loading = false;
             $scope.savedSuccessfully = true;          
             $scope.message = "Creatives found: " + results.data.length;
-        }, function(error){
-            console.log(error);
+        }, function(response){
+            console.log(response);
             $scope.savedSuccessfully = false;      
             $scope.loading = false;    
-            $scope.message = error.data.message;
+             var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
+         
         });
     }
 
@@ -57,12 +64,18 @@ app.controller('searchController', ['$routeParams','$scope', '$location','search
    			$scope.results = results.data;
    			$scope.loading = false;
             $scope.savedSuccessfully = true;          
-            $scope.message = "Creatives found: " + results.data.length;
-   		}, function(error){
+            $scope.message = $scope.translation.CREATIVES_FOUND + results.data.length;
+   		}, function(response){
             console.log(error);
             $scope.savedSuccessfully = false;      
             $scope.loading = false;    
-            $scope.message = error.data.message;
+             var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
         });
    	}
 
@@ -73,12 +86,18 @@ app.controller('searchController', ['$routeParams','$scope', '$location','search
 	      $scope.results = results.data;
             $scope.loading = false;
             $scope.savedSuccessfully = true;          
-            $scope.message = "Creatives found: " + results.data.length;
-    	}, function(error){
-    		 console.log(error);
+            $scope.message = $scope.translation.CREATIVES_FOUND + results.data.length;
+    	}, function(response){
+    		 console.log(response);
             $scope.savedSuccessfully = false;  
             $scope.loading = false;        
-            $scope.message = error.data.message;
+             var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
     	}); 
     };
 

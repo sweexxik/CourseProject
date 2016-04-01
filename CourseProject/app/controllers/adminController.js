@@ -60,8 +60,15 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
 					console.log($scope.medals);
 				});
 	        }
-    	}, function(error){
-    	console.log(error);
+    	}, function(response){
+    	 var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
+         
     	});	        
   	}
 	
@@ -85,11 +92,18 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
 			$scope.users = results.data;
 			$scope.savedSuccessfully = true;
 			$scope.showLoading = false;	
-			$scope.message = "Saved successfully"
-		}, function(error){
+			$scope.message = $scope.translation.SAVE_SUCC;
+		}, function(response){
 			$scope.savedSuccessfully = false;
 			$scope.showLoading = false;	
-			$scope.message = error.data.message;
+			 var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
+          
 		});
 	};
 
@@ -101,12 +115,19 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
             $scope.users = results.data;
 			$scope.savedSuccessfully = true;
 			$scope.showLoading = false;	
-			$scope.message = "Deleted successfully"
-		}, function(error){
+			$scope.message = $scope.translation.DEL_SUCC; 
+		}, function(response){
 			$scope.savedSuccessfully = false;
-			$scope.message = error.data.message;
+			 var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
+            });
 			$scope.showLoading = false;	
-		});
+	
         }        
 	};
 
@@ -117,12 +138,19 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
 		adminService.resetPassword($scope.resetPasswrodModel).then(function(results){
 			$scope.savedSuccessfully = true;
 			$scope.showLoading = false;	
-			$scope.message = "Password reset succcessfull"
-		},function(error){
+			$scope.message = $scope.translation.PASS_RES; 
+		},function(response){
 			$scope.savedSuccessfully = false;
-			$scope.message = error.data.message;
+			 var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
+            });
 			$scope.showLoading = false;	
-		});
+		
 	};
 
 	$scope.createNewUser = function(){
@@ -135,13 +163,19 @@ app.controller('adminController', ['$http','$scope', '$location', 'authService',
 			$scope.savedSuccessfully = true;
 			$scope.showLoading = false;	
 			$scope.message1 = "User created succcessfull"
-		},function(error){
+		},function(response){
 			$scope.savedSuccessfully = false;
-			$scope.message = error.data.message;
+			 var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(error.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
+            
 			$scope.showLoading = false;	
 		});
-	};
-
+	}
 	$scope.close = function(){
 		$( globalModal ).toggleClass('global-modal-show');
 	}

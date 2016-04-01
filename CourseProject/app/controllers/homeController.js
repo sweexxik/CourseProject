@@ -103,10 +103,17 @@ app.controller('homeController',
             $scope.savedSuccessfully = true;
             $scope.showLoading = false; 
             $scope.message = "Saved successfully"
-        }, function(error){
+        }, function(response){
             $scope.savedSuccessfully = false;
             $scope.showLoading = false; 
-            $scope.message = error.data.message;
+             var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
+          
         });
    }; 
 

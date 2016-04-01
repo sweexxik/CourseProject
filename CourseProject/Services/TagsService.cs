@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
@@ -21,14 +20,14 @@ namespace CourseProject.Services
 
         public IEnumerable<TagsViewModel> GetAllTags()
         {
-            return InitTagsViewModel(db.Tags.GetAll().ToList()); 
+            return InitTagsViewModel(db.Tags.GetAll().ToList(),db.Tags.GetAll().ToList()); 
         }
 
         public async Task<IEnumerable<TagsViewModel>> GetCreativeTags(int creativeId)
         {
             var creative = await db.Creatives.Get(creativeId);
 
-            return creative != null ? InitTagsViewModel(creative.Tags) : new List<TagsViewModel>();
+            return creative != null ? InitTagsViewModel(creative.Tags,db.Tags.GetAll().ToList()) : new List<TagsViewModel>();
         }
 
         public IEnumerable<TagsViewModel> SaveTags(int creativeId, IEnumerable<Tag> tags)
@@ -39,12 +38,12 @@ namespace CourseProject.Services
 
             db.Save();
 
-            return InitTagsViewModel(db.Tags.Find(x => x.CreativeId == creativeId));
+            return InitTagsViewModel(db.Tags.Find(x => x.CreativeId == creativeId), db.Tags.GetAll().ToList());
         }
 
-        public IEnumerable<TagsViewModel> InitTagsViewModel(IEnumerable<Tag> inputTags)
+        public IEnumerable<TagsViewModel> InitTagsViewModel(IEnumerable<Tag> inputTags, List<Tag> allTags)
         {
-            var allTags = db.Tags.GetAll().ToList();
+          
 
             var result = new List<TagsViewModel>();
 
@@ -58,7 +57,7 @@ namespace CourseProject.Services
                 {
                     Id = firstTag.Id,
                     Name = firstTag.Name,
-                    Count = allTags.Count(x => x.Name == firstTag.Name),
+                    Count = allTags.Where(x=>x.CreativeId != null).Count(x => x.Name == firstTag.Name),
                     CreativeId = firstTag.CreativeId
                 });
             }

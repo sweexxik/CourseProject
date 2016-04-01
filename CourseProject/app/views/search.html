@@ -1,5 +1,5 @@
  <div class="jumbotron">
-    <div class="container">
+    <div class="container ">
         <div class="text-center">
             <h2>{{translation.SEARCH_EVERY}}</h2>
         </div> 
@@ -48,7 +48,7 @@
                                         </div>
                                     </li>
                                     <li class="list-group-item">
-                                      {{translation.CREATIVE_NAME}}            
+                                      {{translation.CREATIVES_NAME}}            
                                         <div class="material-switch pull-right">                    
                                             <input id="{{conditionList[2].name}}" type="checkbox" name="selectedFruits[]" ng-model="conditionList[2].selected">
                                             <label for="{{conditionList[2].name}}" class="label-primary"></label>
@@ -104,7 +104,7 @@
     </div>
 </div>
 
-<div class="container">    
+<div class="container-fluid">    
 <div class="col-md-12" data-ng-if="message != ''">   
     <div class="col-md-3">&nbsp;</div>  
         <div class="col-md-6">      
@@ -116,18 +116,37 @@
             </div>
                 </div>
 
-
+      <div class="container">
       <div class="col-md-12 margin-bottom-30"  data-ng-repeat="creative in results">
               <div class="blog-post">
                   <div class="col-md-12">
                       <div class="col-md-2">
                           <a data-ng-href="#/show/{{creative.id}}">
-                              <img data-ng-if="creative.avatarUri" align="center" data-ng-src="{{creative.avatarUri}}" alt="Texto Alternativo" class="img-responsive">
-                              <img data-ng-if="creative.avatarUri == undefined"  align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-responsive">
+                              <img style="width: 150px; height:150px;" data-ng-if="creative.avatarUri" align="center" data-ng-src="{{creative.avatarUri}}" alt="Texto Alternativo" class="img-responsive">
+                              <img style="width: 150px; height:150px;" data-ng-if="creative.avatarUri == undefined"  align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-responsive">
                             </a>
                       </div>
-                      <div class="col-md-8">    
-                          <h2 class="blog-post-title"><a data-ng-href="#/show/{{creative.id}}">{{creative.name}}</a></h2>
+                      <div class="col-md-10">    
+                      <div class="col-md-12">
+                        <div class="col-md-6">   <h2 class="blog-post-title"><a data-ng-href="#/show/{{creative.id}}">{{creative.name}}</a></h2></div>
+                        <div class="col-md-6"> 
+                        <div class="pull-right">
+                            <span style="font-size:36px"><i class="fa fa-comments" ></i> {{creative.comments.length}} </span>
+                            <span style="font-size:36px" data-ng-if="creative.avgRating > 4">
+                                <i class="fa fa-star" ></i> {{creative.avgRating}} 
+                            </span> 
+                            <span style="font-size:36px" data-ng-if="creative.avgRating >= 2 && creative.avgRating <= 4 ">
+                                <i class="fa fa-star-half-o" ></i>
+                                 {{creative.avgRating}} 
+                            </span>     
+                            <span style="font-size:36px" data-ng-if="creative.avgRating < 2">
+                                <i class="fa fa-star-o" ></i>
+                                 {{creative.avgRating}} 
+                            </span>    
+                        </div> </div> 
+                        <div>             </div>
+                      </div>
+                       
                           <p class="blog-post-meta"> {{translation.CREATED}} {{creative.created}} 
                                <a data-ng-href="#/user/{{creative.userName}}"> {{creative.userName}}</a>
                           </p>              
@@ -135,20 +154,7 @@
                                 <a data-ng-repeat="tag in creative.tags" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
                             </div>        
                         </div>
-                        <div class="col-md-2">
-                            <h3><i class="fa fa-comments" style="font-size:36px"></i> {{creative.comments.length}}</h3>
-                            <h3 data-ng-if="creative.avgRating > 4">
-                                <i class="fa fa-star" style="font-size:36px"></i>{{creative.avgRating}}
-                            </h3> 
-                            <h3 data-ng-if="creative.avgRating >= 2 && creative.avgRating <= 4 ">
-                                <i class="fa fa-star-half-o" style="font-size:36px"></i>
-                                {{creative.avgRating}}
-                            </h3>     
-                            <h3 data-ng-if="creative.avgRating < 2">
-                                <i class="fa fa-star-o" style="font-size:36px"></i>
-                                {{creative.avgRating}}
-                            </h3>    
-                        </div>              
+                       
                     </div>
                     <div class="col-md-12 text-center">
                     <div class="col-md-1">&nbsp;</div>
@@ -161,5 +167,5 @@
                    </div>
                    </div>
                </div>       
-             </div>
+             </div></div>
   </div>
