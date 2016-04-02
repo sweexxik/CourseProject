@@ -42,7 +42,7 @@ namespace CourseProject.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         [Route("api/creatives/getall/{username}")]
         public async Task<IHttpActionResult> GetCreatives(string userName)
         {

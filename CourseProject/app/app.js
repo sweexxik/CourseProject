@@ -3,9 +3,9 @@ var app = angular.module('AngularAuthApp',
     ['ui.bootstrap','ng-showdown','ngSanitize','ui.sortable','ngRoute','angular-markdown-editable',
      'ngTagsInput', 'LocalStorageModule', 'angular-loading-bar', 'dndLists', 'ngFileUpload', 'ngResource','infinite-scroll']);
 
-//var serviceBase = 'http://localhost:57507/';
+var serviceBase = 'http://localhost:57507/';
 //var serviceBase = 'http://courseprojectapi20160324093711.azurewebsites.net/';
-var serviceBase = 'http://sweexxik-001-site1.anytempurl.com/';
+//var serviceBase = 'http://sweexxik-001-site1.anytempurl.com/';
 
 app.config(function ($routeProvider) {
 

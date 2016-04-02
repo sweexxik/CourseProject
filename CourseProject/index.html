@@ -14,7 +14,7 @@
                 
         <link ng-href="content/css/site-{{currentTheme}}.css" rel="stylesheet" />     
         <link rel="stylesheet" ng-href="content/css/boostrap-{{currentTheme}}.css"> 
-            <link rel="stylesheet" type="text/css" href="content/css/loading-app.css">
+        <link rel="stylesheet" type="text/css" href="content/css/loading-app.css">
         <link rel="stylesheet" href="content/css/ng-tags-input.min.css" />
         <link rel="stylesheet" href="content/css/ng-tags-input.bootstrap.min.css" />
         <link href="content/css/loading-bar.css" rel="stylesheet" />
@@ -32,6 +32,7 @@
         <link href="content/css/ul-chapters-drag.css" rel="stylesheet" />
         <link href="content/css/searchPage.css" rel="stylesheet" />
         <link href="content/css/admin-panel.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="content/css/popup.css">
 
         <script src="scripts/jquery-min.js"></script>
         <script src="scripts/bootstrap-min.js"></script> 
@@ -69,7 +70,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#/home">{{translation.MY_CREATIVES}}</a></li>
+                    <li><a data-ng-hide="!authentication.isAuth" href="#/home">{{translation.MY_CREATIVES}}</a></li>
                     <li><a data-ng-hide="!authentication.isAuth" href="#/profile">{{translation.PROFILE}}</a></li>
                     <li><a href="" data-ng-click="changeTheme()">{{translation.CHANGE_THEME}}</a></li>
                     <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">{{translation.LOGOUT}}</a></li>
@@ -80,8 +81,8 @@
                         <img data-ng-if="selectedLanguage == 'ru'" width="30px" height="20px" src="content/images/rus.png">
                         <img  data-ng-if="selectedLanguage == 'en'" width="30px" height="20px" src="content/images/usa.png"><span class="caret"></span></a>
                         <ul class="dropdown-menu ">
-                            <li class="text-center"><a data-ng-click="setRU()" ><img width="30px" height="20px" src="content/images/rus.png">RU</a></li>
-                            <li class="text-center"><a data-ng-click="setEN()"> <img width="30px" height="20px" src="content/images/usa.png">EN</a></li>
+                            <li class="text-center"><a href="" data-ng-click="setRU()" ><img width="30px" height="20px" src="content/images/rus.png">RU</a></li>
+                            <li class="text-center"><a href="" data-ng-click="setEN()"> <img width="30px" height="20px" src="content/images/usa.png">EN</a></li>
                         </ul>
                     </li>
                 </ul>               

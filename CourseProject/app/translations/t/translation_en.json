@@ -9,7 +9,7 @@
   "SEARCH": "Search..",
   "NEW_CREATIVE": "New Creative",
   "MAIN_TEXT": "How people express their creative?",
-  "SECONDARY_TEXT":"Millions of developers use GitHub to build personal projects, support their businesses, and work together on open source technologies.",
+  "SECONDARY_TEXT":"Let's learn more!",
   "SHOW":"Show",
   "LOGIN_TEXT":"If you have Username and Password, you can use the button below to access the full functionality of this site.",
   "SIGNUP_TEXT":"Use the button below to create Username and Password to access the full functionality of this site.",
@@ -77,8 +77,7 @@
   "CREATIVES_FOUND":"Сreatives found: ",
   "SAVE_SUCC":"Saved successfully",
   "DEL_SUCC":"Deleted successfully",
-    "PASS_RES":"Password reset succcessfull"
-
- 
+  "PASS_RES":"Password reset succcessfull",
+  "EXPLORE_CREATIVE_HUB":"Explore more creatives" 
 
 }

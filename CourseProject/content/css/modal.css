@@ -29,8 +29,8 @@
   text-decoration: none;
   color: #fff;
   background: #47ba6b;
-  transition: background 0.5s ease,
-              padding 0.8s linear;
+/*  transition: background 0.5s ease,
+              padding 0.8s linear;*/
 }
 
 
@@ -58,8 +58,8 @@
   text-decoration: none;
   color: #fff;
   background: #47ba6b;
-  transition: background 0.2s ease,
-              padding 0.8s linear;
+/*  transition: background 0.2s ease,
+              padding 0.8s linear;*/
   
 }
 .overlay {
@@ -119,6 +119,21 @@
   margin-left: -16%;
  top: 50px;
   min-height: 450px;
+    z-index: 1999;
+}
+
+.global-modal-confirm_contents {
+  background: #FFF;
+  -webkit-box-shadow: 0 0 8px 2px rgba(182, 182, 182, 0.75);
+  -moz-box-shadow: 0 0 8px 2px rgba(182,182,182, 0.75);
+  -o-box-shadow: 0 0 8px 2px rgba(182,182,182,0.75);
+  box-shadow: 0 0 8px 2px rgba(182, 182, 182, 0.75);
+  width: 50%;
+  position: absolute;
+  left: 40%;
+  margin-left: -16%;
+ top: 50px;
+  min-height: 200px;
     z-index: 1999;
 }
 
@@ -243,19 +258,19 @@ top: 10%;
 }
 
 .global-modal-transition {
-  -webkit-transform: scale(0.7);
+/*  -webkit-transform: scale(0.7);
   -moz-transform: scale(0.7);
   -ms-transform: scale(0.7);
-  transform: scale(0.7);
+  transform: scale(0.7);*/
   opacity: 0;
-  -webkit-transition: all 0.3s;
+/*  -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
-  transition: all 0.3s;
+  transition: all 0.3s;*/
 
 }
-
+/*
 .global-modal-show .global-modal-transition {
-  -webkit-transform: scale(1);
+/*  -webkit-transform: scale(1);
   -moz-transform: scale(1);
   -ms-transform: scale(1);
   transform: scale(1);
@@ -295,7 +310,7 @@ top: 10%;
 @media (max-width : 767px) {
   
   .global-modal_contents {
-    top: 0;
+ /*   top: 0;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -305,23 +320,23 @@ top: 10%;
     font-size: 22px;
   }
   .global-modal-header .mobile-close{
-    display: block;
+/*    display: block;
     position: absolute;
     right: 10px;
     top: 10px;
-    curson: pointer;
+    cursor: pointer;
   }
   .global-modal_close {
     display: block;
   }
   
   .global-modal-transition {
-    -webkit-transform: translateX(-0) translateY(150%);
+/*    -webkit-transform: translateX(-0) translateY(150%);
     -moz-transform: translateX(-0) translateY(150%);
     -ms-transform: translateX(-0) translateY(150%);
-    transform: translateX(-0) translateY(150%);
+    transform: translateX(-0) translateY(150%);*/
   }
-  
+/*  
 }
 @media (max-width: 495px){
   .global-modal-header h3{
@@ -333,4 +348,4 @@ top: 10%;
     font-size: 15px;
 
   }
-}
+}*/

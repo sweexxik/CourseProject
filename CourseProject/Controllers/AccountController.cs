@@ -30,15 +30,10 @@ namespace CourseProject.Controllers
         }
         
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         [Route("info/{userName}")]
         public async Task<IHttpActionResult> GetUserInfo(string userName)
         {
-            if (HttpContext.Current.User.IsInRole("Customer Account Admin"))
-            {
-                var user = HttpContext.Current.User;
-            }
-
             if (userName == null)
             {
                 return BadRequest("User name is null");

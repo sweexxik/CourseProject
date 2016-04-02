@@ -22,7 +22,7 @@ body {
     z-index: 1001;
     /* Set the fixed height of the footer here */
     height: 60px;
-    background-color: #f5f5f5;
+    background-color: #3e444c;
 }
 
 .text-muted {
@@ -134,20 +134,20 @@ body {
     font-size: 24px;
     line-height: 1.33;
 }
-._btn{transition:all 0.8s;-o-transition:all 0.8s;-moz-transition:all 0.8s;-webkit-transition:all 0.8s;border-radius:0px;margin-top:10px}
+/*._btn{transition:all 0.8s;-o-transition:all 0.8s;-moz-transition:all 0.8s;-webkit-transition:all 0.8s;border-radius:0px;margin-top:10px}*/
 ._btn-rounded{border-radius:50px}
 ._btn-round-tosquare:hover{border-radius:0px}
 ._btn-square-toround:hover{border-radius:50px}
-._btn-bordered-primary{color:#428BCA;background:#FFFFFF;border:2px solid #428BCA}
+._btn-bordered-primary{color:#428BCA;background:#3e444c;border:2px solid #428BCA}
 ._btn-bordered-primary:hover{color:#FFFFFF;background:#428BCA;border:2px solid #FFFFFF}
-._btn-bordered-success{color:#5CB85C;background:#FFFFFF;border:2px solid #5CB85C}
+._btn-bordered-success{color:#5CB85C;background:#3e444c;border:2px solid #5CB85C}
 ._btn-bordered-success:hover{color:#FFFFFF;background:#5CB85C;border:2px solid #FFFFFF}
-._btn-bordered-info{color:#5BC0DE;background:#FFFFFF;border:2px solid #5BC0DE}
+._btn-bordered-info{color:#5BC0DE;background:#3e444c;border:2px solid #5BC0DE}
 ._btn-bordered-info:hover{color:#FFFFFF;background:#5BC0DE;border:2px solid #FFFFFF}
-._btn-bordered-warning{color:#F0AD4E;background:#FFFFFF;border:2px solid #F0AD4E}
+._btn-bordered-warning{color:#F0AD4E;background:#3e444c;border:2px solid #F0AD4E}
 ._btn-bordered-warning:hover{color:#FFFFFF;background:#F0AD4E;border:2px solid #FFFFFF}
-._btn-bordered-danger{color:#D9534F;background:#FFFFFF;border:2px solid #D9534F}
-._btn-bordered-danger:hover{color:#FFFFFF;background:#D9534F;border:2px solid #FFFFFF}
+._btn-bordered-danger{color:#D9534F;background:#3e444c;border:2px solid #D9534F}
+._btn-bordered-danger:hover{color:#3e444c;background:#D9534F;border:2px solid #FFFFFF}
 
 .portlet-bordered {
   background-color: #2A3336;
@@ -173,3 +173,25 @@ body {
     border-bottom: 1px solid #eee;
     margin-bottom: 18px;
 }
+
+
+ #message {
+      background: white;
+      max-width: 600px;
+      text-align: center;
+      padding: 1.5em;
+      margin: 3em auto 1em;
+      border-top: 5px solid #ccc;
+      box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
+    }
+    
+    #message h1 {
+      color: #666;
+      font-weight: normal;
+      margin: 0 0 0.25em;
+    }
+    
+    #message p {
+      margin: 0;
+      color: #444;
+    }

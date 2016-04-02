@@ -76,14 +76,14 @@
    <div class="col-md-3 ">      
       <div class="panel panel-default">
           <div style="margin-top: 20px" class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
-              <i class="fa fa-comments"></i>   {{translation.MOST_POPULAR}}        
+              <i class="fa fa-comments"></i>&nbsp;{{translation.MOST_POPULAR}}&nbsp;       
           </div>
           <div class="panel-body">
               <div class="list-group">
                   <span data-ng-repeat="popular in mostPopularCreatives">
                       <a class="list-group-item" data-ng-href="#/show/{{popular.id}}">
                         {{$index+1}}. {{popular.name}}
-                        <i style="font-size: 18px" class="fa fa-comment-o pull-right">{{popular.comments.length}}</i>
+                        <i style="font-size: 18px" class="fa fa-comment-o pull-right">&nbsp;{{popular.comments.length}}&nbsp;</i>
                       </a>
                   </span>              
               </div>
@@ -92,14 +92,14 @@
 
     <div class="panel panel-default">
         <div  class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
-            <i class="fa fa-star"></i>    {{translation.MOST_RATED}}           
+            <i class="fa fa-star"></i>&nbsp;{{translation.MOST_RATED}}&nbsp;          
         </div>
         <div class="panel-body">
             <div class="list-group">
                <span data-ng-repeat="rated in mostRatedCreatives">
               <a class="list-group-item" data-ng-href="#/show/{{rated.id}}">
                 {{$index+1}}. {{rated.name}}
-                <i style="font-size: 18px" class="fa fa-star pull-right">{{rated.avgRating}}</i>
+                <i style="font-size: 18px" class="fa fa-star pull-right">&nbsp;{{rated.avgRating}}&nbsp;</i>
               </a>
 
               </span>            
