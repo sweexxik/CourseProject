@@ -254,7 +254,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         }
         
         //magic value
-        var len =  $scope.ratings.length /255;
+        var len =  $scope.ratings.length /420;
 
         $scope.percentage1 =  ($scope.percentage1/len).toPrecision(3);
         $scope.percentage2 =  ($scope.percentage2/len).toPrecision(3);

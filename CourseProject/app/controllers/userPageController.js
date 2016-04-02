@@ -4,6 +4,15 @@ app.controller('userPageController',
   function ($http, $scope, creativeService, localStorageService, $location, authService, $window,$uibModal, $route, $routeParams) {
 
     var userName = $routeParams.username; 
+
+    var authData = localStorageService.get('authorizationData');     
+    
+    if( authData != undefined){
+        authService.getProfile(authData.userName).then(function(results){
+            $scope.currentUserInfo = results.data;
+            console.log()              
+        }); 
+    }
     
 
  	$scope.authentication = authService.authentication;

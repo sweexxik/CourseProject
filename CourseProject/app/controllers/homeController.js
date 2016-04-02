@@ -57,17 +57,13 @@ app.controller('homeController',
                 $scope.creatives = results.data;
             });
         }        
-    }   
-
-
+    };
 
     $scope.loadTags = function($query) {
         return $scope.recievedTags.filter(function(tag) {
         return tag.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
       });;
     };
-
-
 
     creativeService.getCategories().then(function (results) {
         $scope.categories = results.data;
@@ -103,6 +99,7 @@ app.controller('homeController',
             $scope.savedSuccessfully = true;
             $scope.showLoading = false; 
             $scope.message = "Saved successfully"
+            $( globalModal ).toggleClass('global-modal-show');
         }, function(response){
             $scope.savedSuccessfully = false;
             $scope.showLoading = false; 
