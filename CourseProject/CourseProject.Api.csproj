@@ -636,7 +636,6 @@
     <Content Include="content\css\ng-sortable.css" />
     <Content Include="content\css\ng-tags-input.bootstrap.min.css" />
     <Content Include="content\css\ng-tags-input.min.css" />
-    <Content Include="content\css\panelWithTabNavs.css" />
     <Content Include="content\css\search-view.css" />
     <Content Include="content\css\searchPage.css" />
     <Content Include="content\css\site-cyborg.css" />

@@ -19,14 +19,17 @@ namespace CourseProject.Services
         private readonly IUnitOfWork db;
         private readonly IMedalService medalService;
         private readonly IChaptersService chapterService;
+        private readonly ICommentsService commentsService;
         private readonly ITagsService tagsService;
 
-        public CreativeService(IUnitOfWork repo, IMedalService medal, IChaptersService chapterServ, ITagsService tagServ)
+        public CreativeService(IUnitOfWork repo, IMedalService medal, IChaptersService chapterServ,
+            ITagsService tagServ, ICommentsService commentsServ)
         {
             db = repo;
             medalService = medal;
             chapterService = chapterServ;
             tagsService = tagServ;
+            commentsService = commentsServ;
         }
 
         public async Task<NewCreativeModel> UpdateCreative(NewCreativeModel model)
@@ -229,7 +232,7 @@ namespace CourseProject.Services
             {
                 Id = creative.Id,
                 Chapters = creative.Chapters,
-                Comments = creative.Comments,
+                Comments = commentsService.InitCommentsModel(creative.Comments),
                 UserName = creative.User.UserName,
                 Name = creative.Name,
                 Description = creative.Description,
@@ -248,7 +251,7 @@ namespace CourseProject.Services
             {
                 Id = creative.Id,
                 Chapters = creative.Chapters,
-                Comments = creative.Comments,
+                Comments = commentsService.InitCommentsModel(creative.Comments),
                 UserName = creative.User.UserName,
                 Name = creative.Name,
                 Description = creative.Description,

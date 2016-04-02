@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
@@ -17,25 +18,19 @@ namespace CourseProject.Services
             db = new EfUnitOfWork();
         }
 
-        public async Task CheckMedals(string userName)
+        public async Task<ICollection<Medal>> CheckMedals(ApplicationUser user)
         {
-            var user = await db.Users.FindUser(userName);
-
-            if (user == null) return;
-
             var userMedals = user.Medals ?? new List<Medal>();
 
             await CheckUserMedals(user, userMedals);
 
-            user.Medals = userMedals;
+            return userMedals;
 
-            await db.Users.UpdateUser(user);
-          
         }
 
         private async Task CheckUserMedals(ApplicationUser user, ICollection<Medal> userMedals)
         {
-            await CheckLikesMedal(user, userMedals);
+            await CheckActiveLikerMedal(user, userMedals);
 
             await CheckCommentsMedal(user, userMedals);
 
@@ -46,7 +41,7 @@ namespace CourseProject.Services
             await CheckSuperCommentatorMedal(user, userMedals);
         }
 
-        private async Task CheckLikesMedal(ApplicationUser user, ICollection<Medal> userMedals)
+        private async Task CheckActiveLikerMedal(ApplicationUser user, ICollection<Medal> userMedals)
         {
             var likesCount = db.Likes.Find(x => x.User.Id == user.Id).Count();
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -32,11 +33,18 @@ namespace CourseProject.Services
          
         public async Task<UserViewModel> GetUserInfo(string userName)
         {
-            //await medalService.CheckMedals(userName);
-
             var user = await db.Users.FindUser(userName);
 
-            return user != null ? InitUserViewModel(user) : null;
+            if (user == null) return null;
+
+            var userMedals = await medalService.CheckMedals(user);
+
+            if (userMedals.Count != user.Medals.Count)
+            {
+                await db.Users.UpdateUser(user);
+            }
+
+            return InitUserViewModel(user);
         }
 
         public async Task<IdentityResult> CreateUser(UserModel model)
@@ -105,7 +113,7 @@ namespace CourseProject.Services
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
-                //Medals = SetUserMedalsModel(user.Medals, user),
+                Medals = SetUserMedalsModel(user.Medals, user),
                 AvatarUri = user.AvatarUri,
                 IsAdmin = isAdmin,
                 UserRoles = user.Roles

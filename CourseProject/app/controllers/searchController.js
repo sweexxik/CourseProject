@@ -14,7 +14,7 @@ app.controller('searchController', ['$routeParams','$scope', '$location','search
             $scope.results = results.data;
             $scope.loading = false;
             $scope.savedSuccessfully = true;          
-            $scope.message = "Creatives found: " + results.data.length;
+            $scope.message = $scope.translation.CREATIVES_FOUND + results.data.length;
         }, function(response){
             console.log(response);
             $scope.savedSuccessfully = false;      

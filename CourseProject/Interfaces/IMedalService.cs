@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using CourseProject.Domain.Entities;
 
 namespace CourseProject.Interfaces
 {
     public interface IMedalService
     {
-       // Task CheckMedals(string userName);
+       Task<ICollection<Medal>> CheckMedals(ApplicationUser user);
     }
 }

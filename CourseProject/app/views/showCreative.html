@@ -165,16 +165,16 @@
                 <div ng-bind-html="item.body"></div>  
                 <br><hr>
 		    </div>	
-        <div class="comments-container" id='1233'>
+        <div class="comments-container">
             <h2 data-ng-if="comments.length == 0" align="center">{{translation.NO_COMMENTS}}</h2>
             <h2 data-ng-if="comments.length > 0" align="center">{{translation.COMMENTS}}: {{comments.length}}</h2>
             <ul id="comments-list" class="comments-list">
-                <li data-ng-repeat="comment in comments">
+                <li data-ng-repeat="comment in creative.comments">
                     <div class="comment-main-level">
    
                         <div class="comment-avatar">
-                            <img data-ng-if="userInfo.avatarUri == undefined" style="width: 200px; height:200px;" align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-thumbnail">
-                            <img data-ng-if="userInfo.avatarUri != undefined" data-ng-src="{{comment.avatarUri}}" alt=""></div>
+                            <!-- <img data-ng-if="comment.user.avatarUri == undefined" style="width: 200px; height:200px;" align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-thumbnail"> -->
+                            <img data-ng-if="comment.avatarUri != undefined" data-ng-src="{{comment.avatarUri}}" alt=""></div>
                         <div class="comment-box">
                             <div class="comment-head">
                                 <h6 class="comment-name by-author"><a data-ng-href="#/user/{{comment.userName}}">{{comment.userName}}</a></h6>

@@ -2,6 +2,7 @@
 app.controller('editCreativeController', ['$scope','$route','$routeParams','creativeService','$window','$location','localStorageService',
 	function ($scope, $route, $routeParams,creativeService, $window, $location,localStorageService) {
  		
+ 		$scope.confirm = false;
 		var creativeId = $routeParams.Id; 	
 		var errors = [];
 		$scope.creativeId = creativeId;
@@ -43,8 +44,7 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 
         $scope.deleteCreative = function(){
         	$scope.showLoading = false;	
-	        var result = $window.confirm('Are you absolutely sure you want to delete?');
-	        if (result) {
+	     
 	       		creativeService.deleteCreative(creativeId).then(function(results){
 	       			$scope.chapters = results.data;   
 		        	$scope.savedSuccessfully = true;
@@ -64,12 +64,11 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
              $scope.message = $scope.translation.REG_ERR + errors.join(' ');
 	       		});	       	
 
-       		}        
+       		        
     	}       
 
     	$scope.deleteChapter = function(id){	
-        	var result = $window.confirm("Are you absolutely sure you want to delete?");
-        	if(result){
+        	
 	        	creativeService.deleteChapter(id).then(function (results) {     
 		        	$scope.chapters = results.data;   
 		        	$scope.savedSuccessfully = true;
@@ -87,18 +86,19 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
              }
              $scope.message = $scope.translation.REG_ERR + errors.join(' ');
 		        });
-	        }        	   	
+	             	   	
         };
 
     	$scope.saveCreative = function () {
     		$scope.showLoading = true;
     		setChpatersPositions();
-    		$scope.creative.chapters = $scope.chapters;
+    		$scope.creative.chapters = $scope.chapters;    		
     		creativeService.updateCreative($scope.creative).then(function(results){
 	    		$scope.savedSuccessfully = true;
 				$scope.showLoading = false;	
 				$scope.message = "Saved successfully" 
 		        console.log(results);
+
 			}, function(response){
 			    $scope.savedSuccessfully = false;
 				$scope.showLoading = false;	

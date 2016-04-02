@@ -1,4 +1,5 @@
-﻿html,body{
+﻿
+html,body{
   background: url(../images/cream.jpg);
   font-family: 'Open Sans', sans-serif;
 }
@@ -183,6 +184,11 @@ body {
       border-top: 5px solid #ccc;
       box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
     }
+
+
+#md_text {
+  background-color:#fff;
+}
     
     #message h1 {
       color: #666;

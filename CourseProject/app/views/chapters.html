@@ -24,10 +24,10 @@
             <i class="fa fa-2x fa-pencil fa-lg" ng-if="chapter.edit == true"></i>
             <i data-ng-click="saveChapter()" style="cursor: pointer;" class="fa fa-2x fa-floppy-o pull-right"></i>
         </span>
-     <div class="form-group" >
+     <div class="form-group " >
         <input style="width: 33%; margin-left: 33%"  type="text" maxlength="50" data-ng-model="chapter.name" class="form-control" placeholder="{{translation.CHAPTER_NAME}}">
       </div>
-      <div class="markdown-body" ng-model="chapter.text" ng-change="update(chapter.text)" ng-focus="chapter.edit = true" ng-blur="chapter.edit = false" markdown-editable contenteditable="true">
+      <div id="md_text" ng-model="chapter.text" ng-change="update(chapter.text)" ng-focus="chapter.edit = true" ng-blur="chapter.edit = false" markdown-editable contenteditable="true">
               {{ chapter.text }}
           </div>
     </div>

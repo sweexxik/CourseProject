@@ -64,7 +64,6 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
 
 
     $scope.storeChapterId = function(id){
-
         rememberChapterModel.chapterId = id;
         rememberChapterModel.creativeId = creativeId;
         rememberChapterModel.userName = currentUserName;// localStorageService.get('authorizationData').userName;  
@@ -80,11 +79,11 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         $location.path('/NotFound')
     });
 
-    creativeService.getComments(creativeId).then(function(result){
-        $scope.comments = result.data;
-    }, function(error){
-        console.log(error);
-    });
+    // creativeService.getComments(creativeId).then(function(result){
+    //     $scope.comments = result.data;
+    // }, function(error){
+    //     console.log(error);
+    // });
 
     creativeService.getCreativeTags(creativeId).then(function(result){
         $scope.tags = result.data;      
@@ -103,15 +102,10 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         }
     };
 
-    $scope.createComment = function(formData){    
-
-  
-    // $scope.newComment.text = CKEDITOR.instances.ckEditor.document.getBody().getHtml();
-       
-        initComment();
-   
+    $scope.createComment = function(formData){  
+        initComment();   
         creativeService.createComment(newCommentModel).then(function(results){
-            $scope.comments = results.data;
+            $scope.creative.comments = results.data;
            
             console.log(results.data);
          });     
@@ -121,7 +115,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         var result = $window.confirm('Are you absolutely sure you want to delete?');
         if (result) {
             creativeService.deleteComment(id).then(function(results) {
-                $scope.comments = results.data;
+                $scope.creative.comments = results.data;
             });  
         }        
     }
@@ -133,9 +127,9 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
 
         if($scope.authentication.isAuth){
             creativeService.createLike(newLikeModel).then(function(result){
-                    for (var i = 0; i < $scope.comments.length; i++) {
-                        if($scope.comments[i].id === commentId){
-                            $scope.comments[i] = result.data;  
+                    for (var i = 0; i < $scope.creative.comments.length; i++) {
+                        if($scope.creative.comments[i].id === commentId){
+                            $scope.creative.comments[i] = result.data;  
                             console.log(result.data);               
                         }
                     }      

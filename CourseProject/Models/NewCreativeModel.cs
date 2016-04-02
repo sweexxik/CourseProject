@@ -33,7 +33,7 @@ namespace CourseProject.Models
 
         public IEnumerable<Chapter> Chapters { get; set; }
 
-        public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<NewCommentModel> Comments { get; set; }
 
         public IEnumerable<Rating> Rating { get; set; }
 
