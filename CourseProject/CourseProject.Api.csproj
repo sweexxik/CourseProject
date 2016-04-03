@@ -638,8 +638,8 @@
     <Content Include="content\css\ng-tags-input.min.css" />
     <Content Include="content\css\search-view.css" />
     <Content Include="content\css\searchPage.css" />
-    <Content Include="content\css\site-cyborg.css" />
     <Content Include="content\css\site-lumen.css" />
+    <Content Include="content\css\site-slate.css" />
     <Content Include="content\css\social-buttons.css" />
     <Content Include="content\css\tags-view.css" />
     <Content Include="content\css\ul-chapters-drag.css" />
@@ -928,6 +928,7 @@
     <Content Include="content\ckeditor\skins\bootstrapck\scss\config\_config.scss" />
     <Content Include="content\ckeditor\skins\bootstrapck\scss\config\_defaults.scss" />
     <Content Include="content\ckeditor\skins\bootstrapck\scss\dialog\dialog.scss" />
+    <Content Include="content\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\CourseProject20160316104631.pubxml" />
     <Content Include="Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\CourseProjectApi20160324093711 - Web Deploy.pubxml" />

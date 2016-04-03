@@ -15,5 +15,7 @@ namespace CourseProject.Interfaces
 
         IEnumerable<TagsViewModel> InitTagsViewModel(IEnumerable<Tag> inputTags, List<Tag> allTags);
 
+        TagsViewModel InitTagViewModel(Tag tag);
+
     }
 }

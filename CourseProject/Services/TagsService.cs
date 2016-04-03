@@ -43,8 +43,6 @@ namespace CourseProject.Services
 
         public IEnumerable<TagsViewModel> InitTagsViewModel(IEnumerable<Tag> inputTags, List<Tag> allTags)
         {
-          
-
             var result = new List<TagsViewModel>();
 
             var tagGroups = inputTags.GroupBy(x => x.Name);
@@ -52,6 +50,11 @@ namespace CourseProject.Services
             foreach (var tagGroup in tagGroups)
             {
                 var firstTag = tagGroup.First();
+
+                if (allTags.Where(x => x.CreativeId != null).Count(x => x.Name == firstTag.Name) == 0)
+                {
+                    continue;
+                }
 
                 result.Add(new TagsViewModel
                 {
@@ -64,18 +67,31 @@ namespace CourseProject.Services
 
             return result;
         }
-    }
-  
 
-    class Compare : IEqualityComparer<Tag>
-    {
-        public bool Equals(Tag x, Tag y)
+        public TagsViewModel InitTagViewModel(Tag tag)
         {
-            return x.Name == y.Name;
-        }
-        public int GetHashCode(Tag codeh)
-        {
-            return codeh.GetHashCode();
+            return new TagsViewModel
+            {
+                CreativeId = tag.CreativeId,
+                Id = tag.Id,
+                Name = tag.Name
+            };
         }
     }
 }
+
+
+
+
+    internal class CompareTagViewModels : IEqualityComparer<TagsViewModel>
+    {
+        public bool Equals(TagsViewModel x, TagsViewModel y)
+        {
+            return x.Name == y.Name;
+        }
+
+        public int GetHashCode(TagsViewModel obj)
+        {
+            return obj.GetHashCode();
+        }
+    }

@@ -1,10 +1,11 @@
 'use strict';
-app.controller('editCreativeController', ['$scope','$route','$routeParams','creativeService','$window','$location','localStorageService',
-	function ($scope, $route, $routeParams,creativeService, $window, $location,localStorageService) {
+app.controller('editCreativeController', ['$scope','$route','$routeParams','creativeService','$window','$location','localStorageService','authService',
+	function ($scope, $route, $routeParams,creativeService, $window, $location,localStorageService, authService) {
  		
  		$scope.confirm = false;
 		var creativeId = $routeParams.Id; 	
 		var errors = [];
+		var currentUserInfo = {};
 		$scope.creativeId = creativeId;
  		$scope.creative = {}; 	
  		$scope.chapters = [];  	
@@ -18,7 +19,11 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 		var currentUserName = '';
 
 		if($scope.authentication.isAuth){
-        	currentUserName = localStorageService.get('authorizationData').userName;        
+        	currentUserName = localStorageService.get('authorizationData').userName;   
+        	authService.getProfile(currentUserName).then(function(results){
+            	currentUserInfo = results.data;     
+            	console.log(currentUserInfo);
+    		});
     	}
 
      	creativeService.getCreative(creativeId).then(function (results) {
@@ -26,9 +31,12 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
             $scope.creative = results.data;
             $scope.chapters = creativeService.sortChapters(results.data); 
             $scope.tags = $scope.creative.tags;
-            if($scope.creative.userName !== currentUserName){
-            	$location.path('/home');
+            if (currentUserInfo.isAdmin == false){
+            	if($scope.creative.userName !== currentUserName){
+            		$location.path('/home');
+            	}
             }
+           
             console.log($scope.creative);  
         }, function (response) {
             	$scope.savedSuccessfully = false;	
@@ -49,7 +57,7 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 	       			$scope.chapters = results.data;   
 		        	$scope.savedSuccessfully = true;
 					$scope.showLoading = false;	
-					$scope.message = "Deleted successfully" 
+					$scope.message = $scope.translation.DEL_SUCC;
 		            console.log(results.data);  
 	       			$location.path("/home");
 	       		}, function(response){
@@ -73,7 +81,7 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 		        	$scope.chapters = results.data;   
 		        	$scope.savedSuccessfully = true;
 					$scope.showLoading = false;	
-					$scope.message = "Deleted successfully" 
+					$scope.message = $scope.translation.DEL_SUCC;
 		            console.log(results.data);  
 		        }, function (response) {
 		          	$scope.savedSuccessfully = false;
@@ -92,11 +100,14 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
     	$scope.saveCreative = function () {
     		$scope.showLoading = true;
     		setChpatersPositions();
-    		$scope.creative.chapters = $scope.chapters;    		
+    		$scope.creative.chapters = $scope.chapters;    	
+
+    		console.log($scope.creative);	
+
     		creativeService.updateCreative($scope.creative).then(function(results){
 	    		$scope.savedSuccessfully = true;
 				$scope.showLoading = false;	
-				$scope.message = "Saved successfully" 
+				$scope.message = $scope.translation.SAVE_SUCC;
 		        console.log(results);
 
 			}, function(response){
@@ -155,16 +166,16 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 
 	$scope.close = function(){
 		$( globalModal ).toggleClass('global-modal-show');
-	}
+	};
 
-	// var globalModal = $('.global-modal');
- //    $( ".trigger" ).on( "click", function(e) {
- //      e.preventDefault();
- //      $( globalModal ).toggleClass('global-modal-show');
- //    });
- //    $( ".overlay" ).on( "click", function() {
- //      $( globalModal ).toggleClass('global-modal-show');
- //    });
+	var globalModal = $('.global-modal');
+    $( ".trigger" ).on( "click", function(e) {
+      e.preventDefault();
+      $( globalModal ).toggleClass('global-modal-show');
+    });
+    $( ".overlay" ).on( "click", function() {
+      $( globalModal ).toggleClass('global-modal-show');
+    });
 
 
 }]);

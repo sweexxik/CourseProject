@@ -168,12 +168,13 @@
             <h2 data-ng-if="creative.comments.length == 0" align="center">{{translation.NO_COMMENTS}}</h2>
             <h2 data-ng-if="creative.comments.length > 0" align="center">{{translation.COMMENTS}}: {{creative.comments.length}}</h2>
             <ul id="comments-list" class="comments-list">
-                <li data-ng-repeat="comment in creative.comments">
+                <div data-ng-repeat="comment in creative.comments">
                     <div class="comment-main-level">
    
                         <div class="comment-avatar">
-                            <!-- <img data-ng-if="comment.user.avatarUri == undefined" style="width: 200px; height:200px;" align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-thumbnail"> -->
-                            <img data-ng-if="comment.avatarUri != undefined" data-ng-src="{{comment.avatarUri}}" alt=""></div>
+                            <img data-ng-if="comment.avatarUri == undefined" data-ng-src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="alt" class="img-thumbnail">
+                            <img data-ng-if="comment.avatarUri != undefined" data-ng-src="{{comment.avatarUri}}" alt="alt">
+                        </div>
                         <div class="comment-box">
                             <div class="comment-head">
                                 <h6 class="comment-name by-author"><a data-ng-href="#/user/{{comment.userName}}">{{comment.userName}}</a></h6>
@@ -186,7 +187,7 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                </div>
             </ul>
         </div>
         <div id='123' class="text-center">
@@ -206,10 +207,15 @@
                             
                             </form>
                          
-                                <button type="button" data-ng-click="createComment()" class="btn btn-info"><i class="fa fa-share"></i>{{translation.PUBLISH}}</button>
+                              
+  
+
                         </div>
+                          <button type="button" data-ng-click="createComment()" class="btn btn-info pull-right"><i class="fa fa-share"></i>
+                                    &nbsp;{{translation.PUBLISH}}&nbsp;
+                                </button>
                     </div>
-                </div>        
+                </div>
         </div>
     </div>
  </div>

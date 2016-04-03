@@ -10,7 +10,6 @@ app.controller('userPageController',
     if( authData != undefined){
         authService.getProfile(authData.userName).then(function(results){
             $scope.currentUserInfo = results.data;
-            console.log()              
         }); 
     }
     

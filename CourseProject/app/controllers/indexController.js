@@ -38,12 +38,12 @@ app.controller('indexController', ['$http', '$scope', '$location', 'authService'
         };
 
         $scope.changeTheme = function() {
-            if ($scope.currentTheme == 'cyborg') {
+            if ($scope.currentTheme == 'slate') {
                 $scope.currentTheme = 'lumen';
                 localStorageService.set('theme', 'lumen');
             } else {
-                $scope.currentTheme = 'cyborg';
-                localStorageService.set('theme', 'cyborg');
+                $scope.currentTheme = 'slate';
+                localStorageService.set('theme', 'slate');
             }
         };
 

@@ -45,7 +45,19 @@ namespace CourseProject.Services
                 chapterService.AddOrUpdateChapter(chapterService.InitChapterViewModel(chapter));
             }
 
-            foreach (var newTag in model.Tags.Where(newTag => newTag.Id == 0))
+            var tagsToDelete = new List<Tag>();
+
+            foreach (var tag in creative.Tags)
+            {
+                if (!model.Tags.Contains(tagsService.InitTagViewModel(tag), new CompareTagViewModels()))
+                {
+                    tagsToDelete.Add(tag);
+                }
+            }
+
+            db.Tags.RemoveRange(tagsToDelete);
+
+            foreach (var newTag in model.Tags.Where(newTag => newTag.CreativeId != creative.Id))
             {
                 newTag.CreativeId = creative.Id;
 
@@ -191,12 +203,12 @@ namespace CourseProject.Services
         {
             var all = db.Creatives.GetAll().OrderBy(x => x.Comments.Count);
 
-            return InitCreativesModel(all.Skip(all.Count() - 5)).Reverse();
+            return InitCreativesModelLightWeight(all.Skip(all.Count() - 5)).Reverse();
         }
 
         public IEnumerable<NewCreativeModel> GetMostRatedCreatives()
         {
-            var all = InitCreativesModel(db.Creatives.GetAll()).ToList();
+            var all = InitCreativesModelLightWeight(db.Creatives.GetAll()).ToList();
 
             var res = all.OrderBy(x => x.AvgRating).Skip(all.Count - 5).Reverse();
 
@@ -265,6 +277,16 @@ namespace CourseProject.Services
             }).ToList();
         }
 
+        private IEnumerable<NewCreativeModel> InitCreativesModelLightWeight(IEnumerable<Creative> list)
+        {
+            return list.Select(creative => new NewCreativeModel
+            {
+                Id = creative.Id,
+                Name = creative.Name,
+                AvgRating = creative.Rating.Any() ? creative.Rating.Average(x => x.Value) : 0
+            }).ToList();
+        }
+
         private IEnumerable<SearchResult> GetSearchResults(SearchViewModel model, CreativeSearcher searcher)
         {
             var searchResults = new List<SearchResult>();
@@ -326,5 +348,7 @@ namespace CourseProject.Services
                 return x.Value - y.Value;
             }
         }
+
+       
     }
 }

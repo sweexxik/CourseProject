@@ -155,33 +155,35 @@
             </div>
        </div>  
       </div>  
-       </div>
-      
+       </div>     
 
   
       <hr style="opacity: 0">
-
-    <div class="col-md-12 margin-bottom-30" data-ng-repeat="creative in creatives | filter:searchCreatives | orderBy:sortType:sortReverse ">
+    <div class="col-md-12 margin-bottom-30 text-center" data-ng-repeat="creative in creatives | filter:searchCreatives | orderBy:sortType:sortReverse ">
         <div class="portlet portlet-bordered">
             <div class="portlet-title">
+
                 <div class="caption caption-red">
-                    <i class="glyphicon glyphicon-cog"></i>
+                    <i class="fa fa-book"></i>
                     <span class="caption-subject text-uppercase">{{creative.name}}</span>
                     <span class="caption-helper">{{creative.created}}</span>
                 </div>
                 <div class="actions">  
-                    <a ng-href="#/show/{{creative.id}}" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-info"><i class="glyphicon glyphicon-align-justify"></i>{{translation.SHOW}}</a>
-                    <a data-ng-href="#edit/{{creative.id}}" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-info">
-                        <i class="glyphicon glyphicon-pencil"></i>
-                        {{translation.EDIT}}
-                    </a>                                 
+                   <a data-ng-href="#/edit/{{creative.id}}" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-info">
+                    <i class="glyphicon glyphicon-pencil"></i>{{translation.EDIT}}
+                </a> 
                 </div>
             </div>
             <div class="portlet-body">
-                <h4>{{creative.description}}</h4>
-                <p data-ng-repeat="chapter in creative.chapters">{{$index + 1}}. {{chapter.name}}</p>
+                <h2>{{creative.description}}</h2>
+                <h3 data-ng-repeat="chapter in creative.chapters">{{$index + 1}}. {{chapter.name}}</h3>
+                <div class="widget--tags text-center">
+                    <a data-ng-repeat="tag in creative.tags | orderBy: 'count' : true" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
+                </div>              
+                <a data-ng-href="#/show/{{creative.id}}" class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
+                    <i class="glyphicon glyphicon-align-justify"></i>{{translation.SHOW}}</a>               
             </div>
         </div>
 
-    </div>  
+    </div>
     </div>

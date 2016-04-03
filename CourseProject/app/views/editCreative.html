@@ -1,8 +1,7 @@
 <div class="container">
-    <div class="col-md-12 well" id="rightPanel">
+    <div class="col-md-12" style="padding-top: 20px">
 	        <div class="row">
-	    		<div class="col-md-12">
-			 
+	    		<div class="col-md-12">			 
 			    	<div class="col-md-12">
 			    	<a class="trigger">
 			    		<i style="cursor: pointer;"class="fa fa-4x fa-trash-o pull-right"></i>
@@ -10,18 +9,24 @@
 			    	<a data-ng-click="saveCreative()">
 			    		<i style="cursor: pointer;" class="fa fa-4x fa-floppy-o pull-right"></i>
 			    	</a>
-						<h2 align="center">{{translation.EDIT_CREATIVE}}</h2><hr ></div>
+						<h2 align="center">{{translation.EDIT_CREATIVE}}</h2><hr >
+				</div>
 						 <div data-ng-if="showLoading" class="loading text-center"><br><br>
 								<i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 24px"></i>
 				    		</div>
 						 <div class="col-md-12" data-ng-if="message != ''">
 				            <div class="col-md-3">&nbsp;</div>
-				            <div class="col-md-6">
+				            <div class="col-md-6 text-center">
+				            <a class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning" data-ng-href="#/show/{{creative.id}}">{{translation.BACK_TO_CREATIVE}}</a>
+				            <br><br>
+
 				            	<div data-ng-class="(savedSuccessfully) ? 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success' : 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger'" role="alert">
 									<i class="fa fa-exclamation"></i>
+
 									<span class="sr-only">Result:</span>
 									{{message}}
 								</div><br>
+
 				            </div><br>
 				        </div><br><br>
 			        </div>          
@@ -46,7 +51,7 @@
 							<div class="col-md-2">&nbsp;</div>
 							<div class="col-md-8">
 								<tags-input 
-								ng-model="tags"
+								ng-model="creative.tags"
 								selectFirstMatch="true"
 								display-property="name"
 								placeholder="{{translation.ADD_TAGS}}"
@@ -69,25 +74,6 @@
 						</div>
 						<hr >
 
-    <div class="global-modal">
-        <div class="overlay"></div>
-            <div class="global-modal-confirm_contents modal-transition">
-                <div class="global-modal-header">
-                    <span class="mobile-close"> X </span>
-                    <h2 align="center">Are you sure <i class="fa fa-2x fa-question"></i></h2>
-                </div>          
-                <div class="global-modal-body">           			
-           			<div style="margin-top: 20px"></div>
-           			<div class="col-md-1"></div>
-           			<button data-ng-click="deleteCreative()" class="col-md-4  _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success"> 
-           				<i class="fa fa-2x fa-check"></i>&nbsp;<span style="font-size: 36px">Yes</span></button>
-        			<div class="col-md-2"></div>
-           		 	<button data-ng-click="close()" class=" col-md-4 _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger">
-           		    	<i class="fa fa-2x fa-times"></i>&nbsp;<span style="font-size: 36px">No</span></button>
-          			<div class="col-md-1"></div>
-            </div>
-        </div>
-    </div>
 
 
 						<div class="row">						
@@ -119,3 +105,25 @@
 				</div>
 			</div>								
 		</div>
+
+
+
+    <div class="global-modal">
+        <div class="overlay"></div>
+            <div class="global-modal-confirm_contents modal-transition">
+                <div class="global-modal-header">
+                    <span class="mobile-close"> X </span>
+                    <h2 align="center">{{translation.SURE}}<i class="fa fa-2x fa-question"></i></h2>
+                </div>          
+                <div class="global-modal-body">           			
+           			<div style="margin-top: 20px"></div>
+           			<div class="col-md-1"></div>
+           			<button data-ng-click="deleteCreative()" class="col-md-4  _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success"> 
+           				<i class="fa fa-2x fa-check"></i>&nbsp;<span style="font-size: 36px">{{translation.YES}}</span></button>
+        			<div class="col-md-2"></div>
+           		 	<button data-ng-click="close()" class=" col-md-4 _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger">
+           		    	<i class="fa fa-2x fa-times"></i>&nbsp;<span style="font-size: 36px">{{translation.NO}}</span></button>
+          			<div class="col-md-1"></div>
+            </div>
+        </div>
+    </div>

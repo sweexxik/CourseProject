@@ -94,9 +94,7 @@ app.controller('mainController', ['$showdown','$sce','$scope','creativeService',
 
     var x,i;
     creativeService.getAllTags().then(function (results) {
-            var tags = results.data; 
-            console.log("tags all")
-            console.log(results.data); 
+            var tags = results.data;          
              $scope.tags = tags.slice(0,19);            
         }, function (error) {
             console.log(error);

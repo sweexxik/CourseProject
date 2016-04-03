@@ -1,7 +1,9 @@
+<div class="row" id="main">
+
 <div class="page-header text-center"><br>
 	 <h1>{{translation.EDIT_PROFILE}}, {{userInfo.userName}}</h1>
 </div>
-<div class="row" id="main">
+
 	<div data-ng-if="showLoading" class="loading text-center"><br><br>
 		<i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 48px"></i>
 	</div>
@@ -15,8 +17,8 @@
 				</div><br>
 		    </div><br>
 	</div>
-	
-	<div class="col-md-3 " >
+	<div class="col-md-1"></div>
+	<div class="col-md-4 " >
 		<div class="row">
 	        <div class="col-md-12 text-center">
 		        <div>
@@ -31,7 +33,7 @@
 
 		         
 		            <a ng-if="isAdmin" href="#/admin" type="button" class="btn btn-warning">
-		                Admin Dashboard
+		              {{translation.ADMIN_DASH}}
 		            </a>                  
 		        </div>
 		    </div>
@@ -98,30 +100,41 @@
 					</form>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-3 text-center">
-            <ul data-ng-if="userInfo.medals.length > 0" class="event-list" >
-
-                        <div  class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
-                            <i class="fa fa-star"></i>&nbsp;{{translation.ACHIEV}}&nbsp;          
-                        </div>
-                           <span data-ng-repeat="medal in userInfo.medals">
-                <li>                       
-                        <img width="100" height="100" alt="placeholder" data-ng-src="{{medal.imageUri}}"/>
-                        <div class="info">
-                            <h2 class="title">{{medal.name}}</h2>
-                            <p class="desc">{{medal.description}}</p>
-                        </div>                     
-                    </li></span>
-      
-                 
-                </ul>
-</div>
+		
 
 		</div>
 
 		      </div>
-   
+		      <dib class="col-md-12 text-center">
+		      		
+		
+            	<div data-ng-if="userInfo.medals.length > 0" class="event-list" >
+				<div class=" text-center"><br>
+				<div class="col-md-12 page-header">
+				<div class="col-md-3"></div>
+				<div class="col-md-6 " >
+				<div class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
+				    <i class="fa fa-star"></i>&nbsp;{{translation.ACHIEV}}&nbsp;          
+				</div>
+				</div>
+				</div>
+				</div>
+                    <span data-ng-repeat="medal in userInfo.medals">
+                		<span class="col-md-3 text-center">                       
+	                        <img width="100" height="100" alt="placeholder" data-ng-src="{{medal.imageUri}}"/>
+	                        <div class="info">
+	                            <h2 class="title">{{medal.name}}</h2>
+	                            <p class="desc">{{medal.description}}</p>
+	                        </div>                     
+                    	</span>
+                    </span> 
+                </div>
+		      </dib>
+		      <div class="col-md-12 page-header">&nbsp;</div>
+		      <div class="col-md-12">&nbsp;</div>
+
+
+
 
   <div class="global-modal">
     <div class="overlay"></div>

@@ -78,6 +78,11 @@
   "SAVE_SUCC":"Saved successfully",
   "DEL_SUCC":"Deleted successfully",
   "PASS_RES":"Password reset succcessfull",
-  "EXPLORE_CREATIVE_HUB":"Explore more creatives" 
+  "EXPLORE_CREATIVE_HUB":"Explore more creatives",
+  "ADMIN_DASH":"Admin Dashboard",
+  "BACK_TO_CREATIVE":"Back to creative",
+  "SURE":"Are you sure ",
+  "YES":"Yes",
+  "NO":"No"
 
 }
