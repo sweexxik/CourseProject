@@ -19,6 +19,8 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
     $scope.percentage5 = 0;
 
     $scope.newComment = undefined;
+    $scope.showLoading = false;
+    $scope.message = '';
 
     $scope.ratingError = '';
 
@@ -62,6 +64,11 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
 
     $scope.htmldata = 'Enter text here'; 
 
+    if (authService.authentication.isAuth){
+        authService.getProfileInfo().then(function(results){
+                $scope.currentUserInfo = results.data;              
+        });
+    }
 
     $scope.storeChapterId = function(id){
         rememberChapterModel.chapterId = id;
@@ -105,13 +112,26 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
     };
 
     $scope.createComment = function(formData){  
+        $scope.message = '';
+        $scope.showLoading = true;
         initComment();   
         creativeService.createComment(newCommentModel).then(function(results){
-            $scope.creative.comments = results.data;
-           
-            console.log(results.data);
-         });     
-    };
+            $scope.savedSuccessfully = true;
+            $scope.showLoading = false;            
+            $scope.creative.comments = results.data;       
+         }, function(response){
+            $scope.savedSuccessfully = false;
+            $scope.showLoading = false; 
+             var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
+
+        });
+    }
 
    $scope.deleteComment = function(id){
         var result = $window.confirm('Are you absolutely sure you want to delete?');
@@ -270,8 +290,4 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
      console.log(a);
     $scope.targetClass = $scope.colorInspirationClasses[a];
   }; 
-
-
-
-
 }]);

@@ -23,9 +23,12 @@ namespace CourseProject.Services
 
             if (user == null) return null;
 
-            if (db.Ratings.GetAll().ToList().Any(x => x.User == user && x.CreativeId == model.CreativeId))
+            if (user.Roles.All(x => x.RoleId != "1"))
             {
-                return null;
+                if (db.Ratings.GetAll().ToList().Any(x => x.User == user && x.CreativeId == model.CreativeId))
+                {
+                    return null;
+                }
             }
 
             db.Ratings.Add(await InitRating(model));

@@ -1,15 +1,22 @@
 <div class="jumbotron">
     <div class="container">
-        <div class="page-header text-center">
+        <div class="page-header text-center" style='word-wrap: break-word;'>
             <h1 class="form-login-heading">{{creative.name}}</h1>
 			<p class="form-login-heading">{{translation.AUTHOR}} : <a data-ng-href="#/user/{{creative.userName}}">{{creative.userName}}</a> </p>
             <p class="form-login-heading">{{translation.CATEGORY}} : {{creative.category.name}}</p>
+             <div class="col-md-12" >
+              
+                    <a data-ng-if="currentUserInfo.isAdmin || currentUserInfo.userName == creative.userName" class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning" data-ng-href="#/edit/{{creative.id}}">{{translation.EDIT}}</a>
+                            <br><br>
+            </div>
+            </div>
+
             <!-- RATING BEGIN -->
             <div class="container">
                 <div class="col-md-1">&nbsp;</div> 
                 <div class="col-xs-12 col-md-10">
                     <div class="well well-sm">
-                        <div class="row">
+                        <div class="row text-center">
                             <div  class="col-xs-12 col-md-6 text-center">
                                 <h1 class="rating-num">{{ratingsAvg}}</h1>
                                 <div class="rating">
@@ -106,9 +113,10 @@
                             </div><span style="color: red">{{ratingError}}</span>
                         </div>
                     </div>
-                </div></div>
+                </div>
+            </div>
             <!-- RATING END -->
-        </div>
+
         
         <div class="container">      
             <div class="widget--tags text-center">
@@ -164,13 +172,15 @@
                 <div ng-bind-html="item.body"></div>  
                 <br><hr>
 		    </div>	
+            <div class="col-md-12">
+<div class="col-md-3"></div>
         <div class="comments-container">
             <h2 data-ng-if="creative.comments.length == 0" align="center">{{translation.NO_COMMENTS}}</h2>
             <h2 data-ng-if="creative.comments.length > 0" align="center">{{translation.COMMENTS}}: {{creative.comments.length}}</h2>
-            <ul id="comments-list" class="comments-list">
+            <ul data-ng-if="creative.comments.length > 0"  class="comments-list">
+
                 <div data-ng-repeat="comment in creative.comments">
-                    <div class="comment-main-level">
-   
+                    <div class="comment-main-level">   
                         <div class="comment-avatar">
                             <img data-ng-if="comment.avatarUri == undefined" data-ng-src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="alt" class="img-thumbnail">
                             <img data-ng-if="comment.avatarUri != undefined" data-ng-src="{{comment.avatarUri}}" alt="alt">
@@ -179,41 +189,49 @@
                             <div class="comment-head">
                                 <h6 class="comment-name by-author"><a data-ng-href="#/user/{{comment.userName}}">{{comment.userName}}</a></h6>
                                 <span> {{translation.COMMENTED}} {{comment.postDate.split('T')[0]}}  {{comment.postDate.split('T')[1].slice(0,-4) }}</span>
-                                <i data-ng-if="comment.userName == authentication.userName" data-ng-click="deleteComment(comment.id)" class="fa fa-2x fa-times"></i>
+                                <i data-ng-if="comment.userName == authentication.userName || currentUserInfo.isAdmin" data-ng-click="deleteComment(comment.id)" class="fa fa-2x fa-times"></i>
                                 <i data-ng-click="setLike(comment.id)" class="fa fa-2x fa-heart"> {{comment.likes.length}}</i>
                             </div>
-                            <div ng-bind-html="comment.text" class="comment-content">
+                            <div style="word-wrap: break-word;" ng-bind-html="comment.text" class="comment-content">
                                
                             </div>
                         </div>
-                    </div>
+                    </div><br><br>
                 </div>
             </ul>
         </div>
-        <div id='123' class="text-center">
-            <button data-ng-hide="!authentication.isAuth" type="button" class="btn btn-info" data-ng-click="showNewComment()"> {{translation.NEW_COMMENT}} </button>
         </div>
-
+     <!--    <div id='123' class="text-center">
+            <button type="button" class="btn btn-info" data-ng-click="showNewComment()"> {{translation.NEW_COMMENT}} </button>
+        </div> -->
+      
        
-       
 
-        <div class="row" data-ng-if="newComment != undefined">
+        <div class="row" data-ng-hide="!authentication.isAuth">
+              <div data-ng-if="showLoading" class="loading text-center"><br><br>
+                <i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 24px"></i>
+                </div>
+             <div class="col-md-12" data-ng-if="message != ''">
+                    <div class="col-md-3">&nbsp;</div>
+                    <div class="col-md-6">
+                      <div data-ng-class="(savedSuccessfully) ? 'text-center  _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success' : 'text-center  _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger'" role="alert">
+                  <i class="fa fa-exclamation"></i>
+                  <span class="sr-only">Result:</span>
+                  {{message}}
+                </div><br><br>
+                    </div>
+                </div>
                 <div class="col-md-2">&nbsp;</div>
                 <div class="col-md-8">
                     <div class="widget-area no-padding blank">
                         <div class="status-upload text-center">
                             <form>
-                             <textarea ng-model="newComment.text" id="ckEditor" data-ck-editor></textarea><br>                          
-                            
+                             <textarea ng-model="newComment.text" id="ckEditor" data-ck-editor></textarea><br>  
                             </form>
-                         
-                              
-  
-
                         </div>
-                          <button type="button" data-ng-click="createComment()" class="btn btn-info pull-right"><i class="fa fa-share"></i>
-                                    &nbsp;{{translation.PUBLISH}}&nbsp;
-                                </button>
+                        <button type="button" data-ng-click="createComment()" class="btn btn-info pull-right"><i class="fa fa-share"></i>
+                            &nbsp;{{translation.PUBLISH}}&nbsp;
+                        </button>
                     </div>
                 </div>
         </div>

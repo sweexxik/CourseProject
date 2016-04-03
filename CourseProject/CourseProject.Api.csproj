@@ -623,6 +623,7 @@
     <Content Include="content\css\darkbootstrap.css" />
     <Content Include="content\css\drag&amp;drop.css" />
     <Content Include="content\css\font-awesome.min.css" />
+    <Content Include="content\css\home_posts.css" />
     <Content Include="content\css\jCloud.css" />
     <Content Include="content\css\jquery-ui.css" />
     <Content Include="content\css\loading-app.css" />
@@ -631,7 +632,6 @@
     <Content Include="content\css\markdown.css" />
     <Content Include="content\css\medal-view.css" />
     <Content Include="content\css\modal.css" />
-    <Content Include="content\css\navtabs.css" />
     <Content Include="content\css\new-blog-post.css" />
     <Content Include="content\css\ng-sortable.css" />
     <Content Include="content\css\ng-tags-input.bootstrap.min.css" />

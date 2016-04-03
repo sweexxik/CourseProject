@@ -30,6 +30,8 @@ namespace CourseProject.Services
 
         private async Task CheckUserMedals(ApplicationUser user, ICollection<Medal> userMedals)
         {
+            await CheckUserDataMedal(user, userMedals);
+
             await CheckActiveLikerMedal(user, userMedals);
 
             await CheckCommentsMedal(user, userMedals);
@@ -54,6 +56,24 @@ namespace CourseProject.Services
             else if (likesCount < 10 && userMedals.Contains(likeMedal))
             {
                 userMedals.Remove(likeMedal);
+            }
+        }
+
+        private async Task CheckUserDataMedal(ApplicationUser user, ICollection<Medal> userMedals)
+        {
+            var condition = user.Email != null && user.FirstName != null
+                && user.LastName != null
+                && user.PhoneNumber != null;
+
+            var userDataMedal = await db.Medals.Get(6);
+
+            if (condition && !userMedals.Contains(userDataMedal))
+            {
+                userMedals.Add(userDataMedal);
+            }
+            else if (!condition && userMedals.Contains(userDataMedal))
+            {
+                userMedals.Remove(userDataMedal);
             }
         }
 

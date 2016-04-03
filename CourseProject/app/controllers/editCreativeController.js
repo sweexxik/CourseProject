@@ -1,6 +1,7 @@
 'use strict';
-app.controller('editCreativeController', ['$scope','$route','$routeParams','creativeService','$window','$location','localStorageService','authService',
-	function ($scope, $route, $routeParams,creativeService, $window, $location,localStorageService, authService) {
+app.controller('editCreativeController',
+ ['$scope','$route','$routeParams','creativeService','$window','$location','localStorageService','authService','$timeout',
+	function ($scope, $route, $routeParams,creativeService, $window, $location,localStorageService, authService,$timeout) {
  		
  		$scope.confirm = false;
 		var creativeId = $routeParams.Id; 	
@@ -21,49 +22,55 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 		if($scope.authentication.isAuth){
         	currentUserName = localStorageService.get('authorizationData').userName;   
         	authService.getProfile(currentUserName).then(function(results){
-            	currentUserInfo = results.data;     
-            	console.log(currentUserInfo);
-    		});
-    	}
+            	currentUserInfo = results.data;
+            	creativeService.getCreative(creativeId).then(function (results) {
+		 			$scope.showLoading = false;	
+		            $scope.creative = results.data;
+		            $scope.chapters = creativeService.sortChapters(results.data); 
+		            $scope.tags = $scope.creative.tags;
+		            console.log($scope.creative.userName);
+		            console.log(currentUserName);
+		            if (currentUserInfo.isAdmin == false){
+		            	console.log("inIF")
+		            	if($scope.creative.userName !== currentUserName){
+		            		$location.path('/home');
+		            	}
+		            }
+		        }, function (response) {
+		            	$scope.savedSuccessfully = false;	
+		             for (var key in response.data.modelState) {
+		                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+		                     errors.push(response.data.modelState[key][i]);
+		                 }
+		             }
+		             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
+		           
+						$location.path('/NotFound')
+		        }); 
 
-     	creativeService.getCreative(creativeId).then(function (results) {
- 			$scope.showLoading = false;	
-            $scope.creative = results.data;
-            $scope.chapters = creativeService.sortChapters(results.data); 
-            $scope.tags = $scope.creative.tags;
-            if (currentUserInfo.isAdmin == false){
-            	if($scope.creative.userName !== currentUserName){
-            		$location.path('/home');
-            	}
-            }
-           
-            console.log($scope.creative);  
-        }, function (response) {
-            	$scope.savedSuccessfully = false;	
-             for (var key in response.data.modelState) {
-                 for (var i = 0; i < response.data.modelState[key].length; i++) {
-                     errors.push(response.data.modelState[key][i]);
-                 }
-             }
-             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
-           
-				$location.path('/NotFound')
-        });
+		    		});
+		    	}
+
+
 
         $scope.deleteCreative = function(){
         	$scope.showLoading = false;	
-	     
-	       		creativeService.deleteCreative(creativeId).then(function(results){
+			$('#myModal').modal('hide');	
+			
+	       		creativeService.deleteCreative(creativeId).then(function(results){	
+
 	       			$scope.chapters = results.data;   
 		        	$scope.savedSuccessfully = true;
 					$scope.showLoading = false;	
 					$scope.message = $scope.translation.DEL_SUCC;
+						startTimer();	
+				
 		            console.log(results.data);  
-	       			$location.path("/home");
+	       		//	$location.path("/home");
 	       		}, function(response){
 	       			$scope.savedSuccessfully = false;
 					$scope.showLoading = false;	
-					
+					    var errors = [];
              for (var key in response.data.modelState) {
                  for (var i = 0; i < response.data.modelState[key].length; i++) {
                      errors.push(response.data.modelState[key][i]);
@@ -75,35 +82,12 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
        		        
     	}       
 
-    	$scope.deleteChapter = function(id){	
-        	
-	        	creativeService.deleteChapter(id).then(function (results) {     
-		        	$scope.chapters = results.data;   
-		        	$scope.savedSuccessfully = true;
-					$scope.showLoading = false;	
-					$scope.message = $scope.translation.DEL_SUCC;
-		            console.log(results.data);  
-		        }, function (response) {
-		          	$scope.savedSuccessfully = false;
-					$scope.showLoading = false;	
-					
-             for (var key in response.data.modelState) {
-                 for (var i = 0; i < response.data.modelState[key].length; i++) {
-                     errors.push(response.data.modelState[key][i]);
-                 }
-             }
-             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
-		        });
-	             	   	
-        };
+    	
 
     	$scope.saveCreative = function () {
     		$scope.showLoading = true;
     		setChpatersPositions();
-    		$scope.creative.chapters = $scope.chapters;    	
-
-    		console.log($scope.creative);	
-
+    		$scope.creative.chapters = $scope.chapters;    
     		creativeService.updateCreative($scope.creative).then(function(results){
 	    		$scope.savedSuccessfully = true;
 				$scope.showLoading = false;	
@@ -142,6 +126,8 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 	      		});
     	};    	
 
+
+
 		var setChpatersPositions = function(){
 			for (var i = 0; i < $scope.chapters.length; i++) {
 				$scope.chapters[i].number = i + 1;
@@ -168,14 +154,20 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 		$( globalModal ).toggleClass('global-modal-show');
 	};
 
-	var globalModal = $('.global-modal');
-    $( ".trigger" ).on( "click", function(e) {
-      e.preventDefault();
-      $( globalModal ).toggleClass('global-modal-show');
-    });
-    $( ".overlay" ).on( "click", function() {
-      $( globalModal ).toggleClass('global-modal-show');
-    });
+	// var globalModal = $('.global-modal');
+ //    $( ".trigger" ).on( "click", function(e) {
+ //      e.preventDefault();
+ //      $( globalModal ).toggleClass('global-modal-show');
+ //    });
+ //    $( ".overlay" ).on( "click", function() {
+ //      $( globalModal ).toggleClass('global-modal-show');
+ //    });
 
+    var startTimer = function () {
+        var timer = $timeout(function () {
+            $timeout.cancel(timer);
+            $location.path('/home');
+        }, 500);
+    };
 
 }]);

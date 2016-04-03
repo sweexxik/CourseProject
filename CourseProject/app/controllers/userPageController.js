@@ -40,18 +40,9 @@ app.controller('userPageController',
         });
     
    
-
-    // $scope.loadTags = function($query) {
-    //     return $scope.recievedTags.filter(function(tag) {
-    //     return tag.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
-    //   });;
-    // };
-
-    // creativeService.getAllTags().then(function(results){
-    //     $scope.recievedTags = results.data;
-    // }, function(error){
-    //     console.log(error);
-    // });
+  $scope.showCreative = function(id){
+        $location.path('/show/' + id);
+   }
 
     $scope.search = function(pattern){
          searchService.setSearchPattern(pattern);

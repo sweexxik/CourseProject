@@ -76,21 +76,18 @@ app.controller('mainController', ['$showdown','$sce','$scope','creativeService',
     var counter = 0;
     getInitialCreatives();
 
-    $scope.loadMore = function() { 
-    console.log("counter in load more = " + counter);     
+    $scope.loadMore = function() {   
         if($scope.creatives.length < $scope.allCreatives.length){
-            $scope.creatives.push($scope.allCreatives[$scope.creatives.length]);      
-            console.log($scope.creatives.length);
+            $scope.creatives.push($scope.allCreatives[$scope.creatives.length]); 
        }   
 
-       if($scope.creatives.length > $scope.allCreatives.length - 2){            
+       if ( $scope.creatives.length > $scope.allCreatives.length - 2 ){            
             if(counter < 6 && counter != 0) {
                 getAdditionalCreatives(counter);
-                counter++;
-                console.log("GET ADDITIONAL CREATIVES")
-                    }   
-                }
-            }
+                counter++;     
+            }   
+        }
+    }
 
     var x,i;
     creativeService.getAllTags().then(function (results) {

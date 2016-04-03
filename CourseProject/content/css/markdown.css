@@ -55,24 +55,10 @@ div[contenteditable]:focus {
   padding: 10px;
 }
 .fa-trash-o,
-.fa-plus-circle {
+.fa-plus-circle,
+.fa-floppy-o,
+ {
   cursor: pointer;
+  
 }
-.fa-check {
-  color: #92D788;
-}
-.fa-trash-o {
-  color: #C2474B;
-}
-.fa-trash-o:hover {
-  color: #7a292b;
-}
-.fa-pencil {
-  color: #DBC394;
-}
-.fa-plus-circle {
-  color: #71CBD0;
-}
-.fa-plus-circle:hover {
-  color: #369fa5;
-}
+

@@ -30,14 +30,24 @@ namespace CourseProject.Services
         {
             var user = await db.Users.FindUser(model.UserName);
 
+
             if (db.Likes.GetAll().ToList().Any(like => like.CommentId == model.CommentId && like.User == user))
             {
-                RemoveLike(model, user);
+                if (user.Roles.Any(x => x.RoleId == "1"))
+                {
+                    db.Likes.Add(new Like { CommentId = model.CommentId, User = user });
+                }
+                else
+                {
+                    RemoveLike(model, user);
+                }
+
             }
             else
             {
-                db.Likes.Add(new Like { CommentId = model.CommentId, User = user });
+                db.Likes.Add(new Like {CommentId = model.CommentId, User = user});
             }
+
 
             db.Save();
 

@@ -101,6 +101,29 @@ app.controller('searchController', ['$routeParams','$scope', '$location','search
     	}); 
     };
 
+    $scope.searchFromTag = function(tag){
+        $scope.loading = true;
+        $scope.pattern = tag;
+        initSearchModel();      
+        searchService.search($scope.searchModel).then(function(results){        
+          $scope.results = results.data;
+            $scope.loading = false;
+            $scope.savedSuccessfully = true;          
+            $scope.message = $scope.translation.CREATIVES_FOUND + results.data.length;
+        }, function(response){
+             console.log(response);
+            $scope.savedSuccessfully = false;  
+            $scope.loading = false;        
+             var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
+        }); 
+    };
+
    
 
     $scope.$watch('conditionList|filter:{selected:true}', function (nv) {
@@ -118,21 +141,4 @@ app.controller('searchController', ['$routeParams','$scope', '$location','search
         $scope.searchModel.commentAuthor = $scope.conditionList[6].selected;
         $scope.searchModel.creativeAuthor = $scope.conditionList[7].selected;
     };
-
-
-  
-    $(document).on('click', '.panel-heading', function(e){
-    var $this = $(this);
-    if(!$this.hasClass('panel-collapsed')) {
-        $this.parents('.panel').find('.panel-body').slideUp();
-        $this.addClass('panel-collapsed');
-        $this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
-    } else {
-        $this.parents('.panel').find('.panel-body').slideDown();
-        $this.removeClass('panel-collapsed');
-        $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
-    }
-})
-   
-
 }]);

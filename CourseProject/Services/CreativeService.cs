@@ -283,6 +283,7 @@ namespace CourseProject.Services
             {
                 Id = creative.Id,
                 Name = creative.Name,
+                Comments = commentsService.InitCommentsModel(creative.Comments),
                 AvgRating = creative.Rating.Any() ? creative.Rating.Average(x => x.Value) : 0
             }).ToList();
         }

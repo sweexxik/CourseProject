@@ -16,7 +16,7 @@
   "SIGNUP_MAIN_TEXT": "Sign up to create creatives",
   "SUBMIT": "Submit",
   "REG_SUCC":"User has been registered successfully, you will be redicted to login page in 2 seconds.",
-  "REG_ERR":"Failed to register user due to:",
+  "REG_ERR":"Failed due to:",
   "USERNAME":"User name",
   "PASSWORD": "Password",
   "PASS_CONFIRM": "Confirm password",
@@ -83,6 +83,8 @@
   "BACK_TO_CREATIVE":"Back to creative",
   "SURE":"Are you sure ",
   "YES":"Yes",
-  "NO":"No"
-
+  "NO":"No",
+  "BACK_TO_HOME":"Back to home",
+  "RETURN":"Return",
+  "CANCEL":"Cancel"
 }

@@ -1,7 +1,7 @@
 ﻿'use strict';
 app.controller('homeController',
- ['$http','$scope','creativeService', 'localStorageService', '$location','authService','$window','$uibModal','$route',
-  function ($http, $scope, creativeService, localStorageService, $location, authService, $window,$uibModal, $route) {
+ ['$http','$scope','creativeService', 'localStorageService', '$location','authService','$window','$uibModal','$route','searchService',
+  function ($http, $scope, creativeService, localStorageService, $location, authService, $window,$uibModal, $route,searchService) {
 
  	$scope.authentication = authService.authentication;
     $scope.userInfo = [];
@@ -46,9 +46,11 @@ app.controller('homeController',
         });
     }
     
-    // $scope.newCreative = function(){
-    // 	$location.path('/newCreative');
-    // }
+    $scope.search = function(name){
+    	   searchService.setSearchPattern(name);
+        $location.path('/search/0');
+    };
+    
 
     $scope.deleteCreative = function (id) {     
         var result = $window.confirm('are you absolutely sure you want to delete?');
@@ -98,7 +100,7 @@ app.controller('homeController',
             $scope.creatives = results.data;
             $scope.savedSuccessfully = true;
             $scope.showLoading = false; 
-            $scope.message = "Saved successfully"
+            $scope.message = $scope.translation.SAVE_SUCC;
             $( globalModal ).toggleClass('global-modal-show');
         }, function(response){
             $scope.savedSuccessfully = false;
@@ -113,6 +115,10 @@ app.controller('homeController',
           
         });
    }; 
+
+   $scope.showCreative = function(id){
+        $location.path('/show/' + id);
+   }
 
      var globalModal = $('.global-modal');
     $( ".btn-green-flat-trigger" ).on( "click", function(e) {

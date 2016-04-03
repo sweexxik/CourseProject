@@ -27,7 +27,7 @@ namespace CourseProject.Services
 
             if (comm == null) return null;
 
-            var userName = comm.User.UserName;
+            var userName = comm.User.UserName;    
 
             var creativeId = comm.CreativeId;
 

@@ -37,7 +37,7 @@ app.controller('chaptersController', ['$showdown','$scope','$timeout','creativeS
         creativeService.saveChapter($scope.chapter).then(function(results){           
             $scope.savedSuccessfully = true;
             $scope.showLoading = false; 
-            $scope.message = "Saved successfully"
+            $scope.message = $scope.translation.SAVE_SUCC;
             $timeout(function() {
                 $location.path('/edit/' + creativeId);
             }, 5);
@@ -50,9 +50,38 @@ app.controller('chaptersController', ['$showdown','$scope','$timeout','creativeS
                      errors.push(response.data.modelState[key][i]);
                  }
              }
-             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
-        
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');        
            
         });
      };
+
+
+     $scope.deleteChapter = function(){           
+        $('#myModal').modal('hide');  
+        startTimer();
+        creativeService.deleteChapter(chapterId).then(function (results) {     
+        $scope.chapters = results.data;   
+        $scope.savedSuccessfully = true;
+        $scope.showLoading = false; 
+        $scope.message = $scope.translation.DEL_SUCC;
+    
+            }, function (response) {
+                $scope.savedSuccessfully = false;
+          $scope.showLoading = false; 
+            var errors = [];
+             for (var key in response.data.modelState) {
+                 for (var i = 0; i < response.data.modelState[key].length; i++) {
+                     errors.push(response.data.modelState[key][i]);
+                 }
+             }
+             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
+            });                    
+        };
+
+        var startTimer = function () {
+        var timer = $timeout(function () {
+             $timeout.cancel(timer);
+            $location.path('/edit/' + creativeId);
+        }, 500);
+    };
 }]);

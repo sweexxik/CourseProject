@@ -39,16 +39,7 @@
 .widget--tags a.tag:hover {
   background-color: #674320;
 }
-.widget--tags a.tag:hover::after {
-  content: '';
-  width: 0;
-  height: 0;
-  border-top: 0.2em solid transparent;
-  border-bottom: 0.2em solid transparent;
-  border-right: 0.25em solid peru;
-  transition: margin-left .5s;
-  margin-left: .5em;
-}
+
 .widget--tags a.tag:hover::before {
   background-color: peru;
   color: white;

@@ -18,6 +18,7 @@ body {
 
 
 
+
 #footer {
     position: absolute;
     bottom: 0;
@@ -151,6 +152,7 @@ body {
 ._btn-bordered-warning:hover{color:#FFFFFF;background:#F0AD4E;border:2px solid #FFFFFF}
 ._btn-bordered-danger{color:#D9534F;background:#FFFFFF;border:2px solid #D9534F}
 ._btn-bordered-danger:hover{color:#FFFFFF;background:#D9534F;border:2px solid #FFFFFF}
+
 
 
 .portlet {
