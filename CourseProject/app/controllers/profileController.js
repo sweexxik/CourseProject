@@ -118,7 +118,7 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
 
 
        var globalModal = $('.global-modal');
-    $( ".btn-green-flat-trigger" ).on( "click", function(e) {
+    $( ".trigger" ).on( "click", function(e) {
       e.preventDefault();
       $( globalModal ).toggleClass('global-modal-show');
     });

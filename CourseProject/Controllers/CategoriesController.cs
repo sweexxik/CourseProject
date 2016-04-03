@@ -10,9 +10,9 @@ namespace CourseProject.Controllers
     {
         private readonly ICategoriesService service;
 
-        public CategoriesController(ICategoriesService serv)
+        public CategoriesController(ICategoriesService service)
         {
-            service = serv;
+            this.service = service;
         }
 
         [AllowAnonymous]

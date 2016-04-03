@@ -23,9 +23,9 @@ namespace CourseProject.Repositories
 
         private bool isDisposed;
 
-        public EfUnitOfWork()
+        public EfUnitOfWork(DatabaseContext context)
         {
-            db = new DatabaseContext();
+            db = context;
         }
 
         public IUsersRepository Users

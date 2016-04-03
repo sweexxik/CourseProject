@@ -33,7 +33,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         userName: ''
     }
 
-    if($scope.authentication.isAuth){
+    if( $scope.authentication.isAuth ){
         currentUserName = localStorageService.get('authorizationData').userName;
         rememberChapterModel.userName = currentUserName;
         creativeService.getRememberedChapter(rememberChapterModel).then(function(results){
@@ -66,10 +66,12 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
     $scope.storeChapterId = function(id){
         rememberChapterModel.chapterId = id;
         rememberChapterModel.creativeId = creativeId;
-        rememberChapterModel.userName = currentUserName;// localStorageService.get('authorizationData').userName;  
-        creativeService.rememberChapter(rememberChapterModel).then(function(results){
-            console.log(results);
-        });    
+        rememberChapterModel.userName = currentUserName;
+        if($scope.authentication.isAuth){
+            creativeService.rememberChapter(rememberChapterModel).then(function(results){
+                console.log(results);
+            });    
+        }
     };    
     
     creativeService.getCreative(creativeId).then(function (results) {

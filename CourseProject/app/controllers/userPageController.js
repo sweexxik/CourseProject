@@ -1,7 +1,7 @@
 'use strict';
 app.controller('userPageController',
- ['$http','$scope','creativeService', 'localStorageService', '$location','authService','$window','$uibModal','$route','$routeParams',
-  function ($http, $scope, creativeService, localStorageService, $location, authService, $window,$uibModal, $route, $routeParams) {
+ ['$http','$scope','creativeService', 'localStorageService', '$location','authService','$window','$uibModal','$route','$routeParams','searchService',
+  function ($http, $scope, creativeService, localStorageService, $location, authService, $window,$uibModal, $route, $routeParams,searchService) {
 
     var userName = $routeParams.username; 
 
@@ -42,16 +42,21 @@ app.controller('userPageController',
     
    
 
-    $scope.loadTags = function($query) {
-        return $scope.recievedTags.filter(function(tag) {
-        return tag.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
-      });;
-    };
+    // $scope.loadTags = function($query) {
+    //     return $scope.recievedTags.filter(function(tag) {
+    //     return tag.name.toLowerCase().indexOf($query.toLowerCase()) != -1;
+    //   });;
+    // };
 
-    creativeService.getAllTags().then(function(results){
-        $scope.recievedTags = results.data;
-    }, function(error){
-        console.log(error);
-    });
+    // creativeService.getAllTags().then(function(results){
+    //     $scope.recievedTags = results.data;
+    // }, function(error){
+    //     console.log(error);
+    // });
+
+    $scope.search = function(pattern){
+         searchService.setSearchPattern(pattern);
+        $location.path('/search/0');
+    };
     
 }]);

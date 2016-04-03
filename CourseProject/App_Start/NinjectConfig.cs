@@ -1,27 +1,31 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using CourseProject.Domain.Interfaces;
 using CourseProject.Interfaces;
+using CourseProject.Providers;
 using CourseProject.Repositories;
 using CourseProject.Services;
+using Microsoft.Owin.Security.OAuth;
 using Ninject;
 
 namespace CourseProject
 {
     public static class NinjectConfig
     {
-        public static Lazy<IKernel> CreateKernel = new Lazy<IKernel>(() =>
+        public static IKernel CreateKernel()
         {
-            StandardKernel kernel = new StandardKernel();
+            var kernel = new StandardKernel();
+
             kernel.Load(Assembly.GetExecutingAssembly());
 
             RegisterServices(kernel);
 
             return kernel;
-        });
+        }
 
         private static void RegisterServices(KernelBase kernel)
         {
+            kernel.Bind<IOAuthAuthorizationServerOptions>().To<MyOAuthAuthorizationServerOptions>();
+            kernel.Bind<IOAuthAuthorizationServerProvider>().To<SimpleAuthorizationServerProvider>();
             kernel.Bind<IUnitOfWork>().To<EfUnitOfWork>();
             kernel.Bind<ICreativeService>().To<CreativeService>();
             kernel.Bind<IMedalService>().To<MedalService>();
@@ -33,7 +37,6 @@ namespace CourseProject
             kernel.Bind<IRatingService>().To<RatingService>();
             kernel.Bind<ICategoriesService>().To<CategoriesService>();
             kernel.Bind<IAdminService>().To<AdminService>();
-
         }
     }
 }

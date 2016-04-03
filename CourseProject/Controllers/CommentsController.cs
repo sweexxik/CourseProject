@@ -10,9 +10,9 @@ namespace CourseProject.Controllers
     {
         private readonly ICommentsService service;
 
-        public CommentsController(ICommentsService serv)
+        public CommentsController(ICommentsService service)
         {
-            service = serv;
+            this.service = service;
         }
 
         [AllowAnonymous]

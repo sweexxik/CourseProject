@@ -157,14 +157,14 @@ app.controller('editCreativeController', ['$scope','$route','$routeParams','crea
 		$( globalModal ).toggleClass('global-modal-show');
 	}
 
-	var globalModal = $('.global-modal');
-    $( ".trigger" ).on( "click", function(e) {
-      e.preventDefault();
-      $( globalModal ).toggleClass('global-modal-show');
-    });
-    $( ".overlay" ).on( "click", function() {
-      $( globalModal ).toggleClass('global-modal-show');
-    });
+	// var globalModal = $('.global-modal');
+ //    $( ".trigger" ).on( "click", function(e) {
+ //      e.preventDefault();
+ //      $( globalModal ).toggleClass('global-modal-show');
+ //    });
+ //    $( ".overlay" ).on( "click", function() {
+ //      $( globalModal ).toggleClass('global-modal-show');
+ //    });
 
 
 }]);

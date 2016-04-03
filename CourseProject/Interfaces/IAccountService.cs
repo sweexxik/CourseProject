@@ -11,7 +11,7 @@ namespace CourseProject.Interfaces
     public interface IAccountService
     {
         Task<UserViewModel> GetUserInfo(string userName);
-        Task<UserViewModel> UploadFile(MultipartFormDataStreamProvider provider);
+        Task<UserViewModel> UploadFile(HttpContent content);
         Task<IdentityResult> SaveUserData(UserViewModel viewModel);
         Task<IdentityResult> CreateUser(UserModel model);
         Task<IdentityResult> ChangePassword(ChangePasswordModel model);

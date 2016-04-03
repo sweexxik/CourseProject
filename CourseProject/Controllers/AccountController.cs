@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using CourseProject.Domain.Models;
 using CourseProject.Filters;
 using CourseProject.Interfaces;
@@ -14,9 +12,9 @@ namespace CourseProject.Controllers
     {
         private readonly IAccountService service;
 
-        public AccountController(IAccountService serv)
+        public AccountController(IAccountService service)
         {
-            service = serv;
+            this.service = service;
         }
 
         [AllowAnonymous]

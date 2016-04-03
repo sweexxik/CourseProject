@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Interfaces;
-using CourseProject.Providers;
 
 namespace CourseProject.Controllers
 {
@@ -11,9 +10,9 @@ namespace CourseProject.Controllers
     {
         private readonly IAccountService service;
 
-        public UploadController(IAccountService serv)
+        public UploadController(IAccountService service)
         {
-            service = serv;
+            this.service = service;
         }
         
  
@@ -35,11 +34,8 @@ namespace CourseProject.Controllers
 
             try
             {
-                var provider = new CustomMultipartFormDataStreamProvider(service.WorkingFolder);
 
-                await Request.Content.ReadAsMultipartAsync(provider);
-
-                return Ok(await service.UploadFile(provider));
+                return Ok(await service.UploadFile(Request.Content));
             }
 
             catch (Exception ex)

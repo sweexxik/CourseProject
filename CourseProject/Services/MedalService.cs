@@ -13,9 +13,9 @@ namespace CourseProject.Services
     {
         private readonly IUnitOfWork db;
 
-        public MedalService()
+        public MedalService(IUnitOfWork repo)
         {
-            db = new EfUnitOfWork();
+            db = repo;
         }
 
         public async Task<ICollection<Medal>> CheckMedals(ApplicationUser user)
@@ -45,7 +45,7 @@ namespace CourseProject.Services
         {
             var likesCount = db.Likes.Find(x => x.User.Id == user.Id).Count();
 
-            var likeMedal = await db.Medals.Get(1);
+            var likeMedal = await db.Medals.Get(3);
 
             if (likesCount >= 10 && !userMedals.Contains(likeMedal))
             {
@@ -59,7 +59,7 @@ namespace CourseProject.Services
 
         private async Task CheckCommentsMedal(ApplicationUser user, ICollection<Medal> userMedals)
         {
-            var commentsMedal = await db.Medals.Get(2);
+            var commentsMedal = await db.Medals.Get(1);
 
             var commentsCount = db.Comments.Find(x => x.User.Id == user.Id).Count();
 
@@ -75,7 +75,7 @@ namespace CourseProject.Services
 
         private async Task CheckCreativesMedal(ApplicationUser user, ICollection<Medal> userMedals)
         {
-            var creativesMedal = await db.Medals.Get(3);
+            var creativesMedal = await db.Medals.Get(2);
 
             var creativeCount = db.Creatives.Find(x => x.User.Id == user.Id).Count();
 

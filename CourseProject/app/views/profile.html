@@ -1,59 +1,59 @@
-<div  class="container">
-	<div class="page-header text-center">
-	 	<br>
-	 	<h1>{{translation.EDIT_PROFILE}}, {{userInfo.userName}}</h1>
+<div class="page-header text-center"><br>
+	 <h1>{{translation.EDIT_PROFILE}}, {{userInfo.userName}}</h1>
+</div>
+<div class="row" id="main">
+	<div data-ng-if="showLoading" class="loading text-center"><br><br>
+		<i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 48px"></i>
 	</div>
-	<div class="row" id="main">
-	  	<div data-ng-if="showLoading" class="loading text-center"><br><br>
-			<i  class="fa fa-spinner fa-pulse fa-spin" style="font-size: 48px"></i>
-	    </div>
-		<div class="col-md-12" data-ng-if="message != ''">
-			<div class="col-md-4">&nbsp;</div>
-	            <div class="col-md-8">
-			     	<div data-ng-class="(savedSuccessfully) ? 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success' : 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger'" role="alert">
-						<i class="fa fa-exclamation"></i>
-						<span class="sr-only">Result:</span>
-							{{message}}
-					</div><br>
-		        </div><br>
-		</div><br><br>
-	    <div class="col-md-4 " >
-			<div class="row">
-	            <div class="col-md-12 text-center">
-	                <div>
-	        			<img data-ng-if="userInfo.avatarUri" style="width: 200px; height:200px;" align="center" data-ng-src="{{userInfo.avatarUri}}" alt="Texto Alternativo" class="img-thumbnail">
-	        			<img data-ng-if="userInfo.avatarUri == undefined" style="width: 200px; height:200px;" align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-thumbnail">
-	        			<h2>{{userInfo.firstName}} {{userInfo.lastName}}</h2>
-	        			<p>{{userInfo.userName}}</p>	                  
-	                    <button type="button" class="btn-green-flat-trigger" >
-	                        {{translation.UPLOAD}}
-	                    </button>
-	                    <br>
-	                    <br>
-	                    <a ng-if="isAdmin" href="#/admin" type="button" class="btn btn-warning">
-	                        Admin Dashboard
-	                    </a>                  
-	        		</div>
-	        	</div>
-	        </div>
-	    </div>
-	    <div class="col-md-8" style="border-left: 2px; border-color: rgb(100,100,100);" id="rightPanel">
-	        <div class="row">
-	    		<div class="col-md-12">
-			    	<form role="form">											
-						<div class="row">
-							<div class="col-xs-12 col-sm-6 col-md-6">
+	<div class="col-md-12" data-ng-if="message != ''">
+		<div class="col-md-4">&nbsp;</div>
+	        <div class="col-md-8">
+			     <div data-ng-class="(savedSuccessfully) ? 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success' : 'text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-danger'" role="alert">
+					<i class="fa fa-exclamation"></i>
+					<span class="sr-only">Result:</span>
+						{{message}}
+				</div><br>
+		    </div><br>
+	</div>
+	
+	<div class="col-md-3 " >
+		<div class="row">
+	        <div class="col-md-12 text-center">
+		        <div>
+					<div class="col-md-3"></div>
+	  				<button type="button" class="col-md-6 text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-info trigger" >
+		                {{translation.UPLOAD}}
+		            </button> 
+		        	<img data-ng-if="userInfo.avatarUri" style="width: 200px; height:200px;" align="center" data-ng-src="{{userInfo.avatarUri}}" alt="Texto Alternativo" class="img-thumbnail">
+		        	<img data-ng-if="userInfo.avatarUri == undefined" style="width: 200px; height:200px;" align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-thumbnail">
+		        	<h2>{{userInfo.firstName}} {{userInfo.lastName}}</h2>
+		        	<p>{{userInfo.userName}}</p>	
 
-								<div class="form-group">
-			                        <input type="text" maxlength="15" data-ng-model="userInfo.firstName" name="first_name" id="first_name"  class="form-control input-lg" placeholder="{{translation.F_NAME}}" tabindex="1">
-								</div>
-							</div>
-							<div class="col-xs-12 col-sm-6 col-md-6">
-								<div class="form-group">
-									<input type="text"  maxlength="15"  data-ng-model="userInfo.lastName" name="last_name" id="last_name" class="form-control input-lg" placeholder="{{translation.L_NAME}}" tabindex="2">
-								</div>
+		         
+		            <a ng-if="isAdmin" href="#/admin" type="button" class="btn btn-warning">
+		                Admin Dashboard
+		            </a>                  
+		        </div>
+		    </div>
+		</div>
+	</div>
+
+	<div class="col-md-6" style="border-left: 2px; border-color: rgb(100,100,100); padding-right: 50px" id="rightPanel">
+	    <div class="row">
+	    	<div class="col-md-12">
+			  	<form role="form">											
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+		                        <input type="text" maxlength="15" data-ng-model="userInfo.firstName" name="first_name" id="first_name"  class="form-control input-lg" placeholder="{{translation.F_NAME}}" tabindex="1">
 							</div>
 						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="text"  maxlength="15"  data-ng-model="userInfo.lastName" name="last_name" id="last_name" class="form-control input-lg" placeholder="{{translation.L_NAME}}" tabindex="2">
+							</div>
+						</div>
+					</div>
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6">
 								<div class="form-group">
@@ -99,32 +99,29 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-md-3 text-center">
+            <ul data-ng-if="userInfo.medals.length > 0" class="event-list" >
+
+                        <div  class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
+                            <i class="fa fa-star"></i>&nbsp;{{translation.ACHIEV}}&nbsp;          
+                        </div>
+                           <span data-ng-repeat="medal in userInfo.medals">
+                <li>                       
+                        <img width="100" height="100" alt="placeholder" data-ng-src="{{medal.imageUri}}"/>
+                        <div class="info">
+                            <h2 class="title">{{medal.name}}</h2>
+                            <p class="desc">{{medal.description}}</p>
+                        </div>                     
+                    </li></span>
+      
+                 
+                </ul>
+</div>
+
 		</div>
 
-		<div data-ng-if="userInfo.medals.length > 0" class="container">
-		<div class="page-header text-center">
-            <h1>{{translation.ACHIEV}}</h1>
-        </div>
-	    <div class="row">
-            <div class="[ col-xs-12 col-sm-offset-3 col-sm-6 ]">
-                <ul class="event-list ">
-                    <li data-ng-repeat="medal in userInfo.medals">              
-                        <time datetime="2014-07-20">
-                            <span class="day">{{$index + 1}}</span>
-                            <span class="month">Medal</span>                        
-                        </time>
-                        <img alt="Independence Day" data-ng-src="{{medal.imageUri}}" />
-                        <div class="info ">
-                            <h2 align="center" class="title">{{medal.name}}</h2>
-                            <p align="center" class="desc">{{medal.description}}</p>
-                        </div>
-                       
-              
-                    </li>
-        
-                </ul>
-            </div>
-        </div></div>
+		      </div>
+   
 
   <div class="global-modal">
     <div class="overlay"></div>
@@ -166,9 +163,8 @@
 				</div>          
             </div>
         </div>
-    </div>      
-</div>
-</div>
+    </div>
+
 
 
 

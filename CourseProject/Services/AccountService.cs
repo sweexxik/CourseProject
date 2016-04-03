@@ -66,8 +66,12 @@ namespace CourseProject.Services
             return await db.Users.ChangePassword(user.Id, model.OldPassword, model.NewPassword);
         }
 
-        public async Task<UserViewModel> UploadFile(MultipartFormDataStreamProvider provider)
+        public async Task<UserViewModel> UploadFile(HttpContent content)
         {
+            var provider = new MultipartFormDataStreamProvider(WorkingFolder);
+
+            await content.ReadAsMultipartAsync(provider);
+
             var user = await db.Users.FindUser(provider.FormData.Get("username"));
 
             var result = CloudinaryUpload(provider);
@@ -154,23 +158,10 @@ namespace CourseProject.Services
                         RoleId = "1"
                     });
                 }
+
             }
 
-            //user.Medals = new List<Medal>();
-
-            //foreach (var medal in model.Medals)
-            //{
-            //    switch (medal.Id)
-            //    {
-            //        case 1: 
-            //            user.Medals.Add(await db.Medals.Get(1));
-            //            break;
-            //        case 2: user.Medals.Add(await db.Medals.Get(2));
-            //            break;
-            //        case 3: user.Medals.Add(await db.Medals.Get(3));
-            //            break;
-            //    }
-            //}
+           
 
             return user;
         }

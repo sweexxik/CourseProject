@@ -835,6 +835,7 @@
     <Compile Include="Interfaces\ICreativeService.cs" />
     <Compile Include="Interfaces\ILikesService.cs" />
     <Compile Include="Interfaces\IMedalService.cs" />
+    <Compile Include="Interfaces\IOAuthAuthorizationServerOptions.cs" />
     <Compile Include="Interfaces\IRatingService.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
@@ -851,7 +852,7 @@
     <Compile Include="Models\TagsViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Providers\CustomMultipartFormDataStreamProvider.cs" />
+    <Compile Include="Providers\IOAuthAuthorizationServerOptions.cs" />
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Repositories\ChaptersRepository.cs" />
     <Compile Include="Repositories\ChapterStoreRepository.cs" />

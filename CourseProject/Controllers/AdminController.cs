@@ -14,11 +14,11 @@ namespace CourseProject.Controllers
         private readonly ICreativeService creativeService;
         private readonly IAccountService authService;
 
-        public AdminController(IAdminService serv, ICreativeService creativeServ, IAccountService authServ)
+        public AdminController(IAdminService service, ICreativeService creativeService, IAccountService authService)
         {
-            service = serv;
-            creativeService = creativeServ;
-            authService = authServ;
+            this.service = service;
+            this.creativeService = creativeService;
+            this.authService = authService;
         }
 
         [HttpGet]

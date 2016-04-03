@@ -135,7 +135,7 @@
             </div> 
 
             <div color-inspiration ng-model="targetClass" class="modal fade bs-example" tabindex="-1" role="dialog">  
-                <div id="myCarousel" class="carousel slide" data-interval="6500" data-ride="carousel">      
+                <div id="myCarousel1" class="carousel slide" data-interval="6500" data-ride="carousel">      
                     <ol class="carousel-indicators">
                         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -143,18 +143,17 @@
                     </ol>        
                     <div style="background-color: #fff;" class="carousel-inner">   
                         <div style="min-height: 900px" class="item fill" data-ng-class="{active:!$index}" data-ng-repeat="chapter in chapters">
-                            <div class="carousel-caption" style="position: relative;">  <button class="btn btn-primary-outline pull-right" style="margin-right: 20%; position: static;" data-ng-click="storeChapterId(chapter.id)" data-dismiss="modal" data-target="#myCarousel">X</button>
-                             
+                            <div class="carousel-caption" style="position: relative;">  <button class="btn btn-primary-outline pull-right" style="margin-right: 20%; position: static;" data-ng-click="storeChapterId(chapter.id)" data-dismiss="modal">X</button>                             
                             </div>
                                <p>{{translation.CHAPTER}}  #{{chapter.number}}&nbsp;{{chapter.name}}</p>
                             <div  color-inspiration ng-model="targetClass" ng-bind-html="chapter.body">                       
                             </div> 
-                            <span class="left carousel-control" data-target="#myCarousel" data-slide="prev">
+                            <a href="" class="left carousel-control" data-target="#myCarousel1" data-slide="prev">
                                 <span class="glyphicon glyphicon-chevron-left"></span>
-                            </span>
-                            <span class="right carousel-control" data-target="#myCarousel" data-slide="next">
+                            </a>
+                            <a href=""  class="right carousel-control" data-target="#myCarousel1" data-slide="next">
                                 <span class="glyphicon glyphicon-chevron-right"></span>
-                            </span>       
+                            </a>       
                         </div>  
                     </div>
                 </div>  
@@ -166,8 +165,8 @@
                 <br><hr>
 		    </div>	
         <div class="comments-container">
-            <h2 data-ng-if="comments.length == 0" align="center">{{translation.NO_COMMENTS}}</h2>
-            <h2 data-ng-if="comments.length > 0" align="center">{{translation.COMMENTS}}: {{comments.length}}</h2>
+            <h2 data-ng-if="creative.comments.length == 0" align="center">{{translation.NO_COMMENTS}}</h2>
+            <h2 data-ng-if="creative.comments.length > 0" align="center">{{translation.COMMENTS}}: {{creative.comments.length}}</h2>
             <ul id="comments-list" class="comments-list">
                 <li data-ng-repeat="comment in creative.comments">
                     <div class="comment-main-level">

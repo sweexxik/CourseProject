@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
 using CourseProject.Filters;
 using CourseProject.Interfaces;
@@ -13,9 +11,9 @@ namespace CourseProject.Controllers
     {
         private readonly IChaptersService service;
 
-        public ChaptersController(IChaptersService serv)
+        public ChaptersController(IChaptersService service)
         {
-            service = serv;
+            this.service = service;
         }
 
         [HttpGet]

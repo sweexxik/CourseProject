@@ -146,16 +146,7 @@
 		                    </div>
 	                    </li>
                     </ul>
-	                <h3 class="form-login-heading">Medals</h3> 
-	                <ul class="list-group"> 
-                        <li class="list-group-item" data-ng-repeat="medal in medals">
-                            {{medal.name}}               
-                            <div class="material-switch pull-right">                    
-                                <input id="{{medal.name}}" type="checkbox" name="selectedFruits[]" data-ng-model="selectedUser.medals[$index].selected">
-                                <label for="{{medal.name}}" class="label-primary"></label>
-                            </div>
-                        </li>
-                    </ul>
+	                
                     <h3 class="form-login-heading text-center">Reset password</h3>
 	                <div class="text-center">							 
 						<input type="text" class="form-control" placeholder="New Password" data-ng-model="newPassword" aria-describedby="sizing-addon1">							

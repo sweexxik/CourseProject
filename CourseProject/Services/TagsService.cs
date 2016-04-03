@@ -13,9 +13,9 @@ namespace CourseProject.Services
     {
         private readonly IUnitOfWork db;
 
-        public TagsService()
+        public TagsService(IUnitOfWork repo)
         {
-            db = new EfUnitOfWork();
+            db = repo;
         }
 
         public IEnumerable<TagsViewModel> GetAllTags()

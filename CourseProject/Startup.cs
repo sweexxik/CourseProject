@@ -1,51 +1,34 @@
-﻿using System;
-using System.Web.Http;
+﻿using System.Web.Http;
 using CourseProject.Providers;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
-using Owin;
+using Ninject;
 using Ninject.Web.Common.OwinHost;
 using Ninject.Web.WebApi.OwinHost;
+using Owin;
 
 [assembly: OwinStartup(typeof(CourseProject.Startup))]
+
 namespace CourseProject
 {
     public class Startup
     {
+
         public void Configuration(IAppBuilder app)
         {
-           
-            var config = new HttpConfiguration();
+            var kernel = NinjectConfig.CreateKernel();
 
-            ConfigureOAuth(app);
+            var config = new HttpConfiguration();        
 
             WebApiConfig.Register(config);
 
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-          
-            app.UseNinjectMiddleware(() => NinjectConfig.CreateKernel.Value);
-
-            app.UseNinjectWebApi(config);
-
-        }
-
-        public void ConfigureOAuth(IAppBuilder app)
-        {
-            var OAuthServerOptions = new OAuthAuthorizationServerOptions()
-            {
-                AllowInsecureHttp = true,
-
-                TokenEndpointPath = new PathString("/token"),
-
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-
-                Provider = new SimpleAuthorizationServerProvider()
-               
-            };
-
-            app.UseOAuthAuthorizationServer(OAuthServerOptions);
-
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+            app.UseNinjectMiddleware(() => kernel)
+                .UseOAuthAuthorizationServer(kernel.Get<MyOAuthAuthorizationServerOptions>().GetOptions())
+                .UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions())
+                .UseNinjectWebApi(config)
+                .UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
         }
     }
 }
+    
+            

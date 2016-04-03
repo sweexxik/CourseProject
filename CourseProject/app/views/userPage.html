@@ -1,55 +1,30 @@
-<div class="container">
     <div class="page-header text-center">
-        <div class="row">
-            <div class="col-md-3">&nbsp;</div>
-            <div class="col-md-6 text-center" >
-                <p align="center">
-                <img data-ng-if="userInfo.avatarUri == undefined" style="width: 200px; height:200px;" align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-thumbnail">
-                    <img  data-ng-if="userInfo.avatarUri != undefined" class="media-object dp img-circle" data-ng-src="{{userInfo.avatarUri}}" style="width: 150px; height:150px;">
-                </p>
-                <h3>{{userInfo.firstName}} <{{userInfo.userName}}> {{userInfo.lastName}}</h3>
-                <hr style="margin:8px auto">
-                <h5>{{userInfo.email}}</h5>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-            <div class="[ col-xs-12 col-sm-offset-3 col-sm-6 ]">
-                <ul class="event-list ">
-                    <li data-ng-repeat="medal in userInfo.medals">              
-                        <time datetime="2014-07-20">
-                            <span class="day">{{$index + 1}}</span>
-                            <span class="month">Medal</span>                        
-                        </time>
-                        <img alt="Independence Day" data-ng-src="{{medal.imageUri}}" />
-                        <div class="info ">
-                            <h2 align="center" class="title">{{medal.name}}</h2>
-                            <p align="center" class="desc">{{medal.description}}</p>
-                        </div>
-                       
-              
-                    </li>
-        
-                </ul>
-            </div>
-        </div>
+        <div class="row">    
+            <div class="col-md-1"></div>
+            <div class="col-md-9 text-center" >
+                <div class="col-md-1">&nbsp;</div>
+                <div class="col-md-10">  
+                    <p align="center">
+                        <img data-ng-if="userInfo.avatarUri == undefined" style="width: 200px; height:200px;" align="center" src="http://res.cloudinary.com/ddttiy9ko/image/upload/v1458831441/avatar_sdaz7g.jpg" alt="Texto Alternativo" class="img-thumbnail">
+                        <img  data-ng-if="userInfo.avatarUri != undefined" class="media-object dp img-circle" data-ng-src="{{userInfo.avatarUri}}"
+                            style="width: 150px; height:150px;">
+                    </p>
+                    <h3>{{userInfo.firstName}} <{{userInfo.userName}}> {{userInfo.lastName}}</h3>
+                    <hr style="margin:8px auto">
+                    <h5>{{userInfo.email}}</h5> <br>
+                
+                    <form>
+                    <div class="col-md-3"></div>
+                    <div class="form-group col-md-6">    
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                            <input type="text" class="form-control" placeholder="{{translation.SEARCH}}" ng-model="searchCreatives">
+                        </div>      
+                    </div>
+                    </form>
+         </div>   
 
-    <div data-ng-hide="creatives.length < 1">
-    <div class="col-md-12">
-        <div class="col-md-3">&nbsp;</div>
-        <div class="col-md-6">
-               <form>
-            <div class="form-group">    
-                <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                    <input type="text" class="form-control" placeholder="{{translation.SEARCH}}" ng-model="searchCreatives">
-                </div>      
-            </div>
-        </form> 
-        </div>
-    </div>  
-    <div style="margin-bottom: 10px" class="col-md-12">
-        <div class="pull-right">      
+    <div class="col-md-12">    
             <div class="btn-group">
                 <button class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-success btn-filter" data-ng-click="sortType = 'created'; sortReverse = !sortReverse">
                 {{translation.DATE}}
@@ -63,37 +38,56 @@
                  <span ng-show="sortType == 'popular' && sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'popular' && !sortReverse" class="fa fa-caret-up"></span>
                 </button>
-                <br>
+                <br> <br>
             </div>
-       </div>  
-      </div>  
-       </div>
-      
+      </div>       
 
   
       <hr style="opacity: 0">
-
     <div class="col-md-12 margin-bottom-30" data-ng-repeat="creative in creatives | filter:searchCreatives | orderBy:sortType:sortReverse ">
         <div class="portlet portlet-bordered">
             <div class="portlet-title">
+
                 <div class="caption caption-red">
-                    <i class="glyphicon glyphicon-cog"></i>
+                    <i class="fa fa-book"></i>
                     <span class="caption-subject text-uppercase">{{creative.name}}</span>
                     <span class="caption-helper">{{creative.created}}</span>
                 </div>
                 <div class="actions">  
-                    <a ng-href="#/show/{{creative.id}}" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-info"><i class="glyphicon glyphicon-align-justify"></i>{{translation.SHOW}}</a>
-                    <a data-ng-if="currentUserInfo.isAdmin || currentUserInfo.userName == userInfo.userName" data-ng-href="#/edit/{{creative.id}}" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-info">
-                        <i class="glyphicon glyphicon-pencil"></i>
-                        {{translation.EDIT}}
-                    </a>                                 
+                   <a data-ng-if="currentUserInfo.isAdmin || currentUserInfo.userName == userInfo.userName" data-ng-href="#/edit/{{creative.id}}" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-info">
+                    <i class="glyphicon glyphicon-pencil"></i>{{translation.EDIT}}
+                </a> 
                 </div>
             </div>
             <div class="portlet-body">
-                <h4>{{creative.description}}</h4>
-                <p data-ng-repeat="chapter in creative.chapters">{{$index + 1}}. {{chapter.name}}</p>
+                <h2>{{creative.description}}</h2>
+                <h3 data-ng-repeat="chapter in creative.chapters">{{$index + 1}}. {{chapter.name}}</h3>
+                <div class="widget--tags text-center">
+                    <a data-ng-repeat="tag in creative.tags | orderBy: 'count' : true" class="tag" data-count="{{tag.count}}" data-ng-click='search(tag.name)'>{{tag.name}}</a>
+                </div>              
+                <a data-ng-href="#/show/{{creative.id}}" class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
+                    <i class="glyphicon glyphicon-align-justify"></i>{{translation.SHOW}}</a>               
             </div>
         </div>
 
     </div>
     </div>
+      
+            <ul data-ng-if="userInfo.medals.length > 0" class="col-md-2 pull-right event-list" style="padding-right: 30px">
+
+                        <div  class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
+                            <i class="fa fa-star"></i>&nbsp;{{translation.ACHIEV}}&nbsp;          
+                        </div>
+                           <span data-ng-repeat="medal in userInfo.medals">
+                <li>                       
+                        <img width="100" height="100" alt="Independence Day" data-ng-src="{{medal.imageUri}}"/>
+                        <div class="info">
+                            <h2 class="title">{{medal.name}}</h2>
+                            <p class="desc">{{medal.description}}</p>
+                        </div>                     
+                    </li></span>
+      
+                 
+                </ul>
+            </div>
+        </div>  
