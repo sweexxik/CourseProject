@@ -11,6 +11,7 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
     };
 
     $scope.signUp = function () {
+        if($scope.registration.userName.indexOf('.') <= -1){
         authService.saveRegistration($scope.registration).then(function (response) {
             $scope.savedSuccessfully = true;
             $scope.message = $scope.translation.REG_SUCC;
@@ -26,7 +27,12 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
              }
              $scope.message = $scope.translation.REG_ERR + errors.join(' ');
          });
-    };
+        }
+        else{
+            $scope.message = $scope.translation.ERR_SIGNUP;
+              $scope.savedSuccessfully = false;
+        }
+    }
 
     var startTimer = function () {
         var timer = $timeout(function () {

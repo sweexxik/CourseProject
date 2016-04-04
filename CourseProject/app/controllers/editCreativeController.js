@@ -32,7 +32,7 @@ app.controller('editCreativeController',
 	                console.log(currentUserName);
 	                if (currentUserInfo.isAdmin == false) {
 	                    console.log("inIF")
-	                    if ($scope.creative.userName !== currentUserName) {
+	                    if ($scope.creative.userName.toLowerCase() !== currentUserName.toLowerCase()) {
 	                        $location.path('/home');
 	                    }
 	                }

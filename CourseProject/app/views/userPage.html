@@ -68,11 +68,11 @@
                          &nbsp;{{creative.avgRating.toFixed(2)}}&nbsp; 
                     </span>    
                             <span class="caption-helper">
-                         &nbsp;{{creative.created.toFixed(2)}}&nbsp;
+                         &nbsp;{{creative.created}}&nbsp;
                     </span>
                         </div>
                         <div class="actions">
-                            <a data-ng-if="currentUserInfo.isAdmin || currentUserInfo.userName == userInfo.userName" data-ng-href="#/edit/{{creative.id}}" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-info">
+                            <a data-ng-if="currentUserInfo.isAdmin || currentUserInfo.userName.toLowerCase() == userInfo.userName.toLowerCase();" data-ng-href="#/edit/{{creative.id}}" class="_btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-info">
                                 <i class="glyphicon glyphicon-pencil"></i>&nbsp;{{translation.EDIT}}&nbsp;
                             </a>
                         </div>

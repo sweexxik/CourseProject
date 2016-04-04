@@ -87,5 +87,6 @@
   "NO":"No",
   "BACK_TO_HOME":"Back to home",
   "RETURN":"Return",
-  "CANCEL":"Cancel"
+  "CANCEL":"Cancel",
+  "ERR_SIGNUP":"Error. UserName cannot contains ' . ' symbol."
 }

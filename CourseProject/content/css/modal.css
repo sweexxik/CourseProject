@@ -76,21 +76,7 @@
    z-index: 1999;
 }
 
-.global-modal_contents {
-  background: #FFF;
-  -webkit-box-shadow: 0 0 8px 2px rgba(182, 182, 182, 0.75);
-  -moz-box-shadow: 0 0 8px 2px rgba(182,182,182, 0.75);
-  -o-box-shadow: 0 0 8px 2px rgba(182,182,182,0.75);
-  box-shadow: 0 0 8px 2px rgba(182, 182, 182, 0.75);
-  width: 70%;
-  position: absolute;
-  left: 30%;
-  margin-left: -16%;
-  top: 50px;
-  min-height: 450px;
-  z-index: 1999;
-  padding-top: 50px;
-}
+
 
 .global-modal-profile_contents {
   background: #FFF;
@@ -191,6 +177,8 @@ top: 10%;
   text-align: center;
   font-weight: bold;
   font-size: 22px;
+  vertical-align: center;
+  margin-top: -40px;
 }
 .global-modal-header .mobile-close{
   display: none;

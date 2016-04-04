@@ -7,7 +7,7 @@
             </p>
             <p class="form-login-heading">{{translation.CATEGORY}} : {{creative.category.name}}</p>
             <div class="col-md-12">
-            <a data-ng-if="currentUserInfo.isAdmin || currentUserInfo.userName == creative.userName" class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning" data-ng-href="#/edit/{{creative.id}}">
+            <a data-ng-if="currentUserInfo.isAdmin || currentUserInfo.userName.toLowerCase() == creative.userName.toLowerCase()" class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning" data-ng-href="#/edit/{{creative.id}}">
                 {{translation.EDIT}}
             </a>             
             </div>
@@ -194,7 +194,8 @@
                                     <a data-ng-href="#/user/{{comment.userName}}">{{comment.userName}}</a>
                                 </h6>
                                 <span> {{translation.COMMENTED}} {{comment.postDate.split('T')[0]}}  {{comment.postDate.split('T')[1].slice(0,-4) }}</span>
-                                <i data-ng-if="comment.userName == authentication.userName || currentUserInfo.isAdmin" data-ng-click="deleteComment(comment.id)" class="fa fa-2x fa-times"></i>
+                                <i data-ng-if="comment.userName == authentication.userName || currentUserInfo.isAdmin"
+                                data-toggle="modal" data-target="#myModal" data-ng-click="saveCommentToDelete(comment.id)" class="fa fa-2x fa-times"></i>
                                 <i data-ng-if="comment.userName == authentication.userName || currentUserInfo.isAdmin" data-ng-click="editComment(comment)" class="fa fa-2x fa-edit"></i>
                                 <i data-ng-click="setLike(comment.id)" class="fa fa-2x fa-heart"> {{comment.likes.length}}</i>
                             </div>
@@ -243,3 +244,22 @@
         <div class="col-md-12"><br></div>
     </div>
 </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" s>
+    <div class="modal-dialog">
+        <div class="global-modal-confirm_contents modal-transition">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{{translation.SURE}}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{translation.DELETE}} &nbsp; "{{comment.text}} ?"</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{translation.CANCEL}}</button>
+                <button type="button" class="btn btn-primary" data-ng-click="deleteComment()">{{translation.DELETE}}</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

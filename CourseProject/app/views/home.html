@@ -57,14 +57,12 @@
             </div>
         </div>
 
-        <div class="global-modal">
+        <div class="global-modal" >
             <div class="overlay"></div>
-            <div class="global-modal_contents modal-transition">
-                <div class="global-modal-header">
-                    <span class="mobile-close"> X </span>
-                    <h3>
-                        <b> <i class="fa fa-2x fa-edit"></i>{{translation.NEW_CREATIVE}}</b>
-                    </h3>
+            <div class="global-modal_contents modal-transition" > 
+                <div class="global-modal-header">                          
+                  <h3> <i class="fa fa-2x fa-edit"></i>{{translation.NEW_CREATIVE}}</h3>
+                   
                 </div>
                 <div data-ng-if="showLoading" class="loading text-center">
                     <br><br>
@@ -80,41 +78,44 @@
                     <br>
                 </div>
                 <div class="global-modal-body">
-                    <div class="col-md-1">&nbsp;</div>
-                    <div class="col-md-10">
-                        <h2 class="form-login-heading">{{translation.TITLE}}</h2>
-                        <input maxlength="80" style="text-align: center" type="text" class="form-control" data-ng-model="creativeName" placeholder="{{translation.CREATIVE_NAME}}" required autofocus>
-                        <h2 class="form-login-heading">{{translation.DESCRIPTION}}</h2>
-                        <textarea style="text-align: center" type="text" class="form-control" maxlength="150" data-ng-model="creativeDescription" placeholder="{{translation.DESCRIPTION}}" required autofocus>{{creativeDescription}} </textarea>
-
-                        <h2 class="form-login-heading">{{translation.TAGS}}</h2>
-                        <tags-input
-                            ng-model="tags"
-                            selectFirstMatch="true"
-                            display-property="name"
-                            add-on-enter="true"
-                            placeholder="{{translation.ADD_TAGS}}"
-                            debounce-delay="0"
-                            add-on-space="true"
-                            add-on-blur="true"
-                            max-length="10"
-                            replace-spaces-with-dashes="true"
-                            add-from-autocomplete-only="false"
-                            add-on-paste="true">
-                            <auto-complete
-                                selectFirstMatch="true"
-                                load-on-focus="true"
-                                load-on-empty="true"
-                                max-results-to-show="5"
-                                source="loadTags($query)">
-                            </auto-complete>
-                        </tags-input>
-
-                        <h2 class="form-login-heading">{{translation.CATEGORY}}</h2>
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <h2 class="form-login-heading">{{translation.TITLE}}</h2>
+                                <hr>
+                                <input maxlength="80" style="text-align: center" type="text" class="form-control" data-ng-model="creativeName" placeholder="{{translation.CREATIVE_NAME}}" required autofocus>
+                            </div>
+                            <div class="col-md-12">
+                                <h2 class="form-login-heading">{{translation.DESCRIPTION}}</h2> 
+                                <hr>
+                                <textarea style="text-align: center" type="text" class="form-control" maxlength="150" data-ng-model="creativeDescription" placeholder="{{translation.DESCRIPTION}}" rows="3" required autofocus>{{creativeDescription}} </textarea>                        
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        <div class="col-md-12">
+                               <h2 class="form-login-heading">{{translation.TAGS}}</h2>
+                               <hr>
+                                <tags-input ng-model="tags" selectFirstMatch="true" display-property="name" add-on-enter="true"  placeholder="{{translation.ADD_TAGS}}" debounce-delay="0" add-on-space="true" add-on-blur="true" max-length="10"
+                                    replace-spaces-with-dashes="true" add-from-autocomplete-only="false" add-on-paste="true">
+                                    <auto-complete selectFirstMatch="true" load-on-focus="true" load-on-empty="true" max-results-to-show="5"
+                                        source="loadTags($query)">
+                                    </auto-complete>
+                                </tags-input>
+                        </div>
+                      
+                        <div class="col-md-12">
+                             <h2 class="form-login-heading">{{translation.CATEGORY}}</h2>
+                             <hr>
                         <select class="form-control" ng-init="currentCategory = categories[0]" data-ng-model="currentCategory" data-ng-options="act.name for act in categories">
                         </select>
-                        <div class="block center">
+                        </div>
+                          </div>
+                    </div>                   
+                        <div class="col-md-12">
+                        <hr>
+                        <div class="block center" style="margin-bottom: 20px;">
                             <a class="btn-green-flat" data-ng-click="createCreative()">{{translation.SAVE}}</a>
+                        </div>
                         </div><br>
                     </div>
 
@@ -125,7 +126,7 @@
             <a class="btn-green-flat-trigger">{{translation.NEW_CREATIVE}}</a>
             <br><br> <br>
         </div>
-    </div>
+  
     <div data-ng-hide="creatives.length < 1">
         <div class="col-md-12">
             <div class="col-md-3">&nbsp;</div>
@@ -209,10 +210,12 @@
                     <a href="" data-ng-repeat="tag in creative.tags | orderBy: 'count' : true" class="tag" data-count="{{tag.count}}"
                        data-ng-click='search(tag.name)'>{{tag.name}}</a>
                 </div>
-                <a data-ng-href="#/show/{{creative.id}}" class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
+                <br>
+                <a  data-ng-href="#/show/{{creative.id}}" class="text-center _btn _btn-rounded _btn-round-tosquare _btn-lg  _btn-bordered-warning">
                     <i class="glyphicon glyphicon-align-justify"></i>
                     &nbsp;{{translation.SHOW}}&nbsp;
-                </a>
+                </a> <br><br>
+               
             </div>
         </div>
     </div>

@@ -68,6 +68,10 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         authService.getProfileInfo().then(function(results){
                 $scope.currentUserInfo = results.data;              
         });
+    };
+
+    $scope.saveCommentToDelete = function(id){
+        $scope.commentToDeleteId = id; 
     }
 
     $scope.storeChapterId = function(id){
@@ -147,13 +151,13 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
 
    };   
 
-   $scope.deleteComment = function(id){
-        var result = $window.confirm('Are you absolutely sure you want to delete?');
-        if (result) {
-            creativeService.deleteComment(id).then(function(results) {
+   $scope.deleteComment = function(id){  
+     $('#myModal').modal('hide');    
+            creativeService.deleteComment($scope.commentToDeleteId).then(function(results) {
                 $scope.creative.comments = results.data;
+
             });  
-        }        
+               
     }
 
     $scope.setLike = function(id){
@@ -300,4 +304,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
      console.log(a);
     $scope.targetClass = $scope.colorInspirationClasses[a];
   }; 
+
+  
+
 }]);
