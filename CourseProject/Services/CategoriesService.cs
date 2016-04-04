@@ -18,13 +18,5 @@ namespace CourseProject.Services
         {
             return db.Categories.GetAll();
         }
-
-        public void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-        }
     }
 }

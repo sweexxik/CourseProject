@@ -19,12 +19,9 @@ app.controller('indexController', ['$http', '$scope', '$location', 'authService'
             $scope.selectedLanguage = 'en';
         }
 
-        
         $scope.pattern = '';
-      //  $scope.selectedLanguage = localStorageService.get('lang');//'en';
+
         $scope.authentication = authService.authentication;
-
-
 
         $scope.translate = function () {
             translationService.getTranslation($scope, $scope.selectedLanguage);

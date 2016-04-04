@@ -7,10 +7,6 @@ app.controller('chaptersController', ['$showdown','$scope','$timeout','creativeS
     $scope.showLoading = false; 
     $scope.message = '';
 
-    // $scope.html = "4555"
-    
-    
-
     var chapterId = $routeParams.chapterId; 
     var creativeId = $routeParams.creativeId;   
 
@@ -20,11 +16,8 @@ app.controller('chaptersController', ['$showdown','$scope','$timeout','creativeS
     else {
         creativeService.getChapter(chapterId).then(function(results){
             $scope.chapter = results.data;  
-        });    
-
+        });   
     }
-
-    
 
     $scope.update = function(chapter) {
       $scope.chapter.text = chapter;

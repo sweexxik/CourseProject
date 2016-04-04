@@ -111,10 +111,17 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         }
     };
 
+    $scope.editComment = function(comment){
+        $scope.newComment.text = comment.text;
+        $scope.newComment.id = comment.id;
+        window.scrollTo(0,document.body.scrollHeight);
+    };
+
     $scope.createComment = function(formData){  
         $scope.message = '';
         $scope.showLoading = true;
         initComment();   
+        newCommentModel.id = $scope.newComment.id;
         creativeService.createComment(newCommentModel).then(function(results){
             $scope.savedSuccessfully = true;
             $scope.showLoading = false;            
@@ -131,7 +138,14 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
              $scope.message = $scope.translation.REG_ERR + errors.join(' ');
 
         });
-    }
+    };
+
+     var initComment = function(){
+        newCommentModel.userName = currentUserName;  
+        newCommentModel.text = $scope.newComment.text;
+        newCommentModel.creativeId = creativeId;
+
+   };   
 
    $scope.deleteComment = function(id){
         var result = $window.confirm('Are you absolutely sure you want to delete?');
@@ -240,11 +254,7 @@ app.controller('showCreativeController', ['$showdown','$sce','$window','$route',
         }        
    }
 
-   var initComment = function(){
-        newCommentModel.userName = currentUserName;  
-        newCommentModel.text = $scope.newComment.text;
-        newCommentModel.creativeId = creativeId;
-   };   
+  
 
     var setPercentage = function () {
         $scope.percentage1 = 0;    

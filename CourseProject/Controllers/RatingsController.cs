@@ -30,8 +30,6 @@ namespace CourseProject.Controllers
             }
 
             return Ok(result);
-
-
         }
     }
 }

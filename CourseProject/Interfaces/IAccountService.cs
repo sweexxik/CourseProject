@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using CourseProject.Domain.Entities;
 using CourseProject.Domain.Models;
 using CourseProject.Models;
-using CourseProject.Providers;
 using Microsoft.AspNet.Identity;
 
 namespace CourseProject.Interfaces
@@ -15,9 +14,12 @@ namespace CourseProject.Interfaces
         Task<IdentityResult> SaveUserData(UserViewModel viewModel);
         Task<IdentityResult> CreateUser(UserModel model);
         Task<IdentityResult> ChangePassword(ChangePasswordModel model);
+
         UserViewModel InitUserViewModel(ApplicationUser user);
-        Task<ApplicationUser> InitApplicationUser(UserViewModel model, ApplicationUser user);
+        ApplicationUser InitApplicationUser(UserViewModel model, ApplicationUser user);
+
         string WorkingFolder { get; }
+
         void Dispose(bool disposing);
     }
 }

@@ -6,6 +6,7 @@ namespace CourseProject.Models
 {
     public class NewCommentModel
     {
+        [Required]
         public int  Id { get; set; }
 
         [Required]

@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Reflection;
-using System.Text;
-using Lucene.Net.Documents;
+﻿using Lucene.Net.Documents;
 
 namespace CourseProject.Domain.LuceneEngine
 {

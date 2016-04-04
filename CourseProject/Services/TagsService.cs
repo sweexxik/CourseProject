@@ -5,7 +5,6 @@ using CourseProject.Domain.Entities;
 using CourseProject.Domain.Interfaces;
 using CourseProject.Interfaces;
 using CourseProject.Models;
-using CourseProject.Repositories;
 
 namespace CourseProject.Services
 {
@@ -79,19 +78,3 @@ namespace CourseProject.Services
         }
     }
 }
-
-
-
-
-    internal class CompareTagViewModels : IEqualityComparer<TagsViewModel>
-    {
-        public bool Equals(TagsViewModel x, TagsViewModel y)
-        {
-            return x.Name == y.Name;
-        }
-
-        public int GetHashCode(TagsViewModel obj)
-        {
-            return obj.GetHashCode();
-        }
-    }

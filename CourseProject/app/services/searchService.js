@@ -25,8 +25,6 @@ app.factory('searchService', ['$http',
           .then(function (results) { return results; });
   };
 
-
-
     searchServiceFactory.search = _search;
     searchServiceFactory.setSearchPattern = _setSearchPattern;
     searchServiceFactory.getSearchPattern = _getSearchPattern;

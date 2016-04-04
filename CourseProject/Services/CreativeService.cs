@@ -9,6 +9,7 @@ using CourseProject.Domain.LuceneEngine;
 using CourseProject.Domain.LuceneEntities;
 using CourseProject.Interfaces;
 using CourseProject.Models;
+using CourseProject.Services.CompareHelpers;
 
 namespace CourseProject.Services
 {
@@ -17,16 +18,14 @@ namespace CourseProject.Services
         private readonly string dataFolder = HttpContext.Current.Server.MapPath("~/Uploads");
 
         private readonly IUnitOfWork db;
-        private readonly IMedalService medalService;
         private readonly IChaptersService chapterService;
         private readonly ICommentsService commentsService;
         private readonly ITagsService tagsService;
 
-        public CreativeService(IUnitOfWork repo, IMedalService medal, IChaptersService chapterServ,
+        public CreativeService(IUnitOfWork repo, IChaptersService chapterServ,
             ITagsService tagServ, ICommentsService commentsServ)
         {
             db = repo;
-            medalService = medal;
             chapterService = chapterServ;
             tagsService = tagServ;
             commentsService = commentsServ;
@@ -131,7 +130,6 @@ namespace CourseProject.Services
                     }
                 }
             }
-
             return InitCreativesModel(results);
         }
 
@@ -141,8 +139,6 @@ namespace CourseProject.Services
 
             return InitCreativesModel(results);
         }
-
-        
 
         public async Task<NewCreativeModel> GetCreativeById(int id)
         {
@@ -156,31 +152,15 @@ namespace CourseProject.Services
             var user = await db.Users.FindUser(userName);
 
             if (user == null) return null;
-            try
-            {
-                var list = db.Creatives.Find(x => x.User == user).ToList();
 
-                return InitCreativesModel(list);
-            }
-            catch (Exception e)
-            {
-                
-                throw new Exception(e.Message);
-            }
-           
+            var list = db.Creatives.Find(x => x.User == user).ToList();
+
+            return InitCreativesModel(list);
         }
 
         public IEnumerable<NewCreativeModel> GetAllCreatives()
         {
             return InitCreativesModel(db.Creatives.GetAll().OrderBy(x=>x.Created).ToList());
-        }
-
-        public void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
         }
 
         public IEnumerable<NewCreativeModel> GetPartialCreatives(int delimiter)
@@ -214,8 +194,6 @@ namespace CourseProject.Services
 
             return res;
         }
-
-
 
         private async Task<Creative> InitNewCreative(NewCreativeModel model)
         {
@@ -342,14 +320,13 @@ namespace CourseProject.Services
             return searchResults;
         }
 
-        public class CompareRatings : IComparer<Rating>
+        public void Dispose(bool disposing)
         {
-            public int Compare(Rating x, Rating y)
+            if (disposing)
             {
-                return x.Value - y.Value;
+                db.Dispose();
             }
         }
-
-       
     }
+
 }

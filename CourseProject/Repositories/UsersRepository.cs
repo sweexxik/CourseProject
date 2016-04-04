@@ -43,9 +43,7 @@ namespace CourseProject.Repositories
             {
                 return await userManager.AddPasswordAsync(userId, newPass);
             }
-
             return result;
-
         }
 
         public async Task<IdentityResult> RegisterUser(UserModel userModel)

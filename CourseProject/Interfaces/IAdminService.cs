@@ -22,7 +22,6 @@ namespace CourseProject.Interfaces
         Task<IEnumerable<Chapter>> DeleteChapter(int chapterId);
         Task<IEnumerable<CreativeCategory>> DeleteCategory(int categoryId);
 
-
         Task<IEnumerable<UserViewModel>> SaveUserData(UserViewModel model);
         Task<IEnumerable<Tag>> SaveTag(TagsViewModel model);
         Task<IEnumerable<NewRatingModel>> SaveRating(NewRatingModel model);

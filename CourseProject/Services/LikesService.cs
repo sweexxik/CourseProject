@@ -11,13 +11,11 @@ namespace CourseProject.Services
     public class LikesService : ILikesService
     {
         private readonly IUnitOfWork db;
-        private readonly IMedalService medalService;
         private readonly ICommentsService commentsService;
 
-        public LikesService(IUnitOfWork repo, IMedalService service, ICommentsService commentsServ)
+        public LikesService(IUnitOfWork repo, ICommentsService commentsServ)
         {
             db = repo;
-            medalService = service;
             commentsService = commentsServ;
         }
 
@@ -41,13 +39,11 @@ namespace CourseProject.Services
                 {
                     RemoveLike(model, user);
                 }
-
             }
             else
             {
                 db.Likes.Add(new Like {CommentId = model.CommentId, User = user});
             }
-
 
             db.Save();
 

@@ -56,7 +56,7 @@ namespace CourseProject.Services
         {
             var user = await db.Users.FindUserById(viewModel.Id);
 
-            return await db.Users.UpdateUser(await InitApplicationUser(viewModel, user));
+            return await db.Users.UpdateUser(InitApplicationUser(viewModel, user));
         }
 
         public async Task<IdentityResult> ChangePassword(ChangePasswordModel model)
@@ -136,7 +136,7 @@ namespace CourseProject.Services
             }).ToList();
         }
 
-        public async Task<ApplicationUser> InitApplicationUser(UserViewModel model, ApplicationUser user)
+        public ApplicationUser InitApplicationUser(UserViewModel model, ApplicationUser user)
         {
             user.FirstName = model.FirstName;
 
@@ -158,11 +158,7 @@ namespace CourseProject.Services
                         RoleId = "1"
                     });
                 }
-
             }
-
-           
-
             return user;
         }
     }

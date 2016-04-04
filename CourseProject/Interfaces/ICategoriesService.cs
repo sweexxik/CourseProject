@@ -6,6 +6,5 @@ namespace CourseProject.Interfaces
     public interface ICategoriesService
     {
         IEnumerable<CreativeCategory> GetCategories();
-        void Dispose(bool disposing);
     }
 }

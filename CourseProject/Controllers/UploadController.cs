@@ -14,7 +14,6 @@ namespace CourseProject.Controllers
         {
             this.service = service;
         }
-        
  
         [HttpDelete]
         public IHttpActionResult Delete(string fileName)
@@ -43,7 +42,5 @@ namespace CourseProject.Controllers
                 return BadRequest(ex.GetBaseException().Message);
             }
         }
-
-       
     }
 }

@@ -22,12 +22,5 @@ namespace CourseProject.Controllers
         {
             return service.GetCategories();
         }
-        
-        protected override void Dispose(bool disposing)
-        {
-            service.Dispose(disposing);
-
-            base.Dispose(disposing);
-        }
     }
 }

@@ -19,7 +19,6 @@ namespace CourseProject.Repositories
         private TagsRepository tagsRepository;
         private UsersRepository usersRepository;
         private ChapterStoreRepository chapterStoreRepository;
-        
 
         private bool isDisposed;
 

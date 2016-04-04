@@ -14,37 +14,13 @@ app.controller('mainController', ['$showdown','$sce','$scope','creativeService',
     $scope.sortReverse = false;
 
    var delimiter = 0;
-    var init = true;
+   var init = true;
 
-    creativeService.getMostPopularCreatives().then(function (results) {
-        $scope.mostPopularCreatives = results.data;
-        console.log(results.data);
-        }, function (error) {
-            console.log(error);
-        });
-
-    creativeService.getMostRatedCreatives().then(function (results) {
-        $scope.mostRatedCreatives = results.data;
-        }, function (error) {
-            console.log(error);
-        });
-
-    creativeService.getCategories().then(function (results) {
-        $scope.categories = results.data;
-        }, function (error) {
-            console.log(error);
-        });
-
-     
-
-    var getInitialCreatives = function (){      
+   var getInitialCreatives = function (){      
         creativeService.getPartialCreatives(0).then(function (results) {  
             $scope.allCreatives = results.data; 
             counter = 1;
         for(var i = 0; i< $scope.allCreatives.length; i++) {   
-
-          
-
             $scope.allCreatives[i].popular = $scope.allCreatives[i].comments.length;      
             $scope.allCreatives[i].chapters = creativeService.sortChapters($scope.allCreatives[i]); 
         }   
@@ -75,6 +51,27 @@ app.controller('mainController', ['$showdown','$sce','$scope','creativeService',
     
     var counter = 0;
     getInitialCreatives();
+
+    creativeService.getMostPopularCreatives().then(function (results) {
+        $scope.mostPopularCreatives = results.data;
+        console.log(results.data);
+        }, function (error) {
+            console.log(error);
+        });
+
+    creativeService.getMostRatedCreatives().then(function (results) {
+        $scope.mostRatedCreatives = results.data;
+        }, function (error) {
+            console.log(error);
+        });
+
+    creativeService.getCategories().then(function (results) {
+        $scope.categories = results.data;
+        }, function (error) {
+            console.log(error);
+        });
+
+   
 
     $scope.loadMore = function() {   
         if($scope.creatives.length < $scope.allCreatives.length){

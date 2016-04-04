@@ -66,7 +66,7 @@ app.controller('searchController', ['$routeParams','$scope', '$location','search
             $scope.savedSuccessfully = true;          
             $scope.message = $scope.translation.CREATIVES_FOUND + results.data.length;
    		}, function(response){
-            console.log(error);
+            console.log(response);
             $scope.savedSuccessfully = false;      
             $scope.loading = false;    
              var errors = [];

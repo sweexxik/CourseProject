@@ -12,19 +12,13 @@ app.controller('userPageController',
             $scope.currentUserInfo = results.data;
         }); 
     }
-    
 
  	$scope.authentication = authService.authentication;
     $scope.userInfo = [];
     $scope.creatives = [];
-
-
     $scope.sortType = 'created';
     $scope.sortReverse = true;
-
     $scope.searchCreatives = '';
-
-
     $scope.tags = [];
 
     authService.getProfile(userName).then(function(results){
@@ -40,11 +34,11 @@ app.controller('userPageController',
         });
     
    
-  $scope.showCreative = function(id){
-        $location.path('/show/' + id);
-   }
+    $scope.showCreative = function(id) {
+          $location.path('/show/' + id);
+      }
 
-    $scope.search = function(pattern){
+      $scope.search = function(pattern){
          searchService.setSearchPattern(pattern);
         $location.path('/search/0');
     };

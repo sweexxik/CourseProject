@@ -9,7 +9,6 @@ namespace CourseProject.DbContext
         public DatabaseContext()
             : base("AuthContext",throwIfV1Schema: false)
         {
-           // DbInterception.Add(new FtsInterceptor());
         }
 
         public DbSet<Creative> Creatives { get; set; }

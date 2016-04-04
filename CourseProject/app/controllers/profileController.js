@@ -82,8 +82,7 @@ app.controller('profileController', ['ngAuthSettings','$anchorScroll','$http','$
             });
       };
 
-   var reader = new FileReader();
-      $scope.updateAvatar = function(){
+    $scope.updateAvatar = function(){
            $scope.upload($scope.file);
        
     };

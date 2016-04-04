@@ -10,9 +10,6 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
         confirmPassword: ""
     };
 
-    $scope.myHtml = 'basic text sample';
-    console.log($scope.myHtml);
-
     $scope.signUp = function () {
         authService.saveRegistration($scope.registration).then(function (response) {
             $scope.savedSuccessfully = true;
@@ -37,9 +34,5 @@ app.controller('signupController', ['$scope', '$location', '$timeout', 'authServ
             $location.path('/login');
         }, 2000);
     };
-
-
-
-
 
 }]);

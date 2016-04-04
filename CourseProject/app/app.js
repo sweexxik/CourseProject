@@ -23,11 +23,6 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/signup.html"
     });
 
-    $routeProvider.when("/newCreative", {
-        controller: "newCreativeController",
-        templateUrl: "/app/views/newCreative.html"
-    });
-
     $routeProvider.when("/main", {
         controller: "mainController",
         templateUrl: "/app/views/main.html"
@@ -43,11 +38,6 @@ app.config(function ($routeProvider) {
         templateUrl: "/app/views/showCreative.html"
     });
 
-    $routeProvider.when("/new", {
-        controller: "indexController",
-        templateUrl: "new_index.html"
-    });
-    
     $routeProvider.when("/profile/", {
         controller: "profileController",
         templateUrl: "/app/views/profile.html"
@@ -107,7 +97,6 @@ app.config(function ($routeProvider) {
         controller: "indexController",
         templateUrl: "/app/views/NotFound.html"
     });   
-   
 
     $routeProvider.otherwise({ redirectTo: "/home" });
 

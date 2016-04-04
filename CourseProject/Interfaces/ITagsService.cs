@@ -7,15 +7,12 @@ namespace CourseProject.Interfaces
 {
     public interface ITagsService
     {
-        IEnumerable<TagsViewModel> GetAllTags();
+        TagsViewModel InitTagViewModel(Tag tag);
 
         Task<IEnumerable<TagsViewModel>> GetCreativeTags(int creativeId);
 
+        IEnumerable<TagsViewModel> GetAllTags();
         IEnumerable<TagsViewModel> SaveTags(int creativeId, IEnumerable<Tag> tags);
-
         IEnumerable<TagsViewModel> InitTagsViewModel(IEnumerable<Tag> inputTags, List<Tag> allTags);
-
-        TagsViewModel InitTagViewModel(Tag tag);
-
     }
 }

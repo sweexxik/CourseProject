@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using CourseProject.Domain.Entities;
 using CourseProject.Domain.Interfaces;
 using CourseProject.Interfaces;
@@ -13,12 +12,10 @@ namespace CourseProject.Services
     public class CommentsService : ICommentsService
     {
         private readonly IUnitOfWork db;
-        private readonly IMedalService medalService;
 
-        public CommentsService(IUnitOfWork repo, IMedalService service)
+        public CommentsService(IUnitOfWork repo)
         {
             db = repo;
-            medalService = service;
         }
 
         public async Task<IEnumerable<NewCommentModel>> DeleteComment(int id)
@@ -26,8 +23,6 @@ namespace CourseProject.Services
             var comm = await db.Comments.Get(id);
 
             if (comm == null) return null;
-
-            var userName = comm.User.UserName;    
 
             var creativeId = comm.CreativeId;
 
@@ -39,22 +34,27 @@ namespace CourseProject.Services
 
                 return InitCommentsModel(db.Comments.Find(x=>x.CreativeId == creativeId));
             }
-
             return null;
-
         }
 
         public async Task<IEnumerable<NewCommentModel>> AddComment(NewCommentModel model)
         {
-            var comment = await InitNewComment(model);
+            if (model.Id == 0)
+            {
+                var comment = await InitNewComment(model);
 
-            db.Comments.Add(comment);
+                db.Comments.Add(comment);
+            }
+            else
+            {
+                var oldComment = await db.Comments.Get(model.Id);
+
+                oldComment.Text = model.Text;
+            }
 
             db.Save();
 
-            //await medalService.CheckMedals(model.UserName);
-
-            return InitCommentsModel(db.Comments.Find(x => x.CreativeId == comment.CreativeId));
+            return InitCommentsModel(db.Comments.Find(x => x.CreativeId == model.CreativeId));
         } 
 
 
@@ -62,7 +62,6 @@ namespace CourseProject.Services
         {
            return InitCommentsModel(db.Comments.Find(x => x.CreativeId == creativeId).ToList());
         }
-
 
         private async Task<Comment> InitNewComment(NewCommentModel model)
         {
@@ -108,7 +107,6 @@ namespace CourseProject.Services
                 });
             }
             return comments;
-
         }
     }
 }

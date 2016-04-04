@@ -19,72 +19,66 @@ app.controller('editCreativeController',
 
 		var currentUserName = '';
 
-		if($scope.authentication.isAuth){
-        	currentUserName = localStorageService.get('authorizationData').userName;   
-        	authService.getProfile(currentUserName).then(function(results){
-            	currentUserInfo = results.data;
-            	creativeService.getCreative(creativeId).then(function (results) {
-		 			$scope.showLoading = false;	
-		            $scope.creative = results.data;
-		            $scope.chapters = creativeService.sortChapters(results.data); 
-		            $scope.tags = $scope.creative.tags;
-		            console.log($scope.creative.userName);
-		            console.log(currentUserName);
-		            if (currentUserInfo.isAdmin == false){
-		            	console.log("inIF")
-		            	if($scope.creative.userName !== currentUserName){
-		            		$location.path('/home');
-		            	}
-		            }
-		        }, function (response) {
-		            	$scope.savedSuccessfully = false;	
-		             for (var key in response.data.modelState) {
-		                 for (var i = 0; i < response.data.modelState[key].length; i++) {
-		                     errors.push(response.data.modelState[key][i]);
-		                 }
-		             }
-		             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
-		           
-						$location.path('/NotFound')
-		        }); 
+	    if ($scope.authentication.isAuth) {
+	        currentUserName = localStorageService.get('authorizationData').userName;
+	        authService.getProfile(currentUserName).then(function(results) {
+	            currentUserInfo = results.data;
+	            creativeService.getCreative(creativeId).then(function(results) {
+	                $scope.showLoading = false;
+	                $scope.creative = results.data;
+	                $scope.chapters = creativeService.sortChapters(results.data);
+	                $scope.tags = $scope.creative.tags;
+	                console.log($scope.creative.userName);
+	                console.log(currentUserName);
+	                if (currentUserInfo.isAdmin == false) {
+	                    console.log("inIF")
+	                    if ($scope.creative.userName !== currentUserName) {
+	                        $location.path('/home');
+	                    }
+	                }
+	            }, function(response) {
+	                $scope.savedSuccessfully = false;
+	                for (var key in response.data.modelState) {
+	                    for (var i = 0; i < response.data.modelState[key].length; i++) {
+	                        errors.push(response.data.modelState[key][i]);
+	                    }
+	                }
+	                $scope.message = $scope.translation.REG_ERR + errors.join(' ');
 
-		    		});
-		    	}
+	                $location.path('/NotFound');
+	            });
 
+	        });
+	    }
 
+	    $scope.deleteCreative = function() {
+	        $scope.showLoading = false;
+	        $('#myModal').modal('hide');
 
-        $scope.deleteCreative = function(){
-        	$scope.showLoading = false;	
-			$('#myModal').modal('hide');	
-			
-	       		creativeService.deleteCreative(creativeId).then(function(results){	
+	        creativeService.deleteCreative(creativeId).then(function(results) {
 
-	       			$scope.chapters = results.data;   
-		        	$scope.savedSuccessfully = true;
-					$scope.showLoading = false;	
-					$scope.message = $scope.translation.DEL_SUCC;
-						startTimer();	
-				
-		            console.log(results.data);  
-	       		//	$location.path("/home");
-	       		}, function(response){
-	       			$scope.savedSuccessfully = false;
-					$scope.showLoading = false;	
-					    var errors = [];
-             for (var key in response.data.modelState) {
-                 for (var i = 0; i < response.data.modelState[key].length; i++) {
-                     errors.push(response.data.modelState[key][i]);
-                 }
-             }
-             $scope.message = $scope.translation.REG_ERR + errors.join(' ');
-	       		});	       	
+	            $scope.chapters = results.data;
+	            $scope.savedSuccessfully = true;
+	            $scope.showLoading = false;
+	            $scope.message = $scope.translation.DEL_SUCC;
+	            startTimer();
 
-       		        
-    	}       
+	            console.log(results.data);
+	            //	$location.path("/home");
+	        }, function(response) {
+	            $scope.savedSuccessfully = false;
+	            $scope.showLoading = false;
+	            var errors = [];
+	            for (var key in response.data.modelState) {
+	                for (var i = 0; i < response.data.modelState[key].length; i++) {
+	                    errors.push(response.data.modelState[key][i]);
+	                }
+	            }
+	            $scope.message = $scope.translation.REG_ERR + errors.join(' ');
+	        });
+	    }
 
-    	
-
-    	$scope.saveCreative = function () {
+	    $scope.saveCreative = function () {
     		$scope.showLoading = true;
     		setChpatersPositions();
     		$scope.creative.chapters = $scope.chapters;    
@@ -154,16 +148,7 @@ app.controller('editCreativeController',
 		$( globalModal ).toggleClass('global-modal-show');
 	};
 
-	// var globalModal = $('.global-modal');
- //    $( ".trigger" ).on( "click", function(e) {
- //      e.preventDefault();
- //      $( globalModal ).toggleClass('global-modal-show');
- //    });
- //    $( ".overlay" ).on( "click", function() {
- //      $( globalModal ).toggleClass('global-modal-show');
- //    });
-
-    var startTimer = function () {
+   var startTimer = function () {
         var timer = $timeout(function () {
             $timeout.cancel(timer);
             $location.path('/home');
