@@ -23,6 +23,6 @@
 ## Особенности реализации серверной части
 1. Паттерн UnitOfWork
 2. DI контейнер Ninject
-3. Использование SOLID принципов
+3. Cледование SOLID принципам
 
 [Creative Hub Web Deploy](http://sweexxik-001-site1.anytempurl.com)
